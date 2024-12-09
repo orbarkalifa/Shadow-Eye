@@ -1,0 +1,17 @@
+# Unity generated folders
+Library/
+Temp/
+Obj/
+Build/
+Builds/
+
+# User-specific files
+.vs/
+.idea/
+.vscode/
+
+# macOS system files
+.DS_Store
+
+# Windows thumbnail cache files
+Thumbs.db

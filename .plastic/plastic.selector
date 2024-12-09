@@ -1,0 +1,3 @@
+repository "Final Game Project/Final Game Project@18968165249376@cloud"
+  path "/"
+    smartbranch "/main/Character"
