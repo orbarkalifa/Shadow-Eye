@@ -24,7 +24,8 @@ public class MainCharacter : Character
     // Update is called once per frame
     void Update()
     {
-        
+        handleMovement();
+        handleJump();
     }
 
     private void handleMovement()
