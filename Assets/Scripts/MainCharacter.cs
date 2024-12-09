@@ -7,7 +7,9 @@ using UnityEngine.Serialization;
 public class MainCharacter : Character
 {
     public Rigidbody2D rb;
-    [SerializeField]private float FluidMovementParameter;
+    [FormerlySerializedAs("FluidMovementParameter")]
+    [SerializeField]
+    private float fluidMovementParameter = 5f;
     private bool isJumping;
     public MainCharacter(float i_MaxHp)
         : base(i_MaxHp)
@@ -39,14 +41,14 @@ public class MainCharacter : Character
         {
             transform.localScale = new Vector3(-1, 1, 1);
         }
-        rb.velocity = new Vector2(Horizontal*FluidMovementParameter, rb.velocity.y);
+        rb.velocity = new Vector2(Horizontal*fluidMovementParameter, rb.velocity.y);
     }
 
     private void handleJump()
     {
         if(Input.GetButton("Jump"))
         {
-            rb.AddForce(Vector2.up * FluidMovementParameter, ForceMode2D.Impulse);
+            rb.AddForce(Vector2.up * fluidMovementParameter, ForceMode2D.Impulse);
             isJumping = true;
         }
     }
