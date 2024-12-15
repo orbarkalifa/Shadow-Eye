@@ -1,39 +1,40 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class Character : MonoBehaviour
 {
-    private float HP;
-    private float MaxHP;
-    private GameObject Weapon;
-    private GameObject Movement;
+    [SerializeField] protected float m_MaxHp = 100f;
+    protected float m_CurrentHp;
 
-    public Character(float i_MaxHp)
-    {
-        MaxHP = i_MaxHp;
-        HP = MaxHP;
-    }
-    public float GetHP(){return HP;}
+    [Header("Weapon Settings")]
+    [SerializeField] protected GameObject m_WeaponPrefab;
+    [SerializeField] protected Transform m_WeaponSpawnPoint;
 
-    public void SwapWeapon(GameObject i_Weapon)
+    protected virtual void Awake()
     {
-        Weapon = i_Weapon;
+        m_CurrentHp = m_MaxHp; // Initialize current health
     }
 
-    public void SwapMovement(GameObject i_Movement)
+    public float CurrentHp => m_CurrentHp;
+
+    public void TakeDamage(float i_Damage)
     {
-        Movement = i_Movement;
+        m_CurrentHp -= i_Damage;
+        Debug.Log($"{gameObject.name} took {i_Damage} damage. HP: {m_CurrentHp}");
+
+        if (m_CurrentHp <= 0)
+        {
+            OnDeath();
+        }
     }
 
-    public void Heal()
+    public void Heal(float i_HealAmount)
     {
-        HP += 20;
+        m_CurrentHp = Mathf.Min(m_CurrentHp + i_HealAmount, m_MaxHp);
     }
 
-    public void TakeDamage(float damage)
+    protected virtual void OnDeath()
     {
-        HP -= damage;
+        Debug.Log($"{gameObject.name} has died.");
+        Destroy(gameObject);
     }
-    
 }

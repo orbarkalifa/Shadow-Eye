@@ -46,8 +46,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\MainCharacter.cs" />
+    <Compile Include="Assets\Scripts\Enemy.cs" />
+    <Compile Include="Assets\Low_Swordman\Demo\Scripts\GroundSensor.cs" />
+    <Compile Include="Assets\Scripts\Projectile.cs" />
     <Compile Include="Assets\Scripts\Character.cs" />
+    <Compile Include="Assets\Low_Swordman\Demo\Scripts\Swordman.cs" />
+    <Compile Include="Assets\Low_Swordman\Demo\Scripts\CameraController.cs" />
     <Compile Include="Assets\Scripts\CameraFollow.cs" />
+    <Compile Include="Assets\Scripts\Destructible.cs" />
+    <Compile Include="Assets\Low_Swordman\Demo\Scripts\PlayerController.cs" />
+    <Compile Include="Assets\Low_Swordman\Demo\Scripts\Demo_GM.cs" />
     <Reference Include="UnityEngine">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2022.3.52f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
     </Reference>

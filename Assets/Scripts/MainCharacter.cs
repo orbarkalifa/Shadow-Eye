@@ -1,61 +1,80 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class MainCharacter : Character
 {
-    public Rigidbody2D rb;
-    [FormerlySerializedAs("FluidMovementParameter")]
-    [SerializeField]
-    private float fluidMovementParameter = 5f;
-    private bool isJumping;
-    public MainCharacter(float i_MaxHp)
-        : base(i_MaxHp)
+    [SerializeField] private Rigidbody2D m_Rigidbody;
+
+    [Header("Movement Settings")]
+    [SerializeField] private float m_Speed = 5f;
+    [SerializeField] private float m_JumpForce = 5f;
+
+    private bool m_IsGrounded;
+
+    protected override void Awake()
     {
+        base.Awake();
+
+        m_Rigidbody = GetComponent<Rigidbody2D>();
+        if (!m_Rigidbody)
+            Debug.LogError("MainCharacter: Rigidbody2D missing!");
     }
 
-    public 
-        // Start is called before the first frame update
-        void Start()
+    private void Update()
     {
-        rb = GetComponent<Rigidbody2D>();
+        HandleMovement();
+        HandleJump();
+
+        if (Input.GetButtonDown("Fire1"))
+            ShootProjectile();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void HandleMovement()
     {
-        handleMovement();
-        handleJump();
+        float horizontalInput = Input.GetAxis("Horizontal");
+
+        // Flip character sprite based on direction
+        if (horizontalInput != 0)
+            transform.localScale = new Vector3(Mathf.Sign(-horizontalInput), 1, 1);
+
+        // Apply movement
+        m_Rigidbody.velocity = new Vector2(horizontalInput * m_Speed, m_Rigidbody.velocity.y);
     }
 
-    private void handleMovement()
+    private void HandleJump()
     {
-        float Horizontal = Input.GetAxis("Horizontal");
-        if(Horizontal > 0)
+        if (Input.GetButtonDown("Jump") && m_IsGrounded)
         {
-            transform.localScale = new Vector3(1, 1, 1);
-        }
-        else if(Horizontal < 0)
-        {
-            transform.localScale = new Vector3(-1, 1, 1);
-        }
-        rb.velocity = new Vector2(Horizontal*fluidMovementParameter, rb.velocity.y);
-    }
-
-    private void handleJump()
-    {
-        if(Input.GetButton("Jump"))
-        {
-            rb.AddForce(Vector2.up * fluidMovementParameter, ForceMode2D.Impulse);
-            isJumping = true;
+            m_Rigidbody.AddForce(Vector2.up * m_JumpForce, ForceMode2D.Impulse);
+            m_IsGrounded = false;
         }
     }
 
-    public void OnCollisionEnter2D(Collision2D other)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        isJumping = false;
+        foreach (ContactPoint2D contact in collision.contacts)
+        {
+            if (contact.normal.y > 0.5f)
+                m_IsGrounded = true;
+        }
     }
-    
+
+    // ReSharper disable Unity.PerformanceAnalysis
+    private void ShootProjectile()
+    {
+        if (m_WeaponPrefab && m_WeaponSpawnPoint)
+        {
+            GameObject projectile = Instantiate(m_WeaponPrefab, m_WeaponSpawnPoint.position, Quaternion.identity);
+
+            // Determine the direction based on facing direction
+            Vector2 shootDirection = transform.localScale.x < 0 ? Vector2.right : Vector2.left;
+
+            // Initialize the projectile
+            projectile.GetComponent<Projectile>().Initialize(shootDirection);
+        }
+        else
+        {
+            Debug.LogWarning("Weapon prefab or spawn point not assigned.");
+        }
+    }
+
 }
