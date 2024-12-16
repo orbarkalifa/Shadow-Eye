@@ -13,7 +13,6 @@ public class MainCharacter : Character
     protected override void Awake()
     {
         base.Awake();
-
         m_Rigidbody = GetComponent<Rigidbody2D>();
         if (!m_Rigidbody)
             Debug.LogError("MainCharacter: Rigidbody2D missing!");
@@ -21,14 +20,14 @@ public class MainCharacter : Character
 
     private void Update()
     {
-        HandleMovement();
+        handleMovement();
         HandleJump();
 
         if (Input.GetButtonDown("Fire1"))
-            ShootProjectile();
+            shootProjectile();
     }
 
-    private void HandleMovement()
+    private void handleMovement()
     {
         float horizontalInput = Input.GetAxis("Horizontal");
 
@@ -59,7 +58,7 @@ public class MainCharacter : Character
     }
 
     // ReSharper disable Unity.PerformanceAnalysis
-    private void ShootProjectile()
+    private void shootProjectile()
     {
         if (m_WeaponPrefab && m_WeaponSpawnPoint)
         {
