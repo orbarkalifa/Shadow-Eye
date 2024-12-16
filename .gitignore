@@ -5,6 +5,7 @@ Obj/
 Build/
 Builds/
 Logs/
+UserSettings/
 
 # User-specific files
 .vs/
