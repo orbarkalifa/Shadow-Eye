@@ -5,7 +5,6 @@ using UnityEngine.Serialization;
 public class WeaponManager : MonoBehaviour
 {
     public static WeaponManager m_Instance;
-    [FormerlySerializedAs("weaponPrefabs")]
     public List<GameObject> m_WeaponPrefabs;
 
     private void Awake()
