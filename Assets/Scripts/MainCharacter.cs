@@ -2,78 +2,102 @@ using UnityEngine;
 
 public class MainCharacter : Character
 {
-    [SerializeField] private Rigidbody2D m_Rigidbody;
-
     [Header("Movement Settings")]
-    [SerializeField] private float m_Speed = 5f;
-    [SerializeField] private float m_JumpForce = 5f;
+    [SerializeField] private float moveSpeed = 5f;
+    [SerializeField] private float jumpForce = 10f;
+    [SerializeField] private LayerMask groundLayer;
 
-    private bool m_IsGrounded;
+    private Rigidbody2D rb;
+    private bool isGrounded;
+    private bool isFacingRight = false;
+    private float horizontalInput;
+
+    [Header("Attack Settings")]
+    [SerializeField] private GameObject projectilePrefab;
+    [SerializeField] private Transform firePoint;
 
     protected override void Awake()
     {
         base.Awake();
-        m_Rigidbody = GetComponent<Rigidbody2D>();
-        if (!m_Rigidbody)
-            Debug.LogError("MainCharacter: Rigidbody2D missing!");
+
+        // Assign Rigidbody2D
+        rb = GetComponent<Rigidbody2D>();
+        if (!rb)
+            Debug.LogError("Rigidbody2D is missing!");
     }
 
     private void Update()
     {
-        handleMovement();
-        HandleJump();
+        // Handle inputs
+        horizontalInput = Input.GetAxis("Horizontal");
+
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+            Jump();
 
         if (Input.GetButtonDown("Fire1"))
-            shootProjectile();
+            Shoot();
     }
 
-    private void handleMovement()
+    private void FixedUpdate()
     {
-        float horizontalInput = Input.GetAxis("Horizontal");
+        Move(horizontalInput);
 
-        // Flip character sprite based on direction
-        if (horizontalInput != 0)
-            transform.localScale = new Vector3(Mathf.Sign(-horizontalInput), 1, 1);
-
-        // Apply movement
-        m_Rigidbody.velocity = new Vector2(horizontalInput * m_Speed, m_Rigidbody.velocity.y);
+        // Check if the character is grounded
+        isGrounded = CheckIfGrounded();
     }
 
-    private void HandleJump()
+    private void Move(float direction)
     {
-        if (Input.GetButtonDown("Jump") && m_IsGrounded)
+        // Apply horizontal movement
+        rb.velocity = new Vector2(direction * moveSpeed, rb.velocity.y);
+
+        // Flip the sprite based on movement direction
+        if ((direction > 0 && !isFacingRight) || (direction < 0 && isFacingRight))
+            Flip();
+    }
+
+    private void Jump()
+    {
+        rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+    }
+
+    private void Shoot()
+    {
+        if (projectilePrefab && firePoint)
         {
-            m_Rigidbody.AddForce(Vector2.up * m_JumpForce, ForceMode2D.Impulse);
-            m_IsGrounded = false;
-        }
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        foreach (ContactPoint2D contact in collision.contacts)
-        {
-            if (contact.normal.y > 0.5f)
-                m_IsGrounded = true;
-        }
-    }
-
-    // ReSharper disable Unity.PerformanceAnalysis
-    private void shootProjectile()
-    {
-        if (m_WeaponPrefab && m_WeaponSpawnPoint)
-        {
-            GameObject projectile = Instantiate(m_WeaponPrefab, m_WeaponSpawnPoint.position, Quaternion.identity);
-
-            // Determine the direction based on facing direction
-            Vector2 shootDirection = transform.localScale.x < 0 ? Vector2.right : Vector2.left;
-
-            // Initialize the projectile
+            // Instantiate projectile and shoot in the direction the character is facing
+            GameObject projectile = Instantiate(projectilePrefab, firePoint.position, Quaternion.identity);
+            Vector2 shootDirection = isFacingRight ? Vector2.right : Vector2.left;
             projectile.GetComponent<Projectile>().Initialize(shootDirection);
         }
         else
         {
-            Debug.LogWarning("Weapon prefab or spawn point not assigned.");
+            Debug.LogWarning("Projectile prefab or fire point not assigned.");
         }
+    }
+
+    private void Flip()
+    {
+        // Flip the character sprite
+        isFacingRight = !isFacingRight;
+        Vector3 localScale = transform.localScale;
+        localScale.x *= -1;
+        transform.localScale = localScale;
+    }
+
+    private bool CheckIfGrounded()
+    {
+        float extraHeight = 0.7f;
+        Vector2 position = transform.position;
+        Vector2 boxSize = new Vector2(0.9f, 0.1f); // Adjust based on character collider size
+    
+        // Draw the box for visualization
+        Debug.DrawLine(position + Vector2.down * extraHeight + Vector2.left * boxSize.x / 2,
+            position + Vector2.down * extraHeight + Vector2.right * boxSize.x / 2, 
+            Color.red, 0.1f);
+    
+        Collider2D collider = Physics2D.OverlapBox(position + Vector2.down * extraHeight, boxSize, 0, groundLayer);
+        return collider != null;
     }
 
 }
