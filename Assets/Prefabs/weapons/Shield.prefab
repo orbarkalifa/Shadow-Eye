@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 628144245454105999}
   - component: {fileID: 5861515089751391738}
   - component: {fileID: 4960332715465597250}
+  - component: {fileID: 7335396667249938364}
   m_Layer: 0
   m_Name: Shield
   m_TagString: Untagged
@@ -114,7 +115,7 @@ PolygonCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -140,3 +141,17 @@ PolygonCollider2D:
       - {x: 0.005, y: 0.32999998}
       - {x: -0.037889242, y: 0.220963}
   m_UseDelaunayMesh: 0
+--- !u!114 &7335396667249938364
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3961360938351345007}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0eb9e65322be1f04c8ea625c75a2fbb8, type: 3}
+  m_Name: Shield
+  m_EditorClassIdentifier: 
+  m_WeaponName: Shield
+  m_Model: {fileID: 3961360938351345007}

@@ -59,8 +59,12 @@ public class MainCharacter : Character
         GameObject newWeapon = WeaponManager.m_Instance.GetWeaponByName(weaponName);
         if (newWeapon != null)
         {
-            m_CurrentWeapon = Instantiate(newWeapon, m_WeaponHolder.position, m_WeaponHolder.rotation, m_WeaponHolder);
+            Debug.Log("Weapon is not null");
+            Vector3 position = new Vector3(m_WeaponHolder.position.x, m_WeaponHolder.position.y, -1);
+            m_CurrentWeapon = Instantiate(newWeapon, position, m_WeaponHolder.rotation, m_WeaponHolder);
         }
+        if (m_CurrentWeapon == null)
+            Debug.LogError("m_CurrentWeapon weapon is null");
     }
     
     private void OnCollisionEnter2D(Collision2D collision)

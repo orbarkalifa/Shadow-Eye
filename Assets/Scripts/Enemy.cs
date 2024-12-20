@@ -24,7 +24,7 @@ public class Enemy : Character
         if (m_CurrentWeapon != null)
         {
             Debug.Log($"Dropping weapon: {m_CurrentWeapon.name}");
-            Instantiate(m_CurrentWeapon, new Vector3(transform.position.x,transform.position.y+1,-1), Quaternion.identity);
+            Instantiate(m_CurrentWeapon, new Vector3(transform.position.x,transform.position.y,-1), Quaternion.identity);
         }
         else
         {
