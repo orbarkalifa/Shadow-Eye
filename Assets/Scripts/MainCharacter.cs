@@ -56,6 +56,25 @@ public class MainCharacter : Character
             Flip();
     }
 
+    public void EquipWeapon(string weaponName)
+    {
+        if (m_CurrentWeapon != null)
+        {
+            Destroy(m_CurrentWeapon); // Remove the old weapon
+        }
+
+        // Instantiate the new weapon (assumes weapon prefabs are stored in a manager)
+        GameObject newWeapon = WeaponManager.m_Instance.GetWeaponByName(weaponName);
+        if (newWeapon != null)
+        {
+            Debug.Log("Weapon is not null");
+            Vector3 position = new Vector3(m_WeaponHolder.position.x, m_WeaponHolder.position.y, -1);
+            m_CurrentWeapon = Instantiate(newWeapon, position, m_WeaponHolder.rotation, m_WeaponHolder);
+        }
+        if (m_CurrentWeapon == null)
+            Debug.LogError("m_CurrentWeapon weapon is null");
+    }
+    
     private void Jump()
     {
         rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);

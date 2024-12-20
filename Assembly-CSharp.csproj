@@ -52,9 +52,11 @@
     <Compile Include="Assets\Scripts\Character.cs" />
     <Compile Include="Assets\Low_Swordman\Demo\Scripts\Swordman.cs" />
     <Compile Include="Assets\Low_Swordman\Demo\Scripts\CameraController.cs" />
+    <Compile Include="Assets\Scripts\WeaponManager.cs" />
     <Compile Include="Assets\Scripts\CameraFollow.cs" />
     <Compile Include="Assets\Scripts\Destructible.cs" />
     <Compile Include="Assets\Low_Swordman\Demo\Scripts\PlayerController.cs" />
+    <Compile Include="Assets\Scripts\Weapon.cs" />
     <Compile Include="Assets\Low_Swordman\Demo\Scripts\Demo_GM.cs" />
     <None Include="Library\PackageCache\com.unity.burst@1.8.18\package.json" />
     <None Include="Library\PackageCache\com.unity.collections@1.2.4\Unity.Collections.LowLevel.ILSupport\README.txt" />
