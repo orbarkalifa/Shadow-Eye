@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public abstract class Character : MonoBehaviour
 {
@@ -6,9 +7,13 @@ public abstract class Character : MonoBehaviour
     protected float m_CurrentHp;
 
     [Header("Weapon Settings")]
-    [SerializeField] protected GameObject m_WeaponPrefab;
-    [SerializeField] protected Transform m_WeaponSpawnPoint;
+    [SerializeField] protected GameObject m_ProjectilePrefab;
+    [SerializeField] protected Transform m_ProjectileSpawnPoint;
 
+    public GameObject m_CurrentWeapon; // Reference to the player's active weapon
+    public Transform m_WeaponHolder; // Transform where weapons are attached to the player
+
+    
     protected virtual void Awake()
     {
         m_CurrentHp = m_MaxHp; // Initialize current health

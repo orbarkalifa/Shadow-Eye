@@ -346,6 +346,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 359e53c286df4164cb19a259cf650fa4, type: 3}
+--- !u!4 &292183867 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4668672571788371205, guid: 55e24d5c3bf8eff49b03ed296e36ab68, type: 3}
+  m_PrefabInstance: {fileID: 275674043772070150}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -462,6 +467,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 849842866490881364, guid: 5cf5f55690b314643968b70ef7190682, type: 3}
+      propertyPath: m_WeaponHolder
+      value: 
+      objectReference: {fileID: 1315573714}
+    - target: {fileID: 849842866490881364, guid: 5cf5f55690b314643968b70ef7190682, type: 3}
+      propertyPath: m_CurrentWeapon
+      value: 
+      objectReference: {fileID: 1392496406}
     - target: {fileID: 4524354548520076064, guid: 5cf5f55690b314643968b70ef7190682, type: 3}
       propertyPath: m_Name
       value: EnemyCharacter
@@ -506,10 +519,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9127551850579542198, guid: 5cf5f55690b314643968b70ef7190682, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 902026797021502619, guid: 5cf5f55690b314643968b70ef7190682, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1392496410}
   m_SourcePrefab: {fileID: 100100000, guid: 5cf5f55690b314643968b70ef7190682, type: 3}
 --- !u!1 &620936282
 GameObject:
@@ -669,6 +689,30 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1315573714 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7808416064276582009, guid: 5cf5f55690b314643968b70ef7190682, type: 3}
+  m_PrefabInstance: {fileID: 601891866}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1392496406 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 902026797021502619, guid: 5cf5f55690b314643968b70ef7190682, type: 3}
+  m_PrefabInstance: {fileID: 601891866}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1392496410
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1392496406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0eb9e65322be1f04c8ea625c75a2fbb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_WeaponName: Shield
+  m_WeaponModel: {fileID: 1392496406}
 --- !u!1 &1433194353
 GameObject:
   m_ObjectHideFlags: 0
@@ -997,6 +1041,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: MainCharacter
       objectReference: {fileID: 0}
+    - target: {fileID: 8577048945911115615, guid: 55e24d5c3bf8eff49b03ed296e36ab68, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 8674761288154135504, guid: 55e24d5c3bf8eff49b03ed296e36ab68, type: 3}
+      propertyPath: m_WeaponHolder
+      value: 
+      objectReference: {fileID: 75950134}
+    - target: {fileID: 8674761288154135504, guid: 55e24d5c3bf8eff49b03ed296e36ab68, type: 3}
+      propertyPath: m_ProjectilePrefab
+      value: 
+      objectReference: {fileID: 8434955306321526862, guid: e065202464f2c8743ac48bde732042db, type: 3}
+    - target: {fileID: 8674761288154135504, guid: 55e24d5c3bf8eff49b03ed296e36ab68, type: 3}
+      propertyPath: m_ProjectileSpawnPoint
+      value: 
+      objectReference: {fileID: 292183867}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -48,6 +48,21 @@ public class MainCharacter : Character
         }
     }
 
+    public void EquipWeapon(string weaponName)
+    {
+        if (m_CurrentWeapon != null)
+        {
+            Destroy(m_CurrentWeapon); // Remove the old weapon
+        }
+
+        // Instantiate the new weapon (assumes weapon prefabs are stored in a manager)
+        GameObject newWeapon = WeaponManager.m_Instance.GetWeaponByName(weaponName);
+        if (newWeapon != null)
+        {
+            m_CurrentWeapon = Instantiate(newWeapon, m_WeaponHolder.position, m_WeaponHolder.rotation, m_WeaponHolder);
+        }
+    }
+    
     private void OnCollisionEnter2D(Collision2D collision)
     {
         foreach (ContactPoint2D contact in collision.contacts)
@@ -60,9 +75,9 @@ public class MainCharacter : Character
     // ReSharper disable Unity.PerformanceAnalysis
     private void shootProjectile()
     {
-        if (m_WeaponPrefab && m_WeaponSpawnPoint)
+        if (m_ProjectilePrefab && m_ProjectileSpawnPoint)
         {
-            GameObject projectile = Instantiate(m_WeaponPrefab, m_WeaponSpawnPoint.position, Quaternion.identity);
+            GameObject projectile = Instantiate(m_ProjectilePrefab, m_ProjectileSpawnPoint.position, Quaternion.identity);
 
             // Determine the direction based on facing direction
             Vector2 shootDirection = transform.localScale.x < 0 ? Vector2.right : Vector2.left;

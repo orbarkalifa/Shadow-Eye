@@ -15,6 +15,16 @@ public class Enemy : Character
     protected override void OnDeath()
     {
         Debug.Log($"{gameObject.name} (Enemy) has been defeated!");
+        if (m_CurrentWeapon != null)
+        {
+            Debug.Log($"Dropping weapon: {m_CurrentWeapon.name}");
+            Instantiate(m_CurrentWeapon, transform.position, Quaternion.identity);
+        }
+        else
+        {
+            Debug.LogWarning("m_CurrentWeapon is null, no weapon to drop.");
+        }
         base.OnDeath();
     }
+    
 }

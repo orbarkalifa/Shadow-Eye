@@ -18,7 +18,7 @@ public class Projectile : MonoBehaviour
 
     private void Update()
     {
-        transform.position += (Vector3)(m_Direction * m_Speed * Time.deltaTime);
+        transform.position += (Vector3)(m_Direction * (m_Speed * Time.deltaTime));
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
