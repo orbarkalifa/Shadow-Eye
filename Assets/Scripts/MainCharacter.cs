@@ -109,12 +109,7 @@ public class MainCharacter : Character
         float extraHeight = 0.7f;
         Vector2 position = transform.position;
         Vector2 boxSize = new Vector2(0.9f, 0.1f); // Adjust based on character collider size
-    
-        // Draw the box for visualization
-        Debug.DrawLine(position + Vector2.down * extraHeight + Vector2.left * boxSize.x / 2,
-            position + Vector2.down * extraHeight + Vector2.right * boxSize.x / 2, 
-            Color.red, 0.1f);
-    
+        
         Collider2D collider = Physics2D.OverlapBox(position + Vector2.down * extraHeight, boxSize, 0, groundLayer);
         return collider != null;
     }
