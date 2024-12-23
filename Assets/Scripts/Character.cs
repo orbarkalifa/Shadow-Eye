@@ -5,11 +5,6 @@ public abstract class Character : MonoBehaviour
 {
     [SerializeField] protected float m_MaxHp = 100f;
     protected float m_CurrentHp;
-
-    [Header("Weapon Settings")]
-    [SerializeField] protected GameObject m_ProjectilePrefab;
-    [SerializeField] protected Transform m_ProjectileSpawnPoint;
-
     public GameObject m_CurrentWeapon; // Reference to the player's active weapon
     public Transform m_WeaponHolder; // Transform where weapons are attached to the player
 
