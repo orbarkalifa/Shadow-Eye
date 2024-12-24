@@ -46,10 +46,22 @@ public class CharacterMovement : MonoBehaviour
     {
         float extraHeight = 0.7f;
         Vector2 position = transform.position;
-        Vector2 boxSize = new Vector2(0.9f, 0.1f); // Adjust based on character collider size
+        Vector2 boxSize = new Vector2(0.3f, 0.3f); // Adjust based on character collider size
         
         Collider2D collider = Physics2D.OverlapBox(position + Vector2.down * extraHeight, boxSize, 0, m_GroundLayer);
         return collider != null;
+    }
+    private void OnDrawGizmos()
+    {
+        if (m_GroundLayer != 0)
+        {
+            float extraHeight = 0.7f;
+            Vector2 position = transform.position;
+            Vector2 boxSize = new Vector2(0.3f, 0.3f); // Adjust based on character collider size
+
+            Gizmos.color = Color.yellow; // Color for the ground check box
+            Gizmos.DrawWireCube(position + Vector2.down*extraHeight, boxSize);
+        }
     }
     public void Jump()
     { 

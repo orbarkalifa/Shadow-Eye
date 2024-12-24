@@ -8,9 +8,13 @@ public class CharacterCombat : MonoBehaviour
     [SerializeField] private GameObject g_ProjectilePrefab;
     [SerializeField] private Transform m_FirePoint;
     [SerializeField] List<GameObject> m_WeaponPrefabs;
+    public GameObject currentSuit; // Reference to the player's active weapon
+    public Transform suitPosition; // Transform where weapons are attached to the player
+    
     // Start is called before the first frame update
     public void Shoot()
     {
+        
         if (g_ProjectilePrefab && m_FirePoint)
         {
             // Instantiate projectile and shoot in the direction the character is facing

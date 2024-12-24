@@ -4,6 +4,7 @@ public class MainCharacter : Character
 {
     private CharacterMovement characterMovement;
     private CharacterCombat characterCombat;
+
     private InputSystem_Actions inputActions;
 
     protected override void Awake()
@@ -21,13 +22,7 @@ public class MainCharacter : Character
 
     private void Update()
     {
-        /*// Handle inputs
-        characterMovement.Jump();
 
-        if (Input.GetButtonDown("Fire1"))
-            characterCombat.shoot();*/
-        
-        // Get movement input
         Vector2 movementInput = inputActions.Player.Move.ReadValue<Vector2>();
         characterMovement.SetHorizontalInput(movementInput);
 
@@ -45,7 +40,7 @@ public class MainCharacter : Character
         inputActions.Player.Jump.performed += _ => characterMovement.Jump();
         inputActions.Player.Attack.performed += _ => characterCombat.Shoot();
     }
-
+    
     private void OnDisable()
     {
         inputActions.Disable();
@@ -53,14 +48,14 @@ public class MainCharacter : Character
     
     public void EquipWeapon(string weaponName)
     {
-        if (currentSuit != null)
+        if (characterCombat.currentSuit != null)
         {
-            Destroy(currentSuit); // Remove the old weapon
+            Destroy(characterCombat.currentSuit); // Remove the old weapon
         }
 
-        currentSuit = characterCombat.EquipWeapon(weaponName, suitPosition);
+        characterCombat.currentSuit = characterCombat.EquipWeapon(weaponName, characterCombat.suitPosition);
 
-        if (currentSuit == null)
+        if (characterCombat.currentSuit == null)
         {
             Debug.LogError($"Failed to equip weapon: {weaponName}");
         }

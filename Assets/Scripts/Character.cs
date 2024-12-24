@@ -5,13 +5,13 @@ public abstract class Character : MonoBehaviour
 {
     [SerializeField] protected float m_MaxHp = 100f;
     private float m_CurrentHp;
-    public GameObject currentSuit; // Reference to the player's active weapon
-    public Transform suitPosition; // Transform where weapons are attached to the player
-
     
+
     protected virtual void Awake()
     {
-        m_CurrentHp = m_MaxHp; // Initialize current health
+        
+        m_CurrentHp = m_MaxHp;
+
     }
 
     public float CurrentHp => m_CurrentHp;
@@ -35,6 +35,6 @@ public abstract class Character : MonoBehaviour
     protected virtual void OnDeath()
     {
         Debug.Log($"{gameObject.name} has died.");
-        Destroy(gameObject);
+        Destroy(gameObject); 
     }
 }

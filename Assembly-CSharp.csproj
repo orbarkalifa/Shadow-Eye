@@ -47,9 +47,9 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\MainCharacter.cs" />
     <Compile Include="Assets\Scripts\CharacterMovement.cs" />
-    <Compile Include="Assets\Scripts\Enemy.cs" />
     <Compile Include="Assets\Low_Swordman\Demo\Scripts\GroundSensor.cs" />
     <Compile Include="Assets\Scripts\Projectile.cs" />
+    <Compile Include="Assets\Scripts\EnemyController.cs" />
     <Compile Include="Assets\Scripts\Character.cs" />
     <Compile Include="Assets\Low_Swordman\Demo\Scripts\Swordman.cs" />
     <Compile Include="Assets\Low_Swordman\Demo\Scripts\CameraController.cs" />
