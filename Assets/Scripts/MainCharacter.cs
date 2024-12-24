@@ -1,63 +1,74 @@
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class MainCharacter : Character
 {
     private CharacterMovement characterMovement;
-    private CharacterCombat combat;
-
+    private CharacterCombat characterCombat;
+    private InputSystem_Actions inputActions;
 
     protected override void Awake()
     {
         base.Awake();
         characterMovement = GetComponent<CharacterMovement>();
-        combat = GetComponent<CharacterCombat>();
+        characterCombat = GetComponent<CharacterCombat>();
         if (!characterMovement)
             Debug.LogError("CharacterMovement component is missing.");
-        if (!combat)
+        if (!characterCombat)
             Debug.LogError("CharacterCombat component is missing.");
+        inputActions = new InputSystem_Actions();
+
     }
 
     private void Update()
     {
-        // Handle inputs
-        characterMovement.GetHorizontalInput();
+        /*// Handle inputs
         characterMovement.Jump();
 
         if (Input.GetButtonDown("Fire1"))
-            combat.shoot();
+            characterCombat.shoot();*/
+        
+        // Get movement input
+        Vector2 movementInput = inputActions.Player.Move.ReadValue<Vector2>();
+        characterMovement.SetHorizontalInput(movementInput);
+
     }
     private void FixedUpdate()
     {
         characterMovement.Move();
-        
-    }
-
-
-
-
-    public void EquipWeapon(string weaponName)
-    {
-        if (m_CurrentWeapon != null)
-        {
-            Destroy(m_CurrentWeapon); // Remove the old weapon
-        }
-
-        // Instantiate the new weapon (assumes weapon prefabs are stored in a manager)
-        GameObject newWeapon = WeaponManager.m_Instance.GetWeaponByName(weaponName);
-        if (newWeapon != null)
-        {
-            Debug.Log("Weapon is not null");
-            Vector3 position = new Vector3(m_WeaponHolder.position.x, m_WeaponHolder.position.y, -1);
-            m_CurrentWeapon = Instantiate(newWeapon, position, m_WeaponHolder.rotation, m_WeaponHolder);
-        }
-        if (m_CurrentWeapon == null)
-            Debug.LogError("m_CurrentWeapon weapon is null");
     }
     
+    private void OnEnable()
+    {
+        inputActions.Enable();
 
+        // Register Input Action Callbacks
+        inputActions.Player.Jump.performed += _ => characterMovement.Jump();
+        inputActions.Player.Attack.performed += _ => characterCombat.Shoot();
+    }
 
+    private void OnDisable()
+    {
+        inputActions.Disable();
+    }
+    
+    public void EquipWeapon(string weaponName)
+    {
+        if (currentSuit != null)
+        {
+            Destroy(currentSuit); // Remove the old weapon
+        }
 
+        currentSuit = characterCombat.EquipWeapon(weaponName, suitPosition);
 
-
+        if (currentSuit == null)
+        {
+            Debug.LogError($"Failed to equip weapon: {weaponName}");
+        }
+    }
+    
+    private void OnDestroy()
+    {
+        inputActions?.Dispose();
+    }
+    
 }

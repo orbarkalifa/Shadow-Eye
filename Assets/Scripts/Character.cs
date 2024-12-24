@@ -4,9 +4,9 @@ using UnityEngine.Serialization;
 public abstract class Character : MonoBehaviour
 {
     [SerializeField] protected float m_MaxHp = 100f;
-    protected float m_CurrentHp;
-    public GameObject m_CurrentWeapon; // Reference to the player's active weapon
-    public Transform m_WeaponHolder; // Transform where weapons are attached to the player
+    private float m_CurrentHp;
+    public GameObject currentSuit; // Reference to the player's active weapon
+    public Transform suitPosition; // Transform where weapons are attached to the player
 
     
     protected virtual void Awake()

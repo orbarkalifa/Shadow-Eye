@@ -16,7 +16,7 @@ public class WeaponManager : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("Multiple WeaponManager instances detected. Using the first one.");
+            Debug.LogWarning("Multiple Weapon Manager instances detected. Using the first one.");   
         }
     }
 

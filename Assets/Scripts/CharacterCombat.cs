@@ -7,10 +7,10 @@ public class CharacterCombat : MonoBehaviour
     [Header("Attack Settings")]
     [SerializeField] private GameObject g_ProjectilePrefab;
     [SerializeField] private Transform m_FirePoint;
+    [SerializeField] List<GameObject> m_WeaponPrefabs;
     // Start is called before the first frame update
-    public void shoot()
+    public void Shoot()
     {
-        
         if (g_ProjectilePrefab && m_FirePoint)
         {
             // Instantiate projectile and shoot in the direction the character is facing
@@ -22,5 +22,32 @@ public class CharacterCombat : MonoBehaviour
         {
             Debug.LogWarning("Projectile prefab or fire point not assigned.");
         }
+    }
+    
+    public GameObject EquipWeapon(string weaponName, Transform weaponHolder)
+    {
+        foreach (GameObject weapon in m_WeaponPrefabs)
+        {
+            if (weapon.name == weaponName)
+            {
+                Vector3 weaponPosition = new Vector3(weaponHolder.position.x, weaponHolder.position.y, -1);
+                GameObject newWeapon = Instantiate(weapon, weaponPosition, weaponHolder.rotation, weaponHolder);
+                return newWeapon;
+            }
+        }
+        Debug.LogWarning($"Weapon '{weaponName}' not found.");
+        return null;
+    }
+    
+    public GameObject GetWeaponByName(string i_WeaponName)
+    {
+        foreach (GameObject weapon in m_WeaponPrefabs)
+        {
+            if (weapon.name == i_WeaponName)
+            {
+                return weapon;
+            }
+        }
+        return null;
     }
 }

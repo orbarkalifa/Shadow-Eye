@@ -7,7 +7,6 @@ public class CharacterMovement : MonoBehaviour
     [Header("Movement Settings")]
     [SerializeField] private float m_MoveSpeed = 5f;
     [SerializeField] private float m_JumpForce = 10f;
-
     [SerializeField] private LayerMask m_GroundLayer;
 
     private Rigidbody2D r_Rb;
@@ -21,9 +20,9 @@ public class CharacterMovement : MonoBehaviour
             Debug.LogError("Rigidbody2D is missing!");
     }
 
-    public void GetHorizontalInput()
+    public void SetHorizontalInput(Vector2 value)
     {
-        m_HorizontalInput = Input.GetAxis("Horizontal");   
+        m_HorizontalInput = value.x;
     }
     public void Move()
     {
@@ -54,9 +53,7 @@ public class CharacterMovement : MonoBehaviour
     }
     public void Jump()
     { 
-        if (!checkIfGrounded())
-            return;
-        if(Input.GetKeyDown(KeyCode.Space))
-            r_Rb.AddForce(Vector2.up * m_JumpForce, ForceMode2D.Impulse);
+        if (!checkIfGrounded()) return;
+        r_Rb.AddForce(Vector2.up * m_JumpForce, ForceMode2D.Impulse);
     }
 }

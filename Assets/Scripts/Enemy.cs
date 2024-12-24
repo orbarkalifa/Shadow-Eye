@@ -18,13 +18,13 @@ public class Enemy : Character
         dropWeapon();
         base.OnDeath();
     }
-
+    
     private void dropWeapon()
     {
-        if (m_CurrentWeapon != null)
+        if (currentSuit != null)
         {
-            Debug.Log($"Dropping weapon: {m_CurrentWeapon.name}");
-            Instantiate(m_CurrentWeapon, new Vector3(transform.position.x,transform.position.y,-1), Quaternion.identity);
+            Debug.Log($"Dropping weapon: {currentSuit.name}");
+            Instantiate(currentSuit, new Vector3(transform.position.x,transform.position.y,-1), Quaternion.identity);
         }
         else
         {
