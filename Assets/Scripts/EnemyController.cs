@@ -83,7 +83,7 @@ public class EnemyController : Character
             MainCharacter playerController = playerCollider.GetComponent<MainCharacter>();
             if (playerController)
             {
-                playerController.TakeDamage(10); // Example damage value
+                playerController.TakeDamage(); // Example damage value
             }
         }
     }

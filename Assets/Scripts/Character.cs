@@ -1,35 +1,36 @@
+
 using UnityEngine;
 using UnityEngine.Serialization;
 
 public abstract class Character : MonoBehaviour
 {
-    [SerializeField] protected float m_MaxHp = 100f;
-    private float m_CurrentHp;
+    [FormerlySerializedAs("m_MaxHp")]
+    [SerializeField] protected int MaxHits = 5;
+    private int CurrentHits;
     
 
     protected virtual void Awake()
     {
         
-        m_CurrentHp = m_MaxHp;
+        CurrentHits = MaxHits;
 
     }
+    
 
-    public float CurrentHp => m_CurrentHp;
-
-    public void TakeDamage(float i_Damage)
+    public void TakeDamage()
     {
-        m_CurrentHp -= i_Damage;
-        Debug.Log($"{gameObject.name} took {i_Damage} damage. HP: {m_CurrentHp}");
+        CurrentHits -= 1;
+        Debug.Log($"{gameObject.name} took {1} damage. HP: {CurrentHits}");
 
-        if (m_CurrentHp <= 0)
+        if (CurrentHits <= 0)
         {
             OnDeath();
         }
     }
 
-    public void Heal(float i_HealAmount)
+    public void Heal()
     {
-        m_CurrentHp = Mathf.Min(m_CurrentHp + i_HealAmount, m_MaxHp);
+        CurrentHits = Mathf.Min(CurrentHits + 1, MaxHits);
     }
 
     protected virtual void OnDeath()
