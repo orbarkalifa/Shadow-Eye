@@ -30,7 +30,7 @@ public class ClosedBoxAttack : MonoBehaviour
             Character gotHit = collider.GetComponent<Character>();
             if (gotHit != null)
             {
-                gotHit.TakeDamage(Damage);
+                gotHit.TakeDamage();
                 Debug.Log($"{collider.name} took {Damage} damage.");
             }
         }
