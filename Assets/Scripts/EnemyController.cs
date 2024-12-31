@@ -80,10 +80,12 @@ public class EnemyController : Character
         Collider2D playerCollider = Physics2D.OverlapCircle(transform.position, attackRange, playerLayer);
         if (playerCollider)
         {
+            Debug.Log("first");
             MainCharacter playerController = playerCollider.GetComponent<MainCharacter>();
             if (playerController)
             {
-                playerController.TakeDamage(suit.Damage); // Example damage value
+                Debug.Log("second");
+                playerController.TakeDamage(1); // Example damage value
             }
         }
     }

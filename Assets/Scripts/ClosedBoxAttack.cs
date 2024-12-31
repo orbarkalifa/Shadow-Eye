@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class ClosedBoxAttack : MonoBehaviour
 {
-    public LayerMask AffectedLayers; // Layers of objects that can take damage
-    public int Damage = 10; // Amount of damage inflicted
+    public LayerMask AffectedLayers = LayerMask.NameToLayer("Destructible"); // Layers of objects that can take damage
+    public int Damage = 1; // Amount of damage inflicted
     public Vector2 AreaSize = new Vector2(2f, 2f); // Size of the damage area
     public float DamageInterval = 1f; // Time between each damage application
 

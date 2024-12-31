@@ -6,7 +6,7 @@ public abstract class Character : MonoBehaviour
 {
     [FormerlySerializedAs("m_MaxHp")]
     [SerializeField] protected int MaxHits = 5;
-    private int CurrentHits;
+    public int CurrentHits;
     
 
     protected virtual void Awake()
@@ -38,4 +38,5 @@ public abstract class Character : MonoBehaviour
         Debug.Log($"{gameObject.name} has died.");
         Destroy(gameObject); 
     }
+    protected virtual int GetCurrentHits(){return CurrentHits;}
 }
