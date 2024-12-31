@@ -8,7 +8,7 @@ public class EnemyController : Character
     [SerializeField] private float detectionRange = 5f;
     [SerializeField] private float attackCooldown = 2f;
     [SerializeField] private LayerMask playerLayer;
-    [SerializeField] private GameObject suit;
+    [SerializeField] private Projectile suit;
 
     private Transform player;
     private bool isChasing = false;
@@ -83,7 +83,7 @@ public class EnemyController : Character
             MainCharacter playerController = playerCollider.GetComponent<MainCharacter>();
             if (playerController)
             {
-                playerController.TakeDamage(); // Example damage value
+                playerController.TakeDamage(suit.Damage); // Example damage value
             }
         }
     }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class ClosedBoxAttack : MonoBehaviour
 {
     public LayerMask AffectedLayers; // Layers of objects that can take damage
-    public float Damage = 10f; // Amount of damage inflicted
+    public int Damage = 10; // Amount of damage inflicted
     public Vector2 AreaSize = new Vector2(2f, 2f); // Size of the damage area
     public float DamageInterval = 1f; // Time between each damage application
 
@@ -30,7 +30,7 @@ public class ClosedBoxAttack : MonoBehaviour
             Character gotHit = collider.GetComponent<Character>();
             if (gotHit != null)
             {
-                gotHit.TakeDamage();
+                gotHit.TakeDamage(Damage);
                 Debug.Log($"{collider.name} took {Damage} damage.");
             }
         }

@@ -4,11 +4,11 @@ public class Projectile : MonoBehaviour
 {
     [SerializeField] private float m_Speed = 10f;
     [SerializeField] private float m_Lifetime = 2f;
-    [SerializeField] private float m_Damage = 10f;
+    [SerializeField] private int m_Damage = 1;
     
     private Vector2 m_Direction;
 
-    public float Damage => m_Damage;
+    public int Damage => m_Damage;
 
     public void Initialize(Vector2 direction)
     {
@@ -31,6 +31,10 @@ public class Projectile : MonoBehaviour
 
             if (collision.TryGetComponent(out Character enemy))
                 enemy.TakeDamage(m_Damage);
+            
+            
+            
+            
 
             Destroy(gameObject); // Destroy the projectile on hit
         }

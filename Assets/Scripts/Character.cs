@@ -17,10 +17,10 @@ public abstract class Character : MonoBehaviour
     }
     
 
-    public void TakeDamage()
+    public void TakeDamage(int damage)
     {
-        CurrentHits -= 1;
-        Debug.Log($"{gameObject.name} took {1} damage. HP: {CurrentHits}");
+        CurrentHits -= damage;
+        Debug.Log($"{gameObject.name} took {damage} damage. HP: {CurrentHits}");
 
         if (CurrentHits <= 0)
         {
