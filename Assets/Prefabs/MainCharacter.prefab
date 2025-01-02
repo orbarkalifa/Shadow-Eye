@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4668672571788371205}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Weapon Spawn Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,9 +44,11 @@ GameObject:
   - component: {fileID: 411818876446519314}
   - component: {fileID: 2123137309220042101}
   - component: {fileID: 8674761288154135504}
-  m_Layer: 0
+  - component: {fileID: 7984443165161485039}
+  - component: {fileID: 6037015571511623453}
+  m_Layer: 8
   m_Name: MainCharacter
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -134,7 +136,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 3
+  m_GravityScale: 9.5
   m_Material: {fileID: 6200000, guid: a6a778d7ad30e944ab5969c68637b3aa, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
@@ -193,9 +195,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99e6e400f2b6b944a8ba571102fdd636, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_MaxHp: 100.01
-  m_WeaponPrefab: {fileID: 8434955306321526862, guid: e065202464f2c8743ac48bde732042db, type: 3}
-  m_WeaponSpawnPoint: {fileID: 4668672571788371205}
-  m_Rigidbody: {fileID: 411818876446519314}
-  m_Speed: 6
-  m_JumpForce: 10
+  MaxHits: 5
+  CurrentHits: 0
+--- !u!114 &7984443165161485039
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8577048945911115615}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36771cfc7f4d4e3478824d81f049c6b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_MoveSpeed: 20
+  m_JumpForce: 45
+  m_GroundLayer:
+    serializedVersion: 2
+    m_Bits: 72
+--- !u!114 &6037015571511623453
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8577048945911115615}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9034bd2c7696cf543b42d72c5698bd07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  g_ProjectilePrefab: {fileID: 8434955306321526862, guid: e065202464f2c8743ac48bde732042db, type: 3}
+  m_FirePoint: {fileID: 4668672571788371205}
+  m_WeaponPrefabs:
+  - {fileID: 8434955306321526862, guid: e065202464f2c8743ac48bde732042db, type: 3}
+  - {fileID: 3961360938351345007, guid: d8344dc5221032e409f2fe87a96a5103, type: 3}
+  currentSuit: {fileID: 0}
+  suitPosition: {fileID: 4668672571788371205}

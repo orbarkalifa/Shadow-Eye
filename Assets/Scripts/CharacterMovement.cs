@@ -9,14 +9,14 @@ public class CharacterMovement : MonoBehaviour
     [SerializeField] private float m_JumpForce = 10f;
     [SerializeField] private LayerMask m_GroundLayer;
 
-    private Rigidbody2D r_Rb;
+    private Rigidbody2D rb;
     private bool m_IsFacingRight = false;
     private float m_HorizontalInput;
     protected  void Awake()
     {
         // Assign Rigidbody2D
-        r_Rb = GetComponent<Rigidbody2D>();
-        if (!r_Rb)
+        rb = GetComponent<Rigidbody2D>();
+        if (!rb)
             Debug.LogError("Rigidbody2D is missing!");
     }
 
@@ -27,7 +27,7 @@ public class CharacterMovement : MonoBehaviour
     public void Move()
     {
         // Apply horizontal movement
-        r_Rb.velocity = new Vector2(m_HorizontalInput * m_MoveSpeed, r_Rb.velocity.y);
+        rb.velocity = new Vector2(m_HorizontalInput * m_MoveSpeed, rb.velocity.y);
 
         // Flip the sprite based on movement direction
         if ((m_HorizontalInput > 0 && !m_IsFacingRight) || (m_HorizontalInput < 0 && m_IsFacingRight))
@@ -64,8 +64,18 @@ public class CharacterMovement : MonoBehaviour
         }
     }
     public void Jump()
-    { 
+    {
+        
         if (!checkIfGrounded()) return;
-        r_Rb.AddForce(Vector2.up * m_JumpForce, ForceMode2D.Impulse);
+        rb.AddForce(Vector2.up * m_JumpForce, ForceMode2D.Impulse);
+    }
+    
+    public void OnJumpReleased()
+    {
+        // Check if the button was released and the velocity is upward
+        if (rb.velocity.y > 0)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, 0);
+        }
     }
 }

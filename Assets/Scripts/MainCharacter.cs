@@ -38,6 +38,7 @@ public class MainCharacter : Character
 
         // Register Input Action Callbacks
         inputActions.Player.Jump.performed += _ => characterMovement.Jump();
+        inputActions.Player.Jump.canceled += _ => characterMovement.OnJumpReleased();
         inputActions.Player.Attack.performed += _ => characterCombat.Shoot();
     }
     
@@ -60,6 +61,7 @@ public class MainCharacter : Character
             Debug.LogError($"Failed to equip weapon: {weaponName}");
         }
     }
+
     
     private void OnDestroy()
     {
