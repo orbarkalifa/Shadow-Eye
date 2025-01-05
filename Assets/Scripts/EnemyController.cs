@@ -8,7 +8,7 @@ public class EnemyController : Character
     [SerializeField] private float detectionRange = 5f;
     [SerializeField] private float attackCooldown = 2f;
     [SerializeField] private LayerMask playerLayer;
-    [SerializeField] private Projectile suit;
+    [SerializeField] private GameObject suit;
 
     private Transform player;
     private bool isChasing = false;
