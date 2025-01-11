@@ -1,3 +1,4 @@
+/*
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -33,4 +34,5 @@ public class WeaponManager : MonoBehaviour
         return null;
     }
 }
+*/
 

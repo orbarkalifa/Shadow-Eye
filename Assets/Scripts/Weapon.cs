@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class Weapon : MonoBehaviour
+/*public class Weapon : MonoBehaviour
 {
     public string m_WeaponName; // Optional: Unique identifier for the weapon
     public GameObject m_Model; // Optional: Visual representation of the weapon
@@ -16,9 +16,11 @@ public class Weapon : MonoBehaviour
             if (player != null)
             {
                 Debug.Log($"Player is equipping weapon: {m_WeaponName}");
+                /*
                 player.EquipWeapon(m_WeaponName);
+                #1#
                 Destroy(gameObject); // Destroy the pickup after it's collected
             }
         }
     }
-}
+}*/

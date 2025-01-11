@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1dc9face461726345ad9105867102787, type: 3}
+  m_Name: FireballSuit
+  m_EditorClassIdentifier: 
+  m_SuitName: Fireball
+  m_SuitSprite: {fileID: 21300000, guid: ccfe210ea1eab7f4ab8a3ec1d1238410, type: 3}
+  m_SpecialAttack: {fileID: 11400000, guid: 9bb75a85fcd0a6a428e501318970324a, type: 2}
+  m_SpecialMovement: {fileID: 11400000, guid: 6f3127a9bb19c6d418894cefe24caabf, type: 2}
+  m_SuitPrefab: {fileID: 3961360938351345007, guid: d8344dc5221032e409f2fe87a96a5103, type: 3}

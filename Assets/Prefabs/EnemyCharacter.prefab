@@ -168,14 +168,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxHits: 5
   CurrentHits: 0
-  moveSpeed: 2
-  attackRange: 2
-  detectionRange: 5
-  attackCooldown: 2
-  playerLayer:
+  m_MoveSpeed: 2
+  m_AttackRange: 1.5
+  m_DetectionRange: 5
+  m_AttackCooldown: 2
+  m_PlayerLayer:
     serializedVersion: 2
     m_Bits: 256
-  suit: {fileID: 0}
+  m_SuitDrop: {fileID: 11400000, guid: 4fadc748692153649ba80993fda0ca7f, type: 2}
   rb: {fileID: 8646108229576357737}
 --- !u!1 &712802142663426039
 GameObject:
@@ -188,7 +188,6 @@ GameObject:
   - component: {fileID: 4011133662046351127}
   - component: {fileID: 7945965919734611810}
   - component: {fileID: 8920312952315077594}
-  - component: {fileID: 6544123247390706980}
   m_Layer: 0
   m_Name: Shield
   m_TagString: Untagged
@@ -318,20 +317,6 @@ PolygonCollider2D:
       - {x: 0.005, y: 0.32999998}
       - {x: -0.037889242, y: 0.220963}
   m_UseDelaunayMesh: 0
---- !u!114 &6544123247390706980
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 712802142663426039}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0eb9e65322be1f04c8ea625c75a2fbb8, type: 3}
-  m_Name: Shield
-  m_EditorClassIdentifier: 
-  m_WeaponName: Shield
-  m_Model: {fileID: 712802142663426039}
 --- !u!1 &2516274208972638185
 GameObject:
   m_ObjectHideFlags: 0

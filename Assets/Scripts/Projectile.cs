@@ -32,10 +32,6 @@ public class Projectile : MonoBehaviour
             if (collision.TryGetComponent(out Character enemy))
                 enemy.TakeDamage(m_Damage);
             
-            
-            
-            
-
             Destroy(gameObject); // Destroy the projectile on hit
         }
     }

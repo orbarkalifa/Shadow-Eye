@@ -1,57 +1,53 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class CharacterCombat : MonoBehaviour
 {
     [Header("Attack Settings")]
-    [SerializeField] private GameObject g_ProjectilePrefab;
+    [SerializeField] private GameObject m_ProjectilePrefab;
     [SerializeField] private Transform m_FirePoint;
     [SerializeField] List<GameObject> m_WeaponPrefabs;
-    public GameObject currentSuit; // Reference to the player's active weapon
-    public Transform suitPosition; // Transform where weapons are attached to the player
     
-    // Start is called before the first frame update
-    public void Shoot()
+    public Transform m_AttackRange; // Reference to the AttackRange GameObject
+    public int m_AttackDamage = 1;
+    public LayerMask m_EnemyLayer;
+
+    
+    public void BasicAttack(Vector2 facingDirection)
     {
+        if (m_AttackRange == null)
+        {
+            Debug.LogError("Attack range is not set!");
+            return;
+        }
+        Vector3 newAttackRangePosition = new Vector3(facingDirection.x * 0.5f, m_AttackRange.localPosition.y, 0f);
+        m_AttackRange.localPosition = newAttackRangePosition;
+
         
-        if (g_ProjectilePrefab && m_FirePoint)
+        Collider2D[] hitEnemies = Physics2D.OverlapBoxAll(
+            m_AttackRange.position,
+            m_AttackRange.GetComponent<BoxCollider2D>().size,
+            0f,
+            m_EnemyLayer
+        );
+        foreach (Collider2D enemy in hitEnemies)
         {
-            // Instantiate projectile and shoot in the direction the character is facing
-            GameObject projectile = Instantiate(g_ProjectilePrefab, m_FirePoint.position, Quaternion.identity);
-            Vector2 shootDirection = transform.localScale.x == -1 ? Vector2.right : Vector2.left;
-            projectile.GetComponent<Projectile>().Initialize(shootDirection);
-        }
-        else
-        {
-            Debug.LogWarning("Projectile prefab or fire point not assigned.");
-        }
-    }
-    
-    public GameObject EquipWeapon(string weaponName, Transform weaponHolder)
-    {
-        foreach (GameObject weapon in m_WeaponPrefabs)
-        {
-            if (weapon.name == weaponName)
+            if (enemy.TryGetComponent<EnemyController>(out EnemyController enemyComponent))
             {
-                Vector3 weaponPosition = new Vector3(weaponHolder.position.x, weaponHolder.position.y, -1);
-                GameObject newWeapon = Instantiate(weapon, weaponPosition, weaponHolder.rotation, weaponHolder);
-                return newWeapon;
+                enemyComponent.TakeDamage(m_AttackDamage);
             }
         }
-        Debug.LogWarning($"Weapon '{weaponName}' not found.");
-        return null;
     }
-    
-    public GameObject GetWeaponByName(string i_WeaponName)
+
+    private void OnDrawGizmosSelected()
     {
-        foreach (GameObject weapon in m_WeaponPrefabs)
+        if (m_AttackRange != null)
         {
-            if (weapon.name == i_WeaponName)
-            {
-                return weapon;
-            }
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireCube(m_AttackRange.position, m_AttackRange.GetComponent<BoxCollider2D>().size);
         }
-        return null;
     }
 }

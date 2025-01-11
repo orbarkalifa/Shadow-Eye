@@ -15,7 +15,6 @@ public class CameraFollow : MonoBehaviour
     {
         if (!m_Target)
         {
-            Debug.LogWarning("CameraFollow: No target assigned!");
             return;
         }
 
