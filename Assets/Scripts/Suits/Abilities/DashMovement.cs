@@ -13,7 +13,7 @@ namespace Suits.Abilities
             if (rb != null)
             {
               
-                Vector2 dashVelocity = new Vector2(m_DashSpeed * character.transform.localScale.x, rb.velocity.y);
+                Vector2 dashVelocity = new Vector2(m_DashSpeed * rb.velocity.x, rb.velocity.y);
                 rb.velocity = dashVelocity;
 
                 Debug.Log($"{character.name} dashed with speed {m_DashSpeed}.");

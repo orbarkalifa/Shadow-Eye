@@ -27,9 +27,8 @@ public class CharacterMovement : MonoBehaviour
     }
     public void Move()
     {
-            rb.velocity = new Vector2(m_HorizontalInput * m_MoveSpeed, rb.velocity.y);
+        rb.velocity = new Vector2(m_HorizontalInput * m_MoveSpeed, rb.velocity.y);
 
-        // Flip the sprite based on movement direction
         if ((m_HorizontalInput > 0 && !m_IsFacingRight) || (m_HorizontalInput < 0 && m_IsFacingRight))
             flip();
     }

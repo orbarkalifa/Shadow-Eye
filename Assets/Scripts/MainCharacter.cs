@@ -10,7 +10,7 @@ public class MainCharacter : Character
     [SerializeField] Transform m_SuitVisualSlot; // Slot for the suit visual
     private GameObject m_CurrentSuitVisual; // Holds the current suit visual instance
     
-    private Vector2 facingDirection = Vector2.left; // Default facing direction
+    private Vector2 m_FacingDirection = Vector2.left; // Default facing direction
 
     private InputSystem_Actions m_InputActions;
 
@@ -33,10 +33,8 @@ public class MainCharacter : Character
         Vector2 movementInput = m_InputActions.Player.Move.ReadValue<Vector2>();
         m_CharacterMovement.SetHorizontalInput(movementInput);
         
-        if (movementInput.x < 0)
-            facingDirection = Vector2.left;
-        else if (movementInput.x > 0)
-            facingDirection = Vector2.right;
+        m_FacingDirection = movementInput.x < 0 ? Vector2.left : Vector2.right;
+        
     }
     private void FixedUpdate()
     {
@@ -63,7 +61,7 @@ public class MainCharacter : Character
     private void performBasicAttack()
     {
         Debug.Log($"{gameObject.name} performs a basic attack.");
-        m_CharacterCombat.BasicAttack(facingDirection);
+        m_CharacterCombat.BasicAttack(m_FacingDirection);
     }
     
     private void performSpecialAttack()
