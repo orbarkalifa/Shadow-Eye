@@ -13,4 +13,3 @@ MonoBehaviour:
   m_Name: FireballAttack
   m_EditorClassIdentifier: 
   m_FireballPrefab: {fileID: 8434955306321526862, guid: e065202464f2c8743ac48bde732042db, type: 3}
-  m_FirePoint: {fileID: 0}
