@@ -13,7 +13,7 @@ namespace Suits.Abilities
             Transform firePoint = character.transform.Find("Weapon Spawn Point"); 
             if (m_FireballPrefab != null && firePoint != null)
             {
-                float facingDirection = character.transform.localScale.x < 0 ? 1 : -1;
+                float facingDirection = character.transform.localScale.x < 0 ? -1 : 1;
 
                 GameObject fireball = Instantiate(m_FireballPrefab, firePoint.position, Quaternion.identity);
 

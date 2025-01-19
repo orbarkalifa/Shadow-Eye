@@ -4,13 +4,16 @@ using UnityEngine;
 
 public class CharacterMovement : MonoBehaviour
 {
+    private static readonly int sr_IsRunning = Animator.StringToHash("isRunning");
+    private static readonly int sr_IsJumping = Animator.StringToHash("Jumping");
+    private Animator m_Animator;
     [Header("Movement Settings")]
     [SerializeField] private float m_MoveSpeed = 5f;
     [SerializeField] private float m_JumpForce = 10f;
     [SerializeField] private LayerMask m_GroundLayer;
 
-    private Rigidbody2D rb;
-    private bool m_IsFacingRight = false;
+    private Rigidbody2D m_Rb;
+    private bool m_IsFacingRight = true;
     private float m_HorizontalInput;
     private bool m_IsDashing = false;
     [SerializeField]private float m_DashSpeed = 1000f;
@@ -18,9 +21,10 @@ public class CharacterMovement : MonoBehaviour
 
     protected  void Awake()
     {
+        m_Animator = GetComponent<Animator>();
         // Assign Rigidbody2D
-        rb = GetComponent<Rigidbody2D>();
-        if (!rb)
+        m_Rb = GetComponent<Rigidbody2D>();
+        if (!m_Rb)
             Debug.LogError("Rigidbody2D is missing!");
     }
 
@@ -30,11 +34,13 @@ public class CharacterMovement : MonoBehaviour
     }
     public void Move()
     {
+        m_Animator.SetBool(sr_IsRunning,m_HorizontalInput != 0);
         if(!m_IsDashing)
-            rb.velocity = new Vector2(m_HorizontalInput * m_MoveSpeed, rb.velocity.y);
+            m_Rb.velocity = new Vector2(m_HorizontalInput * m_MoveSpeed, m_Rb.velocity.y);
 
         if ((m_HorizontalInput > 0 && !m_IsFacingRight) || (m_HorizontalInput < 0 && m_IsFacingRight))
             flip();
+        
     }
     private void flip()
     {
@@ -47,11 +53,12 @@ public class CharacterMovement : MonoBehaviour
 
     private bool checkIfGrounded()
     {
-        float extraHeight = 0.7f;
+        float extraHeight = 0.9f;
         Vector2 position = transform.position;
-        Vector2 boxSize = new Vector2(0.3f, 0.3f); // Adjust based on character collider size
+        Vector2 boxSize = new Vector2(0.8f, 0.5f); // Adjust based on character collider size
         
         Collider2D collider = Physics2D.OverlapBox(position + Vector2.down * extraHeight, boxSize, 0, m_GroundLayer);
+      
         return collider != null;
     }
 
@@ -68,7 +75,7 @@ public class CharacterMovement : MonoBehaviour
         m_IsDashing = true;
 
         float dashDirection = m_IsFacingRight ? 1f : -1f;
-        rb.velocity = new Vector2(dashDirection * m_DashSpeed, rb.velocity.y);
+        m_Rb.velocity = new Vector2(dashDirection * m_DashSpeed, m_Rb.velocity.y);
 
         yield return new WaitForSeconds(m_DashDelay);
 
@@ -79,27 +86,29 @@ public class CharacterMovement : MonoBehaviour
     {
         if (m_GroundLayer != 0)
         {
-            float extraHeight = 0.7f;
+            float extraHeight = 0.9f;
             Vector2 position = transform.position;
-            Vector2 boxSize = new Vector2(0.3f, 0.3f); // Adjust based on character collider size
+            Vector2 boxSize = new Vector2(0.8f, 0.3f); // Adjust based on character collider size
 
             Gizmos.color = Color.yellow; // Color for the ground check box
             Gizmos.DrawWireCube(position + Vector2.down*extraHeight, boxSize);
         }
     }
-    public void Jump()
+    public void Jump() 
     {
-        
+        m_Animator.SetBool(sr_IsJumping,checkIfGrounded());
         if (!checkIfGrounded()) return;
-        rb.AddForce(Vector2.up * m_JumpForce, ForceMode2D.Impulse);
+        
+
+        m_Rb.AddForce(Vector2.up * m_JumpForce, ForceMode2D.Impulse);
     }
     
     public void OnJumpReleased()
     {
         // Check if the button was released and the velocity is upward
-        if (rb.velocity.y > 0)
+        if (m_Rb.velocity.y > 0)
         {
-            rb.velocity = new Vector2(rb.velocity.x, 0);
+            m_Rb.velocity = new Vector2(m_Rb.velocity.x, 0);
         }
     }
 }

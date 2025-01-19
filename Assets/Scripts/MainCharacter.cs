@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class MainCharacter : Character
 {
+    private static readonly int sr_IsRunning = Animator.StringToHash("isRunning");
+
+    
     private CharacterMovement m_CharacterMovement;
     private CharacterCombat m_CharacterCombat;
     [SerializeField]private Suit m_EquippedSuit;
@@ -34,6 +37,7 @@ public class MainCharacter : Character
         m_CharacterMovement.SetHorizontalInput(movementInput);
         
         m_FacingDirection = movementInput.x < 0 ? Vector2.left : Vector2.right;
+
         
     }
     private void FixedUpdate()
