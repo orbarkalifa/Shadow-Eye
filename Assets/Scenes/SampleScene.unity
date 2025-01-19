@@ -1526,6 +1526,10 @@ PrefabInstance:
       propertyPath: m_ProjectilePrefab
       value: 
       objectReference: {fileID: 8434955306321526862, guid: e065202464f2c8743ac48bde732042db, type: 3}
+    - target: {fileID: 7984443165161485039, guid: 55e24d5c3bf8eff49b03ed296e36ab68, type: 3}
+      propertyPath: m_DashSpeed
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 8577048945911115615, guid: 55e24d5c3bf8eff49b03ed296e36ab68, type: 3}
       propertyPath: m_Name
       value: MainCharacter

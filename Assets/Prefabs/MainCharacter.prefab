@@ -361,7 +361,7 @@ MonoBehaviour:
   MaxHits: 5
   CurrentHits: 0
   m_EquippedSuit: {fileID: 0}
-  m_SuitVisualSlot: {fileID: 6781706590390811276}
+  m_SuitVisualSlot: {fileID: 0}
 --- !u!114 &7984443165161485039
 MonoBehaviour:
   m_ObjectHideFlags: 0

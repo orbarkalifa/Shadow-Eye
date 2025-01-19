@@ -14,6 +14,7 @@ public class Projectile : MonoBehaviour
     {
         m_Direction = direction.normalized;
         Destroy(gameObject, m_Lifetime);
+
     }
 
     private void Update()

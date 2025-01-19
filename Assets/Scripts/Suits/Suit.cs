@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.Serialization;
 
-[CreateAssetMenu(fileName = "NewSuit", menuName = "Suits/Suit")]
 public class Suit : ScriptableObject
 {
     public string m_SuitName;
