@@ -140,22 +140,6 @@ public class MainCharacter : Character
         }
     }
     
-    /*public void EquipWeapon(string weaponName)
-    {
-        if (m_CharacterCombat.currentSuit != null)
-        {
-            Destroy(m_CharacterCombat.currentSuit); // Remove the old weapon
-        }
-
-        m_CharacterCombat.currentSuit = m_CharacterCombat.EquipWeapon(weaponName, m_CharacterCombat.suitPosition);
-
-        if (m_CharacterCombat.currentSuit == null)
-        {
-            Debug.LogError($"Failed to equip weapon: {weaponName}");
-        }
-    }*/
-
-    
     private void OnDestroy()
     {
         m_InputActions?.Dispose();

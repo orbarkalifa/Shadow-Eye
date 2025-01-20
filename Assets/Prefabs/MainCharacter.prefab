@@ -134,7 +134,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxHits: 5
   CurrentHits: 0
-  m_EquippedSuit: {fileID: 11400000, guid: 4fadc748692153649ba80993fda0ca7f, type: 2}
   m_SuitVisualSlot: {fileID: 7832047424566049147}
 --- !u!114 &6656886863398187288
 MonoBehaviour:
@@ -148,12 +147,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36771cfc7f4d4e3478824d81f049c6b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_MoveSpeed: 20
-  m_JumpForce: 45
+  m_MoveSpeed: 50
+  m_JumpForce: 75
   m_GroundLayer:
     serializedVersion: 2
     m_Bits: 72
-  m_DashSpeed: 100
+  m_DashSpeed: 50
 --- !u!114 &7019909199188294890
 MonoBehaviour:
   m_ObjectHideFlags: 0

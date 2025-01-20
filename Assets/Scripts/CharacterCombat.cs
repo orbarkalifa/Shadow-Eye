@@ -11,7 +11,7 @@ public class CharacterCombat : MonoBehaviour
     [SerializeField] private Transform m_FirePoint;
     [SerializeField] List<GameObject> m_WeaponPrefabs;
     
-    public Transform m_AttackRange; // Reference to the AttackRange GameObject
+    public Transform m_AttackRange; 
     public int m_AttackDamage = 1;
     public LayerMask m_EnemyLayer;
 
@@ -41,13 +41,5 @@ public class CharacterCombat : MonoBehaviour
             }
         }
     }
-
-    private void OnDrawGizmosSelected()
-    {
-        if (m_AttackRange != null)
-        {
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireCube(m_AttackRange.position, m_AttackRange.GetComponent<BoxCollider2D>().size);
-        }
-    }
+    
 }

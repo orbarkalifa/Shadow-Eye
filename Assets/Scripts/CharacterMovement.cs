@@ -68,9 +68,9 @@ public class CharacterMovement : MonoBehaviour
 
     private bool isGrounded()
     {
-        float extraHeight = 1f;
+        float extraHeight = 3.3f;
         Vector2 position = transform.position;
-        Vector2 boxSize = new Vector2(0.8f, 0.5f); // Adjust based on character collider size
+        Vector2 boxSize = new Vector2(3.5f, 1f); // Adjust based on character collider size
         
         Collider2D collider = Physics2D.OverlapBox(position + Vector2.down * extraHeight, boxSize, 0, m_GroundLayer);
       
@@ -101,9 +101,9 @@ public class CharacterMovement : MonoBehaviour
     {
         if (m_GroundLayer != 0)
         {
-            float extraHeight = 1f;
+            float extraHeight = 3.3f;
             Vector2 position = transform.position;
-            Vector2 boxSize = new Vector2(0.8f, 0.3f); 
+            Vector2 boxSize = new Vector2(3.5f, 1f); 
 
             Gizmos.color = Color.yellow;
             Gizmos.DrawWireCube(position + Vector2.down*extraHeight, boxSize);
