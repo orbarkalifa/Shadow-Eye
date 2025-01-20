@@ -4,7 +4,7 @@ public class MainCharacter : Character
 {
     private CharacterMovement m_CharacterMovement;
     private CharacterCombat m_CharacterCombat;
-    [SerializeField]private Suit m_EquippedSuit;
+    private Suit m_EquippedSuit;
     
     [Header("Visuals")]
     [SerializeField] Transform m_SuitVisualSlot; // Slot for the suit visual

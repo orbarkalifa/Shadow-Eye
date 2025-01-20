@@ -51,9 +51,9 @@ public class CharacterMovement : MonoBehaviour
         transform.localScale = localScale;
     }
 
-    private bool checkIfGrounded()
+    private bool isGrounded()
     {
-        float extraHeight = 0.9f;
+        float extraHeight = 1f;
         Vector2 position = transform.position;
         Vector2 boxSize = new Vector2(0.8f, 0.5f); // Adjust based on character collider size
         
@@ -96,8 +96,10 @@ public class CharacterMovement : MonoBehaviour
     }
     public void Jump() 
     {
-        m_Animator.SetBool(sr_IsJumping,checkIfGrounded());
-        if (!checkIfGrounded()) return;
+        
+        if (!isGrounded()) return;
+        m_Animator.SetBool(sr_IsJumping, true);
+
         
 
         m_Rb.AddForce(Vector2.up * m_JumpForce, ForceMode2D.Impulse);
@@ -109,6 +111,14 @@ public class CharacterMovement : MonoBehaviour
         if (m_Rb.velocity.y > 0)
         {
             m_Rb.velocity = new Vector2(m_Rb.velocity.x, 0);
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.CompareTag("Ground"))
+        {
+            m_Animator.SetBool(sr_IsJumping, false);
         }
     }
 }
