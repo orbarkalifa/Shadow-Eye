@@ -16,13 +16,12 @@ public class CharacterMovement : MonoBehaviour
     private bool m_IsFacingRight = true;
     private float m_HorizontalInput;
     private bool m_IsDashing = false;
-    [SerializeField]private float m_DashSpeed = 1000f;
-    private float m_DashDelay = 0.1f;
+    [SerializeField]private float m_DashSpeed = 50f;
+    private const float k_DashDelay = 1f;
 
     protected  void Awake()
     {
         m_Animator = GetComponent<Animator>();
-        // Assign Rigidbody2D
         m_Rb = GetComponent<Rigidbody2D>();
         if (!m_Rb)
             Debug.LogError("Rigidbody2D is missing!");
@@ -32,19 +31,35 @@ public class CharacterMovement : MonoBehaviour
     {
         m_HorizontalInput = value.x;
     }
+    
     public void Move()
     {
-        m_Animator.SetBool(sr_IsRunning,m_HorizontalInput != 0);
-        if(!m_IsDashing)
+        m_Animator.SetBool(sr_IsRunning, m_HorizontalInput != 0);
+        if (!m_IsDashing)
             m_Rb.velocity = new Vector2(m_HorizontalInput * m_MoveSpeed, m_Rb.velocity.y);
 
         if ((m_HorizontalInput > 0 && !m_IsFacingRight) || (m_HorizontalInput < 0 && m_IsFacingRight))
             flip();
-        
+
+        UpdateGroundedState();
+        HandleFalling();       
     }
+
+    private void UpdateGroundedState()
+    {
+        m_Animator.SetBool(sr_IsJumping, !isGrounded());
+    }
+
+    private void HandleFalling()
+    {
+        if (!isGrounded() && m_Rb.velocity.y < 0)
+        {
+            m_Animator.SetBool(sr_IsJumping, true);
+        }
+    }
+
     private void flip()
     {
-        // Flip the character sprite
         m_IsFacingRight = !m_IsFacingRight;
         Vector3 localScale = transform.localScale;
         localScale.x *= -1;
@@ -77,7 +92,7 @@ public class CharacterMovement : MonoBehaviour
         float dashDirection = m_IsFacingRight ? 1f : -1f;
         m_Rb.velocity = new Vector2(dashDirection * m_DashSpeed, m_Rb.velocity.y);
 
-        yield return new WaitForSeconds(m_DashDelay);
+        yield return new WaitForSeconds(k_DashDelay);
 
         m_IsDashing = false;
     }
@@ -86,11 +101,11 @@ public class CharacterMovement : MonoBehaviour
     {
         if (m_GroundLayer != 0)
         {
-            float extraHeight = 0.9f;
+            float extraHeight = 1f;
             Vector2 position = transform.position;
-            Vector2 boxSize = new Vector2(0.8f, 0.3f); // Adjust based on character collider size
+            Vector2 boxSize = new Vector2(0.8f, 0.3f); 
 
-            Gizmos.color = Color.yellow; // Color for the ground check box
+            Gizmos.color = Color.yellow;
             Gizmos.DrawWireCube(position + Vector2.down*extraHeight, boxSize);
         }
     }
@@ -114,11 +129,5 @@ public class CharacterMovement : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if(collision.gameObject.CompareTag("Ground"))
-        {
-            m_Animator.SetBool(sr_IsJumping, false);
-        }
-    }
+  
 }
