@@ -8,12 +8,12 @@ namespace Suits.Abilities
         [SerializeField] private float m_Lifetime = 2f;
         public GameObject m_FireballPrefab;
 
-        public override void ExecuteAbility(GameObject character)
+        public override void ExecuteAbility(GameObject i_Character)
         {
-            Transform firePoint = character.transform.Find("Weapon Spawn Point"); 
+            Transform firePoint = i_Character.transform.Find("Weapon Spawn Point"); 
             if (m_FireballPrefab != null && firePoint != null)
             {
-                float facingDirection = character.transform.localScale.x < 0 ? -1 : 1;
+                float facingDirection = i_Character.transform.localScale.x < 0 ? -1 : 1;
 
                 GameObject fireball = Instantiate(m_FireballPrefab, firePoint.position, Quaternion.identity);
 

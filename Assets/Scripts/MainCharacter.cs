@@ -2,9 +2,6 @@ using UnityEngine;
 
 public class MainCharacter : Character
 {
-    private static readonly int sr_IsRunning = Animator.StringToHash("isRunning");
-
-    
     private CharacterMovement m_CharacterMovement;
     private CharacterCombat m_CharacterCombat;
     [SerializeField]private Suit m_EquippedSuit;
@@ -13,7 +10,7 @@ public class MainCharacter : Character
     [SerializeField] Transform m_SuitVisualSlot; // Slot for the suit visual
     private GameObject m_CurrentSuitVisual; // Holds the current suit visual instance
     
-    private Vector2 m_FacingDirection = Vector2.left; // Default facing direction
+    private Vector2 m_FacingDirection = Vector2.right; // Default facing direction
 
     private InputSystem_Actions m_InputActions;
 
@@ -36,7 +33,7 @@ public class MainCharacter : Character
         Vector2 movementInput = m_InputActions.Player.Move.ReadValue<Vector2>();
         m_CharacterMovement.SetHorizontalInput(movementInput);
         
-        m_FacingDirection = movementInput.x < 0 ? Vector2.left : Vector2.right;
+        m_FacingDirection = movementInput.x > 0 ? Vector2.left : Vector2.right;
 
         
     }
