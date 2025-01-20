@@ -11,24 +11,22 @@ public abstract class Character : MonoBehaviour
 
     protected virtual void Awake()
     {
-        
         CurrentHits = MaxHits;
 
     }
     
 
-    public void TakeDamage(int damage)
+    public virtual void TakeDamage(int damage)
     {
         CurrentHits -= damage;
         Debug.Log($"{gameObject.name} took {damage} damage. HP: {CurrentHits}");
-
         if (CurrentHits <= 0)
         {
             OnDeath();
         }
     }
 
-    public void Heal()
+    public virtual void Heal()
     {
         CurrentHits = Mathf.Min(CurrentHits + 1, MaxHits);
     }
