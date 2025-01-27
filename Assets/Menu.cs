@@ -6,8 +6,7 @@ public class Menu : MonoBehaviour
     [SerializeField]
     private GameObject menuPanel;
     private GameStateChannel gameStateChannel;
-    [SerializeField]
-    private GameState menuState;
+    [SerializeField] private GameState menuState;
 
     private void Awake()
     {
@@ -39,19 +38,22 @@ public class Menu : MonoBehaviour
         {
             bool isActive = menuPanel.activeSelf; // Current state of the panel
             Debug.Log($"MenuPanel currently {(isActive ? "active" : "inactive")}");
-
-            menuPanel.SetActive(!isActive); // Toggle the panel state
-            Debug.Log($"MenuPanel set to {(!isActive ? "active" : "inactive")}");
+            isActive = !isActive;
+            menuPanel.SetActive(isActive); // Toggle the panel state
+            Debug.Log($"MenuPanel set to {(isActive ? "active" : "inactive")}");
 
             if (isActive)
             {
-                gameStateChannel.StateExited(menuState);
-                Debug.Log("Exited menu state.");
+                gameStateChannel.StateExited(gameStateChannel.GetCurrentState());
+                gameStateChannel.StateEntered(menuState);
+
+                Debug.Log("Entered menu state.");   
             }
             else
             {
-                gameStateChannel.StateEntered(menuState);
-                Debug.Log("Entered menu state.");
+                gameStateChannel.StateEntered(menuState.nextState);
+                gameStateChannel.StateExited(menuState);
+                Debug.Log("Exited menu state.");
             }
 
             Time.timeScale = isActive ? 1 : 0; // Adjust time scale

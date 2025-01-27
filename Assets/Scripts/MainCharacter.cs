@@ -31,9 +31,7 @@ public class MainCharacter : Character
 
     void Start()
     {
-        Debug.Log("Starting MainCharacter health disple");
         healthChannel.ChangeHealth(CurrentHits);
-        Debug.Log("done MainCharacter health disple");
     }
     
     private void Update()

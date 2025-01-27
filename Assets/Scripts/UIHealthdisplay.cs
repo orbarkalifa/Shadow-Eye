@@ -14,20 +14,13 @@ public class UIHealthdisplay : MonoBehaviour
     void Awake()
     {
         healthChannel = FindObjectOfType<Beacon>().healthChannel;
-        if(healthChannel != null)
-        {
-            Debug.Log("Found healtChannel in UIHealthdisplay");
-        }
         healthChannel.OnChangeHealth += updateText;
         healthText = GetComponent<TextMeshProUGUI>();
-        if(healthText != null)
-            Debug.Log("Found healtText in UIHealthdisplay");
     }
     void updateText(int health)
     {
         if(healthText != null)
         {
-            Debug.Log($"Health changed to {health}");
             healthText.text = $"{health}";
         }
     }

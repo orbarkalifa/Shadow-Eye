@@ -12,7 +12,6 @@ public class GameStateChannel : ScriptableObject
     public event Action OnMenuClicked;
     public void MenuClicked()
     {
-        Debug.Log("Menu Clicked");
         OnMenuClicked?.Invoke();
         Debug.Log("OnMenuClicked Invoked");
 

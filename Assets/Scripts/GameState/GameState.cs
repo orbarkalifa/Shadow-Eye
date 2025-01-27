@@ -7,8 +7,7 @@ public class GameState : MonoBehaviour
 {
     public stateSO stateSO;
     public bool isCurrentState = false;
-    [SerializeField] private GameState nextState;
-    public GameState previousState;
+    [SerializeField] public GameState nextState;
     private List<TransitionBase> transitions = new();
 
     private GameStateChannel gameStateChannel;
@@ -29,20 +28,18 @@ public class GameState : MonoBehaviour
             return;
     }
 
-    private void StateEnter(GameState previous)
+    private void StateEnter(GameState nextState)
     {
-        Debug.Log($"Entering state: {stateSO.m_States}, from previous: {previous.stateSO.m_States}");
-        previousState = previous;
-        gameStateChannel.StateEnter?.Invoke(this);
+        Debug.Log($"Entering state: {stateSO.m_States}, from previous: {nextState.stateSO.m_States}");
+        gameStateChannel.StateEntered(this.nextState);
         isCurrentState = true;
     }
 
     private void StateExit(GameState previous)
     {
         Debug.Log($"Exiting state: {stateSO.m_States}, to next: {previous.stateSO.m_States}");
-        previousState = previous;
         isCurrentState = false;
-        gameStateChannel.StateExit?.Invoke(this);
+        gameStateChannel.StateExited(previous);
     }
 
 }

@@ -7,15 +7,15 @@ using UnityEngine.SceneManagement;
 
 public class GameStateManager : MonoBehaviour
 {
+    public GameState currentState;
+    public GameState previousState;
+    public GameState defaultState;
+
     private List<GameState> states = new();
-    [SerializeField] private GameState currentState;
-    [SerializeField] private GameState defaultState;
     private GameStateChannel gameStateChannel;
 
     void Start()
     {
-        
-        
         var beacon = FindObjectOfType<Beacon>();
         gameStateChannel = beacon.gameStateChannel;
         gameStateChannel.StateEnter += StateEnter;
@@ -63,6 +63,7 @@ public class GameStateManager : MonoBehaviour
 
     private void StateEnter(GameState state)
     {
+        previousState = currentState;
         currentState = state;
     }
 

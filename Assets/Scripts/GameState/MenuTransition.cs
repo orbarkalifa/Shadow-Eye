@@ -17,7 +17,7 @@ public class MenuTransition : TransitionBase
         inputActions = new InputSystem_Actions();
         // Get the GameStateChannel
         gameStateChannel = FindObjectOfType<Beacon>().gameStateChannel;
-        gameStateChannel.StateEnter += StateEnter;
+        //gameStateChannel.StateEnter += StateEnter;
         gameStateChannel.OnMenuClicked += PressedMenu; // Optional, if additional handling is required
     }
 

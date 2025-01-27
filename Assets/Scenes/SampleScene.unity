@@ -2290,6 +2290,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Beacon
       objectReference: {fileID: 0}
+    - target: {fileID: 2075039421830462361, guid: 70bd9aebbb96aaf4385c9c733e54b90e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4826489534364390579, guid: 70bd9aebbb96aaf4385c9c733e54b90e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
