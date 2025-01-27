@@ -56,7 +56,7 @@ public class Menu : MonoBehaviour
                 Debug.Log("Exited menu state.");
             }
 
-            Time.timeScale = isActive ? 1 : 0; // Adjust time scale
+            Time.timeScale = isActive ? 0 : 1; // Adjust time scale
             Debug.Log($"Time.timeScale set to {Time.timeScale}");
         }
         else
