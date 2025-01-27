@@ -20,10 +20,15 @@ public class UIHealthdisplay : MonoBehaviour
         }
         healthChannel.OnChangeHealth += updateText;
         healthText = GetComponent<TextMeshProUGUI>();
+        if(healthText != null)
+            Debug.Log("Found healtText in UIHealthdisplay");
     }
     void updateText(int health)
     {
-        Debug.Log($"Health changed to {health}");
-        healthText.text = $"{health}";
+        if(healthText != null)
+        {
+            Debug.Log($"Health changed to {health}");
+            healthText.text = $"{health}";
+        }
     }
 }

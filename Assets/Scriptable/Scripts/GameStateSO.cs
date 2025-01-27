@@ -9,6 +9,14 @@ public class GameStateChannel : ScriptableObject
     public Action<GameState> StateEnter;
     public Action<GameState> StateExit;
     public Func<GameState> GetCurrentState;
+    public event Action OnMenuClicked;
+    public void MenuClicked()
+    {
+        Debug.Log("Menu Clicked");
+        OnMenuClicked?.Invoke();
+        Debug.Log("OnMenuClicked Invoked");
+
+    }
     
     public void StateEntered(GameState gameState)
     {

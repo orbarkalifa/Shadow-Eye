@@ -14,13 +14,16 @@ public class MainCharacter : Character
         healthChannel = FindObjectOfType<Beacon>().healthChannel;
         if (healthChannel != null)
             Debug.Log("Found health Channel in main character");
+        gameStateChannel = FindObjectOfType<Beacon>().gameStateChannel;
+        if (healthChannel != null)
+            Debug.Log("Found state Channel in main character");
         characterMovement = GetComponent<CharacterMovement>();
         characterCombat = GetComponent<CharacterCombat>();
         if (!characterMovement)
             Debug.LogError("CharacterMovement component is missing.");
         if (!characterCombat)
             Debug.LogError("CharacterCombat component is missing.");
-        inputActions = new InputSystem_Actions();
+        inputActions = new InputSystem_Actions(); 
         if(inputActions != null)
             Debug.Log("fond input system");
 
@@ -28,7 +31,9 @@ public class MainCharacter : Character
 
     void Start()
     {
+        Debug.Log("Starting MainCharacter health disple");
         healthChannel.ChangeHealth(CurrentHits);
+        Debug.Log("done MainCharacter health disple");
     }
     
     private void Update()
@@ -51,8 +56,7 @@ public class MainCharacter : Character
         inputActions.Player.Jump.performed += _ => characterMovement.Jump();
         inputActions.Player.Jump.canceled += _ => characterMovement.OnJumpReleased();
         inputActions.Player.Attack.performed += _ => characterCombat.Shoot();
-        //TODO:
-        //inputActions.Player.Menu += _ =>
+        inputActions.Player.Menu.performed += _ => gameStateChannel.MenuClicked();
     }
     
     private void OnDisable()

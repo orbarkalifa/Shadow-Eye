@@ -7,17 +7,11 @@ namespace Scriptable.Scripts
     public class HealthChannelSo : ScriptableObject
     {
         public event Action<int> OnChangeHealth;
-        public event Action OnMenuClicked;
-        
 
         public void ChangeHealth(int health)
         {
             OnChangeHealth?.Invoke(health);
         }
-
-        public void MenuClicked()
-        {
-            OnMenuClicked?.Invoke();
-        }
+        
     }
 }
