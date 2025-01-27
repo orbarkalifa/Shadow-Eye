@@ -14,11 +14,24 @@ public class GameStateManager : MonoBehaviour
 
     void Start()
     {
+        
+        
         var beacon = FindObjectOfType<Beacon>();
         gameStateChannel = beacon.gameStateChannel;
         gameStateChannel.StateEnter += StateEnter;
         gameStateChannel.GetCurrentState += GetCurrentState;
 
+        if (defaultState == null)
+        {
+            Debug.LogError("Default state is not assigned! Assign it in the Inspector.");
+            return;
+        }
+        if (gameStateChannel == null)
+        {
+            Debug.LogError("GameStateChannel is not assigned or missing in the scene.");
+            return;
+        }
+        
         foreach (var state in GetComponentsInChildren<GameState>())
         {
             states.Add(state);
@@ -31,6 +44,7 @@ public class GameStateManager : MonoBehaviour
 
         SceneManager.sceneLoaded += AnnounceStateOnSceneLoaded;
     }
+
 
     private void AnnounceStateOnSceneLoaded(Scene arg0, LoadSceneMode arg1)
     {

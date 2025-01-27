@@ -7,11 +7,9 @@ public class GameState : MonoBehaviour
 {
     public stateSO stateSO;
     public bool isCurrentState = false;
-    private GameState nextState = null;
-    public GameState previousState = null;
+    [SerializeField] private GameState nextState;
+    public GameState previousState;
     private List<TransitionBase> transitions = new();
-    public bool wasTransitionInto = false;
-    public bool inTransition = false;
 
     private GameStateChannel gameStateChannel;
 
@@ -29,42 +27,22 @@ public class GameState : MonoBehaviour
     {
         if (!isCurrentState)
             return;
-
-        nextState = null;
-        foreach (var transition in transitions.Where(x => x.ShouldTransition()))
-        {
-            if (transition.TargetState != null)
-            {
-                nextState = transition.TargetState;
-            }
-            break;
-        }
-
-        if (!inTransition && nextState != null)
-        {
-            inTransition = true;
-            StateExit(nextState);
-            inTransition = false;
-        }
-
-        if (wasTransitionInto)
-        {
-            wasTransitionInto = false;
-        }
     }
 
     private void StateEnter(GameState previous)
     {
+        Debug.Log($"Entering state: {stateSO.m_States}, from previous: {previous.stateSO.m_States}");
         previousState = previous;
-        gameStateChannel.StateEnter(this);
+        gameStateChannel.StateEnter?.Invoke(this);
         isCurrentState = true;
-        wasTransitionInto = true;
     }
 
-    private void StateExit(GameState next)
+    private void StateExit(GameState previous)
     {
+        Debug.Log($"Exiting state: {stateSO.m_States}, to next: {previous.stateSO.m_States}");
+        previousState = previous;
         isCurrentState = false;
-        gameStateChannel.StateExited(this);
-        next.StateEnter(this);
+        gameStateChannel.StateExit?.Invoke(this);
     }
+
 }

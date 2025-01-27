@@ -1,13 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [SerializeField]
 [CreateAssetMenu(fileName = "new State", menuName = "New State", order = 0)]
 public class stateSO : ScriptableObject
 {
-    public GameState state;
-    public enum GameState
+    [FormerlySerializedAs("state")]
+    public gameStates m_States;
+    public enum gameStates
     {
         start,
         inGame,
