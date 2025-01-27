@@ -2,6 +2,11 @@ using UnityEngine;
 
 public class MainCharacter : Character
 {
+    private CharacterMovement characterMovement;
+    private CharacterCombat characterCombat;
+    private InputSystem_Actions inputActions;
+    private HealthChannelSo healthChannel;
+    private GameStateChannel gameStateChannel;
     private CharacterMovement m_CharacterMovement;
     private CharacterCombat m_CharacterCombat;
     private Suit m_EquippedSuit;
@@ -17,6 +22,12 @@ public class MainCharacter : Character
     protected override void Awake()
     {
         base.Awake();
+        healthChannel = FindObjectOfType<Beacon>().healthChannel;
+        if (healthChannel != null)
+            Debug.Log("Found health Channel in main character");
+        gameStateChannel = FindObjectOfType<Beacon>().gameStateChannel;
+        if (healthChannel != null)
+            Debug.Log("Found state Channel in main character");
         m_CharacterMovement = GetComponent<CharacterMovement>();
         m_CharacterCombat = GetComponent<CharacterCombat>();
         if (!m_CharacterMovement)
@@ -24,7 +35,14 @@ public class MainCharacter : Character
         if (!m_CharacterCombat)
             Debug.LogError("CharacterCombat component is missing.");
         m_InputActions = new InputSystem_Actions();
+        if(inputActions != null)
+            Debug.Log("fond input system");
 
+    }
+
+    void Start()
+    {
+        healthChannel.ChangeHealth(CurrentHits);
     }
 
     private void Update()
@@ -35,7 +53,6 @@ public class MainCharacter : Character
         
         m_FacingDirection = movementInput.x > 0 ? Vector2.left : Vector2.right;
 
-        
     }
     private void FixedUpdate()
     {
@@ -52,6 +69,7 @@ public class MainCharacter : Character
         m_InputActions.Player.BasicAttack.performed += _ => performBasicAttack();
         m_InputActions.Player.SpecialAttack.performed += _ => performSpecialAttack();
         m_InputActions.Player.SpecialMove.performed += _ => performSpecialMovement();
+        m_InputActions.Player.Menu.performed += _ => gameStateChannel.MenuClicked();
     }
     
     private void OnDisable()
@@ -106,6 +124,17 @@ public class MainCharacter : Character
             createSuitVisual(newSuit);
         }
     }
+    
+    public override void TakeDamage(int damage)
+    {
+        CurrentHits -= damage;
+        Debug.Log($"{gameObject.name} took {damage} damage. HP: {CurrentHits}");
+        healthChannel.ChangeHealth(CurrentHits);
+        if (CurrentHits <= 0)
+        {
+            OnDeath();
+        }
+    }
 
     private void destroyCurrentSuitVisual()
     {
@@ -139,6 +168,12 @@ public class MainCharacter : Character
             m_EquippedSuit = null;
         }
     }
+    public override void Heal()
+    {
+        CurrentHits = Mathf.Min(CurrentHits + 1, MaxHits);
+        healthChannel.ChangeHealth(CurrentHits);
+    }
+
     
     private void OnDestroy()
     {
