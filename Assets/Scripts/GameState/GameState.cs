@@ -9,7 +9,8 @@ public class GameState : MonoBehaviour
     public bool isCurrentState = false;
     [SerializeField] public GameState nextState;
     private List<TransitionBase> transitions = new();
-
+    public bool wasTransitionInto = false;
+    public bool inTransition = false;
     private GameStateChannel gameStateChannel;
 
     private void Start()
@@ -24,22 +25,46 @@ public class GameState : MonoBehaviour
 
     private void Update()
     {
-        if (!isCurrentState)
+        
+        if (gameStateChannel.GetCurrentGameState() != this)
             return;
-    }
+        isCurrentState = true;
+        nextState = null;
+        foreach (var transition in transitions.Where(x => x.ShouldTransition()))
+        {
+            if (transition.TargetState != null)
+            {
+                nextState = transition.TargetState;
+                Debug.Log($"found target {transition.TargetState}");
+            }
+            break;
+        }
 
+        if (!inTransition && nextState != null)
+        {
+            inTransition = true;
+            StateExit(nextState);
+            inTransition = false;
+        }
+
+        if (wasTransitionInto)
+        {
+            wasTransitionInto = false;
+        }
+    }
     private void StateEnter(GameState nextState)
     {
-        Debug.Log($"Entering state: {stateSO.m_States}, from previous: {nextState.stateSO.m_States}");
-        gameStateChannel.StateEntered(this.nextState);
+        Debug.Log($"Entering state: {nextState}, from previous: {gameStateChannel.GetCurrentState}");
+        gameStateChannel.StateEntered(nextState);
         isCurrentState = true;
+        wasTransitionInto = true;
     }
 
-    private void StateExit(GameState previous)
+    private void StateExit(GameState next)
     {
-        Debug.Log($"Exiting state: {stateSO.m_States}, to next: {previous.stateSO.m_States}");
         isCurrentState = false;
-        gameStateChannel.StateExited(previous);
+        gameStateChannel.StateExited(this);
+        next.StateEnter(next);
     }
 
 }

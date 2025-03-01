@@ -1,13 +1,12 @@
-﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
-public class MenuTransition : TransitionBase
+public class TranstionInGame : TransitionBase
+
 {
-    private bool menuPressed;
-    public bool canMenu = false;
     private GameStateChannel gameStateChannel;
-
+    private bool menuPressed;
     protected override void Awake()
     {
         base.Awake();
@@ -15,29 +14,26 @@ public class MenuTransition : TransitionBase
         // Initialize Input Actions
         // Get the GameStateChannel
         gameStateChannel = FindObjectOfType<Beacon>().gameStateChannel;
-        gameStateChannel.OnMenuClicked += PressedMenu; // Optional, if additional handling is required
+        //    gameStateChannel.StateEnter += StateEnter;
+         // Optional, if additional handling is required
     }
-        
-    private void PressedMenu()
+    public void OnResumeClicked()
     {
         menuPressed = true; // Optionally, synchronize state with GameStateChannel
     }
     public override bool ShouldTransition()
     {
         bool baseCheck = base.ShouldTransition();         // Is this the current state?
-        bool canTransition = (menuPressed && gameStateChannel.GetCurrentGameState().stateSO.canMenu);    // Did user press menu & current state allows it?
-
-        // Debug log the result
-        Debug.Log($"[MenuTransition] baseCheck={baseCheck}, menuPressed={menuPressed}, canMenu={canMenu}");
-
+        bool canTransition = menuPressed;
         // Reset the pressed flag for next time
         menuPressed = false;
 
         return baseCheck && canTransition;
     }
-
     private void OnDestroy()
     {
-        gameStateChannel.OnMenuClicked -= PressedMenu;
+        // Cleanup to avoid memory leaks
+        //       gameStateChannel.StateEnter -= StateEnter;
+        gameStateChannel.OnMenuClicked -= OnResumeClicked;
     }
 }

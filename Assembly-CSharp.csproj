@@ -67,6 +67,7 @@
     <Compile Include="Assets\Menu.cs" />
     <Compile Include="Assets\Low_Swordman\Demo\Scripts\PlayerController.cs" />
     <Compile Include="Assets\Scripts\GameState\MenuTransition.cs" />
+    <Compile Include="Assets\Scripts\GameState\TranstionInGame.cs" />
     <Compile Include="Assets\Scripts\Beacon.cs" />
     <Compile Include="Assets\Scriptable\Scripts\HealthChannelSo.cs" />
     <Compile Include="Assets\Scripts\Weapon.cs" />

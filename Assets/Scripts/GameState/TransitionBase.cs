@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class TransitionBase : MonoBehaviour
 {
-    protected GameState sourceState;
+    [SerializeField]protected GameState sourceState;
     [SerializeField] protected GameState targetState;
     public GameState TargetState { get { return targetState; }}
 
@@ -23,6 +23,6 @@ public abstract class TransitionBase : MonoBehaviour
 
     public virtual bool ShouldTransition()
     {
-        return sourceState.isCurrentState && !sourceState;
+        return (sourceState != null && sourceState.isCurrentState);
     }
 }
