@@ -4,9 +4,9 @@ using UnityEngine;
 public class DashMovement : SuitAbility
 {
 
-    public override void ExecuteAbility(GameObject i_Character)
+    public override void ExecuteAbility(GameObject character)
     {
-        CharacterMovement movement = i_Character.GetComponent<CharacterMovement>();
+        CharacterMovement movement = character.GetComponent<CharacterMovement>();
         movement.Dash();
     }
     

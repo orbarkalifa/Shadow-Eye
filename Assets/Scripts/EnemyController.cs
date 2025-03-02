@@ -102,15 +102,15 @@ public class EnemyController : Character
     {
         if (SuitDrop != null)
         {
-            Debug.Log($"Dropping suit: {SuitDrop.m_SuitName}"); 
+            Debug.Log($"Dropping suit: {SuitDrop.suitName}"); 
 
             // Create a new game object for the suit pickup
-            GameObject pickup = new GameObject($"{SuitDrop.m_SuitName} Pickup");
+            GameObject pickup = new GameObject($"{SuitDrop.suitName} Pickup");
             pickup.transform.position = transform.position;
 
             // Add a sprite renderer for visual representation
             SpriteRenderer spriteRenderer = pickup.AddComponent<SpriteRenderer>();
-            spriteRenderer.sprite = SuitDrop.m_SuitSprite; // Assume m_SuitSprite is a sprite field in Suit ScriptableObject.
+            spriteRenderer.sprite = SuitDrop.suitSprite; // Assume m_SuitSprite is a sprite field in Suit ScriptableObject.
 
             // Add a collider to make it interactable
             CircleCollider2D collider = pickup.AddComponent<CircleCollider2D>();

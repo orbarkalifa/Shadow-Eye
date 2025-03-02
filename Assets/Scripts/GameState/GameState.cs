@@ -10,11 +10,11 @@ public class GameState : MonoBehaviour
     private List<TransitionBase> transitions = new();
     public bool wasTransitionInto = false;
     public bool inTransition = false;
-    private GameStateSO m_GameStateSo;
+    private GameStateChannel gameStateChannel;
 
     private void Awake()
     {
-        m_GameStateSo = FindObjectOfType<Beacon>().GameStateSo;
+        gameStateChannel = FindObjectOfType<Beacon>().gameStateChannel;
         foreach (var transition in GetComponentsInChildren<TransitionBase>())
         {
             transitions.Add(transition);
@@ -23,21 +23,20 @@ public class GameState : MonoBehaviour
 
     private void Update()
     { 
-       Debug.Log($"game state is  current {m_GameStateSo.GetCurrentGameState()} checking script{this} state :{CheckifCurrent()}");
-        if (!CheckifCurrent())
+        if (!CheckIfCurrent())
             return;
+        
         nextState = null;
         foreach (var transition in transitions.Where(x => x.ShouldTransition()))
         {
-            if (transition.TargetState != null)
+            if (transition.TargetState)
             {
                 nextState = transition.TargetState;
-                Debug.Log($"found target {transition.TargetState}");
             }
             break;
         }
 
-        if (!inTransition &&!wasTransitionInto && nextState != null)
+        if (!inTransition && !wasTransitionInto && nextState)
         {
             inTransition = true;
             StateEnter(nextState);
@@ -52,15 +51,15 @@ public class GameState : MonoBehaviour
 
 
     }
-    public bool CheckifCurrent()
+    public bool CheckIfCurrent()
     {
-        return m_GameStateSo.GetCurrentGameState() == this;;
+        return gameStateChannel.GetCurrentGameState() == this;;
     }
     public void StateEnter(GameState next)
     {
         wasTransitionInto = true;
-        Debug.Log($"game state is entered {nextState.CheckifCurrent()}");
-        m_GameStateSo.StateEntered(next);
+        Debug.Log($"game state is entered {nextState.CheckIfCurrent()}");
+        gameStateChannel.StateEntered(next);
     }
 
 

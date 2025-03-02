@@ -8,17 +8,13 @@ public class MainCharacter : Character
     private CharacterCombat characterCombat;
     private InputSystem_Actions inputActions;
     private HealthChannelSo healthChannel;
-    private GameStateSO GameStateChannel;
-    private Suit EquippedSuit;
+    private GameStateChannel gameStateChannel;
+    private Suit equippedSuit;
     
-    [FormerlySerializedAs("m_SuitVisualSlot")]
     [Header("Visuals")]
-    [SerializeField] Transform SuitVisualSlot; // Slot for the suit visual
-    private GameObject CurrentSuitVisual; // Holds the current suit visual instance
-    
-    private Vector2 FacingDirection = Vector2.right; // Default facing direction
-
-    private InputSystem_Actions InputActions;
+    [SerializeField] Transform suitVisualSlot; // Slot for the suit visual
+    private GameObject currentSuitVisual; // Holds the current suit visual instance
+    private Vector2 facingDirection = Vector2.right; // Default facing direction
 
     protected override void Awake()
     {
@@ -26,7 +22,7 @@ public class MainCharacter : Character
         healthChannel = FindObjectOfType<Beacon>().healthChannel;
         if (healthChannel != null)
             Debug.Log("Found health Channel in main character");
-        GameStateChannel = FindObjectOfType<Beacon>().GameStateSo;
+        gameStateChannel = FindObjectOfType<Beacon>().gameStateChannel;
         if (healthChannel != null)
             Debug.Log("Found state Channel in main character");
         characterMovement = GetComponent<CharacterMovement>();
@@ -35,7 +31,7 @@ public class MainCharacter : Character
             Debug.LogError("CharacterMovement component is missing.");
         if (!characterCombat)
             Debug.LogError("CharacterCombat component is missing.");
-        InputActions = new InputSystem_Actions();
+        inputActions = new InputSystem_Actions();
         if(inputActions != null)
             Debug.Log("fond input system");
     }
@@ -47,9 +43,9 @@ public class MainCharacter : Character
 
     private void Update()
     {
-        Vector2 movementInput = InputActions.Player.Move.ReadValue<Vector2>();
+        Vector2 movementInput = inputActions.Player.Move.ReadValue<Vector2>();
         characterMovement.SetHorizontalInput(movementInput);
-        FacingDirection = movementInput.x > 0 ? Vector2.left : Vector2.right;
+        facingDirection = movementInput.x > 0 ? Vector2.left : Vector2.right;
     }
     private void FixedUpdate()
     {
@@ -58,33 +54,33 @@ public class MainCharacter : Character
     
     private void OnEnable()
     {
-        InputActions.Enable();
+        inputActions.Enable();
 
         // Register Input Action Callbacks
-        InputActions.Player.Jump.performed += _ => characterMovement.Jump();
-        InputActions.Player.Jump.canceled += _ => characterMovement.OnJumpReleased();
-        InputActions.Player.BasicAttack.performed += _ => performBasicAttack();
-        InputActions.Player.SpecialAttack.performed += _ => performSpecialAttack();
-        InputActions.Player.SpecialMove.performed += _ => performSpecialMovement();
-        InputActions.Player.Menu.performed += _ => GameStateChannel.MenuClicked();
+        inputActions.Player.Jump.performed += _ => characterMovement.Jump();
+        inputActions.Player.Jump.canceled += _ => characterMovement.OnJumpReleased();
+        inputActions.Player.BasicAttack.performed += _ => performBasicAttack();
+        inputActions.Player.SpecialAttack.performed += _ => performSpecialAttack();
+        inputActions.Player.SpecialMove.performed += _ => performSpecialMovement();
+        inputActions.Player.Menu.performed += _ => gameStateChannel.MenuClicked();
     }
     
     private void OnDisable()
     {
-        InputActions.Disable();
+        inputActions.Disable();
     }
     
     private void performBasicAttack()
     {
         Debug.Log($"{gameObject.name} performs a basic attack.");
-        characterCombat.BasicAttack(FacingDirection);
+        characterCombat.BasicAttack(facingDirection);
     }
     
     private void performSpecialAttack()
     {
-        if (EquippedSuit?.m_SpecialAttack != null)
+        if (equippedSuit?.specialAttack != null)
         {
-            EquippedSuit.m_SpecialAttack.ExecuteAbility(gameObject);
+            equippedSuit.specialAttack.ExecuteAbility(gameObject);
         }
         else
         {
@@ -94,9 +90,9 @@ public class MainCharacter : Character
     
     private void performSpecialMovement()
     {
-        if (EquippedSuit?.m_SpecialMovement != null)
+        if (equippedSuit?.specialMovement != null)
         {
-            EquippedSuit.m_SpecialMovement.ExecuteAbility(gameObject);
+            equippedSuit.specialMovement.ExecuteAbility(gameObject);
         }
         else
         {
@@ -107,17 +103,17 @@ public class MainCharacter : Character
     
     public void EquipSuit(Suit newSuit)
     {
-        if (EquippedSuit != null)
+        if (equippedSuit != null)
         {
-            Debug.Log($"Unequipping suit: {EquippedSuit.m_SuitName}");
+            Debug.Log($"Unequipping suit: {equippedSuit.suitName}");
             destroyCurrentSuitVisual();
         }
         
-        EquippedSuit = newSuit;
+        equippedSuit = newSuit;
 
-        if (EquippedSuit != null)
+        if (equippedSuit != null)
         {
-            Debug.Log($"Equipped suit: {EquippedSuit.m_SuitName}");
+            Debug.Log($"Equipped suit: {equippedSuit.suitName}");
             createSuitVisual(newSuit);
         }
     }
@@ -135,34 +131,34 @@ public class MainCharacter : Character
 
     private void destroyCurrentSuitVisual()
     {
-        if (CurrentSuitVisual != null)
+        if (currentSuitVisual != null)
         {
-            Destroy(CurrentSuitVisual); // Remove the old suit visual
-            CurrentSuitVisual = null;
+            Destroy(currentSuitVisual); // Remove the old suit visual
+            currentSuitVisual = null;
         }
     }
 
     private void createSuitVisual(Suit suit)
     {
-        if (suit.m_SuitPrefab != null) // Assume the Suit ScriptableObject has a `m_SuitPrefab`
+        if (suit.suitPrefab != null) // Assume the Suit ScriptableObject has a `m_SuitPrefab`
         {
-            CurrentSuitVisual = Instantiate(suit.m_SuitPrefab, SuitVisualSlot);
-            CurrentSuitVisual.transform.localPosition = Vector3.zero; // Reset position to match the slot
-            CurrentSuitVisual.transform.localRotation = Quaternion.identity;
-            Debug.Log($"Created visual for {suit.m_SuitName}.");
+            currentSuitVisual = Instantiate(suit.suitPrefab, suitVisualSlot);
+            currentSuitVisual.transform.localPosition = Vector3.zero; // Reset position to match the slot
+            currentSuitVisual.transform.localRotation = Quaternion.identity;
+            Debug.Log($"Created visual for {suit.suitName}.");
         }
         else
         {
-            Debug.LogWarning($"Suit {suit.m_SuitName} has no visual prefab assigned.");
+            Debug.LogWarning($"Suit {suit.suitName} has no visual prefab assigned.");
         }
     }
     
     public void UnequipSuit()
     {
-        if (EquippedSuit != null)
+        if (equippedSuit != null)
         {
-            Debug.Log($"Unequipped suit: {EquippedSuit.m_SuitName}");
-            EquippedSuit = null;
+            Debug.Log($"Unequipped suit: {equippedSuit.suitName}");
+            equippedSuit = null;
         }
     }
     public void Heal()
@@ -173,7 +169,7 @@ public class MainCharacter : Character
     
     private void OnDestroy()
     {
-        InputActions?.Dispose();
+        inputActions?.Dispose();
     }
     
 }

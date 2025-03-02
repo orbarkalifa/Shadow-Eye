@@ -3,9 +3,7 @@ using UnityEngine.Serialization;
 
 public class Projectile : MonoBehaviour
 {
-    [FormerlySerializedAs("m_Speed")]
     [SerializeField] private float Speed = 10f;
-    [FormerlySerializedAs("m_Lifetime")]
     [SerializeField] private float Lifetime = 2f;
     
     private Vector2 m_Direction;

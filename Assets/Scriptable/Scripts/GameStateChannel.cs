@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Game State Channel", menuName = "Channels/Game State")]
-public class GameStateSO : ScriptableObject
+public class GameStateChannel : ScriptableObject
 {
     public Action<GameState> StateEnter;
     public Func<GameState> GetCurrentState;

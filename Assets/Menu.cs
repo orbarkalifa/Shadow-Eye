@@ -5,7 +5,7 @@ public class Menu : MonoBehaviour
 
     [SerializeField]
     private GameObject menuPanel;
-    private GameStateSO m_GameStateSo;
+    private GameStateChannel m_GameStateChannel;
     [SerializeField] private GameState menuState;
 
     private void Awake()
@@ -20,22 +20,22 @@ public class Menu : MonoBehaviour
             Debug.LogError("MenuPanel is not assigned! Assign it in the Inspector.");
         }
         
-        m_GameStateSo = FindObjectOfType<Beacon>().GameStateSo;
-        if (m_GameStateSo == null)
+        m_GameStateChannel = FindObjectOfType<Beacon>().gameStateChannel;
+        if (m_GameStateChannel == null)
         {
             Debug.LogError("gameStateChannel not found in the scene!");
             return;
         }
         menuPanel.SetActive(false);
         Debug.Log("subscribed");
-        m_GameStateSo.OnMenuClicked += OnToggleMenu;
+        m_GameStateChannel.OnMenuClicked += OnToggleMenu;
     }
 
 
     public void OnToggleMenu()
     {
         // You could check here if the current state allows for the menu
-        GameState current = m_GameStateSo.GetCurrentGameState();
+        GameState current = m_GameStateChannel.GetCurrentGameState();
         if(!current || !current.stateSO.canMenu)
         {
             return;

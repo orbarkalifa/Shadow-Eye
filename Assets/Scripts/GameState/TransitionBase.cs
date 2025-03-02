@@ -4,9 +4,9 @@ using UnityEngine;
 
 public abstract class TransitionBase : MonoBehaviour
 {
-    [SerializeField]protected GameState sourceState;
+    [SerializeField] protected GameState sourceState;
     [SerializeField] protected GameState targetState;
-    public GameState TargetState { get { return targetState; }}
+    public GameState TargetState => targetState;
 
     protected virtual void Awake()
     {

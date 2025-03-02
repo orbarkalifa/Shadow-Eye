@@ -12,21 +12,21 @@ public class GameStateManager : MonoBehaviour
     public GameState defaultState;
 
     private List<GameState> states = new();
-    private GameStateSO m_GameStateSo;
+    private GameStateChannel gameStateChannel;
 
     void Awake()
     {
         var beacon = FindObjectOfType<Beacon>();
-        m_GameStateSo = beacon.GameStateSo;
-        m_GameStateSo.StateEnter += StateEnter;
-        m_GameStateSo.GetCurrentState += GetCurrentState;
+        gameStateChannel = beacon.gameStateChannel;
+        gameStateChannel.StateEnter += StateEnter;
+        gameStateChannel.GetCurrentState += GetCurrentState;
 
         if (defaultState == null)
         {
             Debug.LogError("Default state is not assigned! Assign it in the Inspector.");
             return;
         }
-        if (m_GameStateSo == null)
+        if (gameStateChannel == null)
         {
             Debug.LogError("GameStateChannel is not assigned or missing in the scene.");
             return;
@@ -52,9 +52,9 @@ public class GameStateManager : MonoBehaviour
         var state = currentState;
         if (state == null) 
         {
-            state = states.FirstOrDefault(x => x.CheckifCurrent());
+            state = states.FirstOrDefault(x => x.CheckIfCurrent());
         }
-        m_GameStateSo.StateEntered(state);
+        gameStateChannel.StateEntered(state);
     }
 
     private GameState GetCurrentState()
@@ -70,7 +70,7 @@ public class GameStateManager : MonoBehaviour
 
     private void OnDestroy()
     {
-        m_GameStateSo.StateEnter -= StateEnter;
-        m_GameStateSo.GetCurrentState -= GetCurrentState;
+        gameStateChannel.StateEnter -= StateEnter;
+        gameStateChannel.GetCurrentState -= GetCurrentState;
     }
 }

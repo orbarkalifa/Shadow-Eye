@@ -20,7 +20,7 @@ namespace Suits
                 MainCharacter player = collision.GetComponent<MainCharacter>();
                 if (player)
                 {
-                    Debug.Log($"Player picked up {m_Suit.m_SuitName}.");
+                    Debug.Log($"Player picked up {m_Suit.suitName}.");
                     player.EquipSuit(m_Suit);
                     Destroy(gameObject);
                 }

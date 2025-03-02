@@ -7,5 +7,5 @@ using UnityEngine.Serialization;
 public class Beacon : MonoBehaviour
 {
     public HealthChannelSo healthChannel;
-    public GameStateSO GameStateSo;
+    public GameStateChannel gameStateChannel;
 }

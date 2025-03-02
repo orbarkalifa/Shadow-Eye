@@ -7,9 +7,8 @@ using UnityEngine.Serialization;
 [CreateAssetMenu(fileName = "new State", menuName = "New State", order = 0)]
 public class stateSO : ScriptableObject
 {
-    [FormerlySerializedAs("state")]
-    public gameStates m_States;
-    public enum gameStates
+    public GameStates states;
+    public enum GameStates
     {
         start,
         inGame,
