@@ -125,17 +125,5 @@ public class EnemyController : Character
         }
     }
     
-    
-    /*private void dropSuit()
-    {
-        if (m_Suit)
-        {
-            Debug.Log($"Dropping weapon: {m_Suit.name}");
-            Instantiate(m_Suit, new Vector3(transform.position.x,transform.position.y,-1), Quaternion.identity);
-        }
-        else
-        {
-            Debug.LogWarning("m_CurrentWeapon is null, no weapon to drop.");
-        }
-    }*/
+  
 }

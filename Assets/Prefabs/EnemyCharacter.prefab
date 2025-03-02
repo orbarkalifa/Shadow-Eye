@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3539488114395722972}
   - component: {fileID: 8646108229576357737}
   - component: {fileID: 8569808410262780301}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: EnemyCharacter
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -30,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.8, y: -2.23, z: 0.0033593385}
-  m_LocalScale: {x: 3, y: 3, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6396533459627558286}
@@ -168,14 +168,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxHits: 5
   CurrentHits: 0
-  m_MoveSpeed: 2.5
-  m_AttackRange: 2
-  m_DetectionRange: 7
-  m_AttackCooldown: 1.2
-  m_PlayerLayer:
+  MoveSpeed: 2
+  AttackRange: 1.5
+  DetectionRange: 5
+  AttackCooldown: 2
+  PlayerLayer:
     serializedVersion: 2
     m_Bits: 256
-  m_SuitDrop: {fileID: 11400000, guid: 4fadc748692153649ba80993fda0ca7f, type: 2}
+  SuitDrop: {fileID: 11400000, guid: 4fadc748692153649ba80993fda0ca7f, type: 2}
   rb: {fileID: 8646108229576357737}
 --- !u!1 &712802142663426039
 GameObject:
@@ -188,7 +188,7 @@ GameObject:
   - component: {fileID: 4011133662046351127}
   - component: {fileID: 7945965919734611810}
   - component: {fileID: 8920312952315077594}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Shield
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -327,7 +327,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6649239219041564819}
   - component: {fileID: 6040634199115437200}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -411,7 +411,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6396533459627558286}
   - component: {fileID: 3596215481695232606}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -495,7 +495,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5085830839362622538}
   - component: {fileID: 6966971457476107935}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Leg (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -579,7 +579,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1350800090053831125}
   - component: {fileID: 7837973364149329501}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Leg
   m_TagString: Untagged
   m_Icon: {fileID: 0}

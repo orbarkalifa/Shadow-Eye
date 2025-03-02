@@ -19,21 +19,17 @@ public class MainCharacter : Character
     protected override void Awake()
     {
         base.Awake();
+        inputActions = new InputSystem_Actions();
         healthChannel = FindObjectOfType<Beacon>().healthChannel;
-        if (healthChannel != null)
-            Debug.Log("Found health Channel in main character");
         gameStateChannel = FindObjectOfType<Beacon>().gameStateChannel;
-        if (healthChannel != null)
-            Debug.Log("Found state Channel in main character");
         characterMovement = GetComponent<CharacterMovement>();
         characterCombat = GetComponent<CharacterCombat>();
+        
         if (!characterMovement)
             Debug.LogError("CharacterMovement component is missing.");
         if (!characterCombat)
             Debug.LogError("CharacterCombat component is missing.");
-        inputActions = new InputSystem_Actions();
-        if(inputActions != null)
-            Debug.Log("fond input system");
+        
     }
 
     void Start()
@@ -45,7 +41,7 @@ public class MainCharacter : Character
     {
         Vector2 movementInput = inputActions.Player.Move.ReadValue<Vector2>();
         characterMovement.SetHorizontalInput(movementInput);
-        facingDirection = movementInput.x > 0 ? Vector2.left : Vector2.right;
+        facingDirection = movementInput.x < 0 ? Vector2.left : Vector2.right;
     }
     private void FixedUpdate()
     {
@@ -140,10 +136,10 @@ public class MainCharacter : Character
 
     private void createSuitVisual(Suit suit)
     {
-        if (suit.suitPrefab != null) // Assume the Suit ScriptableObject has a `m_SuitPrefab`
+        if (suit.suitPrefab != null)
         {
             currentSuitVisual = Instantiate(suit.suitPrefab, suitVisualSlot);
-            currentSuitVisual.transform.localPosition = Vector3.zero; // Reset position to match the slot
+            currentSuitVisual.transform.localPosition = Vector3.zero;
             currentSuitVisual.transform.localRotation = Quaternion.identity;
             Debug.Log($"Created visual for {suit.suitName}.");
         }

@@ -134,7 +134,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxHits: 5
   CurrentHits: 0
-  m_SuitVisualSlot: {fileID: 7832047424566049147}
+  suitVisualSlot: {fileID: 0}
 --- !u!114 &6656886863398187288
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -147,13 +147,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36771cfc7f4d4e3478824d81f049c6b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_MoveSpeed: 50
-  m_JumpForce: 75
-  m_GroundLayer:
+  MoveSpeed: 5
+  JumpForce: 10
+  GroundLayer:
     serializedVersion: 2
-    m_Bits: 72
+    m_Bits: 0
   extraHeight: 1.72
-  m_DashSpeed: 50
+  DashSpeed: 50
 --- !u!114 &7019909199188294890
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -166,16 +166,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9034bd2c7696cf543b42d72c5698bd07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ProjectilePrefab: {fileID: 8434955306321526862, guid: e065202464f2c8743ac48bde732042db, type: 3}
-  m_FirePoint: {fileID: 7832047424566049147}
-  m_WeaponPrefabs:
-  - {fileID: 8434955306321526862, guid: e065202464f2c8743ac48bde732042db, type: 3}
-  - {fileID: 3961360938351345007, guid: d8344dc5221032e409f2fe87a96a5103, type: 3}
-  m_AttackRange: {fileID: 6886248321393278933}
-  m_AttackDamage: 1
-  m_EnemyLayer:
+  AttackRange: {fileID: 0}
+  AttackDamage: 1
+  EnemyLayer:
     serializedVersion: 2
-    m_Bits: 255
+    m_Bits: 512
 --- !u!95 &2793762676785246573
 Animator:
   serializedVersion: 5
