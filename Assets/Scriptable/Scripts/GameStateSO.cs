@@ -4,28 +4,21 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Game State Channel", menuName = "Channels/Game State")]
-public class GameStateChannel : ScriptableObject
+public class GameStateSO : ScriptableObject
 {
     public Action<GameState> StateEnter;
-    public Action<GameState> StateExit;
     public Func<GameState> GetCurrentState;
     public event Action OnMenuClicked;
     public void MenuClicked()
     {
         OnMenuClicked?.Invoke();
-        Debug.Log("OnMenuClicked Invoked");
-
     }
     
     public void StateEntered(GameState gameState)
     {
         StateEnter?.Invoke(gameState);
     }
-
-    public void StateExited(GameState gameState)
-    {
-        StateExit?.Invoke(gameState);
-    }
+    
 
     public GameState GetCurrentGameState()
     {

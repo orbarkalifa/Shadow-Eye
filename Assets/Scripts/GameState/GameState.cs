@@ -6,17 +6,15 @@ using UnityEngine;
 public class GameState : MonoBehaviour
 {
     public stateSO stateSO;
-    public bool isCurrentState = false;
     [SerializeField] public GameState nextState;
     private List<TransitionBase> transitions = new();
     public bool wasTransitionInto = false;
     public bool inTransition = false;
-    private GameStateChannel gameStateChannel;
+    private GameStateSO m_GameStateSo;
 
-    private void Start()
+    private void Awake()
     {
-        gameStateChannel = FindObjectOfType<Beacon>().gameStateChannel;
-
+        m_GameStateSo = FindObjectOfType<Beacon>().m_GameStateSo;
         foreach (var transition in GetComponentsInChildren<TransitionBase>())
         {
             transitions.Add(transition);
@@ -24,11 +22,10 @@ public class GameState : MonoBehaviour
     }
 
     private void Update()
-    {
-        
-        if (gameStateChannel.GetCurrentGameState() != this)
+    { 
+       Debug.Log($"game state is  current {m_GameStateSo.GetCurrentGameState()} checking script{this} state :{CheckifCurrent()}");
+        if (!CheckifCurrent())
             return;
-        isCurrentState = true;
         nextState = null;
         foreach (var transition in transitions.Where(x => x.ShouldTransition()))
         {
@@ -40,10 +37,11 @@ public class GameState : MonoBehaviour
             break;
         }
 
-        if (!inTransition && nextState != null)
+        if (!inTransition &&!wasTransitionInto && nextState != null)
         {
             inTransition = true;
-            StateExit(nextState);
+            StateEnter(nextState);
+            nextState = null;
             inTransition = false;
         }
 
@@ -51,20 +49,20 @@ public class GameState : MonoBehaviour
         {
             wasTransitionInto = false;
         }
+
+
     }
-    private void StateEnter(GameState nextState)
+    public bool CheckifCurrent()
     {
-        Debug.Log($"Entering state: {nextState}, from previous: {gameStateChannel.GetCurrentState}");
-        gameStateChannel.StateEntered(nextState);
-        isCurrentState = true;
+        return m_GameStateSo.GetCurrentGameState() == this;;
+    }
+    public void StateEnter(GameState next)
+    {
         wasTransitionInto = true;
+        Debug.Log($"game state is entered {nextState.CheckifCurrent()}");
+        m_GameStateSo.StateEntered(next);
     }
 
-    private void StateExit(GameState next)
-    {
-        isCurrentState = false;
-        gameStateChannel.StateExited(this);
-        next.StateEnter(next);
-    }
+
 
 }

@@ -4,9 +4,9 @@ using UnityEngine.InputSystem;
 
 public class MenuTransition : TransitionBase
 {
-    private bool menuPressed;
+    private bool UserPressedMenu;
     public bool canMenu = false;
-    private GameStateChannel gameStateChannel;
+    private GameStateSO m_GameStateSo;
 
     protected override void Awake()
     {
@@ -14,30 +14,28 @@ public class MenuTransition : TransitionBase
 
         // Initialize Input Actions
         // Get the GameStateChannel
-        gameStateChannel = FindObjectOfType<Beacon>().gameStateChannel;
-        gameStateChannel.OnMenuClicked += PressedMenu; // Optional, if additional handling is required
+        m_GameStateSo = FindObjectOfType<Beacon>().m_GameStateSo;
+        m_GameStateSo.OnMenuClicked += CheckIfMenuWasPressed; // Optional, if additional handling is required
     }
-        
-    private void PressedMenu()
+    
+    private void CheckIfMenuWasPressed()
     {
-        menuPressed = true; // Optionally, synchronize state with GameStateChannel
+        if(!sourceState.CheckifCurrent())return;//Fail safe 
+        UserPressedMenu = true; // Optionally, synchronize state with GameStateChannel
     }
     public override bool ShouldTransition()
     {
-        bool baseCheck = base.ShouldTransition();         // Is this the current state?
-        bool canTransition = (menuPressed && gameStateChannel.GetCurrentGameState().stateSO.canMenu);    // Did user press menu & current state allows it?
-
+        if(!sourceState.CheckifCurrent()) return false;// Fail safe
+        bool canTransition = (UserPressedMenu && m_GameStateSo.GetCurrentGameState().stateSO.canMenu);    // Did user press menu & current state allows it?
+        UserPressedMenu = false; // Is this the current state?
         // Debug log the result
-        Debug.Log($"[MenuTransition] baseCheck={baseCheck}, menuPressed={menuPressed}, canMenu={canMenu}");
-
+        Debug.Log($"source {sourceState} to {targetState} , {canTransition}");
         // Reset the pressed flag for next time
-        menuPressed = false;
-
-        return baseCheck && canTransition;
+        return canTransition;
     }
 
     private void OnDestroy()
     {
-        gameStateChannel.OnMenuClicked -= PressedMenu;
+        m_GameStateSo.OnMenuClicked -= CheckIfMenuWasPressed;
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class TranstionInGame : TransitionBase
 
 {
-    private GameStateChannel gameStateChannel;
+    private GameStateSO m_GameStateSo;
     private bool menuPressed;
     protected override void Awake()
     {
@@ -13,7 +13,7 @@ public class TranstionInGame : TransitionBase
 
         // Initialize Input Actions
         // Get the GameStateChannel
-        gameStateChannel = FindObjectOfType<Beacon>().gameStateChannel;
+        m_GameStateSo = FindObjectOfType<Beacon>().m_GameStateSo;
         //    gameStateChannel.StateEnter += StateEnter;
          // Optional, if additional handling is required
     }
@@ -23,17 +23,16 @@ public class TranstionInGame : TransitionBase
     }
     public override bool ShouldTransition()
     {
-        bool baseCheck = base.ShouldTransition();         // Is this the current state?
         bool canTransition = menuPressed;
         // Reset the pressed flag for next time
         menuPressed = false;
 
-        return baseCheck && canTransition;
+        return canTransition;
     }
     private void OnDestroy()
     {
         // Cleanup to avoid memory leaks
         //       gameStateChannel.StateEnter -= StateEnter;
-        gameStateChannel.OnMenuClicked -= OnResumeClicked;
+        m_GameStateSo.OnMenuClicked -= OnResumeClicked;
     }
 }

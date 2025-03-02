@@ -12,21 +12,21 @@ public class GameStateManager : MonoBehaviour
     public GameState defaultState;
 
     private List<GameState> states = new();
-    private GameStateChannel gameStateChannel;
+    private GameStateSO m_GameStateSo;
 
-    void Start()
+    void Awake()
     {
         var beacon = FindObjectOfType<Beacon>();
-        gameStateChannel = beacon.gameStateChannel;
-        gameStateChannel.StateEnter += StateEnter;
-        gameStateChannel.GetCurrentState += GetCurrentState;
+        m_GameStateSo = beacon.m_GameStateSo;
+        m_GameStateSo.StateEnter += StateEnter;
+        m_GameStateSo.GetCurrentState += GetCurrentState;
 
         if (defaultState == null)
         {
             Debug.LogError("Default state is not assigned! Assign it in the Inspector.");
             return;
         }
-        if (gameStateChannel == null)
+        if (m_GameStateSo == null)
         {
             Debug.LogError("GameStateChannel is not assigned or missing in the scene.");
             return;
@@ -39,7 +39,8 @@ public class GameStateManager : MonoBehaviour
 
         if (currentState == null)
         {
-            gameStateChannel.StateEntered(defaultState);
+            currentState = defaultState;
+            defaultState.StateEnter(defaultState);
         }
 
         SceneManager.sceneLoaded += AnnounceStateOnSceneLoaded;
@@ -51,9 +52,9 @@ public class GameStateManager : MonoBehaviour
         var state = currentState;
         if (state == null) 
         {
-            state = states.FirstOrDefault(x => x.isCurrentState);
+            state = states.FirstOrDefault(x => x.CheckifCurrent());
         }
-        gameStateChannel.StateEntered(state);
+        m_GameStateSo.StateEntered(state);
     }
 
     private GameState GetCurrentState()
@@ -69,7 +70,7 @@ public class GameStateManager : MonoBehaviour
 
     private void OnDestroy()
     {
-        gameStateChannel.StateEnter -= StateEnter;
-        gameStateChannel.GetCurrentState -= GetCurrentState;
+        m_GameStateSo.StateEnter -= StateEnter;
+        m_GameStateSo.GetCurrentState -= GetCurrentState;
     }
 }

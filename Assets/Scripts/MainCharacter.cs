@@ -7,7 +7,7 @@ public class MainCharacter : Character
     private CharacterCombat characterCombat;
     private InputSystem_Actions inputActions;
     private HealthChannelSo healthChannel;
-    private GameStateChannel gameStateChannel;
+    private GameStateSO m_GameStateSo;
     private CharacterMovement m_CharacterMovement;
     private CharacterCombat m_CharacterCombat;
     private Suit m_EquippedSuit;
@@ -26,7 +26,7 @@ public class MainCharacter : Character
         healthChannel = FindObjectOfType<Beacon>().healthChannel;
         if (healthChannel != null)
             Debug.Log("Found health Channel in main character");
-        gameStateChannel = FindObjectOfType<Beacon>().gameStateChannel;
+        m_GameStateSo = FindObjectOfType<Beacon>().m_GameStateSo;
         if (healthChannel != null)
             Debug.Log("Found state Channel in main character");
         m_CharacterMovement = GetComponent<CharacterMovement>();
@@ -70,7 +70,7 @@ public class MainCharacter : Character
         m_InputActions.Player.BasicAttack.performed += _ => performBasicAttack();
         m_InputActions.Player.SpecialAttack.performed += _ => performSpecialAttack();
         m_InputActions.Player.SpecialMove.performed += _ => performSpecialMovement();
-        m_InputActions.Player.Menu.performed += _ => gameStateChannel.MenuClicked();
+        m_InputActions.Player.Menu.performed += _ => m_GameStateSo.MenuClicked();
     }
     
     private void OnDisable()
@@ -175,7 +175,10 @@ public class MainCharacter : Character
         healthChannel.ChangeHealth(CurrentHits);
     }
 
-    
+    private void ChangeMenuAndActivateEvents()
+    {
+        
+    }
     private void OnDestroy()
     {
         m_InputActions?.Dispose();

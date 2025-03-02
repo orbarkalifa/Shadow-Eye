@@ -21,8 +21,5 @@ public abstract class TransitionBase : MonoBehaviour
         }
     }
 
-    public virtual bool ShouldTransition()
-    {
-        return (sourceState != null && sourceState.isCurrentState);
-    }
+    public abstract bool ShouldTransition();
 }
