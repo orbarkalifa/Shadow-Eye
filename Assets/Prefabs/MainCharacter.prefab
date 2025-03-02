@@ -152,6 +152,7 @@ MonoBehaviour:
   m_GroundLayer:
     serializedVersion: 2
     m_Bits: 72
+  extraHeight: 1.72
   m_DashSpeed: 50
 --- !u!114 &7019909199188294890
 MonoBehaviour:

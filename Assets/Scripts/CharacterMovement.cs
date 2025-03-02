@@ -11,7 +11,7 @@ public class CharacterMovement : MonoBehaviour
     [SerializeField] private float m_MoveSpeed = 5f;
     [SerializeField] private float m_JumpForce = 10f;
     [SerializeField] private LayerMask m_GroundLayer;
-
+    [SerializeField] private float extraHeight = 3.3f;
     private Rigidbody2D m_Rb;
     private bool m_IsFacingRight = true;
     private float m_HorizontalInput;
@@ -68,7 +68,6 @@ public class CharacterMovement : MonoBehaviour
 
     private bool isGrounded()
     {
-        float extraHeight = 3.3f;
         Vector2 position = transform.position;
         Vector2 boxSize = new Vector2(3.5f, 1f); // Adjust based on character collider size
         
@@ -101,7 +100,6 @@ public class CharacterMovement : MonoBehaviour
     {
         if (m_GroundLayer != 0)
         {
-            float extraHeight = 3.3f;
             Vector2 position = transform.position;
             Vector2 boxSize = new Vector2(3.5f, 1f); 
 
