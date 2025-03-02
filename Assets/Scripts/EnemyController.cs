@@ -5,16 +5,16 @@ using UnityEngine.Serialization;
 public class EnemyController : Character
 {
     [Header("Enemy Settings")]
-    [SerializeField] private float m_MoveSpeed = 2f;
-    [SerializeField] private float m_AttackRange = 1.5f;
-    [SerializeField] private float m_DetectionRange = 5f;
-    [SerializeField] private float m_AttackCooldown = 2f;
-    [SerializeField] private LayerMask m_PlayerLayer;
-    [SerializeField] private Suit m_SuitDrop;
+    [SerializeField] private float MoveSpeed = 2f;
+    [SerializeField] private float AttackRange = 1.5f;
+    [SerializeField] private float DetectionRange = 5f;
+    [SerializeField] private float AttackCooldown = 2f;
+    [SerializeField] private LayerMask PlayerLayer;
+    [SerializeField] private Suit SuitDrop;
 
-    private Transform m_Player;
-    private bool m_IsChasing = false;
-    private float m_LastAttackTime;
+    private Transform Player;
+    private bool IsChasing = false;
+    private float LastAttackTime;
 
     [Header("Components")]
     [SerializeField] private Rigidbody2D rb;
@@ -22,27 +22,27 @@ public class EnemyController : Character
     protected override void Awake()
     {
         base.Awake();
-        m_Player = GameObject.FindGameObjectWithTag("Player").transform; // Assumes the player has a "Player" tag.
+        Player = GameObject.FindGameObjectWithTag("Player").transform; // Assumes the player has a "Player" tag.
     }
 
     private void Update()
     {
-        if (!m_Player) return;
+        if (!Player) return;
 
-        float distanceToPlayer = Vector2.Distance(transform.position, m_Player.position);
+        float distanceToPlayer = Vector2.Distance(transform.position, Player.position);
 
         // Detect player
-        if (distanceToPlayer <= m_DetectionRange && !m_IsChasing)
+        if (distanceToPlayer <= DetectionRange && !IsChasing)
         {
-            m_IsChasing = true;
+            IsChasing = true;
         }
-        else if (distanceToPlayer > m_DetectionRange && m_IsChasing)
+        else if (distanceToPlayer > DetectionRange && IsChasing)
         {
-            m_IsChasing = false;
+            IsChasing = false;
         }
 
         // Handle Attack
-        if (m_IsChasing && distanceToPlayer <= m_AttackRange && Time.time >= m_LastAttackTime + m_AttackCooldown)
+        if (IsChasing && distanceToPlayer <= AttackRange && Time.time >= LastAttackTime + AttackCooldown)
         {
             Attack();
         }
@@ -50,7 +50,7 @@ public class EnemyController : Character
 
     private void FixedUpdate()
     {
-        if (m_IsChasing && m_Player)
+        if (IsChasing && Player)
         {
             ChasePlayer();
         }
@@ -60,8 +60,8 @@ public class EnemyController : Character
     {
         Debug.Log("ENEMY chase");
 
-        Vector2 direction = (m_Player.position - transform.position).normalized;
-        rb.velocity = new Vector2(direction.x * m_MoveSpeed, rb.velocity.y);
+        Vector2 direction = (Player.position - transform.position).normalized;
+        rb.velocity = new Vector2(direction.x * MoveSpeed, rb.velocity.y);
 
         // Flip sprite based on direction
         if (direction.x < 0 && transform.localScale.x < 0 || direction.x > 0 && transform.localScale.x > 0)
@@ -74,12 +74,12 @@ public class EnemyController : Character
 
     private void Attack()
     {
-        m_IsChasing = false;
+        IsChasing = false;
         Debug.Log("ENEMY ATTACK");
-        m_LastAttackTime = Time.time;
+        LastAttackTime = Time.time;
 
         // Check if the player is still in range
-        Collider2D playerCollider = Physics2D.OverlapCircle(transform.position, m_AttackRange, m_PlayerLayer);
+        Collider2D playerCollider = Physics2D.OverlapCircle(transform.position, AttackRange, PlayerLayer);
         if (playerCollider)
         {
             MainCharacter playerController = playerCollider.GetComponent<MainCharacter>();
@@ -100,24 +100,24 @@ public class EnemyController : Character
     
     private void dropSuit()
     {
-        if (m_SuitDrop != null)
+        if (SuitDrop != null)
         {
-            Debug.Log($"Dropping suit: {m_SuitDrop.m_SuitName}"); 
+            Debug.Log($"Dropping suit: {SuitDrop.m_SuitName}"); 
 
             // Create a new game object for the suit pickup
-            GameObject pickup = new GameObject($"{m_SuitDrop.m_SuitName} Pickup");
+            GameObject pickup = new GameObject($"{SuitDrop.m_SuitName} Pickup");
             pickup.transform.position = transform.position;
 
             // Add a sprite renderer for visual representation
             SpriteRenderer spriteRenderer = pickup.AddComponent<SpriteRenderer>();
-            spriteRenderer.sprite = m_SuitDrop.m_SuitSprite; // Assume m_SuitSprite is a sprite field in Suit ScriptableObject.
+            spriteRenderer.sprite = SuitDrop.m_SuitSprite; // Assume m_SuitSprite is a sprite field in Suit ScriptableObject.
 
             // Add a collider to make it interactable
             CircleCollider2D collider = pickup.AddComponent<CircleCollider2D>();
             collider.isTrigger = true;
 
             // Add SuitPickup component and initialize it
-            pickup.AddComponent<SuitPickup>().Initialize(m_SuitDrop);
+            pickup.AddComponent<SuitPickup>().Initialize(SuitDrop);
         }
         else
         {

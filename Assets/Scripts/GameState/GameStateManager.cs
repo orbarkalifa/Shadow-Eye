@@ -17,7 +17,7 @@ public class GameStateManager : MonoBehaviour
     void Awake()
     {
         var beacon = FindObjectOfType<Beacon>();
-        m_GameStateSo = beacon.m_GameStateSo;
+        m_GameStateSo = beacon.GameStateSo;
         m_GameStateSo.StateEnter += StateEnter;
         m_GameStateSo.GetCurrentState += GetCurrentState;
 

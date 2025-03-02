@@ -14,7 +14,7 @@ public class MenuTransition : TransitionBase
 
         // Initialize Input Actions
         // Get the GameStateChannel
-        m_GameStateSo = FindObjectOfType<Beacon>().m_GameStateSo;
+        m_GameStateSo = FindObjectOfType<Beacon>().GameStateSo;
         m_GameStateSo.OnMenuClicked += CheckIfMenuWasPressed; // Optional, if additional handling is required
     }
     

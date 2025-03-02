@@ -1,44 +1,45 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class CharacterMovement : MonoBehaviour
 {
     private static readonly int sr_IsRunning = Animator.StringToHash("isRunning");
     private static readonly int sr_IsJumping = Animator.StringToHash("Jumping");
-    private Animator m_Animator;
+    private Animator Animator;
     [Header("Movement Settings")]
-    [SerializeField] private float m_MoveSpeed = 5f;
-    [SerializeField] private float m_JumpForce = 10f;
-    [SerializeField] private LayerMask m_GroundLayer;
+    [SerializeField] private float MoveSpeed = 5f;
+    [SerializeField] private float JumpForce = 10f;
+    [SerializeField] private LayerMask GroundLayer;
     [SerializeField] private float extraHeight = 3.3f;
-    private Rigidbody2D m_Rb;
-    private bool m_IsFacingRight = true;
-    private float m_HorizontalInput;
-    private bool m_IsDashing = false;
-    [SerializeField]private float m_DashSpeed = 50f;
-    private const float k_DashDelay = 1f;
+    private Rigidbody2D Rb;
+    private bool IsFacingRight = true;
+    private float HorizontalInput;
+    private bool IsDashing = false;
+    [SerializeField]private float DashSpeed = 50f;
+    private const float DashDelay = 1f;
 
-    protected  void Awake()
+    protected void Awake()
     {
-        m_Animator = GetComponent<Animator>();
-        m_Rb = GetComponent<Rigidbody2D>();
-        if (!m_Rb)
+        Animator = GetComponent<Animator>();
+        Rb = GetComponent<Rigidbody2D>();
+        if (!Rb)
             Debug.LogError("Rigidbody2D is missing!");
     }
-
+    
     public void SetHorizontalInput(Vector2 value)
     {
-        m_HorizontalInput = value.x;
+        HorizontalInput = value.x;
     }
     
     public void Move()
     {
-        m_Animator.SetBool(sr_IsRunning, m_HorizontalInput != 0);
-        if (!m_IsDashing)
-            m_Rb.velocity = new Vector2(m_HorizontalInput * m_MoveSpeed, m_Rb.velocity.y);
+        Animator.SetBool(sr_IsRunning, HorizontalInput != 0);
+        if (!IsDashing)
+            Rb.velocity = new Vector2(HorizontalInput * MoveSpeed, Rb.velocity.y);
 
-        if ((m_HorizontalInput > 0 && !m_IsFacingRight) || (m_HorizontalInput < 0 && m_IsFacingRight))
+        if ((HorizontalInput > 0 && !IsFacingRight) || (HorizontalInput < 0 && IsFacingRight))
             flip();
 
         UpdateGroundedState();
@@ -47,20 +48,20 @@ public class CharacterMovement : MonoBehaviour
 
     private void UpdateGroundedState()
     {
-        m_Animator.SetBool(sr_IsJumping, !isGrounded());
+        Animator.SetBool(sr_IsJumping, !isGrounded());
     }
 
     private void HandleFalling()
     {
-        if (!isGrounded() && m_Rb.velocity.y < 0)
+        if (!isGrounded() && Rb.velocity.y < 0)
         {
-            m_Animator.SetBool(sr_IsJumping, true);
+            Animator.SetBool(sr_IsJumping, true);
         }
     }
 
     private void flip()
     {
-        m_IsFacingRight = !m_IsFacingRight;
+        IsFacingRight = !IsFacingRight;
         Vector3 localScale = transform.localScale;
         localScale.x *= -1;
         transform.localScale = localScale;
@@ -70,15 +71,13 @@ public class CharacterMovement : MonoBehaviour
     {
         Vector2 position = transform.position;
         Vector2 boxSize = new Vector2(3.5f, 1f); // Adjust based on character collider size
-        
-        Collider2D collider = Physics2D.OverlapBox(position + Vector2.down * extraHeight, boxSize, 0, m_GroundLayer);
-      
+        Collider2D collider = Physics2D.OverlapBox(position + Vector2.down * extraHeight, boxSize, 0, GroundLayer);
         return collider != null;
     }
 
     public void Dash()
     {
-        if (!m_IsDashing) // Prevent overlapping dashes
+        if (!IsDashing) // Prevent overlapping dashes
         {
             StartCoroutine(dashWithDelay());
         }
@@ -86,44 +85,36 @@ public class CharacterMovement : MonoBehaviour
 
     private IEnumerator dashWithDelay()
     {
-        m_IsDashing = true;
-
-        float dashDirection = m_IsFacingRight ? 1f : -1f;
-        m_Rb.velocity = new Vector2(dashDirection * m_DashSpeed, m_Rb.velocity.y);
-
-        yield return new WaitForSeconds(k_DashDelay);
-
-        m_IsDashing = false;
+        IsDashing = true;
+        float dashDirection = IsFacingRight ? 1f : -1f;
+        Rb.velocity = new Vector2(dashDirection * DashSpeed, Rb.velocity.y);
+        yield return new WaitForSeconds(DashDelay);
+        IsDashing = false;
     }
     
     private void OnDrawGizmos()
     {
-        if (m_GroundLayer != 0)
+        if (GroundLayer != 0)
         {
             Vector2 position = transform.position;
             Vector2 boxSize = new Vector2(3.5f, 1f); 
-
             Gizmos.color = Color.yellow;
             Gizmos.DrawWireCube(position + Vector2.down*extraHeight, boxSize);
         }
     }
     public void Jump() 
     {
-        
         if (!isGrounded()) return;
-        m_Animator.SetBool(sr_IsJumping, true);
-
-        
-
-        m_Rb.AddForce(Vector2.up * m_JumpForce, ForceMode2D.Impulse);
+        Animator.SetBool(sr_IsJumping, true);
+        Rb.AddForce(Vector2.up * JumpForce, ForceMode2D.Impulse);
     }
     
     public void OnJumpReleased()
     {
         // Check if the button was released and the velocity is upward
-        if (m_Rb.velocity.y > 0)
+        if (Rb.velocity.y > 0)
         {
-            m_Rb.velocity = new Vector2(m_Rb.velocity.x, 0);
+            Rb.velocity = new Vector2(Rb.velocity.x, 0);
         }
     }
 

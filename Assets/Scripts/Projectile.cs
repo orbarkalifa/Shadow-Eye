@@ -1,25 +1,19 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Projectile : MonoBehaviour
 {
-    [SerializeField] private float m_Speed = 10f;
-    [SerializeField] private float m_Lifetime = 2f;
-    [SerializeField] private int m_Damage = 1;
+    [FormerlySerializedAs("m_Speed")]
+    [SerializeField] private float Speed = 10f;
+    [FormerlySerializedAs("m_Lifetime")]
+    [SerializeField] private float Lifetime = 2f;
     
     private Vector2 m_Direction;
 
-    public int Damage => m_Damage;
-
-    public void Initialize(Vector2 direction)
-    {
-        m_Direction = direction.normalized;
-        Destroy(gameObject, m_Lifetime);
-
-    }
-
+    public int Damage => Damage;
     private void Update()
     {
-        transform.position += (Vector3)(m_Direction * (m_Speed * Time.deltaTime));
+        transform.position += (Vector3)(m_Direction * (Speed * Time.deltaTime));
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -28,10 +22,10 @@ public class Projectile : MonoBehaviour
         if (collision.CompareTag("Destructible") || collision.CompareTag("Enemy"))
         {
             if (collision.TryGetComponent(out Destructible destructible))
-                destructible.TakeDamage(m_Damage);
+                destructible.TakeDamage(Damage);
 
             if (collision.TryGetComponent(out Character enemy))
-                enemy.TakeDamage(m_Damage);
+                enemy.TakeDamage(Damage);
             
             Destroy(gameObject); // Destroy the projectile on hit
         }

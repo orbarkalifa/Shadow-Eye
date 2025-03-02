@@ -8,7 +8,6 @@ using UnityEngine.UI;
 public class UIHealthdisplay : MonoBehaviour
 {
     private TextMeshProUGUI healthText;
-    // Reference to the Text component
     private HealthChannelSo healthChannel;
     
     void Awake()

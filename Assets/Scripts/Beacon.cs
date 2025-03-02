@@ -7,6 +7,5 @@ using UnityEngine.Serialization;
 public class Beacon : MonoBehaviour
 {
     public HealthChannelSo healthChannel;
-    [FormerlySerializedAs("gameStateChannel")]
-    public GameStateSO m_GameStateSo;
+    public GameStateSO GameStateSo;
 }

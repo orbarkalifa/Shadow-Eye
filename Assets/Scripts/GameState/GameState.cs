@@ -14,7 +14,7 @@ public class GameState : MonoBehaviour
 
     private void Awake()
     {
-        m_GameStateSo = FindObjectOfType<Beacon>().m_GameStateSo;
+        m_GameStateSo = FindObjectOfType<Beacon>().GameStateSo;
         foreach (var transition in GetComponentsInChildren<TransitionBase>())
         {
             transitions.Add(transition);

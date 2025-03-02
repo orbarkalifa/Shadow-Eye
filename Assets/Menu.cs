@@ -20,7 +20,7 @@ public class Menu : MonoBehaviour
             Debug.LogError("MenuPanel is not assigned! Assign it in the Inspector.");
         }
         
-        m_GameStateSo = FindObjectOfType<Beacon>().m_GameStateSo;
+        m_GameStateSo = FindObjectOfType<Beacon>().GameStateSo;
         if (m_GameStateSo == null)
         {
             Debug.LogError("gameStateChannel not found in the scene!");
