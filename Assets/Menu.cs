@@ -6,15 +6,9 @@ public class Menu : MonoBehaviour
     [SerializeField]
     private GameObject menuPanel;
     private GameStateChannel m_GameStateChannel;
-    [SerializeField] private GameState menuState;
 
     private void Awake()
     {
-        if (menuState == null)
-        {
-            Debug.LogError("MenuState is not assigned! Assign it in the Inspector.");
-        }
-
         if (menuPanel == null)
         {
             Debug.LogError("MenuPanel is not assigned! Assign it in the Inspector.");

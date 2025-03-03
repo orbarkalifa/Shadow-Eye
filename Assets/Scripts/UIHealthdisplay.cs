@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using Scriptable.Scripts;
 using UnityEngine;
 using TMPro;
-using UnityEngine.UI;
 
 public class UIHealthdisplay : MonoBehaviour
 {
@@ -14,7 +13,6 @@ public class UIHealthdisplay : MonoBehaviour
     private HealthChannelSo healthChannel;
     private int maxHealth;
     private int currentHealth;
-    [SerializeField]private Image[] eyes;
     [SerializeField]private Sprite eyeSprite;
     [SerializeField]private Sprite deadeyeSprite;
     
