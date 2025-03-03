@@ -83,41 +83,18 @@ public class CharacterMovement : MonoBehaviour
             StartCoroutine(dashWithDelay());
         }
     }
-
-    /*private IEnumerator dashWithDelay()
-    {
-        IsDashing = true;
-        float dashDirection = IsFacingRight ? 1f : -1f;
-        Rb.velocity = new Vector2(dashDirection * DashSpeed, Rb.velocity.y);
-        yield return new WaitForSeconds(DashDelay);
-        IsDashing = false;
-    }*/
+    
     private IEnumerator dashWithDelay()
     {
-        // Mark dash state
         IsDashing = true;
         canDash = false;
-        
-        // Temporarily remove gravity so player doesn't fall
         Rb.gravityScale = 0f;
-
-        // Optionally clear current velocity for consistent dash start
         Rb.velocity = Vector2.zero;
-
-        // Determine dash direction
         float dashDirection = IsFacingRight ? 1f : -1f;
-        
-        // Apply dash velocity
         Rb.velocity = new Vector2(dashDirection * DashSpeed, 0f);
-
-        // Wait for dash duration
         yield return new WaitForSeconds(DashDelay);
-
-        // End dash; restore gravity
         Rb.gravityScale = originalGravity;
         IsDashing = false;
-
-        // Wait out the dash cooldown
         yield return new WaitForSeconds(DashDelay);
         canDash = true;
     }
