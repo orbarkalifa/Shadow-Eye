@@ -16,7 +16,18 @@ public class GameStateManager : MonoBehaviour
 
     void Awake()
     {
+        
+        // This ensures only one instance if you use the typical Singleton pattern
+        if (FindObjectsOfType<GameStateManager>().Length > 1) 
+        {
+            Destroy(gameObject);
+            return;
+        }
+        DontDestroyOnLoad(gameObject);
+        
+        
         var beacon = FindObjectOfType<Beacon>();
+            
         gameStateChannel = beacon.gameStateChannel;
         gameStateChannel.StateEnter += StateEnter;
         gameStateChannel.GetCurrentState += GetCurrentState;

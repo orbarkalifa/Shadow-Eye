@@ -58,8 +58,8 @@ public class GameState : MonoBehaviour
     public void StateEnter(GameState next)
     {
         wasTransitionInto = true;
-        Debug.Log($"game state is entered {nextState.CheckIfCurrent()}");
-        gameStateChannel.StateEntered(next);
+        Debug.Log($"game state is entered {next.CheckIfCurrent()}");
+        gameStateChannel.StateEntered(next);    
     }
 
 
