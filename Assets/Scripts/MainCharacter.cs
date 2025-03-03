@@ -88,6 +88,7 @@ public class MainCharacter : Character
     {
         if (equippedSuit?.specialMovement != null)
         {
+            
             equippedSuit.specialMovement.ExecuteAbility(gameObject);
         }
         else
