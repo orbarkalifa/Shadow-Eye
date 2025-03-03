@@ -592,7 +592,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 105
+  field of view: 90
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -637,7 +637,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f48aff227e76504ba9e82229c1b7946, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Target: {fileID: 0}
+  Target: {fileID: 858203985}
   Offset: {x: 0, y: 1.5, z: -10}
   SmoothSpeed: 0.125
 --- !u!1 &620936282
@@ -893,6 +893,11 @@ Transform:
   - {fileID: 344700540}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &858203985 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1183589458530637107, guid: 55e24d5c3bf8eff49b03ed296e36ab68, type: 3}
+  m_PrefabInstance: {fileID: 275674043772070150}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1008406373
 GameObject:
   m_ObjectHideFlags: 0
@@ -1389,7 +1394,7 @@ PrefabInstance:
       objectReference: {fileID: 2074085876}
     - target: {fileID: 6656886863398187288, guid: 55e24d5c3bf8eff49b03ed296e36ab68, type: 3}
       propertyPath: DashSpeed
-      value: 10
+      value: 35
       objectReference: {fileID: 0}
     - target: {fileID: 6656886863398187288, guid: 55e24d5c3bf8eff49b03ed296e36ab68, type: 3}
       propertyPath: JumpForce

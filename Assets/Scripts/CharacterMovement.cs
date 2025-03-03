@@ -1,7 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class CharacterMovement : MonoBehaviour
 {
@@ -17,8 +15,11 @@ public class CharacterMovement : MonoBehaviour
     private bool IsFacingRight = true;
     private float HorizontalInput;
     private bool IsDashing = false;
-    [SerializeField]private float DashSpeed = 50f;
-    private const float DashDelay = 1f;
+    private bool canDash = false;
+    [SerializeField] private float DashSpeed = 35f;
+    private const float DashDelay = 0.2f;
+    private float originalGravity = 9.5f;    // Store to restore after dash
+
 
     protected void Awake()
     {
@@ -83,13 +84,42 @@ public class CharacterMovement : MonoBehaviour
         }
     }
 
-    private IEnumerator dashWithDelay()
+    /*private IEnumerator dashWithDelay()
     {
         IsDashing = true;
         float dashDirection = IsFacingRight ? 1f : -1f;
         Rb.velocity = new Vector2(dashDirection * DashSpeed, Rb.velocity.y);
         yield return new WaitForSeconds(DashDelay);
         IsDashing = false;
+    }*/
+    private IEnumerator dashWithDelay()
+    {
+        // Mark dash state
+        IsDashing = true;
+        canDash = false;
+        
+        // Temporarily remove gravity so player doesn't fall
+        Rb.gravityScale = 0f;
+
+        // Optionally clear current velocity for consistent dash start
+        Rb.velocity = Vector2.zero;
+
+        // Determine dash direction
+        float dashDirection = IsFacingRight ? 1f : -1f;
+        
+        // Apply dash velocity
+        Rb.velocity = new Vector2(dashDirection * DashSpeed, 0f);
+
+        // Wait for dash duration
+        yield return new WaitForSeconds(DashDelay);
+
+        // End dash; restore gravity
+        Rb.gravityScale = originalGravity;
+        IsDashing = false;
+
+        // Wait out the dash cooldown
+        yield return new WaitForSeconds(DashDelay);
+        canDash = true;
     }
     
     private void OnDrawGizmos()

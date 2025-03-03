@@ -1,6 +1,5 @@
 using Suits;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class EnemyController : Character
 {
