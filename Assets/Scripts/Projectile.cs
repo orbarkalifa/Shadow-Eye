@@ -3,28 +3,23 @@ using UnityEngine.Serialization;
 
 public class Projectile : MonoBehaviour
 {
-    [SerializeField] private float Speed = 10f;
-    
-    private Vector2 m_Direction;
-
-    public int Damage => Damage;
-    private void Update()
-    {
-        transform.position += (Vector3)(m_Direction * (Speed * Time.deltaTime));
-    }
+    public int damage = 1;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         // Handle destructible or enemy hit
         if (collision.CompareTag("Destructible") || collision.CompareTag("Enemy"))
         {
+            Debug.Log("collision");
             if (collision.TryGetComponent(out Destructible destructible))
-                destructible.TakeDamage(Damage);
+                destructible.TakeDamage(damage);
 
             if (collision.TryGetComponent(out Character enemy))
-                enemy.TakeDamage(Damage);
+                enemy.TakeDamage(damage);
             
             Destroy(gameObject); // Destroy the projectile on hit
         }
+        Debug.Log("trigger");
+
     }
 }

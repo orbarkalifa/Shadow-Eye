@@ -34,7 +34,7 @@ public class MainCharacter : Character
 
     void Start()
     {
-        healthChannel.ChangeHealth(CurrentHits);
+        healthChannel.ChangeHealth(currentHits);
     }
 
     private void Update()
@@ -117,10 +117,10 @@ public class MainCharacter : Character
     
     public override void TakeDamage(int damage)
     {
-        CurrentHits -= damage;
-        Debug.Log($"{gameObject.name} took {damage} damage. HP: {CurrentHits}");
-        healthChannel.ChangeHealth(CurrentHits);
-        if (CurrentHits <= 0)
+        currentHits -= damage;
+        Debug.Log($"{gameObject.name} took {damage} damage. HP: {currentHits}");
+        healthChannel.ChangeHealth(currentHits);
+        if (currentHits <= 0)
         {
             OnDeath();
         }
@@ -160,8 +160,8 @@ public class MainCharacter : Character
     }
     public void Heal()
     {
-        CurrentHits = Mathf.Min(CurrentHits + 1, MaxHits);
-        healthChannel.ChangeHealth(CurrentHits);
+        currentHits = Mathf.Min(currentHits + 1, maxHits);
+        healthChannel.ChangeHealth(currentHits);
     }
     
     private void OnDestroy()

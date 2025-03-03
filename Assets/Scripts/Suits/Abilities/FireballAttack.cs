@@ -18,7 +18,7 @@ namespace Suits.Abilities
                 GameObject fireball = Instantiate(FireballPrefab, firePoint.position, Quaternion.identity);
 
 
-                fireball.GetComponent<Rigidbody2D>().velocity = new Vector2(facingDirection * 300f, 0);
+                fireball.GetComponent<Rigidbody2D>().velocity = new Vector2(facingDirection * 40f, 0);
                 
                 Destroy(fireball, Lifetime);
 

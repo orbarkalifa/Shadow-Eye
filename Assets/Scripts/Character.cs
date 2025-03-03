@@ -4,19 +4,19 @@ using UnityEngine.Serialization;
 
 public abstract class Character : MonoBehaviour
 {
-    [SerializeField] protected int MaxHits = 5;
-    public int CurrentHits;
+    [SerializeField] protected int maxHits = 5;
+    public int currentHits;
     
     protected virtual void Awake()
     {
-        CurrentHits = MaxHits;
+        currentHits = maxHits;
     }
     
     public virtual void TakeDamage(int damage)
     {
-        CurrentHits -= damage;
-        Debug.Log($"{gameObject.name} took {damage} damage. HP: {CurrentHits}");
-        if (CurrentHits <= 0)
+        currentHits -= damage;
+        Debug.Log($"{gameObject.name} took {damage} damage. HP: {currentHits}");
+        if (currentHits <= 0)
         {
             OnDeath();
         }
