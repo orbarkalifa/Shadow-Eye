@@ -9,9 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9714a605a1f066f4697b4f1f99ee035c, type: 3}
-  m_Name: MenuState
+  m_Script: {fileID: 11500000, guid: db611529381840bebc44735b308a171c, type: 3}
+  m_Name: ChaseState
   m_EditorClassIdentifier: 
-  states: 2
-  canMenu: 1
-  canMove: 0
+  chaseSpeed: 3
+  detectionRange: 5
+  attackRange: 1.5
+  attackState: {fileID: 0}
+  patrolOrIdleState: {fileID: 0}

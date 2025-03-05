@@ -21,7 +21,6 @@ public class Menu : MonoBehaviour
             return;
         }
         menuPanel.SetActive(false);
-        Debug.Log("subscribed");
         gameStateChannel.OnMenuClicked += OnToggleMenu;
     }
 

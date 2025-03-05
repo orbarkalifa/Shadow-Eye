@@ -46,23 +46,29 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\MainCharacter.cs" />
+    <Compile Include="Assets\Scripts\EnemyAI\EnemyStateMachine.cs" />
     <Compile Include="Assets\Scripts\CharacterMovement.cs" />
     <Compile Include="Assets\Scripts\Suits\Abilities\FireballAttack.cs" />
     <Compile Include="Assets\Scripts\Suits\Abilities\DashMovement.cs" />
+    <Compile Include="Assets\Scripts\EnemyAI\EnemyStateSO.cs" />
     <Compile Include="Assets\Low_Swordman\Demo\Scripts\GroundSensor.cs" />
     <Compile Include="Assets\Scripts\Projectile.cs" />
-    <Compile Include="Assets\Scripts\EnemyController.cs" />
     <Compile Include="Assets\Scripts\Character.cs" />
     <Compile Include="Assets\Low_Swordman\Demo\Scripts\Swordman.cs" />
     <Compile Include="Assets\Low_Swordman\Demo\Scripts\CameraController.cs" />
     <Compile Include="Assets\Scripts\CharacterCombat.cs" />
+    <Compile Include="Assets\Scripts\EnemyAI\EnemyController.cs" />
     <Compile Include="Assets\Scripts\Suits\SuitPickup.cs" />
     <Compile Include="Assets\Scripts\InputSystem_Actions.cs" />
     <Compile Include="Assets\Scripts\UIEyeBar.cs" />
+    <Compile Include="Assets\Scripts\EnemyAI\AttackStateSO.cs" />
     <Compile Include="Assets\Scripts\UIHealthdisplay.cs" />
+    <Compile Include="Assets\Scripts\EnemyAI\IdleStateSO.cs" />
     <Compile Include="Assets\Scripts\CameraFollow.cs" />
     <Compile Include="Assets\Scripts\Destructible.cs" />
+    <Compile Include="Assets\Scripts\EnemyAI\ChaseStateSO.cs" />
     <Compile Include="Assets\Low_Swordman\Demo\Scripts\PlayerController.cs" />
+    <Compile Include="Assets\Scripts\EnemyAI\PatrolStateSO.cs" />
     <Compile Include="Assets\Scripts\GameState\MenuTransition.cs" />
     <Compile Include="Assets\Scripts\Menu.cs" />
     <Compile Include="Assets\Scripts\Beacon.cs" />

@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class CharacterMovement : MonoBehaviour
 {
@@ -12,12 +13,14 @@ public class CharacterMovement : MonoBehaviour
     [SerializeField] private LayerMask GroundLayer;
     [SerializeField] private float extraHeight = 3.3f;
     private Rigidbody2D Rb;
-    private bool IsFacingRight = true;
-    private float HorizontalInput;
-    private bool IsDashing = false;
-    private bool canDash = false;
-    [SerializeField] private float DashSpeed = 35f;
-    private const float DashDelay = 0.2f;
+    private bool isFacingRight = true;
+    private float horizontalInput;
+    private bool isDashing = false;
+    private bool canDash = true;
+    [SerializeField] private float dashDuration = 0.15f;  // How long the dash lasts
+    [SerializeField] private float dashSpeed = 35f;
+    private const float dashDelay = 1f;
+    private bool dashed = false;
     private float originalGravity = 9.5f;    // Store to restore after dash
 
 
@@ -31,16 +34,16 @@ public class CharacterMovement : MonoBehaviour
     
     public void SetHorizontalInput(Vector2 value)
     {
-        HorizontalInput = value.x;
+        horizontalInput = value.x;
     }
     
     public void Move()
     {
-        Animator.SetBool(sr_IsRunning, HorizontalInput != 0);
-        if (!IsDashing)
-            Rb.velocity = new Vector2(HorizontalInput * MoveSpeed, Rb.velocity.y);
+        Animator.SetBool(sr_IsRunning, horizontalInput != 0);
+        if (!isDashing)
+            Rb.velocity = new Vector2(horizontalInput * MoveSpeed, Rb.velocity.y);
 
-        if ((HorizontalInput > 0 && !IsFacingRight) || (HorizontalInput < 0 && IsFacingRight))
+        if ((horizontalInput > 0 && !isFacingRight) || (horizontalInput < 0 && isFacingRight))
             flip();
 
         UpdateGroundedState();
@@ -62,7 +65,7 @@ public class CharacterMovement : MonoBehaviour
 
     private void flip()
     {
-        IsFacingRight = !IsFacingRight;
+        isFacingRight = !isFacingRight;
         Vector3 localScale = transform.localScale;
         localScale.x *= -1;
         transform.localScale = localScale;
@@ -71,32 +74,50 @@ public class CharacterMovement : MonoBehaviour
     private bool isGrounded()
     {
         Vector2 position = transform.position;
-        Vector2 boxSize = new Vector2(3.5f, 1f); // Adjust based on character collider size
-        Collider2D collider = Physics2D.OverlapBox(position + Vector2.down * extraHeight, boxSize, 0, GroundLayer);
+        Vector2 boxSize = new Vector2(3.5f, 1f); // Adjust to match your collider
+        Collider2D collider = Physics2D.OverlapBox(
+            position + Vector2.down * extraHeight, 
+            boxSize, 
+            0f, 
+            GroundLayer
+        );
+        if(collider) canDash = true;
         return collider != null;
     }
 
     public void Dash()
     {
-        if (!IsDashing) // Prevent overlapping dashes
+        if (!isDashing && canDash)
         {
-            StartCoroutine(dashWithDelay());
+            Debug.Log("Starting Dash Coroutine");
+            StartCoroutine(DashRoutine());
         }
     }
-    
-    private IEnumerator dashWithDelay()
+
+    private IEnumerator DashRoutine()
     {
-        IsDashing = true;
+        isDashing = true;
         canDash = false;
+
+        float storedGravity = Rb.gravityScale;
         Rb.gravityScale = 0f;
+
         Rb.velocity = Vector2.zero;
-        float dashDirection = IsFacingRight ? 1f : -1f;
-        Rb.velocity = new Vector2(dashDirection * DashSpeed, 0f);
-        yield return new WaitForSeconds(DashDelay);
-        Rb.gravityScale = originalGravity;
-        IsDashing = false;
-        yield return new WaitForSeconds(DashDelay);
+
+        float dashDirection = isFacingRight ? 1f : -1f;
+
+        Rb.velocity = new Vector2(dashDirection * dashSpeed, 0f);
+
+        yield return new WaitForSeconds(dashDuration);
+
+        Rb.gravityScale = storedGravity;
+        isDashing = false;
+        Debug.Log("Dash ended");
+
+        yield return new WaitForSeconds(dashDelay);
+
         canDash = true;
+   
     }
     
     private void OnDrawGizmos()
