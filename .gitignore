@@ -6,6 +6,7 @@ Build/
 Builds/
 Logs/
 UserSettings/
+venv/
 
 # User-specific files
 .vs/
