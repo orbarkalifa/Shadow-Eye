@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: AttackState
   m_EditorClassIdentifier: 
   detectionRange: 5
-  chaseState: {fileID: 0}
-  idleOrPatrolState: {fileID: 0}
+  chaseState: {fileID: 11400000, guid: 0aeeba061f758d94ea31a619c7ab322e, type: 2}
+  idleOrPatrolState: {fileID: 11400000, guid: 98a71cfb4419860419c735a6641786ba, type: 2}
