@@ -20,7 +20,6 @@ public class CharacterMovement : MonoBehaviour
     [SerializeField] private float dashDuration = 0.15f;  // How long the dash lasts
     [SerializeField] private float dashSpeed = 35f;
     private const float dashDelay = 1f;
-    private bool dashed = false;
     private float originalGravity = 9.5f;    // Store to restore after dash
 
 
