@@ -1475,6 +1475,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1002333590}
     m_Modifications:
+    - target: {fileID: 5826432579564330865, guid: 130d36d495e03484ba67af68876d8911, type: 3}
+      propertyPath: extraHeight
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 7124521526514995005, guid: 130d36d495e03484ba67af68876d8911, type: 3}
       propertyPath: m_Name
       value: MainCharacter

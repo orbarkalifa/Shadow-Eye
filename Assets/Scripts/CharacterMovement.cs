@@ -17,7 +17,7 @@ public class CharacterMovement : MonoBehaviour
     [Header("Movement Settings")]
     [SerializeField] private float MoveSpeed = 5f;
     [SerializeField] private float JumpForce = 10f;
-    [SerializeField] private float extraHeight = 3.3f;
+    [SerializeField] private float extraHeight = 1.5f;
     
     [Header("Dash Settings")]
     [SerializeField] private float dashDuration = 0.15f;
@@ -74,7 +74,7 @@ public class CharacterMovement : MonoBehaviour
     private bool isGrounded()
     {
         Vector2 position = transform.position;
-        Vector2 boxSize = new Vector2(3.5f, 1f); // Adjust to match your collider
+        Vector2 boxSize = new Vector2(0.8f, 0.8f); // Adjust to match your collider
         Collider2D collider = Physics2D.OverlapBox(
             position + Vector2.down * extraHeight, 
             boxSize, 
@@ -123,7 +123,7 @@ public class CharacterMovement : MonoBehaviour
     {
         if (GroundLayer == 0) return;
         Vector2 position = transform.position;
-        Vector2 boxSize = new Vector2(3.5f, 1f); 
+        Vector2 boxSize = new Vector2(0.8f, 0.8f); 
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireCube(position + Vector2.down * extraHeight, boxSize);
     }
