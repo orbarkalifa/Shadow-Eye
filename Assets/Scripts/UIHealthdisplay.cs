@@ -33,4 +33,12 @@ public class UIHealthdisplay : MonoBehaviour
         }
     }
 
+    private void OnDestroy()
+    {
+        if (healthChannel != null)
+        {
+            healthChannel.OnChangeHealth -= updateText;
+        }
+    }
+
 }

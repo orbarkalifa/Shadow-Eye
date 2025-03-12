@@ -4,13 +4,8 @@ using UnityEngine;
 public class IdleStateSO : EnemyStateSO
 {
     [Header("Transitions")]
-    [Tooltip("If the player is within this range, we go to 'chaseState'.")]
-    public float detectionRange = 5f;
-
-    [Tooltip("Which state to switch to if the player is detected?")]
+    public float detectionRange = 10f;
     public EnemyStateSO chaseState;
-
-    [Tooltip("Optional: After some idle time, go to this state (e.g. patrol).")]
     public float idleDuration = 2f;
     public EnemyStateSO nextStateAfterIdle;
 
@@ -18,11 +13,9 @@ public class IdleStateSO : EnemyStateSO
 
     public override void OnEnter(EnemyController enemy)
     {
-        Debug.Log("STATE: Idle -> OnEnter");
         _idleStartTime = Time.time;
-        // Stop horizontal movement
         enemy.rb.velocity = new Vector2(0f, enemy.rb.velocity.y);
-        // Possibly set idle animation
+        // set idle animation
     }
 
     public override void OnUpdate(EnemyController enemy)
@@ -42,7 +35,7 @@ public class IdleStateSO : EnemyStateSO
             enemy.StateMachine.ChangeState(enemy,nextStateAfterIdle);
         }
     }
-
+    
     public override void OnFixedUpdate(EnemyController enemy)
     {
         // Typically no movement in Idle
@@ -50,6 +43,5 @@ public class IdleStateSO : EnemyStateSO
 
     public override void OnExit(EnemyController enemy)
     {
-        Debug.Log("STATE: Idle -> OnExit");
     }
 }

@@ -23,7 +23,6 @@ public abstract class Character : MonoBehaviour
     }
     protected virtual void OnDeath()
     {
-        Debug.Log($"{gameObject.name} has died.");
         Destroy(gameObject); 
     }
 }

@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace EnemyAI
 {
     public class EnemyStateMachine
@@ -12,6 +14,9 @@ namespace EnemyAI
 
         public void ChangeState(EnemyController enemy, EnemyStateSO newState)
         {
+            #if  UNITY_EDITOR
+                        Debug.Log("Enemy state is now: " + CurrentState);
+            #endif
             CurrentState?.OnExit(enemy);
             CurrentState = newState;
             CurrentState?.OnEnter(enemy);

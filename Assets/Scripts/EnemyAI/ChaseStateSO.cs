@@ -7,18 +7,13 @@ public class ChaseStateSO : EnemyStateSO
     public float chaseSpeed = 3f;
 
     [Header("Transitions")]
-    [Tooltip("Stop chasing if player goes beyond this distance.")]
-    public float detectionRange = 5f;
-
-    [Tooltip("If the player is within this range, go to 'attackState'.")]
+    public float detectionRange = 10f;
     public float attackRange = 1.5f;
-
     public EnemyStateSO attackState; 
     public EnemyStateSO patrolOrIdleState; // If player escapes, where to go?
 
     public override void OnEnter(EnemyController enemy)
     {
-        Debug.Log("STATE: Chase -> OnEnter");
     }
 
     public override void OnUpdate(EnemyController enemy)
@@ -49,6 +44,5 @@ public class ChaseStateSO : EnemyStateSO
 
     public override void OnExit(EnemyController enemy)
     {
-        Debug.Log("STATE: Chase -> OnExit");
     }
 }

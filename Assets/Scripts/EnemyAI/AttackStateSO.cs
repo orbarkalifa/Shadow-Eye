@@ -4,8 +4,7 @@ using UnityEngine;
 public class AttackStateSO : EnemyStateSO
 {
     [Header("Transitions")]
-    [Tooltip("After attacking, if player is still in detection range, go back to chase.")]
-    public float detectionRange = 5f;
+    public float detectionRange = 10f;
     public EnemyStateSO chaseState;
     public EnemyStateSO idleOrPatrolState;
 
@@ -13,28 +12,21 @@ public class AttackStateSO : EnemyStateSO
 
     public override void OnEnter(EnemyController enemy)
     {
-        Debug.Log("STATE: Attack -> OnEnter");
         _hasAttacked = false;
 
-        // Perform the immediate attack or trigger an animation
         PerformAttack(enemy);
     }
 
     public override void OnUpdate(EnemyController enemy)
     {
         if (!_hasAttacked) return;
-
-        // Decide next state after the attack
         float distance = Vector2.Distance(enemy.transform.position, enemy.player.position);
-
-        // If still near, go back to chase
         if (distance <= detectionRange)
         {
             enemy.StateMachine.ChangeState(enemy, chaseState);
         }
         else
         {
-            // Go to idle or patrol if the player left
             enemy.StateMachine.ChangeState(enemy, idleOrPatrolState);
         }
     }
@@ -47,13 +39,11 @@ public class AttackStateSO : EnemyStateSO
 
     public override void OnExit(EnemyController enemy)
     {
-        Debug.Log("STATE: Attack -> OnExit");
     }
 
     private void PerformAttack(EnemyController enemy)
     {
         _hasAttacked = true;
-        Debug.Log("ENEMY Attack (ScriptableObject State)");
         enemy.LastAttackTime = Time.time;
 
         // Check if the player is still in range

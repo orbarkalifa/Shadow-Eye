@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: PatrolState
   m_EditorClassIdentifier: 
   patrolSpeed: 2
-  detectionRange: 5
+  detectionRange: 10
   chaseState: {fileID: 11400000, guid: 0aeeba061f758d94ea31a619c7ab322e, type: 2}

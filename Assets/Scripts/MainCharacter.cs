@@ -142,7 +142,6 @@ public class MainCharacter : Character
             currentSuitVisual = Instantiate(suit.suitPrefab, suitVisualSlot);
             currentSuitVisual.transform.localPosition = Vector3.zero;
             currentSuitVisual.transform.localRotation = Quaternion.identity;
-            Debug.Log($"Created visual for {suit.suitName}.");
         }
         else
         {

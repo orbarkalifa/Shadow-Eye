@@ -386,7 +386,7 @@ PrefabInstance:
     - target: {fileID: 3858877565909010215, guid: 24f0bc23f1bfd464f8b09afa03bcb57c, type: 3}
       propertyPath: patrolPoints.Array.data[1]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1921288688}
     - target: {fileID: 9053166202709275192, guid: 24f0bc23f1bfd464f8b09afa03bcb57c, type: 3}
       propertyPath: m_LocalScale.x
       value: -1
@@ -616,9 +616,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f48aff227e76504ba9e82229c1b7946, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Target: {fileID: 0}
-  Offset: {x: 0, y: 1.5, z: -10}
-  SmoothSpeed: 0.125
+  target: {fileID: 0}
+  offset: {x: 0, y: 1.5, z: -10}
+  smoothSpeed: 0.125
 --- !u!4 &573460243 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8685705822181944421, guid: 359e53c286df4164cb19a259cf650fa4, type: 3}
@@ -965,7 +965,15 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1401256137828057380, guid: c9686a4ae9d5fd242a4f678b93122c5c, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1401256137828057380, guid: c9686a4ae9d5fd242a4f678b93122c5c, type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1401256137828057380, guid: c9686a4ae9d5fd242a4f678b93122c5c, type: 3}
+      propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1401256137828057380, guid: c9686a4ae9d5fd242a4f678b93122c5c, type: 3}
@@ -1073,7 +1081,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 9205204135100186800, guid: c9686a4ae9d5fd242a4f678b93122c5c, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c9686a4ae9d5fd242a4f678b93122c5c, type: 3}
@@ -1400,7 +1409,7 @@ PrefabInstance:
     - target: {fileID: 3858877565909010215, guid: 24f0bc23f1bfd464f8b09afa03bcb57c, type: 3}
       propertyPath: patrolPoints.Array.data[1]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1051503310}
     - target: {fileID: 9053166202709275192, guid: 24f0bc23f1bfd464f8b09afa03bcb57c, type: 3}
       propertyPath: m_LocalScale.x
       value: -1

@@ -13,11 +13,11 @@ public abstract class TransitionBase : MonoBehaviour
         sourceState = GetComponentInParent<GameState>();
         if(sourceState == null )
         {
-            Debug.LogError($"Unable to find source state in {name}");
+            Debug.LogError($"[{name}] Unable to find source state in parent.");
         }
         if(targetState == null )
         {
-            Debug.LogError($"Unable to find target state in {name}");
+            Debug.LogError($"[{name}] Target state is not assigned in the Inspector.");
         }
     }
 

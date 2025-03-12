@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ChaseState
   m_EditorClassIdentifier: 
   chaseSpeed: 3
-  detectionRange: 5
+  detectionRange: 10
   attackRange: 1.5
   attackState: {fileID: 11400000, guid: f61df9863d1a53b43b2fe23ff2a95a8a, type: 2}
   patrolOrIdleState: {fileID: 11400000, guid: 98a71cfb4419860419c735a6641786ba, type: 2}

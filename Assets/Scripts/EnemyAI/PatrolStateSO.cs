@@ -4,17 +4,14 @@ using UnityEngine;
 public class PatrolStateSO : EnemyStateSO
 {
     [Header("Movement")]
-    [Tooltip("Speed of patrol if different from enemy's default.")]
     public float patrolSpeed = 2f;
 
     [Header("Transitions")]
-    [Tooltip("Detection range to switch to chase.")]
-    public float detectionRange = 5f;
+    public float detectionRange = 10f;
     public EnemyStateSO chaseState;
 
     public override void OnEnter(EnemyController enemy)
     {
-        Debug.Log("STATE: Patrol -> OnEnter");
         // Possibly set a patrol animation
     }
 
@@ -52,6 +49,5 @@ public class PatrolStateSO : EnemyStateSO
 
     public override void OnExit(EnemyController enemy)
     {
-        Debug.Log("STATE: Patrol -> OnExit");
     }
 }

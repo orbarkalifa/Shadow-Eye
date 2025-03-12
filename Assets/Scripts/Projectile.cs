@@ -10,7 +10,6 @@ public class Projectile : MonoBehaviour
         // Handle destructible or enemy hit
         if (collision.CompareTag("Destructible") || collision.CompareTag("Enemy"))
         {
-            Debug.Log("collision");
             if (collision.TryGetComponent(out Destructible destructible))
                 destructible.TakeDamage(damage);
 
@@ -19,7 +18,5 @@ public class Projectile : MonoBehaviour
             
             Destroy(gameObject); // Destroy the projectile on hit
         }
-        Debug.Log("trigger");
-
     }
 }

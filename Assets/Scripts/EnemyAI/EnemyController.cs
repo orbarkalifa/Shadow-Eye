@@ -13,22 +13,11 @@ public class EnemyController : Character
     public Transform player;
     public Rigidbody2D rb;
 
-    // Track last attack time for cooldown logic
     public float LastAttackTime { get; set; }
     public float AttackCooldown => attackCooldown;
-
-    [Header("States (ScriptableObjects)")]
-    [Tooltip("The state we start in at runtime.")]
     public EnemyStateSO startingState;
 
-    // If you have direct references to these states, you can assign them here:
-    // public EnemyStateSO idleState;
-    // public EnemyStateSO chaseState;
-    // public EnemyStateSO patrolState;
-    // public EnemyStateSO attackState;
-    // or simply define them in the Inspector and cross-link them as needed.
-
-    [Header("Patrol Points (Optional)")]
+    [Header("Patrol Points")]
     public Transform[] patrolPoints;
     [HideInInspector] public int currentPatrolIndex = 0;
 
@@ -61,9 +50,6 @@ public class EnemyController : Character
         StateMachine.FixedUpdate(this);
     }
 
-    /// <summary>
-    /// Flip the enemy horizontally based on xDirection.
-    /// </summary>
     public void UpdateFacingDirection(float xDirection)
     {
         if (xDirection > 0 && transform.localScale.x > 0)
@@ -85,17 +71,15 @@ public class EnemyController : Character
 
     protected override void OnDeath()
     {
-        Debug.Log($"{gameObject.name} died.");
         dropSuit();
         base.OnDeath();
-        // Optionally, remove or switch to a "DeadStateSO" if you like
+        // Optionally, switch to a "DeadStateSO"
     }
 
     private void dropSuit()
     {
         if (suitDrop != null)
         {
-            Debug.Log($"Dropping suit: {suitDrop.suitName}"); 
             GameObject pickup = new GameObject($"{suitDrop.suitName} Pickup");
             pickup.transform.position = transform.position;
 
