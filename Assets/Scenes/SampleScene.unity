@@ -1261,6 +1261,41 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1002333590}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1435265157 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4278424827149216696, guid: 753ddd62b5109724ab4352993a80dd68, type: 3}
+  m_PrefabInstance: {fileID: 275674043772070150}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1435265158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1435265157}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed8b1ae4e4e52b34ea557c1c11e076fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_CategoryHash: 4.3709705e-38
+  m_labelHash: 1.3558667e-14
+  m_SpriteKey: 0
+  m_SpriteHash: 979917322
+--- !u!114 &1435265159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1435265157}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c29cff538c195c249b69c6f2236de67b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Library: []
+  m_SpriteLibraryAsset: {fileID: 7108339969198208228, guid: 1c0eb76793e460b4baefddb2249e4652, type: 3}
 --- !u!1001 &1522986588
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2135,9 +2170,33 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: -0.9
       objectReference: {fileID: 0}
+    - target: {fileID: 826567527077212740, guid: 753ddd62b5109724ab4352993a80dd68, type: 3}
+      propertyPath: spriteLibrary
+      value: 
+      objectReference: {fileID: 1435265159}
+    - target: {fileID: 826567527077212740, guid: 753ddd62b5109724ab4352993a80dd68, type: 3}
+      propertyPath: suitSpriteLibraryAsset
+      value: 
+      objectReference: {fileID: 7108339969198208228, guid: 66c1a4998c50a404690ed8fb03cb6425, type: 3}
+    - target: {fileID: 826567527077212740, guid: 753ddd62b5109724ab4352993a80dd68, type: 3}
+      propertyPath: normalSpriteLibraryAsset
+      value: 
+      objectReference: {fileID: 7108339969198208228, guid: 1c0eb76793e460b4baefddb2249e4652, type: 3}
+    - target: {fileID: 4111223017708973631, guid: 753ddd62b5109724ab4352993a80dd68, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 813951680, guid: 745897e2e1dc7fe4c8a93f3d5491624b, type: 3}
+    - target: {fileID: 4111223017708973631, guid: 753ddd62b5109724ab4352993a80dd68, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4278424827149216696, guid: 753ddd62b5109724ab4352993a80dd68, type: 3}
       propertyPath: m_Name
       value: MainCharacter
+      objectReference: {fileID: 0}
+    - target: {fileID: 5610964569438137118, guid: 753ddd62b5109724ab4352993a80dd68, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7393175314301285201, guid: 753ddd62b5109724ab4352993a80dd68, type: 3}
       propertyPath: dashDuration
@@ -2187,7 +2246,13 @@ PrefabInstance:
     m_RemovedGameObjects:
     - {fileID: 2158509327747888256, guid: 753ddd62b5109724ab4352993a80dd68, type: 3}
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4278424827149216696, guid: 753ddd62b5109724ab4352993a80dd68, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1435265159}
+    - targetCorrespondingSourceObject: {fileID: 4278424827149216696, guid: 753ddd62b5109724ab4352993a80dd68, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1435265158}
   m_SourcePrefab: {fileID: 100100000, guid: 753ddd62b5109724ab4352993a80dd68, type: 3}
 --- !u!1001 &2044332554971879506
 PrefabInstance:

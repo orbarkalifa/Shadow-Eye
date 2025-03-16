@@ -1,6 +1,6 @@
 using Scriptable.Scripts;
 using UnityEngine;
-using UnityEngine.Serialization;
+using UnityEngine.U2D.Animation;
 
 public class MainCharacter : Character
 {
@@ -15,6 +15,12 @@ public class MainCharacter : Character
     [SerializeField] Transform suitVisualSlot; // Slot for the suit visual
     private GameObject currentSuitVisual; // Holds the current suit visual instance
     private Vector2 facingDirection = Vector2.right; // Default facing direction
+    
+    [Header("Sprite Library Settings")]
+    [SerializeField] private SpriteLibrary spriteLibrary;
+    [SerializeField] private SpriteLibraryAsset normalSpriteLibraryAsset;
+    [SerializeField] private SpriteLibraryAsset suitSpriteLibraryAsset;
+  
 
     protected override void Awake()
     {
@@ -29,6 +35,10 @@ public class MainCharacter : Character
             Debug.LogError("CharacterMovement component is missing.");
         if (!characterCombat)
             Debug.LogError("CharacterCombat component is missing.");
+        
+        // Set the default sprite library to normal
+        if(spriteLibrary != null && normalSpriteLibraryAsset != null)
+            spriteLibrary.spriteLibraryAsset = normalSpriteLibraryAsset;
         
     }
 
@@ -110,15 +120,20 @@ public class MainCharacter : Character
 
         if (equippedSuit != null)
         {
-            Debug.Log($"Equipped suit: {equippedSuit.suitName}");
             createSuitVisual(newSuit);
+            
+            // In EquipSuit method after setting the suit sprite library asset
+            if(spriteLibrary != null && suitSpriteLibraryAsset != null)
+            {
+                spriteLibrary.spriteLibraryAsset = suitSpriteLibraryAsset;
+            }
         }
     }
+
     
     public override void TakeDamage(int damage)
     {
         currentHits -= damage;
-        Debug.Log($"{gameObject.name} took {damage} damage. HP: {currentHits}");
         healthChannel.ChangeHealth(currentHits);
         if (currentHits <= 0)
         {
@@ -155,7 +170,14 @@ public class MainCharacter : Character
         {
             Debug.Log($"Unequipped suit: {equippedSuit.suitName}");
             equippedSuit = null;
+            
+            // Revert sprite library back to normal
+            if(spriteLibrary != null && normalSpriteLibraryAsset != null)
+                spriteLibrary.spriteLibraryAsset = normalSpriteLibraryAsset;
+            destroyCurrentSuitVisual();
+            
         }
+        
     }
     public void Heal()
     {

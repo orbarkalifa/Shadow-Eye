@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -31,7 +32,12 @@ public class CharacterMovement : MonoBehaviour
         if (!Rb)
             Debug.LogError("Rigidbody2D is missing!");
     }
-    
+
+    private void Update()
+    {
+        Animator.SetBool(sr_IsRunning, horizontalInput != 0);
+    }
+
     public void SetHorizontalInput(Vector2 value)
     {
         horizontalInput = value.x;
@@ -39,7 +45,6 @@ public class CharacterMovement : MonoBehaviour
     
     public void Move()
     {
-        Animator.SetBool(sr_IsRunning, horizontalInput != 0);
         if (!isDashing)
             Rb.velocity = new Vector2(horizontalInput * MoveSpeed, Rb.velocity.y);
 
