@@ -36,7 +36,6 @@ public class MainCharacter : Character
         if (!characterCombat)
             Debug.LogError("CharacterCombat component is missing.");
         
-        // Set the default sprite library to normal
         if(spriteLibrary != null && normalSpriteLibraryAsset != null)
             spriteLibrary.spriteLibraryAsset = normalSpriteLibraryAsset;
         
@@ -113,16 +112,12 @@ public class MainCharacter : Character
         if (equippedSuit != null)
         {
             Debug.Log($"Unequipping suit: {equippedSuit.suitName}");
-            destroyCurrentSuitVisual();
         }
         
         equippedSuit = newSuit;
 
         if (equippedSuit != null)
         {
-            /*createSuitVisual(newSuit);*/
-            
-            // In EquipSuit method after setting the suit sprite library asset
             if(spriteLibrary != null && suitSpriteLibraryAsset != null)
             {
                 spriteLibrary.spriteLibraryAsset = suitSpriteLibraryAsset;
@@ -149,20 +144,6 @@ public class MainCharacter : Character
             currentSuitVisual = null;
         }
     }
-
-    /*private void createSuitVisual(Suit suit)
-    {
-        if (suit.suitPrefab != null)
-        {
-            currentSuitVisual = Instantiate(suit.suitPrefab, suitVisualSlot);
-            currentSuitVisual.transform.localPosition = Vector3.zero;
-            currentSuitVisual.transform.localRotation = Quaternion.identity;
-        }
-        else
-        {
-            Debug.LogWarning($"Suit {suit.suitName} has no visual prefab assigned.");
-        }
-    }*/
     
     public void UnequipSuit()
     {

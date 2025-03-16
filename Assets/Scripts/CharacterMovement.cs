@@ -7,7 +7,7 @@ public class CharacterMovement : MonoBehaviour
 {
     private static readonly int sr_IsRunning = Animator.StringToHash("isRunning");
     private static readonly int sr_IsJumping = Animator.StringToHash("Jumping");
-    private Animator Animator;
+    private Animator animator;
     private Rigidbody2D Rb;
     private bool isFacingRight = true;
     private float horizontalInput;
@@ -24,10 +24,11 @@ public class CharacterMovement : MonoBehaviour
     [SerializeField] private float dashDuration = 0.15f;
     [SerializeField] private float dashSpeed = 35f;
     [SerializeField] private float dashDelay = 1f;
+    
    
     protected void Awake()
     {
-        Animator = GetComponent<Animator>();
+        animator = GetComponent<Animator>();
         Rb = GetComponent<Rigidbody2D>();
         if (!Rb)
             Debug.LogError("Rigidbody2D is missing!");
@@ -35,7 +36,7 @@ public class CharacterMovement : MonoBehaviour
 
     private void Update()
     {
-        Animator.SetBool(sr_IsRunning, horizontalInput != 0);
+        animator.SetBool(sr_IsRunning, horizontalInput != 0);
     }
 
     public void SetHorizontalInput(Vector2 value)
@@ -57,14 +58,14 @@ public class CharacterMovement : MonoBehaviour
 
     private void UpdateGroundedState()
     {
-        Animator.SetBool(sr_IsJumping, !isGrounded());
+        animator.SetBool(sr_IsJumping, !isGrounded());
     }
 
     private void HandleFalling()
     {
         if (!isGrounded() && Rb.velocity.y < 0)
         {
-            Animator.SetBool(sr_IsJumping, true);
+            animator.SetBool(sr_IsJumping, true);
         }
     }
 
@@ -101,7 +102,10 @@ public class CharacterMovement : MonoBehaviour
 
     private IEnumerator DashRoutine()
     {
+        BoxCollider2D myCollider = GetComponent<BoxCollider2D>();
+        myCollider.enabled = false;
         isDashing = true;
+        animator.CrossFadeInFixedTime("Dash", 0.05f);
         canDash = false;
 
         float storedGravity = Rb.gravityScale;
@@ -112,8 +116,8 @@ public class CharacterMovement : MonoBehaviour
         float dashDirection = isFacingRight ? 1f : -1f;
 
         Rb.velocity = new Vector2(dashDirection * dashSpeed, 0f);
-
         yield return new WaitForSeconds(dashDuration);
+        myCollider.enabled = true;
 
         Rb.gravityScale = storedGravity;
         isDashing = false;
@@ -136,13 +140,12 @@ public class CharacterMovement : MonoBehaviour
     public void Jump() 
     {
         if (!isGrounded()) return;
-        Animator.SetBool(sr_IsJumping, true);
+        animator.SetBool(sr_IsJumping, true);
         Rb.AddForce(Vector2.up * JumpForce, ForceMode2D.Impulse);
     }
     
     public void OnJumpReleased()
     {
-        // Check if the button was released and the velocity is upward
         if (Rb.velocity.y > 0)
         {
             Rb.velocity = new Vector2(Rb.velocity.x, 0);

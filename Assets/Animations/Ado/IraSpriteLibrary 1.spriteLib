@@ -271,9 +271,59 @@ MonoBehaviour:
   - m_Name: Dash
     m_Hash: 995914302
     m_CategoryList: []
-    m_OverrideEntries: []
+    m_OverrideEntries:
+    - m_Name: Ira_dash_0
+      m_Hash: 86991192
+      m_Sprite: {fileID: 1256320288, guid: 7c08ff0315025cb4fad6dda3a57faabc, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 1256320288, guid: 7c08ff0315025cb4fad6dda3a57faabc, type: 3}
+    - m_Name: Ira_dash_1
+      m_Hash: 841503182
+      m_Sprite: {fileID: -466141913, guid: 7c08ff0315025cb4fad6dda3a57faabc, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -466141913, guid: 7c08ff0315025cb4fad6dda3a57faabc, type: 3}
+    - m_Name: Ira_dash_2
+      m_Hash: 723583092
+      m_Sprite: {fileID: -47976259, guid: 7c08ff0315025cb4fad6dda3a57faabc, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -47976259, guid: 7c08ff0315025cb4fad6dda3a57faabc, type: 3}
+    - m_Name: Ira_dash_3
+      m_Hash: 472264930
+      m_Sprite: {fileID: 1213924877, guid: 7c08ff0315025cb4fad6dda3a57faabc, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 1213924877, guid: 7c08ff0315025cb4fad6dda3a57faabc, type: 3}
+    - m_Name: Ira_dash_4
+      m_Hash: 37922113
+      m_Sprite: {fileID: -2067749855, guid: 7c08ff0315025cb4fad6dda3a57faabc, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -2067749855, guid: 7c08ff0315025cb4fad6dda3a57faabc, type: 3}
+    - m_Name: Ira_dash_5
+      m_Hash: 893752791
+      m_Sprite: {fileID: 1184706288, guid: 7c08ff0315025cb4fad6dda3a57faabc, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 1184706288, guid: 7c08ff0315025cb4fad6dda3a57faabc, type: 3}
+    - m_Name: Ira_dash_6
+      m_Hash: 743228525
+      m_Sprite: {fileID: 1972152533, guid: 7c08ff0315025cb4fad6dda3a57faabc, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 1972152533, guid: 7c08ff0315025cb4fad6dda3a57faabc, type: 3}
+    - m_Name: Ira_dash_7
+      m_Hash: 457962747
+      m_Sprite: {fileID: -1887268949, guid: 7c08ff0315025cb4fad6dda3a57faabc, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -1887268949, guid: 7c08ff0315025cb4fad6dda3a57faabc, type: 3}
+    - m_Name: Ira_dash_8
+      m_Hash: 200599914
+      m_Sprite: {fileID: -236936234, guid: 7c08ff0315025cb4fad6dda3a57faabc, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -236936234, guid: 7c08ff0315025cb4fad6dda3a57faabc, type: 3}
+    - m_Name: Ira_dash_9
+      m_Hash: 1022614012
+      m_Sprite: {fileID: -1097337050, guid: 7c08ff0315025cb4fad6dda3a57faabc, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -1097337050, guid: 7c08ff0315025cb4fad6dda3a57faabc, type: 3}
     m_FromMain: 0
-    m_EntryOverrideCount: 0
+    m_EntryOverrideCount: 10
   m_PrimaryLibraryGUID: 1c0eb76793e460b4baefddb2249e4652
-  m_ModificationHash: 638777582233407014
+  m_ModificationHash: 638777631056701544
   m_Version: 1
