@@ -1,0 +1,47 @@
+{
+    "name": "root",
+    "metadata": {
+        "timer_format_version": "0.1.0",
+        "start_time_seconds": "1741783085",
+        "python_version": "3.10.11 (tags/v3.10.11:7d4cc5a, Apr  5 2023, 00:38:17) [MSC v.1929 64 bit (AMD64)]",
+        "command_line_arguments": "C:\\Users\\orbar\\Desktop\\GamDev\\Final Game Project\\venv\\Scripts\\mlagents-learn",
+        "mlagents_version": "1.1.0",
+        "mlagents_envs_version": "1.1.0",
+        "communication_protocol_version": "1.5.0",
+        "pytorch_version": "2.6.0+cu118",
+        "numpy_version": "1.23.5",
+        "end_time_seconds": "1741783095"
+    },
+    "total": 9.783736299999873,
+    "count": 1,
+    "self": 0.018158800005039666,
+    "children": {
+        "run_training.setup": {
+            "total": 0.07917849999648752,
+            "count": 1,
+            "self": 0.07917849999648752
+        },
+        "TrainerController.start_learning": {
+            "total": 9.686398999998346,
+            "count": 1,
+            "self": 0.0006231000006664544,
+            "children": {
+                "TrainerController._reset_env": {
+                    "total": 9.685755300000892,
+                    "count": 1,
+                    "self": 9.685755300000892
+                },
+                "trainer_threads": {
+                    "total": 1.3999961083754897e-06,
+                    "count": 1,
+                    "self": 1.3999961083754897e-06
+                },
+                "TrainerController._save_models": {
+                    "total": 1.920000067912042e-05,
+                    "count": 1,
+                    "self": 1.920000067912042e-05
+                }
+            }
+        }
+    }
+}

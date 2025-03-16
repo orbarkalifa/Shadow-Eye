@@ -794,6 +794,10 @@
       <Project>{2833de83-9ff2-2dba-4ecd-c909e2c24092}</Project>
       <Name>Unity.Burst</Name>
     </ProjectReference>
+    <ProjectReference Include="NavMeshPlus.csproj">
+      <Project>{b414b380-c516-225c-846b-92d1f152f9cf}</Project>
+      <Name>NavMeshPlus</Name>
+    </ProjectReference>
     <ProjectReference Include="Unity.2D.Common.Path.Editor.csproj">
       <Project>{66f7da66-9316-fe77-e98a-2579df990d36}</Project>
       <Name>Unity.2D.Common.Path.Editor</Name>
@@ -805,6 +809,10 @@
     <ProjectReference Include="Unity.VisualScripting.Shared.Editor.csproj">
       <Project>{9e74d570-c52b-d218-4db1-81db4b91f69c}</Project>
       <Name>Unity.VisualScripting.Shared.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.VisualStudio.Editor.csproj">
+      <Project>{f965d2b4-32e4-81e7-f540-93d33975166c}</Project>
+      <Name>Unity.VisualStudio.Editor</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.VisualScripting.Core.csproj">
       <Project>{0cfd4f36-14d8-5140-b71b-0ba996fce379}</Project>
@@ -833,10 +841,6 @@
     <ProjectReference Include="Unity.2D.Aseprite.Common.csproj">
       <Project>{dfd04432-631a-44d2-8847-ba762faf7d1b}</Project>
       <Name>Unity.2D.Aseprite.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.VisualStudio.Editor.csproj">
-      <Project>{f965d2b4-32e4-81e7-f540-93d33975166c}</Project>
-      <Name>Unity.VisualStudio.Editor</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.VisualScripting.Flow.csproj">
       <Project>{f8ac7ad2-7863-cbf7-d669-3d29c6a41d1f}</Project>
@@ -925,6 +929,10 @@
     <ProjectReference Include="Unity.VisualScripting.State.csproj">
       <Project>{91bd101b-d722-5c75-7856-1b1fde15d7d5}</Project>
       <Name>Unity.VisualScripting.State</Name>
+    </ProjectReference>
+    <ProjectReference Include="NavMeshPlusEditor.csproj">
+      <Project>{a305633f-3620-ae77-3352-f76208a6ffe3}</Project>
+      <Name>NavMeshPlusEditor</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.2D.SpriteShape.Editor.csproj">
       <Project>{e3f03538-1a49-ee77-011b-7c94fd519cbc}</Project>

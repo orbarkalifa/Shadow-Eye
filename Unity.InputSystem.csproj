@@ -133,8 +133,8 @@
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.11.2\InputSystem\Editor\UITKAssetEditor\Views\ContextMenu.cs" />
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.11.2\InputSystem\Editor\Internal\GUIHelpers.cs" />
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.11.2\InputSystem\Controls\InputControlList.cs" />
-    <Compile Include="Library\PackageCache\com.unity.inputsystem@1.11.2\InputSystem\Utilities\JsonParser.cs" />
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.11.2\InputSystem\Plugins\HID\HIDDescriptorWindow.cs" />
+    <Compile Include="Library\PackageCache\com.unity.inputsystem@1.11.2\InputSystem\Utilities\JsonParser.cs" />
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.11.2\InputSystem\Devices\Mouse.cs" />
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.11.2\InputSystem\Controls\Processors\AxisDeadzoneProcessor.cs" />
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.11.2\InputSystem\Plugins\Switch\SwitchProControllerHID.cs" />
@@ -142,8 +142,8 @@
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.11.2\InputSystem\Plugins\Steam\SteamControllerType.cs" />
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.11.2\InputSystem\Plugins\Users\InputUserSettings.cs" />
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.11.2\InputSystem\Plugins\iOS\iOSSupport.cs" />
-    <Compile Include="Library\PackageCache\com.unity.inputsystem@1.11.2\InputSystem\Devices\Commands\QueryPairedUserAccountCommand.cs" />
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.11.2\InputSystem\Editor\UITKAssetEditor\SerializedInputAction.cs" />
+    <Compile Include="Library\PackageCache\com.unity.inputsystem@1.11.2\InputSystem\Devices\Commands\QueryPairedUserAccountCommand.cs" />
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.11.2\InputSystem\Utilities\Observables\Observer.cs" />
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.11.2\InputSystem\Actions\Interactions\MultiTapInteraction.cs" />
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.11.2\InputSystem\Plugins\OnScreen\OnScreenControl.cs" />
@@ -231,8 +231,8 @@
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.11.2\InputSystem\Devices\ICustomDeviceReset.cs" />
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.11.2\InputSystem\Plugins\EnhancedTouch\TouchSimulation.cs" />
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.11.2\InputSystem\Editor\EditorInputControlLayoutCache.cs" />
-    <Compile Include="Library\PackageCache\com.unity.inputsystem@1.11.2\InputSystem\Devices\Commands\WarpMousePositionCommand.cs" />
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.11.2\InputSystem\Plugins\XR\TrackedPoseDriver.cs" />
+    <Compile Include="Library\PackageCache\com.unity.inputsystem@1.11.2\InputSystem\Devices\Commands\WarpMousePositionCommand.cs" />
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.11.2\InputSystem\Devices\Commands\SetIMECursorPositionCommand.cs" />
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.11.2\InputSystem\Plugins\UnityRemote\UnityRemoteSupport.cs" />
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.11.2\InputSystem\Editor\ControlPicker\InputControlPickerDropdown.cs" />

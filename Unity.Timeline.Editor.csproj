@@ -315,8 +315,8 @@
     <Compile Include="Library\PackageCache\com.unity.timeline@1.7.6\Editor\inspectors\CurvesOwner\ICurvesOwnerInspectorWrapper.cs" />
     <Compile Include="Library\PackageCache\com.unity.timeline@1.7.6\Editor\Manipulators\HeaderSplitterManipulator.cs" />
     <Compile Include="Library\PackageCache\com.unity.timeline@1.7.6\Editor\Window\OverlayDrawer.cs" />
-    <Compile Include="Library\PackageCache\com.unity.timeline@1.7.6\Editor\Window\TimelineWindow_TimeCursor.cs" />
     <Compile Include="Library\PackageCache\com.unity.timeline@1.7.6\Editor\treeview\TimelineClipUnion.cs" />
+    <Compile Include="Library\PackageCache\com.unity.timeline@1.7.6\Editor\Window\TimelineWindow_TimeCursor.cs" />
     <None Include="Library\PackageCache\com.unity.timeline@1.7.6\Editor\Unity.Timeline.Editor.asmdef" />
     <None Include="Library\PackageCache\com.unity.timeline@1.7.6\Editor\StyleSheets\res\Timeline_LightSkin.txt" />
     <None Include="Library\PackageCache\com.unity.timeline@1.7.6\Editor\StyleSheets\Extensions\dark.uss" />
