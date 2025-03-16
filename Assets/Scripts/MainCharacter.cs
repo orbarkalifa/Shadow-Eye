@@ -120,7 +120,7 @@ public class MainCharacter : Character
 
         if (equippedSuit != null)
         {
-            createSuitVisual(newSuit);
+            /*createSuitVisual(newSuit);*/
             
             // In EquipSuit method after setting the suit sprite library asset
             if(spriteLibrary != null && suitSpriteLibraryAsset != null)
@@ -150,7 +150,7 @@ public class MainCharacter : Character
         }
     }
 
-    private void createSuitVisual(Suit suit)
+    /*private void createSuitVisual(Suit suit)
     {
         if (suit.suitPrefab != null)
         {
@@ -162,7 +162,7 @@ public class MainCharacter : Character
         {
             Debug.LogWarning($"Suit {suit.suitName} has no visual prefab assigned.");
         }
-    }
+    }*/
     
     public void UnequipSuit()
     {
