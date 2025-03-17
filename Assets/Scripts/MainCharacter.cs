@@ -68,6 +68,7 @@ public class MainCharacter : Character
         inputActions.Player.SpecialAttack.performed += _ => performSpecialAttack();
         inputActions.Player.SpecialMove.performed += _ => performSpecialMovement();
         inputActions.Player.Menu.performed += _ => gameStateChannel.MenuClicked();
+        inputActions.Player.Consume.performed += _ => UnequipSuit();
     }
     
     private void OnDisable()
@@ -155,8 +156,7 @@ public class MainCharacter : Character
             // Revert sprite library back to normal
             if(spriteLibrary != null && normalSpriteLibraryAsset != null)
                 spriteLibrary.spriteLibraryAsset = normalSpriteLibraryAsset;
-            destroyCurrentSuitVisual();
-            
+            Heal();
         }
         
     }

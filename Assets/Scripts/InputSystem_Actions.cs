@@ -134,6 +134,15 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Consume"",
+                    ""type"": ""Button"",
+                    ""id"": ""47d86406-c878-49f9-8eec-23737ae51a4d"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -552,6 +561,17 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""SpecialMove"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1e10a28a-d2f8-40ea-81ba-572022e0ae8f"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Consume"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1151,6 +1171,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_Player_Menu = m_Player.FindAction("Menu", throwIfNotFound: true);
         m_Player_SpecialAttack = m_Player.FindAction("SpecialAttack", throwIfNotFound: true);
         m_Player_SpecialMove = m_Player.FindAction("SpecialMove", throwIfNotFound: true);
+        m_Player_Consume = m_Player.FindAction("Consume", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1242,6 +1263,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Menu;
     private readonly InputAction m_Player_SpecialAttack;
     private readonly InputAction m_Player_SpecialMove;
+    private readonly InputAction m_Player_Consume;
     public struct PlayerActions
     {
         private @InputSystem_Actions m_Wrapper;
@@ -1258,6 +1280,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         public InputAction @Menu => m_Wrapper.m_Player_Menu;
         public InputAction @SpecialAttack => m_Wrapper.m_Player_SpecialAttack;
         public InputAction @SpecialMove => m_Wrapper.m_Player_SpecialMove;
+        public InputAction @Consume => m_Wrapper.m_Player_Consume;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1303,6 +1326,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @SpecialMove.started += instance.OnSpecialMove;
             @SpecialMove.performed += instance.OnSpecialMove;
             @SpecialMove.canceled += instance.OnSpecialMove;
+            @Consume.started += instance.OnConsume;
+            @Consume.performed += instance.OnConsume;
+            @Consume.canceled += instance.OnConsume;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -1343,6 +1369,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @SpecialMove.started -= instance.OnSpecialMove;
             @SpecialMove.performed -= instance.OnSpecialMove;
             @SpecialMove.canceled -= instance.OnSpecialMove;
+            @Consume.started -= instance.OnConsume;
+            @Consume.performed -= instance.OnConsume;
+            @Consume.canceled -= instance.OnConsume;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1537,6 +1566,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         void OnMenu(InputAction.CallbackContext context);
         void OnSpecialAttack(InputAction.CallbackContext context);
         void OnSpecialMove(InputAction.CallbackContext context);
+        void OnConsume(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
