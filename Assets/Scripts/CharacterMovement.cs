@@ -25,6 +25,15 @@ public class CharacterMovement : MonoBehaviour
     [SerializeField] private float dashSpeed = 35f;
     [SerializeField] private float dashDelay = 1f;
     
+    [Header("Jump Tuning")]
+    [SerializeField] private float coyoteTime = 0.2f; // Time window to allow late jumps
+    [SerializeField] private float jumpBufferTime = 0.2f; // Time to store early jump input
+    [SerializeField] private float variableJumpMultiplier = 0.5f; // Reduces jump height if released early
+
+    private float coyoteTimeCounter;
+    private float jumpBufferCounter;
+    private bool jumpPressed;
+    
    
     protected void Awake()
     {
@@ -37,6 +46,21 @@ public class CharacterMovement : MonoBehaviour
     private void Update()
     {
         animator.SetBool(sr_IsRunning, horizontalInput != 0);
+         
+        // Handle Coyote Time
+        if (isGrounded())
+            coyoteTimeCounter = coyoteTime;
+        else
+            coyoteTimeCounter -= Time.deltaTime;
+
+        // Handle Jump Buffer
+        if (jumpPressed)
+            jumpBufferCounter = jumpBufferTime;
+        else
+            jumpBufferCounter -= Time.deltaTime;
+
+        // Handle Falling Animation
+        HandleFalling();
     }
 
     public void SetHorizontalInput(Vector2 value)
@@ -53,7 +77,6 @@ public class CharacterMovement : MonoBehaviour
             flip();
 
         UpdateGroundedState();
-        HandleFalling();       
     }
 
     private void UpdateGroundedState()
@@ -139,16 +162,27 @@ public class CharacterMovement : MonoBehaviour
 
     public void Jump() 
     {
-        if (!isGrounded()) return;
-        animator.SetBool(sr_IsJumping, true);
-        Rb.AddForce(Vector2.up * JumpForce, ForceMode2D.Impulse);
+        // Improved Jump Logic
+        if (coyoteTimeCounter > 0f || isGrounded()) 
+        {
+            animator.SetBool(sr_IsJumping, true);
+            Rb.velocity = new Vector2(Rb.velocity.x, JumpForce);
+            coyoteTimeCounter = 0; // Reset coyote time after jumping
+            jumpBufferCounter = 0; // Reset jump buffer
+        }
+        else
+        {
+            // Store the jump input for buffering
+            jumpBufferCounter = jumpBufferTime;
+        }
     }
     
     public void OnJumpReleased()
     {
+        // Reduce jump height if the button is released early
         if (Rb.velocity.y > 0)
         {
-            Rb.velocity = new Vector2(Rb.velocity.x, 0);
+            Rb.velocity += Vector2.up * -JumpForce * variableJumpMultiplier;
         }
     }
 
