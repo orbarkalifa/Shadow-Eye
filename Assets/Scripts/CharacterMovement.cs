@@ -12,6 +12,10 @@ public class CharacterMovement : MonoBehaviour
     private bool isFacingRight = true;
     private float horizontalInput;
     private bool isDashing;
+    
+    private int jumpCount = 0;
+    private int maxJumpCount = 1; // Change this to 2 if you want to allow double jump
+
 
     [Header("Movement Settings")]
     [SerializeField] private float MoveSpeed = 5f;
@@ -140,10 +144,15 @@ public class CharacterMovement : MonoBehaviour
         Vector2 position = transform.position;
         Vector2 boxSize = new Vector2(0.8f, 0.8f);
         Collider2D collider = Physics2D.OverlapBox(position + Vector2.down * extraHeight, boxSize, 0f, GroundLayer);
-        return collider != null;
+        bool grounded = collider != null;
+    
+        // Reset jump count when grounded
+        if (grounded)
+            jumpCount = 0;
+    
+        return grounded;
     }
 
-    // Dash method now uses a timestamp-based cooldown
     public void Dash()
     {
         if (!isDashing && Time.time >= lastDashTime + dashCooldown)
@@ -190,10 +199,11 @@ public class CharacterMovement : MonoBehaviour
         {
             WallJump();
         }
-        else if (coyoteTimeCounter > 0f || isGrounded()) 
+        else if ((coyoteTimeCounter > 0f || isGrounded()) && jumpCount < maxJumpCount) 
         {
             animator.SetBool(sr_IsJumping, true);
             rb.velocity = new Vector2(rb.velocity.x, JumpForce);
+            jumpCount++; // Increment to prevent additional jumps
             coyoteTimeCounter = 0;
         }
     }
