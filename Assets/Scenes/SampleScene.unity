@@ -1683,6 +1683,14 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5051766240304855031, guid: d21bd1c440fed594eae12ceb68a1fafc, type: 3}
+      propertyPath: jumpForce
+      value: 35
+      objectReference: {fileID: 0}
+    - target: {fileID: 5051766240304855031, guid: d21bd1c440fed594eae12ceb68a1fafc, type: 3}
+      propertyPath: moveSpeed
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 5051766240304855031, guid: d21bd1c440fed594eae12ceb68a1fafc, type: 3}
       propertyPath: dashCooldown
       value: 1.5
       objectReference: {fileID: 0}
@@ -1696,6 +1704,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5051766240304855031, guid: d21bd1c440fed594eae12ceb68a1fafc, type: 3}
       propertyPath: WallLayer.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 5051766240304855031, guid: d21bd1c440fed594eae12ceb68a1fafc, type: 3}
+      propertyPath: wallLayer.m_Bits
       value: 64
       objectReference: {fileID: 0}
     m_RemovedComponents: []

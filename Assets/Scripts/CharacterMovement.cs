@@ -1,11 +1,12 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class CharacterMovement : MonoBehaviour
 {
-    private static readonly int sr_IsRunning = Animator.StringToHash("isRunning");
-    private static readonly int sr_IsJumping = Animator.StringToHash("Jumping");
-    private static readonly int sr_IsWallSliding = Animator.StringToHash("isWallSliding");
+    private static readonly int isRunningHash = Animator.StringToHash("isRunning");
+    private static readonly int isJumpingHash = Animator.StringToHash("Jumping");
+    private static readonly int isWallSlidingHash = Animator.StringToHash("isWallSliding");
 
     private Animator animator;
     private Rigidbody2D rb;
@@ -14,12 +15,12 @@ public class CharacterMovement : MonoBehaviour
     private bool isDashing;
     
     private int jumpCount;
-    private int maxJumpCount = 1; // Change this to 2 if you want to allow double jump
+    private readonly int maxJumpCount = 1; // Change this to 2 if you want to allow double jump
 
 
     [Header("Movement Settings")]
-    [SerializeField] private float MoveSpeed = 5f;
-    [SerializeField] private float JumpForce = 10f;
+    [SerializeField] private float moveSpeed = 20f;
+    [SerializeField] private float jumpForce = 35;
     [SerializeField] private float extraHeight = 1.5f;
 
     [Header("Dash Settings")]
@@ -32,9 +33,11 @@ public class CharacterMovement : MonoBehaviour
     [SerializeField] private float jumpBufferTime = 0.2f;
     [SerializeField] private float variableJumpMultiplier = 0.5f;
 
+    [FormerlySerializedAs("GroundLayer")]
     [Header("Wall Jumping")]
-    [SerializeField] private LayerMask GroundLayer;
-    [SerializeField] private LayerMask WallLayer;
+    [SerializeField] private LayerMask groundLayer;
+    [FormerlySerializedAs("WallLayer")]
+    [SerializeField] private LayerMask wallLayer;
     [SerializeField] private float wallSlideSpeed = 2f;
     [SerializeField] private float wallJumpForce = 20f;
     [SerializeField] private Vector2 wallJumpDirection = new Vector2(1.5f, 1f);
@@ -42,7 +45,7 @@ public class CharacterMovement : MonoBehaviour
 
     private float coyoteTimeCounter;
     private bool isWallSliding;
-    private bool canWallJump = false;
+    private bool canWallJump;
     private bool isWallJumping;
 
     private float lastDashTime = -Mathf.Infinity;
@@ -57,7 +60,7 @@ public class CharacterMovement : MonoBehaviour
 
     private void Update()
     {
-        animator.SetBool(sr_IsRunning, horizontalInput != 0);
+        animator.SetBool(isRunningHash, horizontalInput != 0);
 
         if (isGrounded())
             coyoteTimeCounter = coyoteTime;
@@ -66,29 +69,29 @@ public class CharacterMovement : MonoBehaviour
 
         if (!isWallJumping)
         {
-            HandleWallSliding();
+            handleWallSliding();
         }
         else
         {
-            animator.SetBool(sr_IsWallSliding, false);
+            animator.SetBool(isWallSlidingHash, false);
         }
 
-        HandleFalling();
+        handleFalling();
     }
 
-    private bool IsTouchingWall()
+    private bool isTouchingWall()
     {
         Vector2 position = transform.position;
         float wallCheckDistance = 0.5f;
-        bool leftCheck = Physics2D.Raycast(position, Vector2.left, wallCheckDistance, WallLayer);
-        bool rightCheck = Physics2D.Raycast(position, Vector2.right, wallCheckDistance, WallLayer);
+        bool leftCheck = Physics2D.Raycast(position, Vector2.left, wallCheckDistance, wallLayer);
+        bool rightCheck = Physics2D.Raycast(position, Vector2.right, wallCheckDistance, wallLayer);
         return leftCheck || rightCheck;
     }
 
-    private void HandleWallSliding()
+    private void handleWallSliding()
     {
-        isWallSliding = IsTouchingWall() && !isGrounded() && horizontalInput != 0;
-        animator.SetBool(sr_IsWallSliding, isWallSliding);
+        isWallSliding = isTouchingWall() && !isGrounded() && horizontalInput != 0;
+        animator.SetBool(isWallSlidingHash, isWallSliding);
 
         if (isWallSliding)
         {
@@ -107,29 +110,29 @@ public class CharacterMovement : MonoBehaviour
         if(!isWallJumping)
         {
             if (!isDashing)
-                rb.velocity = new Vector2(horizontalInput * MoveSpeed, rb.velocity.y);
+                rb.velocity = new Vector2(horizontalInput * moveSpeed, rb.velocity.y);
             
             if ((horizontalInput > 0 && !isFacingRight) || (horizontalInput < 0 && isFacingRight))
-                Flip();
+                flip();
 
-            UpdateGroundedState();
+            updateGroundedState();
 
         }
         
     }
 
-    private void UpdateGroundedState()
+    private void updateGroundedState()
     {
-        animator.SetBool(sr_IsJumping, !isGrounded());
+        animator.SetBool(isJumpingHash, !isGrounded());
     }
 
-    private void HandleFalling()
+    private void handleFalling()
     {
         if (!isGrounded() && rb.velocity.y < 0)
-            animator.SetBool(sr_IsJumping, true);
+            animator.SetBool(isJumpingHash, true);
     }
 
-    private void Flip()
+    private void flip()
     {
         isFacingRight = !isFacingRight;
         Vector3 localScale = transform.localScale;
@@ -141,25 +144,26 @@ public class CharacterMovement : MonoBehaviour
     {
         Vector2 position = transform.position;
         Vector2 boxSize = new Vector2(0.8f, 0.8f);
-        Collider2D collider = Physics2D.OverlapBox(position + Vector2.down * extraHeight, boxSize, 0f, GroundLayer);
-        bool grounded = collider != null;
+        Collider2D groundDetected = Physics2D.OverlapBox(position + Vector2.down * extraHeight, boxSize, 0f, groundLayer);
     
-        if (grounded)
+        if (groundDetected)
             jumpCount = 0;
     
-        return grounded;
+        return groundDetected;
     }
 
     public void Dash()
     {
-        if (!isDashing && Time.time >= lastDashTime + dashCooldown)
+        if(isDashing || !(Time.time >= lastDashTime + dashCooldown))
         {
-            StartCoroutine(DashRoutine());
-            lastDashTime = Time.time;
+            return;
         }
+
+        StartCoroutine(dashRoutine());
+        lastDashTime = Time.time;
     }
 
-    private IEnumerator DashRoutine()
+    private IEnumerator dashRoutine()
     {
         BoxCollider2D myCollider = GetComponent<BoxCollider2D>();
         myCollider.enabled = false;
@@ -182,7 +186,7 @@ public class CharacterMovement : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        if (GroundLayer == 0)
+        if (groundLayer == 0)
             return;
         Vector2 position = transform.position;
         Vector2 boxSize = new Vector2(0.8f, 0.8f);
@@ -194,38 +198,37 @@ public class CharacterMovement : MonoBehaviour
     {
         if (isWallSliding)
         {
-            WallJump();
+            wallJump();
         }
         else if ((coyoteTimeCounter > 0f || isGrounded()) && jumpCount < maxJumpCount) 
         {
-            animator.SetBool(sr_IsJumping, true);
-            rb.velocity = new Vector2(rb.velocity.x, JumpForce);
+            animator.SetBool(isJumpingHash, true);
+            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
             jumpCount++; // Increment to prevent additional jumps
             coyoteTimeCounter = 0;
         }
     }
 
-    private void WallJump()
+    private void wallJump()
     {
         if (!canWallJump)
             return;
 
-        Debug.Log("Wall jump");
         canWallJump = false;
 
         float direction = isFacingRight ? -1 : 1;
-        Vector2 jumpDirection = new Vector2(wallJumpDirection.x * direction, wallJumpDirection.y).normalized;
+        var jumpDirection = new Vector2(wallJumpDirection.x * direction, wallJumpDirection.y).normalized;
 
         rb.velocity = Vector2.zero;
         rb.AddForce(jumpDirection * wallJumpForce, ForceMode2D.Impulse);
 
-        Flip();
+        flip();
 
         isWallJumping = true;
-        StartCoroutine(WallJumpCooldown());
+        StartCoroutine(wallJumpRoutine());
     }
 
-    private IEnumerator WallJumpCooldown()
+    private IEnumerator wallJumpRoutine()
     {
         yield return new WaitForSeconds(wallJumpCooldown);
         canWallJump = true;
@@ -235,6 +238,6 @@ public class CharacterMovement : MonoBehaviour
     public void OnJumpReleased()
     {
         if (rb.velocity.y > 0)
-            rb.velocity += Vector2.up * -JumpForce * variableJumpMultiplier;
+            rb.velocity += Vector2.up * -jumpForce * variableJumpMultiplier;
     }
 }
