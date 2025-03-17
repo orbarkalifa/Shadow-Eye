@@ -13,7 +13,7 @@ public class CharacterMovement : MonoBehaviour
     private float horizontalInput;
     private bool isDashing;
     
-    private int jumpCount = 0;
+    private int jumpCount;
     private int maxJumpCount = 1; // Change this to 2 if you want to allow double jump
 
 
@@ -25,7 +25,7 @@ public class CharacterMovement : MonoBehaviour
     [Header("Dash Settings")]
     [SerializeField] private float dashDuration = 0.15f;
     [SerializeField] private float dashSpeed = 35f;
-    [SerializeField] private float dashCooldown = 1f; // Cooldown period between dashes
+    [SerializeField] private float dashCooldown = 1f;
 
     [Header("Jump Tuning")]
     [SerializeField] private float coyoteTime = 0.2f;
@@ -42,10 +42,10 @@ public class CharacterMovement : MonoBehaviour
 
     private float coyoteTimeCounter;
     private bool isWallSliding;
-    private bool canWallJump = true;
-    private bool isWallJumping; // Temporarily disable wall sliding after a wall jump
+    private bool canWallJump = false;
+    private bool isWallJumping;
 
-    private float lastDashTime = -Mathf.Infinity; // Timestamp for dash cooldown
+    private float lastDashTime = -Mathf.Infinity;
 
     protected void Awake()
     {
@@ -59,13 +59,11 @@ public class CharacterMovement : MonoBehaviour
     {
         animator.SetBool(sr_IsRunning, horizontalInput != 0);
 
-        // Handle coyote time
         if (isGrounded())
             coyoteTimeCounter = coyoteTime;
         else
             coyoteTimeCounter -= Time.deltaTime;
 
-        // Only process wall sliding if not in the middle of a wall jump
         if (!isWallJumping)
         {
             HandleWallSliding();
@@ -146,7 +144,6 @@ public class CharacterMovement : MonoBehaviour
         Collider2D collider = Physics2D.OverlapBox(position + Vector2.down * extraHeight, boxSize, 0f, GroundLayer);
         bool grounded = collider != null;
     
-        // Reset jump count when grounded
         if (grounded)
             jumpCount = 0;
     
