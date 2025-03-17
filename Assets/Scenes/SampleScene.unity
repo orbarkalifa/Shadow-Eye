@@ -1700,7 +1700,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5051766240304855031, guid: d21bd1c440fed594eae12ceb68a1fafc, type: 3}
       propertyPath: wallJumpForce
-      value: 50
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 5051766240304855031, guid: d21bd1c440fed594eae12ceb68a1fafc, type: 3}
       propertyPath: WallLayer.m_Bits
@@ -1710,6 +1710,18 @@ PrefabInstance:
       propertyPath: wallLayer.m_Bits
       value: 64
       objectReference: {fileID: 0}
+    - target: {fileID: 5051766240304855031, guid: d21bd1c440fed594eae12ceb68a1fafc, type: 3}
+      propertyPath: wallJumpDirection.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5051766240304855031, guid: d21bd1c440fed594eae12ceb68a1fafc, type: 3}
+      propertyPath: wallJumpDirection.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6711612274817523409, guid: d21bd1c440fed594eae12ceb68a1fafc, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -1209065082, guid: c34bc725e008f70409d63ca67f5f9d43, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
