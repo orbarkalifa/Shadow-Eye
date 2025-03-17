@@ -32,7 +32,7 @@ public class CharacterMovement : MonoBehaviour
     [SerializeField] private LayerMask GroundLayer;
     [SerializeField] private LayerMask WallLayer;
     [SerializeField] private float wallSlideSpeed = 2f;
-    [SerializeField] private float wallJumpForce = 12f;
+    [SerializeField] private float wallJumpForce = 20f;
     [SerializeField] private Vector2 wallJumpDirection = new Vector2(1.5f, 1f);
     [SerializeField] private float wallJumpCooldown = 0.2f;
 
@@ -102,13 +102,18 @@ public class CharacterMovement : MonoBehaviour
     
     public void Move()
     {
-        if (!isDashing)
-            rb.velocity = new Vector2(horizontalInput * MoveSpeed, rb.velocity.y);
+        if(!isWallJumping)
+        {
+            if (!isDashing)
+                rb.velocity = new Vector2(horizontalInput * MoveSpeed, rb.velocity.y);
+            
+            if ((horizontalInput > 0 && !isFacingRight) || (horizontalInput < 0 && isFacingRight))
+                Flip();
 
-        if ((horizontalInput > 0 && !isFacingRight) || (horizontalInput < 0 && isFacingRight))
-            Flip();
+            UpdateGroundedState();
 
-        UpdateGroundedState();
+        }
+        
     }
 
     private void UpdateGroundedState()
