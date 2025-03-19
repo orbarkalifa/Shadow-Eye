@@ -64,7 +64,6 @@
     <Compile Include="Assets\Scripts\GameStateManagement\GSManager.cs" />
     <Compile Include="Assets\Scripts\UIEyeBar.cs" />
     <Compile Include="Assets\Scripts\EnemyAI\AttackStateSO.cs" />
-    <Compile Include="Assets\Scripts\UIHealthdisplay.cs" />
     <Compile Include="Assets\Scripts\GameStateManagement\UIManager.cs" />
     <Compile Include="Assets\Scripts\EnemyAI\IdleStateSO.cs" />
     <Compile Include="Assets\Scripts\CameraFollow.cs" />

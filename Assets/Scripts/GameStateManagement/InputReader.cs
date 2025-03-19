@@ -124,7 +124,13 @@ namespace GameStateManagement
         public void OnCloseGameButton()
         {
             Debug.Log("OnCloseGameButton called. Quitting game...");
-            Application.Quit();
+            
+            #if UNITY_EDITOR
+                UnityEditor.EditorApplication.isPlaying = false;
+            #else
+                Application.Quit();
+            #endif
+
         }
     }
 }

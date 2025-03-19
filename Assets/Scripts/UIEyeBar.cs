@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using GameStateManagement;
 using UnityEngine;
@@ -6,7 +7,7 @@ public class UIEyeBar : MonoBehaviour
 {
     private List<UIEyeScript> eyes = new List<UIEyeScript>();
     [SerializeField] private GameObject EyePrefab;
-    [SerializeField] private int maxHealth = 5; // or retrieve from player data
+    [SerializeField] private int maxHealth = 5;
     [SerializeField] private BeaconSO beacon;
 
     private void Awake()
@@ -23,6 +24,8 @@ public class UIEyeBar : MonoBehaviour
             UIEyeScript eyeScript = newEye.GetComponent<UIEyeScript>();
             eyes.Add(eyeScript);
         }
+        beacon.uiChannel.ChangeHealth(maxHealth);
+
     }
 
     private void UpdateHUD(int health)
