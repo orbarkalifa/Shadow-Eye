@@ -3,7 +3,7 @@ using UnityEngine.Events;
 
 namespace GameStateManagement
 {
-    public class GameState : ScriptableObject
+    public class GameStateSO : ScriptableObject
     {
         public string stateName;
         public UnityEvent onEnterState;

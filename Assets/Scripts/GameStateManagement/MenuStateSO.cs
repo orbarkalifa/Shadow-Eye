@@ -2,8 +2,8 @@ namespace GameStateManagement
 {
     using UnityEngine;
 
-    [CreateAssetMenu(fileName = "MenuStateSO", menuName = "GameStateSO/Menu")]
-    public class MenuState : GameStateSO
+    [CreateAssetMenu(fileName = "MenuStateSO", menuName = "GameState/Menu")] 
+    public class MenuStateSO : GameStateSO
     {
         public override void EnterState()
         {

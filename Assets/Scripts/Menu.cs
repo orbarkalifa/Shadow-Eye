@@ -1,3 +1,4 @@
+/*
 using UnityEngine;
 
 public class Menu : MonoBehaviour
@@ -39,7 +40,7 @@ public class Menu : MonoBehaviour
         // Pause/unpause
         Time.timeScale = menuPanel.activeSelf ? 0f : 1f;
     }
-
-
+    
 }
+*/
 

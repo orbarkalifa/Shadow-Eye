@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a791ebf2bc64c61b4cc3cbfd69c9cd5, type: 3}
+  m_Name: StartGameStateSO
+  m_EditorClassIdentifier: 
+  stateName: Start Game
+  onEnterState:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1383062735582409910, guid: c17018c8bbb7ef2479edb6fabd35d075, type: 3}
+        m_TargetAssemblyTypeName: GameStateManagement.UIManager, Assembly-CSharp
+        m_MethodName: ShowStartMenuPanel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+  onExitState:
+    m_PersistentCalls:
+      m_Calls: []

@@ -1,3 +1,4 @@
+using GameStateManagement;
 using Scriptable.Scripts;
 using UnityEngine;
 using UnityEngine.U2D.Animation;
@@ -8,7 +9,7 @@ public class MainCharacter : Character
     private CharacterCombat characterCombat;
     private InputSystem_Actions inputActions;
     private HealthChannelSo healthChannel;
-    private GameStateChannel gameStateChannel;
+    private GameStateChannelSO gameStateChannel;
     private Suit equippedSuit;
     
     [Header("Visuals")]
@@ -20,14 +21,17 @@ public class MainCharacter : Character
     [SerializeField] private SpriteLibrary spriteLibrary;
     [SerializeField] private SpriteLibraryAsset normalSpriteLibraryAsset;
     [SerializeField] private SpriteLibraryAsset suitSpriteLibraryAsset;
+
+    private GSManager gsManager;
   
 
     protected override void Awake()
     {
         base.Awake();
+        gsManager = FindObjectOfType<GSManager>();
         inputActions = new InputSystem_Actions();
-        healthChannel = FindObjectOfType<Beacon>().healthChannel;
-        gameStateChannel = FindObjectOfType<Beacon>().gameStateChannel;
+        healthChannel = gsManager.beacon.healthChannel;
+        gameStateChannel = gsManager.beacon.gameStateChannel;
         characterMovement = GetComponent<CharacterMovement>();
         characterCombat = GetComponent<CharacterCombat>();
         
@@ -67,8 +71,7 @@ public class MainCharacter : Character
         inputActions.Player.BasicAttack.performed += _ => performBasicAttack();
         inputActions.Player.SpecialAttack.performed += _ => performSpecialAttack();
         inputActions.Player.SpecialMove.performed += _ => performSpecialMovement();
-        inputActions.Player.Menu.performed += _ => gameStateChannel.MenuClicked();
-        inputActions.Player.Consume.performed += _ => UnequipSuit();
+        inputActions.Player.Consume.performed += _ => unEquipSuit();
     }
     
     private void OnDisable()
@@ -145,8 +148,8 @@ public class MainCharacter : Character
             currentSuitVisual = null;
         }
     }
-    
-    public void UnequipSuit()
+
+    private void unEquipSuit()
     {
         if (equippedSuit != null)
         {
@@ -170,5 +173,20 @@ public class MainCharacter : Character
     {
         inputActions?.Dispose();
     }
-    
+
+    protected override void OnDeath()
+    {
+        var gameOverState = gsManager.GetStateByName("Game Over");
+        var beacon = FindObjectOfType<BeaconSO>();
+        if (gameOverState != null)
+        {
+            Debug.Log($"Game Over: {gameOverState.name}");
+            beacon.gameStateChannel.RaiseStateTransitionRequest(gameOverState); // Request transition to GameOver state
+        }
+        else
+        {
+            Debug.LogError("PlayerHealth: Beacon, GameStateChannel, or GameOverState is not assigned!");
+        }
+        base.OnDeath();
+    }
 }

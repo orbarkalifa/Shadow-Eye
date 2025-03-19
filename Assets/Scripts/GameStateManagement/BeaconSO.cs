@@ -9,7 +9,7 @@ public class BeaconSO : ScriptableObject
     public GameStateChannelSO gameStateChannel;
 
     [Header("UI Channels")]
-    public HealthChannelSo uiChannel; // Assuming you have a UIChannelSO (example below)
+    public HealthChannelSo healthChannel;
 
-    // Add more channels here as needed (e.g., AudioChannelSO, VFXChannelSO, etc.)
+    // Add more channels here as needed
 }

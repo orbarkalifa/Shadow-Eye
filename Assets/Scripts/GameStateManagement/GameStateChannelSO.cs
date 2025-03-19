@@ -1,17 +1,18 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace GameStateManagement
+namespace GameStateManagement 
 {
-    public class GameStateChannel : ScriptableObject
+    [CreateAssetMenu(fileName = "GameStateChannel", menuName = "Channel/Game State Channel")] 
+    public class GameStateChannelSO : ScriptableObject
     {
-        public UnityAction<GameState> onStateTransitionRequested;
+        public UnityAction<GameStateSO> onStateTransitionRequested;
 
-        public void RaiseStateTransitionRequest(GameState nextState)
+        public void RaiseStateTransitionRequest(GameStateSO nextStateSo)
         {
             if (onStateTransitionRequested != null)
             {
-                onStateTransitionRequested.Invoke(nextState);
+                onStateTransitionRequested.Invoke(nextStateSo);
             }
             else
             {

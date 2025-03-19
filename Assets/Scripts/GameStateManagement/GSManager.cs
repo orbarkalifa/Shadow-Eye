@@ -1,40 +1,63 @@
+using System.Collections.Generic;
 using UnityEngine;
 
-public class GameStateManager : MonoBehaviour
+namespace GameStateManagement
 {
-    public GameState currentState;
-    public BeaconSO beacon;
-
-    public GameState startGameState;
-    public GameState inGameState;
-    public GameState menuState;
-    public GameState gameOverState;
-
-    private void OnEnable()
+    public class GSManager : MonoBehaviour
     {
-        if (beacon != null && beacon.gameStateChannel != null)
-        {
-            beacon.gameStateChannel.onStateTransitionRequested += TransitionToState; // Access channel through beacon
-        }
-        else
-        {
-            Debug.LogError("Channel Beacon or GameStateChannel is not assigned in GameStateManager!");
-        }
-    }
+        public BeaconSO beacon;
+        public GameStateSO currentState;
+        public GameStateSO startGameState;
+        public GameStateSO inGameState;
+        public GameStateSO menuState;
+        public GameStateSO gameOverState;
+        
+        
+        private UIManager uiManager;
 
-    private void OnDisable()
-    {
-        if (beacon != null && beacon.gameStateChannel != null)
+        // Dictionary to store states for easy lookup by name
+        private readonly Dictionary<string, GameStateSO> stateLookup = new Dictionary<string, GameStateSO>();
+
+        void Awake()
         {
-            beacon.gameStateChannel.onStateTransitionRequested -= TransitionToState; // Access channel through beacon
+            // Get the scene instance of UIManager (ensure only one UIManager exists in your scene)
+            uiManager = FindObjectOfType<UIManager>();
+            if (uiManager == null)
+            {
+                Debug.LogError("GSManager: UIManager not found in scene!");
+            }
+
+            // Initialize UI listeners for all states
+            InitializeUIListeners();
         }
-    }
+        
+        private void OnEnable()
+        {
+            if (beacon != null && beacon.gameStateChannel != null)
+            {
+                beacon.gameStateChannel.onStateTransitionRequested += transitionToState;
+            }
+            else
+            {
+                Debug.LogError("Channel Beacon or GameStateChannel is not assigned in GameStateManager!");
+            }
+        }
+
+        private void OnDisable()
+        {
+            if (beacon != null && beacon.gameStateChannel != null)
+            {
+                beacon.gameStateChannel.onStateTransitionRequested -= transitionToState;
+            }
+        }
 
         void Start()
         {
+            populateStateLookup();
+
             if (startGameState != null)
             {
-                TransitionToState(startGameState); // Start with the StartGame state
+                transitionToState(startGameState);
             }
             else
             {
@@ -46,28 +69,87 @@ public class GameStateManager : MonoBehaviour
         {
             if (currentState != null)
             {
-                currentState.UpdateState(); // Call UpdateState on the current state
+                currentState.UpdateState();
             }
         }
 
-        public void TransitionToState(GameState nextState)
+        // ReSharper disable Unity.PerformanceAnalysis
+        private void transitionToState(GameStateSO nextState)
         {
-            if (currentState == nextState) return; // Prevent transitioning to the same state
+            if (currentState == nextState) return;
 
             if (currentState != null)
             {
-                currentState.ExitState(); // Exit the current state
+                currentState.ExitState();
             }
-
-            currentState = nextState; // Set the new state
-            currentState.EnterState(); // Enter the new state
+            currentState = nextState;
+            currentState.EnterState();
         }
 
-        // Helper methods to request transitions from other scripts (optional but convenient)
-        public void RequestStartGame() => beacon?.gameStateChannel?.RaiseStateTransitionRequest(startGameState); // Access channel through beacon
-        public void RequestInGame() => beacon?.gameStateChannel?.RaiseStateTransitionRequest(inGameState); // Access channel through beacon
-        public void RequestMenu() => beacon?.gameStateChannel?.RaiseStateTransitionRequest(menuState); // Access channel through beacon
-        public void RequestGameOver() => beacon?.gameStateChannel?.RaiseStateTransitionRequest(gameOverState); // Access channel through beacon
+        // Helper methods to request transitions from other scripts
+        public void RequestStartGame() => beacon?.gameStateChannel?.RaiseStateTransitionRequest(startGameState);
+        public void RequestInGame() => beacon?.gameStateChannel?.RaiseStateTransitionRequest(inGameState);
+        public void RequestMenu() => beacon?.gameStateChannel?.RaiseStateTransitionRequest(menuState);
+        public void RequestGameOver() => beacon?.gameStateChannel?.RaiseStateTransitionRequest(gameOverState);
 
+        // Method to get a GameStateSO by name
+        // ReSharper disable Unity.PerformanceAnalysis
+        public GameStateSO GetStateByName(string stateName)
+        {
+            if (stateLookup.TryGetValue(stateName, out var stateByName))
+            {
+                return stateByName;
+            }
+            else
+            {
+                Debug.LogError($"GSManager: State with name '{stateName}' not found!");
+                return null;
+            }
+        }
+
+        // Helper method to populate the state lookup dictionary
+        private void populateStateLookup()
+        {
+            stateLookup.Clear();
+            if (startGameState != null) stateLookup.Add(startGameState.stateName, startGameState);
+            if (inGameState != null) stateLookup.Add(inGameState.stateName, inGameState);
+            if (menuState != null) stateLookup.Add(menuState.stateName, menuState);
+            if (gameOverState != null) stateLookup.Add(gameOverState.stateName, gameOverState);
+            // Add more states to the dictionary as you create them
+        }
+        
+        private void InitializeUIListeners()
+        {
+            if (uiManager == null)
+            {
+                Debug.LogError("GSManager: UIManager instance is null. Cannot initialize UI listeners.");
+                return;
+            }
+
+            if (startGameState != null)
+            {
+                startGameState.onEnterState.RemoveAllListeners();
+                startGameState.onEnterState.AddListener(uiManager.ShowStartMenuPanel);
+            }
+
+            if (inGameState != null)
+            {
+                inGameState.onEnterState.RemoveAllListeners();
+                inGameState.onEnterState.AddListener(uiManager.ShowInGameHUDPanel);
+            }
+
+            if (menuState != null)
+            {
+                menuState.onEnterState.RemoveAllListeners();
+                menuState.onEnterState.AddListener(uiManager.ShowPauseMenuPanel);
+            }
+
+            if (gameOverState != null)
+            {
+                gameOverState.onEnterState.RemoveAllListeners();
+                gameOverState.onEnterState.AddListener(uiManager.ShowGameOverPanel);
+            }
+        }
+        
     }
 }

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using GameStateManagement;
 using Scriptable.Scripts;
 using UnityEngine;
 
@@ -8,10 +9,12 @@ public class UIEyeBar : MonoBehaviour
     [SerializeField] private GameObject EyePrefab;
     [SerializeField] private int maxHealth = 5; // or retrieve from player data
     private HealthChannelSo healthChannel;
+    private GSManager gsManager;
 
     private void Awake()
     {
-        healthChannel = FindObjectOfType<Beacon>().healthChannel;
+        gsManager = FindObjectOfType<GSManager>();
+        healthChannel = gsManager.beacon.healthChannel;
         healthChannel.OnChangeHealth += UpdateHUD;
     }
 

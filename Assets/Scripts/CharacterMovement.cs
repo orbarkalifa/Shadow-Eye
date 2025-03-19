@@ -30,7 +30,6 @@ public class CharacterMovement : MonoBehaviour
 
     [Header("Jump Tuning")]
     [SerializeField] private float coyoteTime = 0.2f;
-    [SerializeField] private float jumpBufferTime = 0.2f;
     [SerializeField] private float variableJumpMultiplier = 0.5f;
 
     [FormerlySerializedAs("GroundLayer")]

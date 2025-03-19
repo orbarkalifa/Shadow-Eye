@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7616691142244037672}
   - component: {fileID: 5683816981323406776}
   - component: {fileID: 6537412477589635529}
-  - component: {fileID: 3858877565909010215}
+  - component: {fileID: 548818685746535453}
   m_Layer: 9
   m_Name: EnemyCharacter
   m_TagString: Enemy
@@ -154,7 +154,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &3858877565909010215
+--- !u!114 &548818685746535453
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -173,15 +173,13 @@ MonoBehaviour:
   attackCooldown: 2
   playerLayer:
     serializedVersion: 2
-    m_Bits: 256
-  player: {fileID: 0}
+    m_Bits: 0
+  player: {fileID: 9071929606826185769, guid: 1bdf96493d9b4b64e9730a758d91d9b0, type: 3}
   rb: {fileID: 6537412477589635529}
-  startingState: {fileID: 11400000, guid: 65480f5da2a8aa24397aa633c93a914f, type: 2}
-  patrolPoints:
-  - {fileID: 0}
-  - {fileID: 0}
+  startingState: {fileID: 11400000, guid: 98a71cfb4419860419c735a6641786ba, type: 2}
+  patrolPoints: []
   currentPatrolIndex: 0
-  suitDrop: {fileID: 11400000, guid: 4fadc748692153649ba80993fda0ca7f, type: 2}
+  suitDrop: {fileID: 0}
 --- !u!1 &748883078087756611
 GameObject:
   m_ObjectHideFlags: 0
