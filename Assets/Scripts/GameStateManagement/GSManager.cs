@@ -13,7 +13,6 @@ namespace GameStateManagement
         public GameStateSO menuState;
         public GameStateSO gameOverState;
         
-        
         private UIManager uiManager;
 
         // Dictionary to store states for easy lookup by name
