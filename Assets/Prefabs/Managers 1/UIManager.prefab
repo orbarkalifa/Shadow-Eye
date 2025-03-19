@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2814284499872681174
+--- !u!1 &4249542740319943952
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,8 +8,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6531148531018531032}
-  - component: {fileID: 1383062735582409910}
+  - component: {fileID: 5366535262446189975}
+  - component: {fileID: 2988837275986147112}
   m_Layer: 0
   m_Name: UIManager
   m_TagString: Untagged
@@ -17,34 +17,34 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6531148531018531032
+--- !u!4 &5366535262446189975
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2814284499872681174}
+  m_GameObject: {fileID: 4249542740319943952}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 328.55527, y: 200.97256, z: 0}
+  m_LocalPosition: {x: 452, y: 254, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1383062735582409910
+--- !u!114 &2988837275986147112
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2814284499872681174}
+  m_GameObject: {fileID: 4249542740319943952}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 70cdea9c5a26e4248a00837eee7cc9f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startMenuPanel: {fileID: 2783105762970827863, guid: 3eef00bd33f6c4544988d014d6f66d6c, type: 3}
-  pauseMenuPanel: {fileID: 8136872220609863974, guid: d4e4bb5f6ad504c409804822962c792e, type: 3}
-  gameOverPanel: {fileID: 5393379546855517339, guid: d36dcdc293d89714782688d69accbf31, type: 3}
-  inGameHUDPanel: {fileID: 3402792860605474357, guid: bd456ac958243124794b544177210c9a, type: 3}
+  startMenuPanel: {fileID: 0}
+  pauseMenuPanel: {fileID: 0}
+  gameOverPanel: {fileID: 0}
+  inGameHUDPanel: {fileID: 0}

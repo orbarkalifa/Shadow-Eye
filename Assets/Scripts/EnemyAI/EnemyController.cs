@@ -31,8 +31,14 @@ public class EnemyController : Character
         base.Awake();
 
         if (!rb) rb = GetComponent<Rigidbody2D>();
-        if (!player) player = GameObject.FindGameObjectWithTag("Player")?.transform;
-
+        if (player == null)
+        {
+            player = GameObject.FindGameObjectWithTag("Player").transform; // Assuming player has "Player" tag
+            if (player == null)
+            {
+                Debug.LogError("EnemyController: Player not found! Make sure player has 'Player' tag.");
+            }
+        }
         // Create the state machine
         StateMachine = new EnemyStateMachine();
         // Initialize with the chosen starting state

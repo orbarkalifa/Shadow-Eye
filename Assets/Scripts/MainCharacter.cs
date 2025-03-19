@@ -10,6 +10,7 @@ public class MainCharacter : Character
     private InputSystem_Actions inputActions;
     private HealthChannelSo healthChannel;
     private GameStateChannelSO gameStateChannel;
+    [SerializeField] private BeaconSO beacon;
     private Suit equippedSuit;
     
     [Header("Visuals")]
@@ -177,8 +178,7 @@ public class MainCharacter : Character
     protected override void OnDeath()
     {
         var gameOverState = gsManager.GetStateByName("Game Over");
-        var beacon = FindObjectOfType<BeaconSO>();
-        if (gameOverState != null)
+        if (beacon.gameStateChannel && gameOverState != null)
         {
             Debug.Log($"Game Over: {gameOverState.name}");
             beacon.gameStateChannel.RaiseStateTransitionRequest(gameOverState); // Request transition to GameOver state

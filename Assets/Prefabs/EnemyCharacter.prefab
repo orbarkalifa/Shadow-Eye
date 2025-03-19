@@ -173,7 +173,7 @@ MonoBehaviour:
   attackCooldown: 2
   playerLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   player: {fileID: 9071929606826185769, guid: 1bdf96493d9b4b64e9730a758d91d9b0, type: 3}
   rb: {fileID: 6537412477589635529}
   startingState: {fileID: 11400000, guid: 98a71cfb4419860419c735a6641786ba, type: 2}

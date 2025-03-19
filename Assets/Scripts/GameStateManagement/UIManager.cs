@@ -26,7 +26,7 @@ namespace GameStateManagement
             if (startMenuPanel != null)
             {
                 startMenuPanel.SetActive(true);
-                Debug.Log("UIManager: Start Menu Panel activated. Active state: " + startMenuPanel.activeSelf); // ADD THIS LINE
+                Debug.Log("UIManager: Start Menu Panel activated. Active state: " + startMenuPanel.activeSelf);
             }
             else
             {

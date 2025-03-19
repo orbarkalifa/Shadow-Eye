@@ -1,3 +1,5 @@
+using UnityEngine.SceneManagement;
+
 namespace GameStateManagement
 {
     using UnityEngine;
@@ -54,20 +56,19 @@ namespace GameStateManagement
 
         private void OnOpenMenuPerformed(InputAction.CallbackContext context)
         {
-            if (beacon != null && beacon.gameStateChannel != null && menuState != null && inGameState != null) // Added check for inGameState to be not null as well, for safety
+            if (beacon != null && beacon.gameStateChannel != null && menuState != null && inGameState != null)
             {
                 if (gsManager != null)
                 {
-                    if (gsManager.currentState == inGameState) // If currently in InGame state, open Menu
+                    if (gsManager.currentState == inGameState) 
                     {
                         beacon.gameStateChannel.RaiseStateTransitionRequest(menuState);
                     }
-                    else if (gsManager.currentState == menuState) // If currently in Menu state, close Menu and go back to InGame
+                    else if (gsManager.currentState == menuState)
                     {
                         beacon.gameStateChannel.RaiseStateTransitionRequest(inGameState);
                     }
-                    // If in other states (like StartGame or GameOver), you might choose to do nothing or handle differently.
-                    // For example, you might want to prevent opening the menu in GameOver state.
+
                 }
                 else
                 {
@@ -113,8 +114,22 @@ namespace GameStateManagement
         {
             if (beacon != null && beacon.gameStateChannel != null && inGameState != null)
             {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
                 beacon.gameStateChannel.RaiseStateTransitionRequest(inGameState); // Restart Game
             }
+        }
+        public void OnExitButton() 
+        {
+            if (beacon != null && beacon.gameStateChannel != null && startGameState != null)
+            {
+                beacon.gameStateChannel.RaiseStateTransitionRequest(startGameState); // Exit to start panel
+            }
+        }
+
+        public void OnCloseGameButton()
+        {
+            Debug.Log("OnCloseGameButton called. Quitting game...");
+            Application.Quit();
         }
     }
 }

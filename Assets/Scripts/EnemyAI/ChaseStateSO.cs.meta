@@ -1,3 +1,13 @@
 fileFormatVersion: 2
 guid: db611529381840bebc44735b308a171c
-timeCreated: 1741093083
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - attackState: {fileID: 11400000, guid: f61df9863d1a53b43b2fe23ff2a95a8a, type: 2}
+  - patrolOrIdleState: {fileID: 11400000, guid: 98a71cfb4419860419c735a6641786ba, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -21,7 +21,9 @@ public class PatrolStateSO : EnemyStateSO
         if (distance <= detectionRange)
         {
             // Switch to chase
+            Debug.Log("Trying to switch to chase state");
             enemy.StateMachine.ChangeState(enemy, chaseState);
+            
         }
     }
 

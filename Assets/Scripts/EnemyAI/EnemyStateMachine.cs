@@ -9,14 +9,13 @@ namespace EnemyAI
         public void Initialize(EnemyController enemy, EnemyStateSO startingState)
         {
             CurrentState = startingState;
+            Debug.Log("Enemy state is now: " + CurrentState);
             CurrentState?.OnEnter(enemy);
         }
 
         public void ChangeState(EnemyController enemy, EnemyStateSO newState)
         {
-            #if  UNITY_EDITOR
-                        Debug.Log("Enemy state is now: " + CurrentState);
-            #endif
+            Debug.Log("Enemy state is now: " + CurrentState);
             CurrentState?.OnExit(enemy);
             CurrentState = newState;
             CurrentState?.OnEnter(enemy);
