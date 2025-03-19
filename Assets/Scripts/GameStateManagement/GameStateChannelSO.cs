@@ -9,7 +9,7 @@ namespace GameStateManagement
     public class GameStateChannelSO : ScriptableObject
     {
         public UnityAction<GameStateSO> onStateTransitionRequested;
-        public Func<GameStateSO> GetCurrentState;
+        public Func<GameStateSO> GetCurrentGameState;
 
         public void RaiseStateTransitionRequest(GameStateSO nextStateSo)
         {
@@ -22,9 +22,9 @@ namespace GameStateManagement
                 Debug.LogWarning("State Transition Requested but no listeners are subscribed to the channel.");
             }
         }
-        public GameStateSO GetCurrentGameState()
+        public GameStateSO OnGetCurrentGameState()
         {
-            return GetCurrentState?.Invoke();
+            return GetCurrentGameState?.Invoke();
         }
     }
     

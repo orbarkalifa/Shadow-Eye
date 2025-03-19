@@ -12,7 +12,6 @@ namespace GameStateManagement
         public GameStateSO menuState;
         public GameStateSO startGameState;
 
-        public GSManager gsManager;
         private InputSystem_Actions inputActions; 
 
         private void Awake()
@@ -58,22 +57,18 @@ namespace GameStateManagement
         {
             if (beacon != null && beacon.gameStateChannel != null && menuState != null && inGameState != null)
             {
-                if (gsManager != null)
+                if (beacon.gameStateChannel.GetCurrentGameState() == inGameState) 
                 {
-                    if (gsManager.currentState == inGameState) 
-                    {
-                        beacon.gameStateChannel.RaiseStateTransitionRequest(menuState);
-                    }
-                    else if (gsManager.currentState == menuState)
-                    {
-                        beacon.gameStateChannel.RaiseStateTransitionRequest(inGameState);
-                    }
-
+                    beacon.gameStateChannel.RaiseStateTransitionRequest(menuState);
                 }
-                else
+                else if (beacon.gameStateChannel.GetCurrentGameState() == menuState)
                 {
-                    Debug.LogError("InputReader: GSManager component not found on the same GameObject!");
+                    beacon.gameStateChannel.RaiseStateTransitionRequest(inGameState);
                 }
+            }
+            else
+            {
+                Debug.LogError("InputReader: GSManager component not found on the same GameObject!");
             }
         }
 

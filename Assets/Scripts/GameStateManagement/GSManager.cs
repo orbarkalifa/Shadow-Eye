@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -27,10 +28,17 @@ namespace GameStateManagement
                 Debug.LogError("GSManager: UIManager not found in scene!");
             }
 
+            beacon.gameStateChannel.GetCurrentGameState += GetCurrentState; 
             // Initialize UI listeners for all states
             InitializeUIListeners();
         }
-        
+
+        private GameStateSO GetCurrentState()
+        {
+            return currentState;
+        }
+
+
         private void OnEnable()
         {
             if (beacon != null && beacon.gameStateChannel != null)
