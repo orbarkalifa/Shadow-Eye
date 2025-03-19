@@ -19,7 +19,5 @@ namespace GameStateManagement
             Debug.Log("InGameState: ExitState - Disabling In-Game UI (Placeholder)");
             // Disable in-game UI, game logic, player input (if needed for other states) using onExitState UnityEvent in the Inspector.
         }
-
-
     }
 }

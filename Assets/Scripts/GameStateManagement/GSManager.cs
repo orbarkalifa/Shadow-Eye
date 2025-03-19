@@ -28,8 +28,8 @@ namespace GameStateManagement
                 Debug.LogError("GSManager: UIManager not found in scene!");
             }
 
-            beacon.gameStateChannel.GetCurrentGameState += GetCurrentState; 
-            // Initialize UI listeners for all states
+            beacon.gameStateChannel.GetCurrentGameState += GetCurrentState;
+            beacon.gameStateChannel.GetGameStateByName += GetStateByName;
             InitializeUIListeners();
         }
 
@@ -37,8 +37,7 @@ namespace GameStateManagement
         {
             return currentState;
         }
-
-
+        
         private void OnEnable()
         {
             if (beacon != null && beacon.gameStateChannel != null)

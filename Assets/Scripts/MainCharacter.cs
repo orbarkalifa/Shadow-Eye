@@ -1,5 +1,4 @@
 using GameStateManagement;
-using Scriptable.Scripts;
 using UnityEngine;
 using UnityEngine.U2D.Animation;
 
@@ -8,8 +7,6 @@ public class MainCharacter : Character
     private CharacterMovement characterMovement;
     private CharacterCombat characterCombat;
     private InputSystem_Actions inputActions;
-    private HealthChannelSo healthChannel;
-    private GameStateChannelSO gameStateChannel;
     [SerializeField] private BeaconSO beacon;
     private Suit equippedSuit;
     
@@ -23,16 +20,12 @@ public class MainCharacter : Character
     [SerializeField] private SpriteLibraryAsset normalSpriteLibraryAsset;
     [SerializeField] private SpriteLibraryAsset suitSpriteLibraryAsset;
 
-    private GSManager gsManager;
   
 
     protected override void Awake()
     {
         base.Awake();
-        gsManager = FindObjectOfType<GSManager>();
         inputActions = new InputSystem_Actions();
-        healthChannel = gsManager.beacon.healthChannel;
-        gameStateChannel = gsManager.beacon.gameStateChannel;
         characterMovement = GetComponent<CharacterMovement>();
         characterCombat = GetComponent<CharacterCombat>();
         
@@ -48,7 +41,7 @@ public class MainCharacter : Character
 
     void Start()
     {
-        healthChannel.ChangeHealth(currentHits);
+        beacon.uiChannel.ChangeHealth(currentHits);
     }
 
     private void Update()
@@ -134,7 +127,7 @@ public class MainCharacter : Character
     public override void TakeDamage(int damage)
     {
         currentHits -= damage;
-        healthChannel.ChangeHealth(currentHits);
+        beacon.uiChannel.ChangeHealth(currentHits);
         if (currentHits <= 0)
         {
             OnDeath();
@@ -167,7 +160,7 @@ public class MainCharacter : Character
     public void Heal()
     {
         currentHits = Mathf.Min(currentHits + 1, maxHits);
-        healthChannel.ChangeHealth(currentHits);
+        beacon.uiChannel.ChangeHealth(currentHits);
     }
     
     private void OnDestroy()
@@ -177,11 +170,11 @@ public class MainCharacter : Character
 
     protected override void OnDeath()
     {
-        var gameOverState = gsManager.GetStateByName("Game Over");
+        var gameOverState = beacon.gameStateChannel.GetGameStateByName("Game Over");
         if (beacon.gameStateChannel && gameOverState != null)
         {
             Debug.Log($"Game Over: {gameOverState.name}");
-            beacon.gameStateChannel.RaiseStateTransitionRequest(gameOverState); // Request transition to GameOver state
+            beacon.gameStateChannel.RaiseStateTransitionRequest(gameOverState);
         }
         else
         {

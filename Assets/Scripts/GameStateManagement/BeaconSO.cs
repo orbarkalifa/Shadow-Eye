@@ -1,5 +1,4 @@
 using GameStateManagement;
-using Scriptable.Scripts;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "ChannelBeacon", menuName = "Beacon/Channel Beacon")]
@@ -9,7 +8,7 @@ public class BeaconSO : ScriptableObject
     public GameStateChannelSO gameStateChannel;
 
     [Header("UI Channels")]
-    public HealthChannelSo healthChannel;
+    public UIChannelSO uiChannel;
 
     // Add more channels here as needed
 }

@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using GameStateManagement;
-using Scriptable.Scripts;
 using UnityEngine;
 
 public class UIEyeBar : MonoBehaviour
@@ -8,14 +7,11 @@ public class UIEyeBar : MonoBehaviour
     private List<UIEyeScript> eyes = new List<UIEyeScript>();
     [SerializeField] private GameObject EyePrefab;
     [SerializeField] private int maxHealth = 5; // or retrieve from player data
-    private HealthChannelSo healthChannel;
-    private GSManager gsManager;
+    [SerializeField] private BeaconSO beacon;
 
     private void Awake()
     {
-        gsManager = FindObjectOfType<GSManager>();
-        healthChannel = gsManager.beacon.healthChannel;
-        healthChannel.OnChangeHealth += UpdateHUD;
+        beacon.uiChannel.OnChangeHealth += UpdateHUD;
     }
 
     private void Start()
@@ -40,9 +36,9 @@ public class UIEyeBar : MonoBehaviour
 
     private void OnDestroy()
     {
-        if (healthChannel != null)
+        if (beacon != null)
         {
-            healthChannel.OnChangeHealth -= UpdateHUD;
+            beacon.uiChannel.OnChangeHealth -= UpdateHUD;
         }
     }
 }

@@ -9,9 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9714a605a1f066f4697b4f1f99ee035c, type: 3}
-  m_Name: Start
+  m_Script: {fileID: 11500000, guid: 50e3e71e7fd14534b362d44baf6849ca, type: 3}
+  m_Name: ChannelBeacon
   m_EditorClassIdentifier: 
-  state: 0
-  canMenu: 0
-  canMove: 0
+  gameStateChannel: {fileID: 11400000, guid: 9aeb3c56d188f1941b26b09b048f3df2, type: 2}
+  uiChannel: {fileID: 11400000, guid: 17bb76337225bf146a8f2e03b6bcec84, type: 2}

@@ -1,8 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using GameStateManagement;
-using Scriptable.Scripts;
 using UnityEngine;
 using TMPro;
 
@@ -11,18 +6,15 @@ public class UIHealthdisplay : MonoBehaviour
     private TextMeshProUGUI healthText;
     
     
-    private HealthChannelSo healthChannel;
     private int maxHealth;
     private int currentHealth;
     [SerializeField]private Sprite eyeSprite;
     [SerializeField]private Sprite deadeyeSprite;
-    private GSManager gsManager;
+    private BeaconSO beacon;
     
     void Awake()
     {
-        gsManager = FindObjectOfType<GSManager>();
-        healthChannel = gsManager.beacon.healthChannel;
-        healthChannel.OnChangeHealth += updateText;
+        beacon.uiChannel.OnChangeHealth += updateText;
         healthText = GetComponent<TextMeshProUGUI>();
     }
     
@@ -38,9 +30,9 @@ public class UIHealthdisplay : MonoBehaviour
 
     private void OnDestroy()
     {
-        if (healthChannel != null)
+        if (beacon != null)
         {
-            healthChannel.OnChangeHealth -= updateText;
+            beacon.uiChannel.OnChangeHealth -= updateText;
         }
     }
 

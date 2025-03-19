@@ -10,6 +10,8 @@ namespace GameStateManagement
     {
         public UnityAction<GameStateSO> onStateTransitionRequested;
         public Func<GameStateSO> GetCurrentGameState;
+        public Func<string, GameStateSO> GetGameStateByName;
+        
 
         public void RaiseStateTransitionRequest(GameStateSO nextStateSo)
         {
@@ -25,6 +27,11 @@ namespace GameStateManagement
         public GameStateSO OnGetCurrentGameState()
         {
             return GetCurrentGameState?.Invoke();
+        }
+
+        public GameStateSO OnGetGameStateByName(string name)
+        {
+            return GetGameStateByName?.Invoke(name);
         }
     }
     

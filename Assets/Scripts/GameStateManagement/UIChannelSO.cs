@@ -1,9 +1,10 @@
 using System;
 using UnityEngine;
 
-namespace Scriptable.Scripts
+namespace GameStateManagement
 {
-    public class HealthChannelSo : ScriptableObject
+    [CreateAssetMenu(fileName = "UIChannel", menuName = "Channel/UI Channel")] 
+    public class UIChannelSO :ScriptableObject
     {
         public event Action<int> OnChangeHealth;
         public void ChangeHealth(int health)

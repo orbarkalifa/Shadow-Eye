@@ -10,7 +10,14 @@ namespace GameStateManagement
         [SerializeField] private GameObject pauseMenuPanel;
         [SerializeField] private GameObject gameOverPanel;
         [SerializeField] private GameObject inGameHUDPanel;
-        
+
+        private BeaconSO beacon;
+        private void Awake()
+        {
+            /*beacon.uiChannel.updateUI += ;*/
+
+        }
+
         public void HideAllPanels()
         {
             Debug.Log("Hiding all ui panels");
