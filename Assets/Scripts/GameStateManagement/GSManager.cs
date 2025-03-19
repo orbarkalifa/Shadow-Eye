@@ -15,12 +15,10 @@ namespace GameStateManagement
         
         private UIManager uiManager;
 
-        // Dictionary to store states for easy lookup by name
         private readonly Dictionary<string, GameStateSO> stateLookup = new Dictionary<string, GameStateSO>();
 
         void Awake()
         {
-            // Get the scene instance of UIManager (ensure only one UIManager exists in your scene)
             uiManager = FindObjectOfType<UIManager>();
             if (uiManager == null)
             {
@@ -29,7 +27,7 @@ namespace GameStateManagement
 
             beacon.gameStateChannel.GetCurrentGameState += GetCurrentState;
             beacon.gameStateChannel.GetGameStateByName += GetStateByName;
-            InitializeUIListeners();
+            initializeUIListeners();
         }
 
         private GameStateSO GetCurrentState()
@@ -79,7 +77,6 @@ namespace GameStateManagement
             }
         }
 
-        // ReSharper disable Unity.PerformanceAnalysis
         private void transitionToState(GameStateSO nextState)
         {
             if (currentState == nextState) return;
@@ -92,14 +89,11 @@ namespace GameStateManagement
             currentState.EnterState();
         }
 
-        // Helper methods to request transitions from other scripts
         public void RequestStartGame() => beacon?.gameStateChannel?.RaiseStateTransitionRequest(startGameState);
         public void RequestInGame() => beacon?.gameStateChannel?.RaiseStateTransitionRequest(inGameState);
         public void RequestMenu() => beacon?.gameStateChannel?.RaiseStateTransitionRequest(menuState);
         public void RequestGameOver() => beacon?.gameStateChannel?.RaiseStateTransitionRequest(gameOverState);
 
-        // Method to get a GameStateSO by name
-        // ReSharper disable Unity.PerformanceAnalysis
         public GameStateSO GetStateByName(string stateName)
         {
             if (stateLookup.TryGetValue(stateName, out var stateByName))
@@ -113,7 +107,6 @@ namespace GameStateManagement
             }
         }
 
-        // Helper method to populate the state lookup dictionary
         private void populateStateLookup()
         {
             stateLookup.Clear();
@@ -121,10 +114,9 @@ namespace GameStateManagement
             if (inGameState != null) stateLookup.Add(inGameState.stateName, inGameState);
             if (menuState != null) stateLookup.Add(menuState.stateName, menuState);
             if (gameOverState != null) stateLookup.Add(gameOverState.stateName, gameOverState);
-            // Add more states to the dictionary as you create them
         }
         
-        private void InitializeUIListeners()
+        private void initializeUIListeners()
         {
             if (uiManager == null)
             {
