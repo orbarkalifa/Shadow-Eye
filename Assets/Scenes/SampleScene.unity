@@ -611,6 +611,7 @@ GameObject:
   - component: {fileID: 519420029}
   - component: {fileID: 519420033}
   - component: {fileID: 519420034}
+  - component: {fileID: 519420035}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -705,7 +706,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  offset: {x: 0, y: 1.5, z: -10}
+  offset: {x: 0, y: 3, z: -10}
   smoothSpeed: 0.125
 --- !u!114 &519420034
 MonoBehaviour:
@@ -727,6 +728,20 @@ MonoBehaviour:
   m_CropFrameX: 0
   m_CropFrameY: 0
   m_StretchFill: 0
+--- !u!114 &519420035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7255f63e9f5f4143b455fd7fa1145b98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shakeDuration: 0.15
+  shakeMagnitude: 0.1
 --- !u!1 &604975382
 GameObject:
   m_ObjectHideFlags: 0
@@ -2731,15 +2746,23 @@ PrefabInstance:
       objectReference: {fileID: 857784895}
     - target: {fileID: 291038759977586518, guid: 1bdf96493d9b4b64e9730a758d91d9b0, type: 3}
       propertyPath: recoilForce
-      value: 100
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 291038759977586518, guid: 1bdf96493d9b4b64e9730a758d91d9b0, type: 3}
       propertyPath: attackCooldown
       value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 291038759977586518, guid: 1bdf96493d9b4b64e9730a758d91d9b0, type: 3}
+      propertyPath: hitShakeDuration
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 291038759977586518, guid: 1bdf96493d9b4b64e9730a758d91d9b0, type: 3}
       propertyPath: enemyLayer.m_Bits
       value: 512
+      objectReference: {fileID: 0}
+    - target: {fileID: 291038759977586518, guid: 1bdf96493d9b4b64e9730a758d91d9b0, type: 3}
+      propertyPath: hitShakeMagnitude
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 291170328653028870, guid: 1bdf96493d9b4b64e9730a758d91d9b0, type: 3}
       propertyPath: m_LocalScale.x

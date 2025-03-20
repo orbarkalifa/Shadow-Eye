@@ -10,9 +10,9 @@ public class MainCharacter : Character
     [SerializeField] private BeaconSO beacon;
     private Suit equippedSuit;
     
-    [Header("Visuals")]
-    private Vector2 facingDirection = Vector2.right; // Default facing direction
-    [SerializeField]private GameObject eye;
+    [Header("Visuals")] 
+    public Vector2 facingDirection = Vector2.right; // Default facing direction
+    [SerializeField] private GameObject eye;
     [Header("Sprite Library Settings")]
     [SerializeField] private SpriteLibrary spriteLibrary;
     [SerializeField] private SpriteLibraryAsset normalSpriteLibraryAsset;

@@ -241,16 +241,5 @@ public class CharacterMovement : MonoBehaviour
         if (rb.velocity.y > 0)
             rb.velocity += Vector2.up * -jumpForce * variableJumpMultiplier;
     }
-
-    public void SetMovementEnabled(bool isEnabled)
-    {
-        // Disable movement by setting velocity to zero and preventing input
-        if (!isEnabled)
-        {
-            rb.velocity = Vector2.zero; // Stop movement immediately
-        }
-
-        enabled = isEnabled; // Enable/disable the movement script
-    }
-
+    
 }

@@ -80,6 +80,7 @@
     <Compile Include="Assets\Scripts\GameStateManagement\GameStateSO.cs" />
     <Compile Include="Assets\Scripts\Suits\Suit.cs" />
     <Compile Include="Assets\Low_Swordman\Demo\Scripts\Demo_GM.cs" />
+    <Compile Include="Assets\Scripts\CameraShake.cs" />
     <Compile Include="Assets\Scripts\GameStateManagement\InGameStateSO.cs" />
     <Compile Include="Assets\Scripts\GameStateManagement\GameStateChannelSO.cs" />
     <Compile Include="Assets\Scripts\UIEyeScript.cs" />
