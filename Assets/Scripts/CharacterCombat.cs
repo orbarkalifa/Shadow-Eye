@@ -1,18 +1,20 @@
-using System;
+using System.Collections;
 using UnityEngine;
 
 public class CharacterCombat : MonoBehaviour
 {
     [Header("Attack Settings")]
-    public Transform AttackRange; 
-    public int AttackDamage = 1;
-    public LayerMask EnemyLayer;
-    
+    public Transform attackRange;
+    public int attackDamage = 1;
+    public LayerMask enemyLayer;
+    public float attackCooldown = 0.3f;
+
     private Animator animator;
-    private int comboStep = 0;
+    private int comboStep;
     private float lastAttackTime;
-    private float comboResetTime = 1f; 
-    private bool isAttacking = false; 
+    private readonly float comboResetTime = 1f;
+    private bool isAttacking;
+    private bool isOnCooldown;
 
     private void Awake()
     {
@@ -21,6 +23,9 @@ public class CharacterCombat : MonoBehaviour
 
     public void BasicAttack(Vector2 facingDirection)
     {
+        if (isOnCooldown)
+            return;
+
         if (Time.time - lastAttackTime > comboResetTime)
         {
             comboStep = 0;
@@ -32,56 +37,55 @@ public class CharacterCombat : MonoBehaviour
         if (!isAttacking)
         {
             comboStep = 1;
-            isAttacking = true; 
+            isAttacking = true;
             animator.CrossFadeInFixedTime("Ado_attack1", 0.05f);
-
-            Vector3 newAttackRangePos = new Vector3(facingDirection.x * 0.5f, AttackRange.localPosition.y, 0f);
-            AttackRange.localPosition = newAttackRangePos;
+            
+            attackRange.localPosition = new Vector3(facingDirection.x * 0.5f, attackRange.localPosition.y, 0f);
         }
         else if (comboStep == 1)
         {
             comboStep = 2;
+            animator.CrossFadeInFixedTime("Ado_attack2", 0.05f);
         }
     }
+
     public void OnAttack1Complete()
     {
-        DoAttackHit();
-        if (comboStep == 2)
-        {
-           animator.CrossFadeInFixedTime("Ado_attack2", 0.05f);
-        }
-        else
-        {
-            isAttacking = false;
-            comboStep = 0;
-        }
+        doAttackHit();
     }
+
     public void OnAttack2Complete()
     {
-        DoAttackHit();
+        doAttackHit();
+        // Only start cooldown after the second attack
+        StartCoroutine(AttackCooldown());
         isAttacking = false;
         comboStep = 0;
     }
-
     
-    public void DoAttackHit()
+
+    private IEnumerator AttackCooldown()
+    {
+        isOnCooldown = true;
+        yield return new WaitForSeconds(attackCooldown);
+        isOnCooldown = false;
+    }
+
+    private void doAttackHit()
     {
         Collider2D[] hitEnemies = Physics2D.OverlapBoxAll(
-            AttackRange.position,
-            AttackRange.GetComponent<BoxCollider2D>().size,
+            attackRange.position,
+            attackRange.GetComponent<BoxCollider2D>().size,
             0f,
-            EnemyLayer
+            enemyLayer
         );
 
         foreach (Collider2D enemy in hitEnemies)
         {
-            if (enemy.TryGetComponent<EnemyController>(out EnemyController enemyComponent))
+            if (enemy.TryGetComponent(out EnemyController enemyComponent))
             {
-                enemyComponent.TakeDamage(AttackDamage);
+                enemyComponent.TakeDamage(attackDamage);
             }
         }
     }
-    
-
-    
 }

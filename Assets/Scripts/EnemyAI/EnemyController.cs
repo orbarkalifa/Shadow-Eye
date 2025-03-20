@@ -7,7 +7,7 @@ public class EnemyController : Character
 {
     [Header("Basic Settings")]
     public float moveSpeed = 2f;
-    public float attackRange = 1.5f;
+    public float attackRange = 3f;
     [SerializeField] private float attackCooldown = 2f;
     public LayerMask playerLayer;
     public Transform player;
@@ -33,15 +33,13 @@ public class EnemyController : Character
         if (!rb) rb = GetComponent<Rigidbody2D>();
         if (player == null)
         {
-            player = GameObject.FindGameObjectWithTag("Player").transform; // Assuming player has "Player" tag
+            player = GameObject.FindGameObjectWithTag("Player").transform;
             if (player == null)
             {
                 Debug.LogError("EnemyController: Player not found! Make sure player has 'Player' tag.");
             }
         }
-        // Create the state machine
         StateMachine = new EnemyStateMachine();
-        // Initialize with the chosen starting state
         StateMachine.Initialize(this, startingState);
     }
 

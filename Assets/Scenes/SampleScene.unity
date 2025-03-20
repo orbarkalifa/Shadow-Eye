@@ -842,6 +842,11 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!4 &857784895 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2871227010582656584, guid: 1bdf96493d9b4b64e9730a758d91d9b0, type: 3}
+  m_PrefabInstance: {fileID: 8090376246590781086}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &858949052
 GameObject:
   m_ObjectHideFlags: 0
@@ -2393,6 +2398,18 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1974717682}
     - target: {fileID: 3019872403742316719, guid: 10d75f43224c31446895084fb17026be, type: 3}
+      propertyPath: moveSpeed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3019872403742316719, guid: 10d75f43224c31446895084fb17026be, type: 3}
+      propertyPath: attackRange
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3019872403742316719, guid: 10d75f43224c31446895084fb17026be, type: 3}
+      propertyPath: attackCooldown
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3019872403742316719, guid: 10d75f43224c31446895084fb17026be, type: 3}
       propertyPath: patrolPoints.Array.data[0]
       value: 
       objectReference: {fileID: 280210423}
@@ -2708,6 +2725,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1783228693}
     m_Modifications:
+    - target: {fileID: 291038759977586518, guid: 1bdf96493d9b4b64e9730a758d91d9b0, type: 3}
+      propertyPath: attackRange
+      value: 
+      objectReference: {fileID: 857784895}
+    - target: {fileID: 291038759977586518, guid: 1bdf96493d9b4b64e9730a758d91d9b0, type: 3}
+      propertyPath: recoilForce
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 291038759977586518, guid: 1bdf96493d9b4b64e9730a758d91d9b0, type: 3}
+      propertyPath: attackCooldown
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 291038759977586518, guid: 1bdf96493d9b4b64e9730a758d91d9b0, type: 3}
+      propertyPath: enemyLayer.m_Bits
+      value: 512
+      objectReference: {fileID: 0}
     - target: {fileID: 291170328653028870, guid: 1bdf96493d9b4b64e9730a758d91d9b0, type: 3}
       propertyPath: m_LocalScale.x
       value: 1

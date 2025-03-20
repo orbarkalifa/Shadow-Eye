@@ -14,7 +14,7 @@ public class AttackStateSO : EnemyStateSO
     {
         _hasAttacked = false;
 
-        PerformAttack(enemy);
+        performAttack(enemy);
     }
 
     public override void OnUpdate(EnemyController enemy)
@@ -41,12 +41,11 @@ public class AttackStateSO : EnemyStateSO
     {
     }
 
-    private void PerformAttack(EnemyController enemy)
+    private void performAttack(EnemyController enemy)
     {
         _hasAttacked = true;
         enemy.LastAttackTime = Time.time;
 
-        // Check if the player is still in range
         Collider2D playerCollider = Physics2D.OverlapCircle(
             enemy.transform.position,
             enemy.attackRange,
@@ -58,7 +57,7 @@ public class AttackStateSO : EnemyStateSO
             MainCharacter playerController = playerCollider.GetComponent<MainCharacter>();
             if (playerController)
             {
-                playerController.TakeDamage(1); // Example damage value
+                playerController.TakeDamage(1);
             }
         }
     }
