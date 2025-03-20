@@ -25,7 +25,8 @@ public class CameraFollow : MonoBehaviour
     {
         if (!target)
         {
-            return;
+            target = GameObject.FindGameObjectWithTag("Player").transform;
+            if (!target) return;
         }
 
         // Smoothly move camera towards the desired position

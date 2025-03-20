@@ -81,7 +81,7 @@ public class CharacterMovement : MonoBehaviour
     private bool isTouchingWall()
     {
         Vector2 position = transform.position;
-        float wallCheckDistance = 0.5f;
+        float wallCheckDistance = 1f;
         bool leftCheck = Physics2D.Raycast(position, Vector2.left, wallCheckDistance, wallLayer);
         bool rightCheck = Physics2D.Raycast(position, Vector2.right, wallCheckDistance, wallLayer);
         return leftCheck || rightCheck;
@@ -142,13 +142,23 @@ public class CharacterMovement : MonoBehaviour
     private bool isGrounded()
     {
         Vector2 position = transform.position;
-        Vector2 boxSize = new Vector2(0.8f, 0.8f);
+        Vector2 boxSize = new Vector2(1.2f, 1f);
         Collider2D groundDetected = Physics2D.OverlapBox(position + Vector2.down * extraHeight, boxSize, 0f, groundLayer);
     
         if (groundDetected)
             jumpCount = 0;
     
         return groundDetected;
+    }
+    
+    private void OnDrawGizmos()
+    {
+        if (groundLayer == 0)
+            return;
+        Vector2 position = transform.position;
+        Vector2 boxSize = new Vector2(1.2f, 1f);
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireCube(position + Vector2.down * extraHeight, boxSize);
     }
 
     public void Dash()
@@ -183,15 +193,7 @@ public class CharacterMovement : MonoBehaviour
         isDashing = false;
     }
 
-    private void OnDrawGizmos()
-    {
-        if (groundLayer == 0)
-            return;
-        Vector2 position = transform.position;
-        Vector2 boxSize = new Vector2(0.8f, 0.8f);
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireCube(position + Vector2.down * extraHeight, boxSize);
-    }
+    
 
     public void Jump() 
     {

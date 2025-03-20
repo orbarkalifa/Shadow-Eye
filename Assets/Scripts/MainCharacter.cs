@@ -11,10 +11,8 @@ public class MainCharacter : Character
     private Suit equippedSuit;
     
     [Header("Visuals")]
-    [SerializeField] Transform suitVisualSlot; // Slot for the suit visual
-    private GameObject currentSuitVisual; // Holds the current suit visual instance
     private Vector2 facingDirection = Vector2.right; // Default facing direction
-    
+    [SerializeField]private GameObject eye;
     [Header("Sprite Library Settings")]
     [SerializeField] private SpriteLibrary spriteLibrary;
     [SerializeField] private SpriteLibraryAsset normalSpriteLibraryAsset;
@@ -118,6 +116,7 @@ public class MainCharacter : Character
         {
             if(spriteLibrary != null && suitSpriteLibraryAsset != null)
             {
+                eye.SetActive(false);
                 spriteLibrary.spriteLibraryAsset = suitSpriteLibraryAsset;
             }
         }
@@ -133,18 +132,10 @@ public class MainCharacter : Character
             OnDeath();
         }
     }
-
-    private void destroyCurrentSuitVisual()
-    {
-        if (currentSuitVisual != null)
-        {
-            Destroy(currentSuitVisual); // Remove the old suit visual
-            currentSuitVisual = null;
-        }
-    }
-
+    
     private void unEquipSuit()
     {
+        eye.SetActive(true);
         if (equippedSuit != null)
         {
             Debug.Log($"Unequipped suit: {equippedSuit.suitName}");

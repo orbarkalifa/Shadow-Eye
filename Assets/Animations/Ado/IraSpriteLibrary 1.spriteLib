@@ -174,53 +174,43 @@ MonoBehaviour:
     m_Hash: 989481331
     m_CategoryList: []
     m_OverrideEntries:
-    - m_Name: Ado_jump_1
-      m_Hash: 641120933
-      m_Sprite: {fileID: -356191203, guid: 865ddd04334f331489e685ec91207659, type: 3}
-      m_FromMain: 1
-      m_SpriteOverride: {fileID: -356191203, guid: 865ddd04334f331489e685ec91207659, type: 3}
-    - m_Name: Ado_jump_2
-      m_Hash: 1061153567
-      m_Sprite: {fileID: 1643474759, guid: 865ddd04334f331489e685ec91207659, type: 3}
-      m_FromMain: 1
-      m_SpriteOverride: {fileID: 1643474759, guid: 865ddd04334f331489e685ec91207659, type: 3}
-    - m_Name: Ado_jump_3
-      m_Hash: 137943945
-      m_Sprite: {fileID: 1427878030, guid: 865ddd04334f331489e685ec91207659, type: 3}
-      m_FromMain: 1
-      m_SpriteOverride: {fileID: 1427878030, guid: 865ddd04334f331489e685ec91207659, type: 3}
-    - m_Name: Ado_jump_4
-      m_Hash: 375148074
-      m_Sprite: {fileID: 1108528278, guid: 865ddd04334f331489e685ec91207659, type: 3}
-      m_FromMain: 1
-      m_SpriteOverride: {fileID: 1108528278, guid: 865ddd04334f331489e685ec91207659, type: 3}
-    - m_Name: Ado_jump_5
-      m_Hash: 559644348
-      m_Sprite: {fileID: 1948815749, guid: 865ddd04334f331489e685ec91207659, type: 3}
-      m_FromMain: 1
-      m_SpriteOverride: {fileID: 1948815749, guid: 865ddd04334f331489e685ec91207659, type: 3}
-    - m_Name: Ado_jump_6
-      m_Hash: 944910086
-      m_Sprite: {fileID: -309903097, guid: 865ddd04334f331489e685ec91207659, type: 3}
-      m_FromMain: 1
-      m_SpriteOverride: {fileID: -309903097, guid: 865ddd04334f331489e685ec91207659, type: 3}
-    - m_Name: Ado_jump_7
-      m_Hash: 257236880
-      m_Sprite: {fileID: -1432025415, guid: 865ddd04334f331489e685ec91207659, type: 3}
-      m_FromMain: 1
-      m_SpriteOverride: {fileID: -1432025415, guid: 865ddd04334f331489e685ec91207659, type: 3}
-    - m_Name: Ado_jump_8
-      m_Hash: 535429633
-      m_Sprite: {fileID: 1185693763, guid: 865ddd04334f331489e685ec91207659, type: 3}
-      m_FromMain: 1
-      m_SpriteOverride: {fileID: 1185693763, guid: 865ddd04334f331489e685ec91207659, type: 3}
     - m_Name: Ado_jump_0
       m_Hash: 288459315
-      m_Sprite: {fileID: -1257721538, guid: 865ddd04334f331489e685ec91207659, type: 3}
+      m_Sprite: {fileID: -955506436, guid: c7da8ab0785378840badb3910dc841d1, type: 3}
       m_FromMain: 1
-      m_SpriteOverride: {fileID: -1257721538, guid: 865ddd04334f331489e685ec91207659, type: 3}
+      m_SpriteOverride: {fileID: 1035177027, guid: 3e795e229e36d424cad2c6b9e19165e6, type: 3}
+    - m_Name: Ado_jump_1
+      m_Hash: 641120933
+      m_Sprite: {fileID: -92575785, guid: c7da8ab0785378840badb3910dc841d1, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: -1956674411, guid: 3e795e229e36d424cad2c6b9e19165e6, type: 3}
+    - m_Name: Ado_jump_2
+      m_Hash: 1061153567
+      m_Sprite: {fileID: -2124330865, guid: c7da8ab0785378840badb3910dc841d1, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 1879895719, guid: 3e795e229e36d424cad2c6b9e19165e6, type: 3}
+    - m_Name: Ado_jump_3
+      m_Hash: 137943945
+      m_Sprite: {fileID: -1098486763, guid: c7da8ab0785378840badb3910dc841d1, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: -1842895388, guid: 3e795e229e36d424cad2c6b9e19165e6, type: 3}
+    - m_Name: Ado_jump_4
+      m_Hash: 375148074
+      m_Sprite: {fileID: -21106038, guid: c7da8ab0785378840badb3910dc841d1, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 231289442, guid: 3e795e229e36d424cad2c6b9e19165e6, type: 3}
+    - m_Name: Ado_jump_5
+      m_Hash: 559644348
+      m_Sprite: {fileID: 1577826092, guid: c7da8ab0785378840badb3910dc841d1, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: -1328698591, guid: 3e795e229e36d424cad2c6b9e19165e6, type: 3}
+    - m_Name: Ado_jump_rework_5
+      m_Hash: 90905767
+      m_Sprite: {fileID: -1999369658, guid: c7da8ab0785378840badb3910dc841d1, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 1009154337, guid: 3e795e229e36d424cad2c6b9e19165e6, type: 3}
     m_FromMain: 1
-    m_EntryOverrideCount: 0
+    m_EntryOverrideCount: 7
   - m_Name: Ado_attack1
     m_Hash: 74278166
     m_CategoryList: []
@@ -325,5 +315,5 @@ MonoBehaviour:
     m_FromMain: 0
     m_EntryOverrideCount: 0
   m_PrimaryLibraryGUID: 1c0eb76793e460b4baefddb2249e4652
-  m_ModificationHash: 638778177059499771
+  m_ModificationHash: 638780829356246217
   m_Version: 1
