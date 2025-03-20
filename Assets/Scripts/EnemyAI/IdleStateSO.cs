@@ -9,11 +9,11 @@ public class IdleStateSO : EnemyStateSO
     public float idleDuration = 2f;
     public EnemyStateSO nextStateAfterIdle;
 
-    private float _idleStartTime;
+    private float idleStartTime;
 
     public override void OnEnter(EnemyController enemy)
     {
-        _idleStartTime = Time.time;
+        idleStartTime = Time.time;
         enemy.rb.velocity = new Vector2(0f, enemy.rb.velocity.y);
         // set idle animation
     }
@@ -30,7 +30,7 @@ public class IdleStateSO : EnemyStateSO
         }
 
         // If idle time exceeded, transition to the nextStateAfterIdle if assigned
-        if (nextStateAfterIdle != null && Time.time >= _idleStartTime + idleDuration)
+        if (nextStateAfterIdle != null && Time.time >= idleStartTime + idleDuration)
         {
             enemy.StateMachine.ChangeState(enemy,nextStateAfterIdle);
         }

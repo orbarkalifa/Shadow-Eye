@@ -4,16 +4,9 @@ using System.Collections;
 public class CameraShake : MonoBehaviour
 {
     [Header("Shake Settings")]
-    [SerializeField] private float shakeDuration = 0.15f;
-    [SerializeField] private float shakeMagnitude = 0.1f;
-
     private Vector3 initialPosition;
-    private bool isShaking = false;
+    private bool isShaking;
 
-    void Start()
-    {
-        initialPosition = transform.position;
-    }
     public void ShakeCamera(float duration, float magnitude)
     {
         if (!isShaking)

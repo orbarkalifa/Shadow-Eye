@@ -79,7 +79,6 @@ public class CharacterCombat : MonoBehaviour
     public void OnAttack2Complete()
     {
         doAttackHit();
-        // Only start cooldown after the second attack
         StartCoroutine(AttackCooldown());
         isAttacking = false;
         comboStep = 0;
@@ -125,7 +124,7 @@ public class CharacterCombat : MonoBehaviour
         {
             Vector2 recoilDirection = transform.localScale.x > 0 ? Vector2.left : Vector2.right;
             characterMovement.GetComponent<Rigidbody2D>().AddForce(recoilDirection * recoilForce, ForceMode2D.Impulse);
-            cameraShake.ShakeCamera(hitShakeDuration, hitShakeMagnitude); // Trigger camera shake on hit!
+            cameraShake.ShakeCamera(hitShakeDuration, hitShakeMagnitude); 
         }
         else
         {

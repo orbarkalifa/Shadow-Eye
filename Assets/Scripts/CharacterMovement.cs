@@ -16,8 +16,7 @@ public class CharacterMovement : MonoBehaviour
     
     private int jumpCount;
     private readonly int maxJumpCount = 1; // Change this to 2 if you want to allow double jump
-
-
+    
     [Header("Movement Settings")]
     [SerializeField] private float moveSpeed = 20f;
     [SerializeField] private float jumpForce = 35;
@@ -115,9 +114,7 @@ public class CharacterMovement : MonoBehaviour
                 flip();
 
             updateGroundedState();
-
         }
-        
     }
 
     private void updateGroundedState()
@@ -192,7 +189,6 @@ public class CharacterMovement : MonoBehaviour
         rb.gravityScale = storedGravity;
         isDashing = false;
     }
-
     
 
     public void Jump() 
@@ -205,7 +201,7 @@ public class CharacterMovement : MonoBehaviour
         {
             animator.SetBool(isJumpingHash, true);
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-            jumpCount++; // Increment to prevent additional jumps
+            jumpCount++; 
             coyoteTimeCounter = 0;
         }
     }

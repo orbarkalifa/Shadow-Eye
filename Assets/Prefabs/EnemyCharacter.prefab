@@ -252,8 +252,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHits: 5
   currentHits: 0
-  moveSpeed: 2
-  attackRange: 1.5
+  moveSpeed: 3
+  attackRange: 3
   attackCooldown: 2
   playerLayer:
     serializedVersion: 2

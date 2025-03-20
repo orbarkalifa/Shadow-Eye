@@ -740,8 +740,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7255f63e9f5f4143b455fd7fa1145b98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shakeDuration: 0.15
-  shakeMagnitude: 0.1
 --- !u!1 &604975382
 GameObject:
   m_ObjectHideFlags: 0
@@ -1105,9 +1103,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHits: 5
   currentHits: 0
-  moveSpeed: 2
-  attackRange: 1.5
-  attackCooldown: 2
+  moveSpeed: 3
+  attackRange: 3
+  attackCooldown: 1
   playerLayer:
     serializedVersion: 2
     m_Bits: 256
@@ -2773,6 +2771,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 291170328653028870, guid: 1bdf96493d9b4b64e9730a758d91d9b0, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.31
+      objectReference: {fileID: 0}
+    - target: {fileID: 291170328653028870, guid: 1bdf96493d9b4b64e9730a758d91d9b0, type: 3}
       propertyPath: m_LocalPosition.x
       value: -4.14
       objectReference: {fileID: 0}
@@ -2836,6 +2838,10 @@ PrefabInstance:
       propertyPath: eye
       value: 
       objectReference: {fileID: 2122434370}
+    - target: {fileID: 3369896988289008927, guid: 1bdf96493d9b4b64e9730a758d91d9b0, type: 3}
+      propertyPath: currentHits
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 4221994717303993257, guid: 1bdf96493d9b4b64e9730a758d91d9b0, type: 3}
       propertyPath: jumpForce
       value: 50

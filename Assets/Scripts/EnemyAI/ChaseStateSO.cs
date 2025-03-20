@@ -20,14 +20,12 @@ public class ChaseStateSO : EnemyStateSO
     {
         float distance = Vector2.Distance(enemy.transform.position, enemy.player.position);
 
-        // If out of detection range, return to patrol/idle
         if (distance > detectionRange)
         {
             enemy.StateMachine.ChangeState(enemy, patrolOrIdleState);
             return;
         }
 
-        // If close enough to attack AND cooldown is ready
         if (distance <= attackRange && 
             Time.time >= enemy.LastAttackTime + enemy.AttackCooldown)
         {

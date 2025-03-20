@@ -43,6 +43,19 @@ public class EnemyController : Character
         StateMachine.Initialize(this, startingState);
     }
 
+#if UNITY_EDITOR
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        if (StateMachine != null && StateMachine.CurrentState is ChaseStateSO chaseState) // Check if in chase state and get attackRange from ChaseStateSO
+        {
+            Gizmos.DrawWireSphere(transform.position, chaseState.attackRange);
+        } else {
+            // Fallback, use EnemyController's attackRange (less accurate for ChaseState visualization, but still helpful)
+            Gizmos.DrawWireSphere(transform.position, attackRange);
+        }
+    }
+#endif
     private void Update()
     {
         if (!player) return;
@@ -77,7 +90,6 @@ public class EnemyController : Character
     {
         dropSuit();
         base.OnDeath();
-        // Optionally, switch to a "DeadStateSO"
     }
 
     private void dropSuit()

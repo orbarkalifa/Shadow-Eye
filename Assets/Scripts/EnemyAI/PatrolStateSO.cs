@@ -20,8 +20,6 @@ public class PatrolStateSO : EnemyStateSO
         float distance = Vector2.Distance(enemy.transform.position, enemy.player.position);
         if (distance <= detectionRange)
         {
-            // Switch to chase
-            Debug.Log("Trying to switch to chase state");
             enemy.StateMachine.ChangeState(enemy, chaseState);
             
         }
