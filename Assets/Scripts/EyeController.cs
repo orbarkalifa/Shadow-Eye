@@ -18,14 +18,23 @@ public class EyeController : MonoBehaviour
     {
         if (player == null)
         {
-            player = transform.parent; // Auto-detect player if it's a child
+            player = transform.parent; // Auto-assign if the EyeCompanion is a child of the player
         }
 
-        // Set initial offset to the right of the player
+        // Set the sprite behind the player
+        SpriteRenderer eyeSprite = GetComponent<SpriteRenderer>();
+        SpriteRenderer playerSprite = player.GetComponent<SpriteRenderer>();
+
+        if (eyeSprite != null && playerSprite != null)
+        {
+            eyeSprite.sortingOrder = playerSprite.sortingOrder - 1; // Ensures the eye is behind the player
+        }
+
         m_DesiredLocalOffset = new Vector3(horizontalOffset, 0, 0);
         m_CurrentLocalOffset = m_DesiredLocalOffset;
-        m_StartY = transform.localPosition.y; // Store initial Y position
+        m_StartY = transform.localPosition.y;
     }
+
 
     void Update()
     {
@@ -53,6 +62,7 @@ public class EyeController : MonoBehaviour
     {
         // Ensure the eye follows the player's position
         Vector3 targetPosition = player.position + m_CurrentLocalOffset;
+        targetPosition.z = player.position.z - 0.1f;
         transform.position = Vector3.Lerp(transform.position, targetPosition, followSpeed * Time.deltaTime);
     }
 
