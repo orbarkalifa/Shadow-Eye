@@ -14,6 +14,7 @@ public class ChaseStateSO : EnemyStateSO
 
     public override void OnEnter(EnemyController enemy)
     {
+        enemy.animator.SetBool("isWalking", true);    
     }
 
     public override void OnUpdate(EnemyController enemy)

@@ -5,6 +5,8 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class EnemyController : Character
 {
+    public Animator animator;
+    private static readonly int isWalking = Animator.StringToHash("isWalking");
     [Header("Basic Settings")]
     public float moveSpeed = 2f;
     public float attackRange = 3f;
@@ -29,7 +31,7 @@ public class EnemyController : Character
     protected override void Awake()
     {
         base.Awake();
-
+        animator = GetComponent<Animator>();
         if (!rb) rb = GetComponent<Rigidbody2D>();
         if (player == null)
         {

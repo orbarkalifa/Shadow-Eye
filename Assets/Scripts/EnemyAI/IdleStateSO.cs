@@ -15,8 +15,7 @@ public class IdleStateSO : EnemyStateSO
     {
         idleStartTime = Time.time;
         enemy.rb.velocity = new Vector2(0f, enemy.rb.velocity.y);
-        // set idle animation
-    }
+        enemy.animator.SetBool("isWalking", false);    }
 
     public override void OnUpdate(EnemyController enemy)
     {

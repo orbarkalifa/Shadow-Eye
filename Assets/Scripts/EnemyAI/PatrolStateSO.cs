@@ -12,7 +12,7 @@ public class PatrolStateSO : EnemyStateSO
 
     public override void OnEnter(EnemyController enemy)
     {
-        // Possibly set a patrol animation
+        enemy.animator.SetBool("isWalking", true);
     }
 
     public override void OnUpdate(EnemyController enemy)

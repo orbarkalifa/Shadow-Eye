@@ -13,7 +13,7 @@ public class AttackStateSO : EnemyStateSO
     public override void OnEnter(EnemyController enemy)
     {
         _hasAttacked = false;
-
+        enemy.animator.SetBool("isWalking", false);    
         performAttack(enemy);
     }
 
