@@ -4,7 +4,6 @@ using UnityEngine;
 public class IdleStateSO : EnemyStateSO
 {
     [Header("Transitions")]
-    public float detectionRange = 10f;
     public EnemyStateSO chaseState;
     public float idleDuration = 2f;
     public EnemyStateSO nextStateAfterIdle;
@@ -21,7 +20,7 @@ public class IdleStateSO : EnemyStateSO
     {
         // Check if player is in range
         float distance = Vector2.Distance(enemy.transform.position, enemy.player.position);
-        if (distance <= detectionRange)
+        if (distance <= enemy.detectionRange)
         {
             // Transition to chase
             enemy.StateMachine.ChangeState(enemy,chaseState);

@@ -5,7 +5,6 @@ public class AttackStateSO : EnemyStateSO
 {
     private static readonly int isWalking = Animator.StringToHash("isWalking");
     [Header("Transitions")]
-    public float detectionRange = 10f;
     public EnemyStateSO chaseState;
     public EnemyStateSO idleOrPatrolState;
 
@@ -25,7 +24,7 @@ public class AttackStateSO : EnemyStateSO
         // Check if player is out of range and switch state accordingly.
         if (distanceToPlayer > enemy.attackRange)
         {
-            if (distanceToPlayer <= detectionRange)
+            if (distanceToPlayer <= enemy.detectionRange)
             {
                 enemy.StateMachine.ChangeState(enemy, chaseState);
             }
@@ -37,7 +36,7 @@ public class AttackStateSO : EnemyStateSO
         }
     
         // Check if the cooldown period has passed before attacking again.
-        if (Time.time >= enemy.LastAttackTime + enemy.AttackCooldown)
+        if (Time.time >= enemy.lastAttackTime + enemy.attackCooldown)
         {
             PerformAttack(enemy);
         }
@@ -56,7 +55,7 @@ public class AttackStateSO : EnemyStateSO
     private void PerformAttack(EnemyController enemy)
     {
         // Record the time of the attack.
-        enemy.LastAttackTime = Time.time;
+        enemy.lastAttackTime = Time.time;
     
         // Attempt to find a player collider within attack range.
         Collider2D playerCollider = Physics2D.OverlapCircle(

@@ -8,7 +8,6 @@ public class PatrolStateSO : EnemyStateSO
     public float patrolSpeed = 2f;
 
     [Header("Transitions")]
-    public float detectionRange = 10f;
     public EnemyStateSO chaseState;
 
     public override void OnEnter(EnemyController enemy)
@@ -20,7 +19,7 @@ public class PatrolStateSO : EnemyStateSO
     {
         float distance = Vector2.Distance(enemy.transform.position, enemy.player.position);
         
-        if (distance <= detectionRange)
+        if (distance <= enemy.detectionRange)
         {
             enemy.StateMachine.ChangeState(enemy, chaseState);
             
@@ -31,14 +30,15 @@ public class PatrolStateSO : EnemyStateSO
     {
         if (enemy.patrolPoints == null || enemy.patrolPoints.Length == 0) return;
 
-        Transform targetPoint = enemy.patrolPoints[enemy.currentPatrolIndex];
-        Vector2 direction = (targetPoint.position - enemy.transform.position).normalized;
+        Vector3 targetPoint = enemy.patrolPoints[enemy.currentPatrolIndex];
+        Vector2 direction = ((Vector2)targetPoint - (Vector2)enemy.transform.position).normalized; // Cast to Vector2 for 2D calculations
 
         enemy.rb.velocity = new Vector2(direction.x * patrolSpeed, enemy.rb.velocity.y);
         enemy.UpdateFacingDirection(direction.x);
 
-        float distanceToPoint = Vector2.Distance(enemy.transform.position, targetPoint.position);
-        if (distanceToPoint <= 4f)
+        float distanceToPoint = Vector2.Distance(enemy.transform.position, targetPoint);
+        
+        if (distanceToPoint <= 1f)
         {
             enemy.currentPatrolIndex++;
             if (enemy.currentPatrolIndex >= enemy.patrolPoints.Length)

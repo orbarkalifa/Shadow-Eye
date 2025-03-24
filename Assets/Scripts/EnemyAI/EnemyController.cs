@@ -1,6 +1,8 @@
 using EnemyAI;
 using Suits;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class EnemyController : Character
@@ -8,18 +10,18 @@ public class EnemyController : Character
     public Animator animator;
     [Header("Basic Settings")]
     public float attackRange = 5f;
-    [SerializeField] private float attackCooldown = 2f;
+    public float attackCooldown = 2f;
     public LayerMask playerLayer;
     public Transform player;
     public Rigidbody2D rb;
 
-    public float LastAttackTime { get; set; }
-    public float AttackCooldown => attackCooldown;
+    public float lastAttackTime;
     public EnemyStateSO startingState;
 
     [Header("Patrol Points")]
-    public Transform[] patrolPoints;
+    public Vector3[] patrolPoints;
     [HideInInspector] public int currentPatrolIndex;
+    public float detectionRange = 10f;
 
     [Header("Suit Drop")]
     [SerializeField] private Suit suitDrop;
@@ -42,14 +44,6 @@ public class EnemyController : Character
         StateMachine = new EnemyStateMachine();
         StateMachine.Initialize(this, startingState);
     }
-
-#if UNITY_EDITOR
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, attackRange);
-    }
-#endif
     
     private void Update()
     {
@@ -130,4 +124,37 @@ public class EnemyController : Character
 
         return pickup;
     }
+#if UNITY_EDITOR 
+    private void OnDrawGizmosSelected()
+    {
+        if (patrolPoints != null && patrolPoints.Length > 0)
+        {
+            Gizmos.color = Color.yellow;
+            for (int i = 0; i < patrolPoints.Length; i++)
+            {
+                // Draw a sphere at each patrol point
+                Gizmos.DrawSphere(patrolPoints[i], 0.3f);
+
+                // Draw lines connecting patrol points
+                if (i > 0)
+                {
+                    Gizmos.DrawLine(patrolPoints[i - 1], patrolPoints[i]);
+                }
+                else if (patrolPoints.Length > 1)
+                {
+                    Gizmos.DrawLine(patrolPoints[patrolPoints.Length - 1], patrolPoints[0]); // Loop back to start
+                }
+
+                // Add handles to move patrol points in the editor
+                EditorGUI.BeginChangeCheck(); // Start checking for changes
+                Vector3 newPosition = Handles.PositionHandle(patrolPoints[i], Quaternion.identity); // Create an interactive handle
+                if (EditorGUI.EndChangeCheck()) // Check if handle was moved
+                {
+                    Undo.RecordObject(this, "Move Patrol Point"); // Enable Undo functionality
+                    patrolPoints[i] = newPosition; // Update patrol point position
+                }
+            }
+        }
+    }
+#endif
 }

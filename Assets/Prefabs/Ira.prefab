@@ -123,7 +123,6 @@ MonoBehaviour:
   maxHits: 5
   currentHits: 0
   animator: {fileID: 0}
-  moveSpeed: 2
   attackRange: 4
   attackCooldown: 1.5
   playerLayer:
@@ -131,11 +130,11 @@ MonoBehaviour:
     m_Bits: 256
   player: {fileID: 0}
   rb: {fileID: 3960421595996800390}
+  lastAttackTime: 0
   startingState: {fileID: 11400000, guid: 65480f5da2a8aa24397aa633c93a914f, type: 2}
-  patrolPoints:
-  - {fileID: 0}
-  - {fileID: 0}
+  patrolPoints: []
   currentPatrolIndex: 0
+  detectionRange: 10
   suitDrop: {fileID: 11400000, guid: 4fadc748692153649ba80993fda0ca7f, type: 2}
 --- !u!95 &855339260648117484
 Animator:

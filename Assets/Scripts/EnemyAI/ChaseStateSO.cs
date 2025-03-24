@@ -1,16 +1,16 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [CreateAssetMenu(menuName = "EnemyAI/States/Chase State")]
 public class ChaseStateSO : EnemyStateSO
 {
     private static readonly int isWalking = Animator.StringToHash("isWalking");
     [Header("Chase Settings")]
-    public float chaseSpeed = 3f;
+    public float chaseSpeed = 4f;
 
     [Header("Transitions")]
-    public float detectionRange = 10f;
     public EnemyStateSO attackState; 
-    public EnemyStateSO patrolOrIdleState; // If player escapes, where to go?
+    public EnemyStateSO patrolState;
 
     public override void OnEnter(EnemyController enemy)
     {
@@ -19,16 +19,16 @@ public class ChaseStateSO : EnemyStateSO
 
     public override void OnUpdate(EnemyController enemy)
     {
-        float distance = Vector2.Distance(enemy.transform.position, enemy.player.position);
+        float distanceToPlayer = Vector2.Distance(enemy.transform.position, enemy.player.position);
 
-        if (distance > detectionRange)
+        if (distanceToPlayer > enemy.detectionRange)
         {
-            enemy.StateMachine.ChangeState(enemy, patrolOrIdleState);
+            enemy.StateMachine.ChangeState(enemy, patrolState);
             return;
         }
 
-        if (distance <= enemy.attackRange && 
-            Time.time >= enemy.LastAttackTime + enemy.AttackCooldown)
+        if (distanceToPlayer <= enemy.attackRange && 
+            Time.time >= enemy.lastAttackTime + enemy.attackCooldown)
         {
             enemy.StateMachine.ChangeState(enemy, attackState);
         }
