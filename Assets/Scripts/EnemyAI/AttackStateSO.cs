@@ -13,7 +13,8 @@ public class AttackStateSO : EnemyStateSO
     public override void OnEnter(EnemyController enemy)
     {
         _hasAttacked = false;
-        enemy.animator.SetBool("isWalking", false);    
+        enemy.animator.SetBool("isWalking", false);
+        enemy.rb.velocity = Vector3.zero;
         performAttack(enemy);
     }
 

@@ -9,6 +9,7 @@ TagManager:
   - Enemy
   - Projectile
   - Destructible
+  - Pickup
   layers:
   - Default
   - TransparentFX

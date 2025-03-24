@@ -94,24 +94,45 @@ public class EnemyController : Character
         base.OnDeath();
     }
 
-    private void dropSuit()
+    public void dropSuit()
     {
-        if (suitDrop != null)
+        if (suitDrop == null)
         {
-            GameObject pickup = new GameObject($"{suitDrop.suitName} Pickup");
+            Debug.LogWarning("No suit assigned to drop.");
+            return;
+        }
+
+        GameObject pickup;
+
+        if (suitDrop.suitPrefab != null)
+        {
+            pickup = Instantiate(suitDrop.suitPrefab, transform.position, Quaternion.identity);
+            pickup.name = $"{suitDrop.suitName} Pickup";
+        }
+        else
+        {
+            pickup = new GameObject($"{suitDrop.suitName} Pickup");
             pickup.transform.position = transform.position;
 
             SpriteRenderer spriteRenderer = pickup.AddComponent<SpriteRenderer>();
             spriteRenderer.sprite = suitDrop.suitSprite;
-
-            CircleCollider2D collider = pickup.AddComponent<CircleCollider2D>();
-            collider.isTrigger = true;
-
-            pickup.AddComponent<SuitPickup>().Initialize(suitDrop);
         }
-        else
+
+        Collider2D collider = pickup.GetComponent<Collider2D>();
+        if (collider == null)
         {
-            Debug.LogWarning("No suit assigned to drop.");
+            pickup.AddComponent<CircleCollider2D>();
         }
+
+        
+        pickup.tag = "Pickup"; 
+
+        SuitPickup suitPickup = pickup.GetComponent<SuitPickup>();
+        if (suitPickup == null)
+        {
+            suitPickup = pickup.AddComponent<SuitPickup>();
+        }
+        pickup.AddComponent<Rigidbody2D>();
+        suitPickup.Initialize(suitDrop);
     }
 }

@@ -53,11 +53,8 @@
     <Compile Include="Assets\Scripts\Suits\Abilities\FireballAttack.cs" />
     <Compile Include="Assets\Scripts\Suits\Abilities\DashMovement.cs" />
     <Compile Include="Assets\Scripts\EnemyAI\EnemyStateSO.cs" />
-    <Compile Include="Assets\Low_Swordman\Demo\Scripts\GroundSensor.cs" />
     <Compile Include="Assets\Scripts\Projectile.cs" />
     <Compile Include="Assets\Scripts\Character.cs" />
-    <Compile Include="Assets\Low_Swordman\Demo\Scripts\Swordman.cs" />
-    <Compile Include="Assets\Low_Swordman\Demo\Scripts\CameraController.cs" />
     <Compile Include="Assets\Scripts\CharacterCombat.cs" />
     <Compile Include="Assets\Scripts\EnemyAI\EnemyController.cs" />
     <Compile Include="Assets\Scripts\Suits\SuitPickup.cs" />
@@ -71,14 +68,12 @@
     <Compile Include="Assets\Scripts\Destructible.cs" />
     <Compile Include="Assets\Scripts\EnemyAI\ChaseStateSO.cs" />
     <Compile Include="Assets\Scripts\GameStateManagement\BeaconSO.cs" />
-    <Compile Include="Assets\Low_Swordman\Demo\Scripts\PlayerController.cs" />
     <Compile Include="Assets\Scripts\GameStateManagement\GameOverStateSO.cs" />
     <Compile Include="Assets\Scripts\EnemyAI\PatrolStateSO.cs" />
     <Compile Include="Assets\Scripts\Menu.cs" />
     <Compile Include="Assets\Scripts\GameStateManagement\StartGameState.cs" />
     <Compile Include="Assets\Scripts\GameStateManagement\GameStateSO.cs" />
     <Compile Include="Assets\Scripts\Suits\Suit.cs" />
-    <Compile Include="Assets\Low_Swordman\Demo\Scripts\Demo_GM.cs" />
     <Compile Include="Assets\Scripts\CameraShake.cs" />
     <Compile Include="Assets\Scripts\GameStateManagement\InGameStateSO.cs" />
     <Compile Include="Assets\Scripts\GameStateManagement\GameStateChannelSO.cs" />
