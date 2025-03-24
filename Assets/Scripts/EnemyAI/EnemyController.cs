@@ -47,14 +47,10 @@ public class EnemyController : Character
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        if (StateMachine != null && StateMachine.CurrentState is ChaseStateSO chaseState) 
-        {
-            Gizmos.DrawWireSphere(transform.position, chaseState.attackRange);
-        } else {
-            Gizmos.DrawWireSphere(transform.position, attackRange);
-        }
+        Gizmos.DrawWireSphere(transform.position, attackRange);
     }
 #endif
+    
     private void Update()
     {
         if (!player) return;
