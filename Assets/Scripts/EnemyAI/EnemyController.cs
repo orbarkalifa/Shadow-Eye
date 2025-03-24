@@ -9,7 +9,7 @@ public class EnemyController : Character
     private static readonly int isWalking = Animator.StringToHash("isWalking");
     [Header("Basic Settings")]
     public float moveSpeed = 2f;
-    public float attackRange = 3f;
+    public float attackRange = 5f;
     [SerializeField] private float attackCooldown = 2f;
     public LayerMask playerLayer;
     public Transform player;
@@ -102,37 +102,39 @@ public class EnemyController : Character
             return;
         }
 
-        GameObject pickup;
+        // Use the prefab if provided, otherwise create a default pickup.
+        GameObject pickup = suitDrop.suitPrefab != null 
+                                ? Instantiate(suitDrop.suitPrefab, transform.position, Quaternion.identity)
+                                : CreateDefaultPickup();
 
-        if (suitDrop.suitPrefab != null)
-        {
-            pickup = Instantiate(suitDrop.suitPrefab, transform.position, Quaternion.identity);
-            pickup.name = $"{suitDrop.suitName} Pickup";
-        }
-        else
-        {
-            pickup = new GameObject($"{suitDrop.suitName} Pickup");
-            pickup.transform.position = transform.position;
+        pickup.tag = "Pickup";
 
-            SpriteRenderer spriteRenderer = pickup.AddComponent<SpriteRenderer>();
-            spriteRenderer.sprite = suitDrop.suitSprite;
-        }
-
-        Collider2D collider = pickup.GetComponent<Collider2D>();
-        if (collider == null)
-        {
-            pickup.AddComponent<CircleCollider2D>();
-        }
-
-        
-        pickup.tag = "Pickup"; 
-
+        // Ensure it has a SuitPickup component and initialize it.
         SuitPickup suitPickup = pickup.GetComponent<SuitPickup>();
         if (suitPickup == null)
         {
             suitPickup = pickup.AddComponent<SuitPickup>();
         }
-        pickup.AddComponent<Rigidbody2D>();
         suitPickup.Initialize(suitDrop);
+    }
+
+    private GameObject CreateDefaultPickup()
+    {
+        GameObject pickup = new GameObject($"{suitDrop.suitName} Pickup");
+        pickup.transform.position = transform.position;
+
+        SpriteRenderer sr = pickup.AddComponent<SpriteRenderer>();
+        sr.sprite = suitDrop.suitSprite;
+
+        CircleCollider2D physicalCollider = pickup.AddComponent<CircleCollider2D>();
+        physicalCollider.isTrigger = false;
+
+        CircleCollider2D triggerCollider = pickup.AddComponent<CircleCollider2D>();
+        triggerCollider.isTrigger = true;
+
+        Rigidbody2D suitRb = pickup.AddComponent<Rigidbody2D>();
+        suitRb.freezeRotation = true;
+
+        return pickup;
     }
 }

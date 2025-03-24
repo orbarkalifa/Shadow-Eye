@@ -3,6 +3,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "EnemyAI/States/Patrol State")]
 public class PatrolStateSO : EnemyStateSO
 {
+    private static readonly int isWalking = Animator.StringToHash("isWalking");
     [Header("Movement")]
     public float patrolSpeed = 2f;
 
@@ -12,12 +13,13 @@ public class PatrolStateSO : EnemyStateSO
 
     public override void OnEnter(EnemyController enemy)
     {
-        enemy.animator.SetBool("isWalking", true);
+        enemy.animator.SetBool(isWalking, true);
     }
 
     public override void OnUpdate(EnemyController enemy)
     {
         float distance = Vector2.Distance(enemy.transform.position, enemy.player.position);
+        
         if (distance <= detectionRange)
         {
             enemy.StateMachine.ChangeState(enemy, chaseState);
@@ -27,7 +29,6 @@ public class PatrolStateSO : EnemyStateSO
 
     public override void OnFixedUpdate(EnemyController enemy)
     {
-        // If no patrol points, do nothing or go idle
         if (enemy.patrolPoints == null || enemy.patrolPoints.Length == 0) return;
 
         Transform targetPoint = enemy.patrolPoints[enemy.currentPatrolIndex];
@@ -37,7 +38,7 @@ public class PatrolStateSO : EnemyStateSO
         enemy.UpdateFacingDirection(direction.x);
 
         float distanceToPoint = Vector2.Distance(enemy.transform.position, targetPoint.position);
-        if (distanceToPoint <= 1f)
+        if (distanceToPoint <= 4f)
         {
             enemy.currentPatrolIndex++;
             if (enemy.currentPatrolIndex >= enemy.patrolPoints.Length)

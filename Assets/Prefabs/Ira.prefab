@@ -124,7 +124,7 @@ MonoBehaviour:
   currentHits: 0
   animator: {fileID: 0}
   moveSpeed: 2
-  attackRange: 3
+  attackRange: 4
   attackCooldown: 1.5
   playerLayer:
     serializedVersion: 2
