@@ -15,7 +15,7 @@ namespace EnemyAI
 
         public void ChangeState(EnemyController enemy, EnemyStateSO newState)
         {
-            Debug.Log("Enemy state is now: " + CurrentState);
+            Debug.Log($"Changing state from {CurrentState} to {newState}");
             CurrentState?.OnExit(enemy);
             CurrentState = newState;
             CurrentState?.OnEnter(enemy);

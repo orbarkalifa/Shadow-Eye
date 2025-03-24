@@ -3,18 +3,18 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "EnemyAI/States/Chase State")]
 public class ChaseStateSO : EnemyStateSO
 {
+    private static readonly int isWalking = Animator.StringToHash("isWalking");
     [Header("Chase Settings")]
     public float chaseSpeed = 3f;
 
     [Header("Transitions")]
     public float detectionRange = 10f;
-    public float attackRange = 1.5f;
     public EnemyStateSO attackState; 
     public EnemyStateSO patrolOrIdleState; // If player escapes, where to go?
 
     public override void OnEnter(EnemyController enemy)
     {
-        enemy.animator.SetBool("isWalking", true);    
+        enemy.animator.SetBool(isWalking, true);    
     }
 
     public override void OnUpdate(EnemyController enemy)
@@ -27,7 +27,7 @@ public class ChaseStateSO : EnemyStateSO
             return;
         }
 
-        if (distance <= attackRange && 
+        if (distance <= enemy.attackRange && 
             Time.time >= enemy.LastAttackTime + enemy.AttackCooldown)
         {
             enemy.StateMachine.ChangeState(enemy, attackState);

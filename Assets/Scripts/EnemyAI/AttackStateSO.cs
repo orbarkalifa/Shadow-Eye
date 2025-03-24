@@ -9,7 +9,6 @@ public class AttackStateSO : EnemyStateSO
     public EnemyStateSO chaseState;
     public EnemyStateSO idleOrPatrolState;
 
-    private bool hasAttacked;
 
     public override void OnEnter(EnemyController enemy)
     {

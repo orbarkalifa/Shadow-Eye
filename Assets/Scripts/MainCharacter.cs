@@ -37,7 +37,7 @@ public class MainCharacter : Character
         
     }
 
-    void Start()
+    private void Start()
     {
         beacon.uiChannel.ChangeHealth(currentHits);
     }
@@ -60,10 +60,10 @@ public class MainCharacter : Character
         // Register Input Action Callbacks
         inputActions.Player.Jump.performed += _ => characterMovement.Jump();
         inputActions.Player.Jump.canceled += _ => characterMovement.OnJumpReleased();
-        inputActions.Player.BasicAttack.performed += _ => performBasicAttack();
-        inputActions.Player.SpecialAttack.performed += _ => performSpecialAttack();
-        inputActions.Player.SpecialMove.performed += _ => performSpecialMovement();
-        inputActions.Player.Consume.performed += _ => unEquipSuit();
+        inputActions.Player.BasicAttack.performed += _ => PerformBasicAttack();
+        inputActions.Player.SpecialAttack.performed += _ => PerformSpecialAttack();
+        inputActions.Player.SpecialMove.performed += _ => PerformSpecialMovement();
+        inputActions.Player.Consume.performed += _ => UnEquipSuit();
     }
     
     private void OnDisable()
@@ -71,13 +71,13 @@ public class MainCharacter : Character
         inputActions.Disable();
     }
     
-    private void performBasicAttack()
+    private void PerformBasicAttack()
     {
         Debug.Log($"{gameObject.name} performs a basic attack.");
         characterCombat.BasicAttack(facingDirection);
     }
     
-    private void performSpecialAttack()
+    private void PerformSpecialAttack()
     {
         if (equippedSuit?.specialAttack != null)
         {
@@ -89,7 +89,7 @@ public class MainCharacter : Character
         }
     }
     
-    private void performSpecialMovement()
+    private void PerformSpecialMovement()
     {
         if (equippedSuit?.specialMovement != null)
         {
@@ -133,7 +133,7 @@ public class MainCharacter : Character
         }
     }
     
-    private void unEquipSuit()
+    private void UnEquipSuit()
     {
         eye.SetActive(true);
         if (equippedSuit != null)
@@ -148,7 +148,7 @@ public class MainCharacter : Character
         }
         
     }
-    public void Heal()
+    private void Heal()
     {
         currentHits = Mathf.Min(currentHits + 1, maxHits);
         beacon.uiChannel.ChangeHealth(currentHits);

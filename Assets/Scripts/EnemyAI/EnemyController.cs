@@ -6,9 +6,7 @@ using UnityEngine;
 public class EnemyController : Character
 {
     public Animator animator;
-    private static readonly int isWalking = Animator.StringToHash("isWalking");
     [Header("Basic Settings")]
-    public float moveSpeed = 2f;
     public float attackRange = 5f;
     [SerializeField] private float attackCooldown = 2f;
     public LayerMask playerLayer;
@@ -21,7 +19,7 @@ public class EnemyController : Character
 
     [Header("Patrol Points")]
     public Transform[] patrolPoints;
-    [HideInInspector] public int currentPatrolIndex = 0;
+    [HideInInspector] public int currentPatrolIndex;
 
     [Header("Suit Drop")]
     [SerializeField] private Suit suitDrop;
@@ -49,11 +47,10 @@ public class EnemyController : Character
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        if (StateMachine != null && StateMachine.CurrentState is ChaseStateSO chaseState) // Check if in chase state and get attackRange from ChaseStateSO
+        if (StateMachine != null && StateMachine.CurrentState is ChaseStateSO chaseState) 
         {
             Gizmos.DrawWireSphere(transform.position, chaseState.attackRange);
         } else {
-            // Fallback, use EnemyController's attackRange (less accurate for ChaseState visualization, but still helpful)
             Gizmos.DrawWireSphere(transform.position, attackRange);
         }
     }
@@ -90,11 +87,11 @@ public class EnemyController : Character
 
     protected override void OnDeath()
     {
-        dropSuit();
+        DropSuit();
         base.OnDeath();
     }
 
-    public void dropSuit()
+    private void DropSuit()
     {
         if (suitDrop == null)
         {
