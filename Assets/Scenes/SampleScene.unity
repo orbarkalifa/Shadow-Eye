@@ -2415,6 +2415,10 @@ PrefabInstance:
       propertyPath: invulnerabilityDuration
       value: 1.5
       objectReference: {fileID: 0}
+    - target: {fileID: 4220106826234026160, guid: 1bdf96493d9b4b64e9730a758d91d9b0, type: 3}
+      propertyPath: m_SpriteHash
+      value: 549479522
+      objectReference: {fileID: 0}
     - target: {fileID: 4221994717303993257, guid: 1bdf96493d9b4b64e9730a758d91d9b0, type: 3}
       propertyPath: jumpForce
       value: 50
@@ -2438,7 +2442,7 @@ PrefabInstance:
     - target: {fileID: 5843657877142597422, guid: 1bdf96493d9b4b64e9730a758d91d9b0, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 813951680, guid: 745897e2e1dc7fe4c8a93f3d5491624b, type: 3}
+      objectReference: {fileID: -955506436, guid: c7da8ab0785378840badb3910dc841d1, type: 3}
     - target: {fileID: 6199870770377788237, guid: 1bdf96493d9b4b64e9730a758d91d9b0, type: 3}
       propertyPath: m_Size.x
       value: 3.6379833
