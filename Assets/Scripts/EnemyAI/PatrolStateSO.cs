@@ -31,7 +31,7 @@ public class PatrolStateSO : EnemyStateSO
         if (enemy.patrolPoints == null || enemy.patrolPoints.Length == 0) return;
 
         Vector3 targetPoint = enemy.patrolPoints[enemy.currentPatrolIndex];
-        Vector2 direction = ((Vector2)targetPoint - (Vector2)enemy.transform.position).normalized; // Cast to Vector2 for 2D calculations
+        Vector2 direction = ((Vector2)targetPoint - (Vector2)enemy.transform.position).normalized;
 
         enemy.rb.velocity = new Vector2(direction.x * patrolSpeed, enemy.rb.velocity.y);
         enemy.UpdateFacingDirection(direction.x);

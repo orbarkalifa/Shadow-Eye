@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [CreateAssetMenu(menuName = "EnemyAI/States/Attack State")]
 public class AttackStateSO : EnemyStateSO
@@ -6,7 +7,7 @@ public class AttackStateSO : EnemyStateSO
     private static readonly int isWalking = Animator.StringToHash("isWalking");
     [Header("Transitions")]
     public EnemyStateSO chaseState;
-    public EnemyStateSO idleOrPatrolState;
+    public EnemyStateSO patrolState;
 
 
     public override void OnEnter(EnemyController enemy)
@@ -30,12 +31,11 @@ public class AttackStateSO : EnemyStateSO
             }
             else
             {
-                enemy.StateMachine.ChangeState(enemy, idleOrPatrolState);
+                enemy.StateMachine.ChangeState(enemy, patrolState);
             }
             return;
         }
     
-        // Check if the cooldown period has passed before attacking again.
         if (Time.time >= enemy.lastAttackTime + enemy.attackCooldown)
         {
             PerformAttack(enemy);

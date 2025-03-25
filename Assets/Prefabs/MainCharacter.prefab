@@ -107,7 +107,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 10
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 9.5
@@ -208,6 +208,9 @@ MonoBehaviour:
   spriteLibrary: {fileID: 4765230739529832497}
   normalSpriteLibraryAsset: {fileID: 7108339969198208228, guid: 1c0eb76793e460b4baefddb2249e4652, type: 3}
   suitSpriteLibraryAsset: {fileID: 7108339969198208228, guid: 66c1a4998c50a404690ed8fb03cb6425, type: 3}
+  invulnerabilityDuration: 1.5
+  flashInterval: 0.2
+  hitAlpha: 0.3
 --- !u!114 &4221994717303993257
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -125,12 +125,8 @@ public class MainCharacter : Character
     
     public override void TakeDamage(int damage)
     {
-        currentHits -= damage;
+        base.TakeDamage(damage);
         beacon.uiChannel.ChangeHealth(currentHits);
-        if (currentHits <= 0)
-        {
-            OnDeath();
-        }
     }
     
     private void UnEquipSuit()
