@@ -63,24 +63,24 @@ public class CharacterMovement : MonoBehaviour
     {
         animator.SetBool(isRunningHash, horizontalInput != 0);
 
-        if (isGrounded())
+        if (IsGrounded())
             coyoteTimeCounter = coyoteTime;
         else
             coyoteTimeCounter -= Time.deltaTime;
 
         if (!isWallJumping)
         {
-            handleWallSliding();
+            HandleWallSliding();
         }
         else
         {
             animator.SetBool(isWallSlidingHash, false);
         }
 
-        handleFalling();
+        HandleFalling();
     }
 
-    private bool isTouchingWall()
+    private bool IsTouchingWall()
     {
         Vector2 position = transform.position;
         float wallCheckDistance = 1f;
@@ -89,9 +89,9 @@ public class CharacterMovement : MonoBehaviour
         return leftCheck || rightCheck;
     }
 
-    private void handleWallSliding()
+    private void HandleWallSliding()
     {
-        isWallSliding = isTouchingWall() && !isGrounded() && horizontalInput != 0;
+        isWallSliding = IsTouchingWall() && !IsGrounded() && horizontalInput != 0;
         animator.SetBool(isWallSlidingHash, isWallSliding);
 
         if (isWallSliding)
@@ -114,24 +114,24 @@ public class CharacterMovement : MonoBehaviour
                 rb.velocity = new Vector2(horizontalInput * moveSpeed, rb.velocity.y);
 
             if ((horizontalInput > 0 && !isFacingRight) || (horizontalInput < 0 && isFacingRight))
-                flip();
+                Flip();
 
-            updateGroundedState();
+            UpdateGroundedState();
         }
     }
 
-    private void updateGroundedState()
+    private void UpdateGroundedState()
     {
-        animator.SetBool(isJumpingHash, !isGrounded());
+        animator.SetBool(isJumpingHash, !IsGrounded());
     }
 
-    private void handleFalling()
+    private void HandleFalling()
     {
-        if (!isGrounded() && rb.velocity.y < 0)
+        if (!IsGrounded() && rb.velocity.y < 0)
             animator.SetBool(isJumpingHash, true);
     }
 
-    private void flip()
+    private void Flip()
     {
         isFacingRight = !isFacingRight;
         Vector3 localScale = transform.localScale;
@@ -139,7 +139,7 @@ public class CharacterMovement : MonoBehaviour
         transform.localScale = localScale;
     }
 
-    private bool isGrounded()
+    private bool IsGrounded()
     {
         Vector2 position = transform.position;
         Vector2 boxSize = new Vector2(0.8f, 0.8f);
@@ -168,11 +168,11 @@ public class CharacterMovement : MonoBehaviour
             return;
         }
 
-        StartCoroutine(dashRoutine());
+        StartCoroutine(DashRoutine());
         lastDashTime = Time.time;
     }
 
-    private IEnumerator dashRoutine()
+    private IEnumerator DashRoutine()
     {
         BoxCollider2D myCollider = GetComponent<BoxCollider2D>();
         int playerLayer = gameObject.layer; // Get the player's current layer
@@ -218,9 +218,9 @@ public class CharacterMovement : MonoBehaviour
     {
         if (isWallSliding)
         {
-            wallJump();
+            WallJump();
         }
-        else if ((coyoteTimeCounter > 0f || isGrounded()) && jumpCount < maxJumpCount)
+        else if ((coyoteTimeCounter > 0f || IsGrounded()) && jumpCount < maxJumpCount)
         {
             animator.SetBool(isJumpingHash, true);
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
@@ -229,7 +229,7 @@ public class CharacterMovement : MonoBehaviour
         }
     }
 
-    private void wallJump()
+    private void WallJump()
     {
         if (!canWallJump)
             return;
@@ -242,13 +242,13 @@ public class CharacterMovement : MonoBehaviour
         rb.velocity = Vector2.zero;
         rb.AddForce(jumpDirection * wallJumpForce, ForceMode2D.Impulse);
 
-        flip();
+        Flip();
 
         isWallJumping = true;
-        StartCoroutine(wallJumpRoutine());
+        StartCoroutine(WallJumpRoutine());
     }
 
-    private IEnumerator wallJumpRoutine()
+    private IEnumerator WallJumpRoutine()
     {
         yield return new WaitForSeconds(wallJumpCooldown);
         canWallJump = true;
