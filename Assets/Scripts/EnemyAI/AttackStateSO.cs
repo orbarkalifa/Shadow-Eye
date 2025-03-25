@@ -8,7 +8,7 @@ public class AttackStateSO : EnemyStateSO
     [Header("Transitions")]
     public EnemyStateSO chaseState;
     public EnemyStateSO patrolState;
-
+    public EnemyStateSO fleeState; 
 
     public override void OnEnter(EnemyController enemy)
     {
@@ -36,10 +36,17 @@ public class AttackStateSO : EnemyStateSO
             return;
         }
     
+        if (enemy.currentHits <= 1 && fleeState != null) // Assuming flee threshold is 1 for now
+        {
+            enemy.StateMachine.ChangeState(enemy, fleeState);
+        }
+        
         if (Time.time >= enemy.lastAttackTime + enemy.attackCooldown)
         {
             PerformAttack(enemy);
         }
+        
+        
     }
 
     public override void OnFixedUpdate(EnemyController enemy)

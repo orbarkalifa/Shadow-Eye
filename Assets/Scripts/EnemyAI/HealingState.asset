@@ -9,9 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7cef6beba01148a69f2ef91ae81cb777, type: 3}
-  m_Name: AttackState
+  m_Script: {fileID: 11500000, guid: 25094ecb0a374bf89ca631813a06aec3, type: 3}
+  m_Name: HealingState
   m_EditorClassIdentifier: 
-  chaseState: {fileID: 11400000, guid: 0aeeba061f758d94ea31a619c7ab322e, type: 2}
+  healRate: 1
+  healDuration: 5
   patrolState: {fileID: 11400000, guid: 98a71cfb4419860419c735a6641786ba, type: 2}
-  fleeState: {fileID: 11400000, guid: a8d2893af6deb49468ed7d661bb4db20, type: 2}
+  chaseState: {fileID: 11400000, guid: 0aeeba061f758d94ea31a619c7ab322e, type: 2}

@@ -11,6 +11,8 @@ public class ChaseStateSO : EnemyStateSO
     [Header("Transitions")]
     public EnemyStateSO attackState; 
     public EnemyStateSO patrolState;
+    public EnemyStateSO fleeState;
+
 
     public override void OnEnter(EnemyController enemy)
     {
@@ -31,6 +33,11 @@ public class ChaseStateSO : EnemyStateSO
             Time.time >= enemy.lastAttackTime + enemy.attackCooldown)
         {
             enemy.StateMachine.ChangeState(enemy, attackState);
+        }
+
+        if (enemy.currentHits <= 1 && fleeState != null) // Assuming flee threshold is 1 for now
+        {
+            enemy.StateMachine.ChangeState(enemy, fleeState);
         }
     }
 

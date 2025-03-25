@@ -73,12 +73,12 @@ public class CharacterCombat : MonoBehaviour
 
     public void OnAttack1Complete()
     {
-        doAttackHit();
+        DoAttackHit();
     }
 
     public void OnAttack2Complete()
     {
-        doAttackHit();
+        DoAttackHit();
         StartCoroutine(AttackCooldown());
         isAttacking = false;
         comboStep = 0;
@@ -92,7 +92,7 @@ public class CharacterCombat : MonoBehaviour
         isOnCooldown = false;
     }
 
-    private void doAttackHit()
+    private void DoAttackHit()
     {
         Collider2D[] hitEnemies = Physics2D.OverlapBoxAll(
             attackRange.position,
@@ -114,11 +114,11 @@ public class CharacterCombat : MonoBehaviour
 
         if (enemyHit)
         {
-            applyRecoil();
+            ApplyRecoil();
         }
     }
 
-    private void applyRecoil()
+    private void ApplyRecoil()
     {
         if (characterMovement != null)
         {

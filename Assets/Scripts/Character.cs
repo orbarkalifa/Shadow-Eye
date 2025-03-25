@@ -4,7 +4,7 @@ using UnityEngine.Serialization;
 
 public abstract class Character : MonoBehaviour
 {
-    [SerializeField] protected int maxHits = 5;
+    public int maxHits = 5;
     public int currentHits;
     
     protected virtual void Awake()

@@ -62,6 +62,7 @@
     <Compile Include="Assets\Scripts\GameStateManagement\GSManager.cs" />
     <Compile Include="Assets\Scripts\UIEyeBar.cs" />
     <Compile Include="Assets\Scripts\EnemyAI\AttackStateSO.cs" />
+    <Compile Include="Assets\Scripts\EnemyAI\FleeStateSO.cs" />
     <Compile Include="Assets\Scripts\GameStateManagement\UIManager.cs" />
     <Compile Include="Assets\Scripts\EnemyAI\IdleStateSO.cs" />
     <Compile Include="Assets\Scripts\CameraFollow.cs" />
@@ -79,6 +80,7 @@
     <Compile Include="Assets\Scripts\GameStateManagement\GameStateChannelSO.cs" />
     <Compile Include="Assets\Scripts\UIEyeScript.cs" />
     <Compile Include="Assets\Scripts\GameStateManagement\MenuStateSO.cs" />
+    <Compile Include="Assets\Scripts\EnemyAI\HealingStateSO.cs" />
     <Compile Include="Assets\Scripts\Suits\SuitAbility.cs" />
     <Compile Include="Assets\Scripts\GameStateManagement\InputReader.cs" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
