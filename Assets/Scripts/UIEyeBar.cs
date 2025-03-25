@@ -5,10 +5,9 @@ using UnityEngine;
 
 public class UIEyeBar : MonoBehaviour
 {
-    private List<UIEyeScript> eyes = new List<UIEyeScript>();
-    [SerializeField] private GameObject EyePrefab;
     [SerializeField] private int maxHealth = 5;
     [SerializeField] private BeaconSO beacon;
+    [SerializeField] private GameObject [] points;
 
     private void Awake()
     {
@@ -19,10 +18,8 @@ public class UIEyeBar : MonoBehaviour
     {
         // Create a fixed number of eyes once.
         for (int i = 0; i < maxHealth; i++)
-        {
-            GameObject newEye = Instantiate(EyePrefab, transform);
-            UIEyeScript eyeScript = newEye.GetComponent<UIEyeScript>();
-            eyes.Add(eyeScript);
+        { 
+            points[i].SetActive(true);
         }
         beacon.uiChannel.ChangeHealth(maxHealth);
 
@@ -31,9 +28,9 @@ public class UIEyeBar : MonoBehaviour
     private void UpdateHUD(int health)
     {
         // Update the sprite on each eye instead of recreating.
-        for (int i = 0; i < eyes.Count; i++)
+        for (int i = 0; i < points.Length; i++)
         {
-            eyes[i].setImage(i < health);
+            points[i].SetActive(i <= health? true : false);
         }
     }
 
