@@ -13,10 +13,10 @@ public class CharacterMovement : MonoBehaviour
     private bool isFacingRight = true;
     private float horizontalInput;
     private bool isDashing;
-    
+
     private int jumpCount;
     private readonly int maxJumpCount = 1; // Change this to 2 if you want to allow double jump
-    
+
     [Header("Movement Settings")]
     [SerializeField] private float moveSpeed = 20f;
     [SerializeField] private float jumpForce = 35;
@@ -40,6 +40,9 @@ public class CharacterMovement : MonoBehaviour
     [SerializeField] private float wallJumpForce = 20f;
     [SerializeField] private Vector2 wallJumpDirection = new Vector2(1.5f, 1f);
     [SerializeField] private float wallJumpCooldown = 0.2f;
+
+    [Header("Enemy Layer")]
+    [SerializeField] private LayerMask enemyLayer; // Assign the Enemy Layer in the Inspector
 
     private float coyoteTimeCounter;
     private bool isWallSliding;
@@ -102,14 +105,14 @@ public class CharacterMovement : MonoBehaviour
     {
         horizontalInput = value.x;
     }
-    
+
     public void Move()
     {
-        if(!isWallJumping)
+        if (!isWallJumping)
         {
             if (!isDashing)
                 rb.velocity = new Vector2(horizontalInput * moveSpeed, rb.velocity.y);
-            
+
             if ((horizontalInput > 0 && !isFacingRight) || (horizontalInput < 0 && isFacingRight))
                 flip();
 
@@ -141,13 +144,13 @@ public class CharacterMovement : MonoBehaviour
         Vector2 position = transform.position;
         Vector2 boxSize = new Vector2(0.8f, 0.8f);
         Collider2D groundDetected = Physics2D.OverlapBox(position + Vector2.down * extraHeight, boxSize, 0f, groundLayer);
-    
+
         if (groundDetected)
             jumpCount = 0;
-    
+
         return groundDetected;
     }
-    
+
     private void OnDrawGizmos()
     {
         if (groundLayer == 0)
@@ -160,7 +163,7 @@ public class CharacterMovement : MonoBehaviour
 
     public void Dash()
     {
-        if(isDashing || !(Time.time >= lastDashTime + dashCooldown))
+        if (isDashing || !(Time.time >= lastDashTime + dashCooldown))
         {
             return;
         }
@@ -172,7 +175,19 @@ public class CharacterMovement : MonoBehaviour
     private IEnumerator dashRoutine()
     {
         BoxCollider2D myCollider = GetComponent<BoxCollider2D>();
-        myCollider.enabled = false;
+        int playerLayer = gameObject.layer; // Get the player's current layer
+        int enemyLayerValue = LayerMask.NameToLayer("Enemy"); // Get the layer value of "Enemy" layer
+
+        if (enemyLayerValue == -1) // Check if "Enemy" layer exists. If not, fallback to old behavior or handle error.
+        {
+            Debug.LogWarning("Layer 'Enemy' not found. Falling back to disabling collider completely for dash.");
+            myCollider.enabled = false; // Fallback to disabling collider if "Enemy" layer is not found.
+        }
+        else
+        {
+            Physics2D.IgnoreLayerCollision(playerLayer, enemyLayerValue, true); // Ignore collisions with Enemy layer
+        }
+
         isDashing = true;
         animator.CrossFadeInFixedTime("Dash", 0.05f);
 
@@ -185,23 +200,31 @@ public class CharacterMovement : MonoBehaviour
 
         yield return new WaitForSeconds(dashDuration);
 
-        myCollider.enabled = true;
+        if (enemyLayerValue != -1)
+        {
+            Physics2D.IgnoreLayerCollision(playerLayer, enemyLayerValue, false); // Re-enable collisions with Enemy layer
+        }
+        else
+        {
+            myCollider.enabled = true; // Re-enable collider if layer was not found and collider was disabled as fallback.
+        }
+
         rb.gravityScale = storedGravity;
         isDashing = false;
     }
-    
 
-    public void Jump() 
+
+    public void Jump()
     {
         if (isWallSliding)
         {
             wallJump();
         }
-        else if ((coyoteTimeCounter > 0f || isGrounded()) && jumpCount < maxJumpCount) 
+        else if ((coyoteTimeCounter > 0f || isGrounded()) && jumpCount < maxJumpCount)
         {
             animator.SetBool(isJumpingHash, true);
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-            jumpCount++; 
+            jumpCount++;
             coyoteTimeCounter = 0;
         }
     }
@@ -231,11 +254,11 @@ public class CharacterMovement : MonoBehaviour
         canWallJump = true;
         isWallJumping = false;
     }
-    
+
     public void OnJumpReleased()
     {
         if (rb.velocity.y > 0)
             rb.velocity += Vector2.up * -jumpForce * variableJumpMultiplier;
     }
-    
+
 }
