@@ -27,10 +27,9 @@ public class UIEyeBar : MonoBehaviour
 
     private void UpdateHUD(int health)
     {
-        // Update the sprite on each eye instead of recreating.
         for (int i = 0; i < points.Length; i++)
         {
-            points[i].SetActive(i <= health? true : false);
+            points[i].SetActive(i < health);
         }
     }
 

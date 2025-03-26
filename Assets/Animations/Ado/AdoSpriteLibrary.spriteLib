@@ -258,6 +258,17 @@ MonoBehaviour:
       m_SpriteOverride: {fileID: 473457237, guid: e478a8517f124724091849269e65ed97, type: 3}
     m_FromMain: 0
     m_EntryOverrideCount: 3
+  - m_Name: damaged
+    m_Hash: 482914283
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: Ado_damaged
+      m_Hash: 708119619
+      m_Sprite: {fileID: 21300000, guid: 8f965deb8065ac448a2e466847d5b269, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 8f965deb8065ac448a2e466847d5b269, type: 3}
+    m_FromMain: 0
+    m_EntryOverrideCount: 1
   m_PrimaryLibraryGUID: 
-  m_ModificationHash: 638780828200696497
+  m_ModificationHash: 638786295587678508
   m_Version: 1

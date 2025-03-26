@@ -13,8 +13,8 @@ public class AttackStateSO : EnemyStateSO
     public override void OnEnter(EnemyController enemy)
     {
         enemy.animator.SetBool(isWalking, false);
+        Debug.Log("Entered attack state");
         enemy.rb.velocity = new Vector2(0f, enemy.rb.velocity.y);
-        // Perform the initial attack
         PerformAttack(enemy);
     }
 
@@ -22,7 +22,6 @@ public class AttackStateSO : EnemyStateSO
     {
         float distanceToPlayer = Vector2.Distance(enemy.transform.position, enemy.player.position);
     
-        // Check if player is out of range and switch state accordingly.
         if (distanceToPlayer > enemy.attackRange)
         {
             if (distanceToPlayer <= enemy.detectionRange)
@@ -45,8 +44,6 @@ public class AttackStateSO : EnemyStateSO
         {
             PerformAttack(enemy);
         }
-        
-        
     }
 
     public override void OnFixedUpdate(EnemyController enemy)
@@ -61,10 +58,8 @@ public class AttackStateSO : EnemyStateSO
 
     private void PerformAttack(EnemyController enemy)
     {
-        // Record the time of the attack.
         enemy.lastAttackTime = Time.time;
     
-        // Attempt to find a player collider within attack range.
         Collider2D playerCollider = Physics2D.OverlapCircle(
             enemy.transform.position,
             enemy.attackRange,
@@ -73,6 +68,7 @@ public class AttackStateSO : EnemyStateSO
 
         if (playerCollider)
         {
+            enemy.animator.CrossFadeInFixedTime("Ira_attack", 0.05f);
             MainCharacter playerController = playerCollider.GetComponent<MainCharacter>();
             if (playerController)
             {

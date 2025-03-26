@@ -7,7 +7,6 @@ using UnityEngine.Serialization;
 [RequireComponent(typeof(Rigidbody2D))]
 public class EnemyController : Character
 {
-    public Animator animator;
     [Header("Basic Settings")]
     public float attackRange = 5f;
     public float attackCooldown = 2f;
@@ -124,37 +123,55 @@ public class EnemyController : Character
 
         return pickup;
     }
-#if UNITY_EDITOR 
+#if UNITY_EDITOR
     private void OnDrawGizmosSelected()
     {
+        // --- Draw Patrol Points ---
         if (patrolPoints != null && patrolPoints.Length > 0)
         {
-            Gizmos.color = Color.yellow;
+            Gizmos.color = Color.yellow; // Color for patrol points
+            Vector3 previousPoint = patrolPoints[patrolPoints.Length - 1]; // Start with the last point for loop connection
+
             for (int i = 0; i < patrolPoints.Length; i++)
             {
-                // Draw a sphere at each patrol point
-                Gizmos.DrawSphere(patrolPoints[i], 0.3f);
+                Vector3 currentPoint = patrolPoints[i];
 
-                // Draw lines connecting patrol points
-                if (i > 0)
-                {
-                    Gizmos.DrawLine(patrolPoints[i - 1], patrolPoints[i]);
-                }
-                else if (patrolPoints.Length > 1)
-                {
-                    Gizmos.DrawLine(patrolPoints[patrolPoints.Length - 1], patrolPoints[0]); // Loop back to start
-                }
-
-                // Add handles to move patrol points in the editor
+                // Draw a sphere handle at each patrol point
                 EditorGUI.BeginChangeCheck(); // Start checking for changes
-                Vector3 newPosition = Handles.PositionHandle(patrolPoints[i], Quaternion.identity); // Create an interactive handle
+                // Use a PositionHandle for interactive movement
+                Vector3 newPosition = Handles.PositionHandle(currentPoint, Quaternion.identity);
                 if (EditorGUI.EndChangeCheck()) // Check if handle was moved
                 {
                     Undo.RecordObject(this, "Move Patrol Point"); // Enable Undo functionality
                     patrolPoints[i] = newPosition; // Update patrol point position
+                    currentPoint = newPosition; // Use the new position immediately for drawing lines
                 }
+
+                // Draw sphere gizmo at the point's position
+                Gizmos.DrawSphere(currentPoint, 0.3f);
+
+                // Draw lines connecting patrol points
+                Gizmos.DrawLine(previousPoint, currentPoint);
+                previousPoint = currentPoint; // Update previous point for the next iteration
             }
         }
+
+        // --- Draw Attack Range ---
+        Gizmos.color = Color.red; // Color for the attack range circle
+        if (transform != null) // Check if transform exists
+        {
+            // Draw a wire sphere centered on the enemy's current position
+            // with a radius equal to the attackRange.
+            // In 2D view, this will appear as a circle.
+            Gizmos.DrawWireSphere(transform.position, attackRange);
+        }
+
+         // --- Draw Detection Range (Optional but consistent) ---
+         Gizmos.color = Color.cyan; // Choose a different color for detection
+         if (transform != null)
+         {
+             Gizmos.DrawWireSphere(transform.position, detectionRange);
+         }
     }
 #endif
 }

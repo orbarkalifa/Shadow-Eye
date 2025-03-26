@@ -62,7 +62,6 @@ public class CharacterCombat : MonoBehaviour
             isAttacking = true;
             animator.CrossFadeInFixedTime("Ado_attack1", 0.05f);
             
-            attackRange.localPosition = new Vector3(facingDirection.x * 0.5f, attackRange.localPosition.y, 0f);
         }
         else if (comboStep == 1)
         {
