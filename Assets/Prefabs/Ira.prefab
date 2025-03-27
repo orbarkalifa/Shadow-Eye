@@ -122,7 +122,7 @@ MonoBehaviour:
   startingState: {fileID: 11400000, guid: 65480f5da2a8aa24397aa633c93a914f, type: 2}
   patrolPoints: []
   currentPatrolIndex: 0
-  detectionRange: 10
+  detectionRange: 14
   suitDrop: {fileID: 11400000, guid: 4fadc748692153649ba80993fda0ca7f, type: 2}
   fieldOfViewAngle: 120
   obstacleLayerMask:
