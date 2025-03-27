@@ -61,7 +61,7 @@ public class CharacterMovement : MonoBehaviour
 
     private void Update()
     {
-        animator.SetBool(isRunningHash, horizontalInput != 0 &&  !isWallJumping && !isWallSliding);
+        animator.SetBool(isRunningHash, horizontalInput != 0 && IsGrounded());
 
         if (IsGrounded())
             coyoteTimeCounter = coyoteTime;
@@ -121,13 +121,13 @@ public class CharacterMovement : MonoBehaviour
 
     private void UpdateGroundedState()
     {
-        animator.SetBool(isJumpingHash, !IsGrounded()  && !isWallSliding);
+        animator.SetBool(isJumpingHash, !IsGrounded() && !isWallSliding); // activate or deactivate jump animation
     }
 
     private void HandleFalling()
     {
-        if (!IsGrounded() && rb.velocity.y < 0)
-            animator.SetBool(isJumpingHash, !isWallSliding);
+        if (!IsGrounded() && rb.velocity.y < 0 && !isWallSliding)
+            animator.SetBool(isJumpingHash, true);
     }
 
     private void Flip()
@@ -221,7 +221,7 @@ public class CharacterMovement : MonoBehaviour
         }
         else if ((coyoteTimeCounter > 0f || IsGrounded()) && jumpCount < maxJumpCount)
         {
-            animator.SetBool(isJumpingHash, !isWallSliding);
+            animator.SetBool(isJumpingHash, true);
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
             jumpCount++;
             coyoteTimeCounter = 0;
