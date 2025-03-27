@@ -22,35 +22,26 @@ public class ChaseStateSO : EnemyStateSO
 
     public override void OnUpdate(EnemyController enemy)
     {
-        // --- Check Visibility FIRST ---
-        // If the enemy can no longer see the player (out of range, FOV, or LOS blocked)
         if (!enemy.CanSeePlayer())
         {
-            // Transition back to Patrol (or Search state later)
             enemy.StateMachine.ChangeState(enemy, patrolState);
-            return; // Stop further checks in this update
+            return; 
         }
-        // --- End Visibility Check ---
-
-        // Player is visible, proceed with other checks
         float distanceToPlayer = Vector2.Distance(enemy.transform.position, enemy.player.position);
 
-        // Attack Check (Remains the same)
         if (distanceToPlayer <= enemy.attackRange &&
             Time.time >= enemy.lastAttackTime + enemy.attackCooldown)
         {
             enemy.StateMachine.ChangeState(enemy, attackState);
-            return; // Transitioned to attack
+            return;
         }
 
-        // Flee Check (Remains the same)
-        if (fleeState != null && enemy.currentHits <= 1 ) // Assuming flee threshold is 1
+        if (fleeState != null && enemy.currentHits <= 1 ) 
         {
             enemy.StateMachine.ChangeState(enemy, fleeState);
             return; // Transitioned to flee
         }
 
-        // If no other transition happened, we continue chasing (handled in FixedUpdate)
     }
 
     public override void OnFixedUpdate(EnemyController enemy)

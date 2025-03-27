@@ -223,7 +223,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 20
   jumpForce: 35
-  extraHeight: 1.5
+  extraHeight: 2
   dashDuration: 0.3
   dashSpeed: 35
   dashCooldown: 1.5
@@ -289,8 +289,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed8b1ae4e4e52b34ea557c1c11e076fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_CategoryHash: 4.3709705e-38
-  m_labelHash: 1.3558667e-14
+  m_CategoryHash: 7.0185224e-37
+  m_labelHash: 3.9184734e-16
   m_SpriteKey: 0
   m_SpriteHash: 965760347
 --- !u!1 &5680556851105947839

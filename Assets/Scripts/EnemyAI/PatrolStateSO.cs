@@ -19,23 +19,72 @@ public class PatrolStateSO : EnemyStateSO
 
     public override void OnUpdate(EnemyController enemy)
     {
+        if(CheckBehindForPlayer(enemy)) enemy.Flip();
         if (enemy.CanSeePlayer())
         {
-            enemy.StateMachine.ChangeState(enemy, chaseState);
+            if (chaseState != null)
+            {
+                enemy.StateMachine.ChangeState(enemy, chaseState);
+            }
+            else
+            {
+                Debug.LogWarning($"PatrolStateSO on {enemy.gameObject.name} missing Chase State transition!");
+            }
         }
     }
 
     public override void OnFixedUpdate(EnemyController enemy)
     {
-        if (enemy.CanSeePlayer()) 
+        if (enemy.CanSeePlayer() || CheckBehindForPlayer(enemy))
         {
-            enemy.rb.velocity = new Vector2(0, enemy.rb.velocity.y); 
-            return; 
+            enemy.rb.velocity = new Vector2(0, enemy.rb.velocity.y);
+            return;
         }
-
         MoveTowardsPatrolPoint(enemy);
     }
+ private bool CheckBehindForPlayer(EnemyController enemy)
+    {
+        if (enemy.player == null) return false;
 
+        Vector2 enemyPosition = enemy.transform.position;
+        Vector2 playerPosition = enemy.player.position;
+
+        float distanceToPlayer = Vector2.Distance(enemyPosition, playerPosition);
+        if (distanceToPlayer > enemy.detectionRange)
+        {
+            return false;
+        }
+
+        Vector2 backDirection = -enemy.transform.right * enemy.CurrentFacingDirection;
+        int combinedLayerMask = enemy.obstacleLayerMask | enemy.playerLayerMask;
+
+        RaycastHit2D hit = Physics2D.Raycast(
+            enemyPosition,
+            backDirection,
+            enemy.detectionRange,
+            combinedLayerMask
+        );
+
+        #if UNITY_EDITOR
+        Color rayColor = Color.magenta; 
+        if (hit.collider != null)
+        {
+            rayColor = (enemy.playerLayerMask == (enemy.playerLayerMask | (1 << hit.collider.gameObject.layer))) ? Color.green : Color.red;
+            Debug.DrawRay(enemyPosition, backDirection * hit.distance, rayColor);
+        }
+        else
+        {
+            Debug.DrawRay(enemyPosition, backDirection * enemy.detectionRange, rayColor * 0.5f); // Dimmer if nothing hit
+        }
+        #endif
+
+        if (hit.collider != null && (enemy.playerLayerMask == (enemy.playerLayerMask | (1 << hit.collider.gameObject.layer))))
+        {
+            return true;
+        }
+
+        return false;
+    }
     private void MoveTowardsPatrolPoint(EnemyController enemy)
     {
         if (enemy.patrolPoints == null || enemy.patrolPoints.Length == 0) return;

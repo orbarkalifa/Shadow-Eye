@@ -31,7 +31,7 @@ namespace EnemyAI
         public LayerMask obstacleLayerMask;
         public LayerMask playerLayerMask;
 
-        private float CurrentFacingDirection { get; set; } = -1f;
+        public float CurrentFacingDirection { get; set; } = -1f;
 
         public EnemyStateMachine StateMachine { get; private set; }
 
@@ -96,7 +96,7 @@ namespace EnemyAI
             }
         }
 
-        private void Flip()
+        public void Flip()
         {
             Vector3 scale = transform.localScale;
             scale.x *= -1;
