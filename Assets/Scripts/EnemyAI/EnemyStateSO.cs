@@ -1,3 +1,4 @@
+using EnemyAI;
 using UnityEngine;
 
 public abstract class EnemyStateSO : ScriptableObject

@@ -110,22 +110,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be20cec3f45f40cd9f9ed593cf3b724b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 0}
   maxHits: 5
   currentHits: 0
-  animator: {fileID: 0}
-  attackRange: 4
+  attackRange: 5.02
   attackCooldown: 1.5
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 256
   player: {fileID: 0}
   rb: {fileID: 3960421595996800390}
+  enemyCollider: {fileID: 0}
   lastAttackTime: 0
   startingState: {fileID: 11400000, guid: 65480f5da2a8aa24397aa633c93a914f, type: 2}
   patrolPoints: []
   currentPatrolIndex: 0
   detectionRange: 10
   suitDrop: {fileID: 11400000, guid: 4fadc748692153649ba80993fda0ca7f, type: 2}
+  fieldOfViewAngle: 120
+  obstacleLayerMask:
+    serializedVersion: 2
+    m_Bits: 64
+  playerLayerMask:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!95 &855339260648117484
 Animator:
   serializedVersion: 5

@@ -1,3 +1,4 @@
+using EnemyAI;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -15,7 +16,7 @@ public class AttackStateSO : EnemyStateSO
         enemy.animator.SetBool(isWalking, false);
         Debug.Log("Entered attack state");
         enemy.rb.velocity = new Vector2(0f, enemy.rb.velocity.y);
-        PerformAttack(enemy);
+        Attack(enemy);
     }
 
     public override void OnUpdate(EnemyController enemy)
@@ -42,7 +43,7 @@ public class AttackStateSO : EnemyStateSO
         
         if (Time.time >= enemy.lastAttackTime + enemy.attackCooldown)
         {
-            PerformAttack(enemy);
+            Attack(enemy);
         }
     }
 
@@ -56,25 +57,10 @@ public class AttackStateSO : EnemyStateSO
         // Optionally reset or clean up any attack state here.
     }
 
-    private void PerformAttack(EnemyController enemy)
+    private void Attack(EnemyController enemy)
     {
         enemy.lastAttackTime = Time.time;
-    
-        Collider2D playerCollider = Physics2D.OverlapCircle(
-            enemy.transform.position,
-            enemy.attackRange,
-            enemy.playerLayer
-        );
-
-        if (playerCollider)
-        {
-            enemy.animator.CrossFadeInFixedTime("Ira_attack", 0.05f);
-            MainCharacter playerController = playerCollider.GetComponent<MainCharacter>();
-            if (playerController)
-            {
-                playerController.TakeDamage(1);
-            }
-        }
+        enemy.animator.CrossFadeInFixedTime("Ira_attack", 0.05f);
     }
 
 }

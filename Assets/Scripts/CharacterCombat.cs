@@ -1,4 +1,5 @@
 using System.Collections;
+using EnemyAI;
 using UnityEngine;
 
 public class CharacterCombat : MonoBehaviour

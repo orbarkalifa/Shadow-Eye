@@ -1,3 +1,4 @@
+using EnemyAI;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "EnemyAI/States/Flee State")]

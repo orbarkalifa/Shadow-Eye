@@ -84,7 +84,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1209065082, guid: c34bc725e008f70409d63ca67f5f9d43, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a3eb95e2be3f71c41848ee8343fb5968, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -200,6 +200,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99e6e400f2b6b944a8ba571102fdd636, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 0}
   maxHits: 5
   currentHits: 3
   beacon: {fileID: 11400000, guid: 59dca663c0488ef4997f2a487402c779, type: 2}
@@ -208,9 +209,6 @@ MonoBehaviour:
   spriteLibrary: {fileID: 4765230739529832497}
   normalSpriteLibraryAsset: {fileID: 7108339969198208228, guid: 1c0eb76793e460b4baefddb2249e4652, type: 3}
   suitSpriteLibraryAsset: {fileID: 7108339969198208228, guid: 66c1a4998c50a404690ed8fb03cb6425, type: 3}
-  invulnerabilityDuration: 1.5
-  flashInterval: 0.2
-  hitAlpha: 0.3
 --- !u!114 &4221994717303993257
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -241,6 +239,9 @@ MonoBehaviour:
   wallJumpForce: 40
   wallJumpDirection: {x: 1, y: 1.5}
   wallJumpCooldown: 0.2
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &291038759977586518
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -291,7 +292,7 @@ MonoBehaviour:
   m_CategoryHash: 4.3709705e-38
   m_labelHash: 1.3558667e-14
   m_SpriteKey: 0
-  m_SpriteHash: 979917322
+  m_SpriteHash: 965760347
 --- !u!1 &5680556851105947839
 GameObject:
   m_ObjectHideFlags: 0
