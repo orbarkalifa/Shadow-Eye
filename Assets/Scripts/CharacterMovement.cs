@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
 
 public class CharacterMovement : MonoBehaviour
@@ -21,6 +22,8 @@ public class CharacterMovement : MonoBehaviour
     [SerializeField] private float moveSpeed = 20f;
     [SerializeField] private float jumpForce = 35;
     [SerializeField] private float extraHeight = 1.5f;
+    public Vector2 movementInput;
+
 
     [Header("Dash Settings")]
     [SerializeField] private float dashDuration = 0.15f;
@@ -61,6 +64,8 @@ public class CharacterMovement : MonoBehaviour
 
     private void Update()
     {
+        SetHorizontalInput(movementInput);
+
         animator.SetBool(isRunningHash, horizontalInput != 0 && IsGrounded());
 
         if (IsGrounded())
@@ -78,6 +83,16 @@ public class CharacterMovement : MonoBehaviour
         }
 
         HandleFalling();
+    }
+    
+    public void OnMovePerformed(InputAction.CallbackContext context)
+    {
+        movementInput = context.ReadValue<Vector2>();
+    }
+
+    public void OnMoveCanceled(InputAction.CallbackContext context)
+    {
+        movementInput = Vector2.zero;
     }
 
     private bool IsTouchingWall()

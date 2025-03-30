@@ -9,9 +9,9 @@ public class MainCharacter : Character
     private CharacterCombat characterCombat;
     private InputSystem_Actions inputActions;
     private Suit equippedSuit;
-    private Vector2 movementInput;
     
     [SerializeField] private BeaconSO beacon;
+    
     
     [Header("Visuals")] 
     public Vector2 facingDirection = Vector2.right; // Default facing direction
@@ -47,8 +47,7 @@ public class MainCharacter : Character
 
     private void Update()
     {
-        characterMovement.SetHorizontalInput(movementInput);
-        facingDirection = movementInput.x < 0 ? Vector2.left : Vector2.right;
+        facingDirection = characterMovement.movementInput.x < 0 ? Vector2.left : Vector2.right;
     }
     private void FixedUpdate()
     {
@@ -60,8 +59,8 @@ public class MainCharacter : Character
         inputActions.Enable();
 
         // Register Input Action Callbacks
-        inputActions.Player.Move.performed += OnMovePerformed;
-        inputActions.Player.Move.canceled += OnMoveCanceled;
+        inputActions.Player.Move.performed += characterMovement.OnMovePerformed;
+        inputActions.Player.Move.canceled += characterMovement.OnMoveCanceled;
         inputActions.Player.Jump.performed += _ => characterMovement.Jump();
         inputActions.Player.Jump.canceled += _ => characterMovement.OnJumpReleased();
         inputActions.Player.BasicAttack.performed += _ => PerformBasicAttack();
@@ -70,15 +69,7 @@ public class MainCharacter : Character
         inputActions.Player.Consume.performed += _ => UnEquipSuit();
         
     }
-    private void OnMovePerformed(InputAction.CallbackContext context)
-    {
-        movementInput = context.ReadValue<Vector2>();
-    }
-
-    private void OnMoveCanceled(InputAction.CallbackContext context)
-    {
-        movementInput = Vector2.zero;
-    }
+   
     
     private void OnDisable()
     {
@@ -121,7 +112,9 @@ public class MainCharacter : Character
     {
         if (equippedSuit != null)
         {
+            Heal();
             Debug.Log($"Unequipping suit: {equippedSuit.suitName}");
+            return;
         }
         
         equippedSuit = newSuit;
