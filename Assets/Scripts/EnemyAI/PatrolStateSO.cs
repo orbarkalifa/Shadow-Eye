@@ -22,7 +22,7 @@ public class PatrolStateSO : EnemyStateSO
         if(CheckBehindForPlayer(enemy)) enemy.Flip();
         if (enemy.CanSeePlayer())
         {
-            if (chaseState != null)
+            if (chaseState)
             {
                 enemy.StateMachine.ChangeState(enemy, chaseState);
             }
@@ -44,7 +44,7 @@ public class PatrolStateSO : EnemyStateSO
     }
  private bool CheckBehindForPlayer(EnemyController enemy)
     {
-        if (enemy.player == null) return false;
+        if (!enemy.player) return false;
 
         Vector2 enemyPosition = enemy.transform.position;
         Vector2 playerPosition = enemy.player.position;
@@ -67,18 +67,18 @@ public class PatrolStateSO : EnemyStateSO
 
         #if UNITY_EDITOR
         Color rayColor = Color.magenta; 
-        if (hit.collider != null)
+        if (hit.collider)
         {
             rayColor = (enemy.playerLayerMask == (enemy.playerLayerMask | (1 << hit.collider.gameObject.layer))) ? Color.green : Color.red;
             Debug.DrawRay(enemyPosition, backDirection * hit.distance, rayColor);
         }
         else
         {
-            Debug.DrawRay(enemyPosition, backDirection * enemy.detectionRange, rayColor * 0.5f); // Dimmer if nothing hit
+            Debug.DrawRay(enemyPosition, backDirection * enemy.detectionRange, rayColor * 0.5f); 
         }
         #endif
 
-        if (hit.collider != null && (enemy.playerLayerMask == (enemy.playerLayerMask | (1 << hit.collider.gameObject.layer))))
+        if (hit.collider && (enemy.playerLayerMask == (enemy.playerLayerMask | (1 << hit.collider.gameObject.layer))))
         {
             return true;
         }
@@ -92,25 +92,24 @@ public class PatrolStateSO : EnemyStateSO
         Vector3 targetPoint = enemy.patrolPoints[enemy.currentPatrolIndex];
         Vector2 direction = ((Vector2)targetPoint - (Vector2)enemy.transform.position).normalized;
 
-        float distanceToPoint = Vector2.Distance(enemy.transform.position, targetPoint);
-        if (distanceToPoint > 0.5f) // Use a small threshold
+        var distanceToPoint = Vector2.Distance(enemy.transform.position, targetPoint);
+        if (distanceToPoint > 0.5f) 
         {
             enemy.rb.velocity = new Vector2(direction.x * patrolSpeed, enemy.rb.velocity.y);
             enemy.UpdateFacingDirection(direction.x);
         }
         else 
         {
-            enemy.rb.velocity = new Vector2(0, enemy.rb.velocity.y); // Stop briefly at the point
+            enemy.rb.velocity = new Vector2(0, enemy.rb.velocity.y);
 
             enemy.currentPatrolIndex++;
             if (enemy.currentPatrolIndex >= enemy.patrolPoints.Length)
             {
                 enemy.currentPatrolIndex = 0;
             }
-            // Immediately calculate direction for the *next* point to avoid stalling
              targetPoint = enemy.patrolPoints[enemy.currentPatrolIndex];
              direction = ((Vector2)targetPoint - (Vector2)enemy.transform.position).normalized;
-             enemy.UpdateFacingDirection(direction.x); // Turn towards next point immediately
+             enemy.UpdateFacingDirection(direction.x); 
         }
     }
 

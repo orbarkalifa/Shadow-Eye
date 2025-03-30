@@ -16,6 +16,12 @@ namespace GameStateManagement
 
         private void Awake()
         {
+            if (FindObjectsByType<InputReader>(FindObjectsInactive.Include, FindObjectsSortMode.None).Length > 1)
+            {
+                Destroy(gameObject);
+                return;
+            }
+            DontDestroyOnLoad(gameObject);
             inputActions = new InputSystem_Actions();
         }
 

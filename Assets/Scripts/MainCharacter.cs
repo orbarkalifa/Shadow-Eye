@@ -1,5 +1,6 @@
 using GameStateManagement;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.U2D.Animation;
 
 public class MainCharacter : Character
@@ -7,8 +8,10 @@ public class MainCharacter : Character
     private CharacterMovement characterMovement;
     private CharacterCombat characterCombat;
     private InputSystem_Actions inputActions;
-    [SerializeField] private BeaconSO beacon;
     private Suit equippedSuit;
+    private Vector2 movementInput;
+    
+    [SerializeField] private BeaconSO beacon;
     
     [Header("Visuals")] 
     public Vector2 facingDirection = Vector2.right; // Default facing direction
@@ -44,7 +47,6 @@ public class MainCharacter : Character
 
     private void Update()
     {
-        Vector2 movementInput = inputActions.Player.Move.ReadValue<Vector2>();
         characterMovement.SetHorizontalInput(movementInput);
         facingDirection = movementInput.x < 0 ? Vector2.left : Vector2.right;
     }
@@ -58,12 +60,24 @@ public class MainCharacter : Character
         inputActions.Enable();
 
         // Register Input Action Callbacks
+        inputActions.Player.Move.performed += OnMovePerformed;
+        inputActions.Player.Move.canceled += OnMoveCanceled;
         inputActions.Player.Jump.performed += _ => characterMovement.Jump();
         inputActions.Player.Jump.canceled += _ => characterMovement.OnJumpReleased();
         inputActions.Player.BasicAttack.performed += _ => PerformBasicAttack();
         inputActions.Player.SpecialAttack.performed += _ => PerformSpecialAttack();
         inputActions.Player.SpecialMove.performed += _ => PerformSpecialMovement();
         inputActions.Player.Consume.performed += _ => UnEquipSuit();
+        
+    }
+    private void OnMovePerformed(InputAction.CallbackContext context)
+    {
+        movementInput = context.ReadValue<Vector2>();
+    }
+
+    private void OnMoveCanceled(InputAction.CallbackContext context)
+    {
+        movementInput = Vector2.zero;
     }
     
     private void OnDisable()
@@ -137,7 +151,6 @@ public class MainCharacter : Character
             Debug.Log($"Unequipped suit: {equippedSuit.suitName}");
             equippedSuit = null;
             
-            // Revert sprite library back to normal
             if(spriteLibrary != null && normalSpriteLibraryAsset != null)
                 spriteLibrary.spriteLibraryAsset = normalSpriteLibraryAsset;
             Heal();

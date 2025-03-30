@@ -154,7 +154,7 @@ public class CharacterMovement : MonoBehaviour
     {
         if (groundLayer == 0)
             return;
-        Vector2 position = transform.position;
+        Vector2 position = transform.position-new Vector3(0.1f,0,0);
         Vector2 boxSize = new Vector2(0.8f, 0.8f);
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireCube(position + Vector2.down * extraHeight, boxSize);

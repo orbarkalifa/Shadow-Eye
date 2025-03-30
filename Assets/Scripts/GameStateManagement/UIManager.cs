@@ -14,8 +14,12 @@ namespace GameStateManagement
         private BeaconSO beacon;
         private void Awake()
         {
-            /*beacon.uiChannel.updateUI += ;*/
-
+            if (FindObjectsByType<UIManager>(FindObjectsInactive.Include, FindObjectsSortMode.None).Length > 1)
+            {
+                Destroy(gameObject);
+                return;
+            }
+            DontDestroyOnLoad(gameObject);
         }
 
         public void HideAllPanels()

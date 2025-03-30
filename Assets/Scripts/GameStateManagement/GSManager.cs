@@ -19,6 +19,12 @@ namespace GameStateManagement
 
         void Awake()
         {
+            if (FindObjectsByType<GSManager>(FindObjectsInactive.Include, FindObjectsSortMode.None).Length > 1)
+            {
+                Destroy(gameObject);
+                return;
+            }
+            DontDestroyOnLoad(gameObject);
             uiManager = FindObjectOfType<UIManager>();
             if (uiManager == null)
             {
