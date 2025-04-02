@@ -1,3 +1,4 @@
+using System;
 using UnityEngine.SceneManagement;
 
 namespace GameStateManagement
@@ -37,16 +38,16 @@ namespace GameStateManagement
             inputActions.UI.ResumeGame.performed += OnResumeGamePerformed;
             inputActions.UI.RestartGame.performed += OnRestartGamePerformed;
         }
-
         private void OnDisable()
         {
+            if(inputActions == null)
+                return;
             inputActions.Disable();
             inputActions.UI.Disable();
-
+            
             inputActions.UI.ResumeGame.performed -= OnResumeGamePerformed;
             inputActions.UI.RestartGame.performed -= OnRestartGamePerformed;
             inputActions.Player.Menu.performed -= OnOpenMenuPerformed;
-
         }
 
         // --- Input Action Event Handlers ---
@@ -97,9 +98,13 @@ namespace GameStateManagement
 
         public void OnStartGameButton()
         {
+            Debug.Log("OnStartGameButton");
             if (beacon != null && beacon.gameStateChannel != null && startGameState != null)
             {
+                          
                 beacon.gameStateChannel.RaiseStateTransitionRequest(inGameState); // Go to InGame state
+                beacon.uiChannel.ChangeLevel("SampleScene");
+                //SceneManager.LoadScene("SampleScene");       
             }
         }
 
@@ -123,6 +128,7 @@ namespace GameStateManagement
         {
             if (beacon != null && beacon.gameStateChannel != null && startGameState != null)
             {
+                SceneManager.LoadScene("startScene");   
                 beacon.gameStateChannel.RaiseStateTransitionRequest(startGameState); // Exit to start panel
             }
         }

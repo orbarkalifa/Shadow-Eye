@@ -14,7 +14,6 @@ public abstract class Character : MonoBehaviour
         currentHits = maxHits;
     }
     
-    
     public virtual void TakeDamage(int damage)
     {
         currentHits -= damage;

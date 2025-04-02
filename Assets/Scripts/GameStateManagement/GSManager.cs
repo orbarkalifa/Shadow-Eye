@@ -112,7 +112,7 @@ namespace GameStateManagement
                 return null;
             }
         }
-
+        
         private void populateStateLookup()
         {
             stateLookup.Clear();

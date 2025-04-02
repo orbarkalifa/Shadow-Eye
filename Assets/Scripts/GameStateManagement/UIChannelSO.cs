@@ -7,9 +7,16 @@ namespace GameStateManagement
     public class UIChannelSO :ScriptableObject
     {
         public event Action<int> OnChangeHealth;
+
+        public event Action<string> OnChangeLevel;
         public void ChangeHealth(int health)
         {
             OnChangeHealth?.Invoke(health);
+        }
+
+        public void ChangeLevel(string level)
+        {
+            OnChangeLevel?.Invoke(level);
         }
     }
 }
