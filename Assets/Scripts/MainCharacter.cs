@@ -1,6 +1,4 @@
-using GameStateManagement;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.U2D.Animation;
 
 public class MainCharacter : Character
@@ -112,7 +110,6 @@ public class MainCharacter : Character
         if (equippedSuit != null)
         {
             Heal();
-            Debug.Log($"Unequipping suit: {equippedSuit.suitName}");
             return;
         }
         
