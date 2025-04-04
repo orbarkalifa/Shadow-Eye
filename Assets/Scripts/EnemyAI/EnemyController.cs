@@ -1,6 +1,7 @@
 using Suits;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace EnemyAI
 {
@@ -24,7 +25,7 @@ namespace EnemyAI
 
         [Header("Suit Drop")]
         [SerializeField] private Suit suitDrop;
-        [SerializeField] private ParticleSystem explodeParticles;
+        [FormerlySerializedAs("explodeParticles")]
         [Header("Vision Settings")]
         [Range(0f, 360f)]
         public float fieldOfViewAngle = 120f;
@@ -186,15 +187,11 @@ namespace EnemyAI
             return false;
         }
         // --- End Visibility Check ---
-        void ActivateDeathParticles()
-        {
-            explodeParticles = Instantiate(explodeParticles, transform.position, Quaternion.identity);
-            explodeParticles.Play();
-        }
+
+        
 
         protected override void OnDeath()
         {
-            ActivateDeathParticles();
             DropSuit();
             StateMachine = null; 
             rb.velocity = Vector2.zero;
