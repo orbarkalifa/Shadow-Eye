@@ -17,10 +17,9 @@ public class SimpleEnemy : Character
     private Time timer;
     [SerializeField] Seeker seeker;
     Path path;
-    int currentPoint = 0;
-    bool arrived = false;
-    // Start is called before the first frame update
-    void Awake()
+    int currentPoint;
+
+    protected override void  Awake()
     {
         base.Awake(); 
         InvokeRepeating("UpdaePath",0f, 0.5f);
@@ -44,14 +43,9 @@ public class SimpleEnemy : Character
         if(currentPoint >= path?.vectorPath.Count)
         {
             Debug.Log("arrived");
-            arrived = true;
             currentPoint = 0;
             rb.velocity = Vector2.zero;
             return;
-        }
-        else
-        {
-            arrived = false;
         }
     
         // Calculate the direction and normalize it for smooth movement
@@ -61,7 +55,6 @@ public class SimpleEnemy : Character
             rb.AddForce(direction * speed);
 
 
-            // Check if the enemy is close enough to the current waypoint to advance to the next one
             distanceToNextPoint = Vector2.Distance(rb.position, path.vectorPath[currentPoint]);
             if(distanceToNextPoint <= 0.05f)
                 currentPoint++;
