@@ -36,12 +36,10 @@ public abstract class Character : MonoBehaviour
     //particles functions 
     void ActivateDeathParticles()
     {
-        deathParticleSystem = Instantiate(deathParticleSystem, transform.position, Quaternion.identity);
-        deathParticleSystem.Play();
+        Instantiate(deathParticleSystem, transform.position, Quaternion.identity);
     }
     void ActivateDamageParticles()
     {
-        damageParticleSystem = Instantiate(damageParticleSystem, transform.position, Quaternion.identity);
-        damageParticleSystem.Play();
+        Instantiate(damageParticleSystem, transform.position, Quaternion.identity);
     }
 }
