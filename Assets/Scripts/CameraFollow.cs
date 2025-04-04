@@ -13,6 +13,8 @@ public class CameraFollow : MonoBehaviour
     [Header("Follow Smoothness")]
     [Range(0f, 1f)] [SerializeField] private float smoothSpeed = 0.125f;
 
+    private BeaconSO beacon;
+
     private void Awake()
     {
         if(!target)
@@ -23,11 +25,7 @@ public class CameraFollow : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (!target)
-        {
-            target = GameObject.FindGameObjectWithTag("Player").transform;
-            if (!target) return;
-        }
+        if (!target) return;
         
         Vector3 desiredPosition = target.position + offset;
         transform.position = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);

@@ -22,17 +22,19 @@ public class SimpleEnemy : Character
     protected override void  Awake()
     {
         base.Awake(); 
-        InvokeRepeating("UpdaePath",0f, 0.5f);
+        InvokeRepeating(nameof(UpdatePath),0f, 0.5f);
  
     }
 
-    void UpdaePath()
+    void UpdatePath()
     {
-        seeker.StartPath(transform.position, target.position, OnPathComplete);
+        if(target)
+            seeker.StartPath(transform.position, target.position, OnPathComplete);
     }
     // Update is called once per frame
     void Update()
     {
+        if(!target) return;
         float distanceToPlayer = Vector2.Distance(transform.position, target.position);
         if(path == null || distanceToPlayer > detectionRange)
         {
