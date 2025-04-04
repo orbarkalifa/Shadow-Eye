@@ -124,6 +124,7 @@ MonoBehaviour:
   currentPatrolIndex: 0
   detectionRange: 14
   suitDrop: {fileID: 11400000, guid: 4fadc748692153649ba80993fda0ca7f, type: 2}
+  explodeParticles: {fileID: 7580926129972904592, guid: 542dff70430918f4ca406e2005a569f0, type: 3}
   fieldOfViewAngle: 120
   obstacleLayerMask:
     serializedVersion: 2
