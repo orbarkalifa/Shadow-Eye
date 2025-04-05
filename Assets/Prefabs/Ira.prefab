@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2005051570296961486}
   - component: {fileID: 855339260648117484}
   - component: {fileID: 1750789061894208110}
+  - component: {fileID: 6950592432353944306}
   m_Layer: 9
   m_Name: Ira
   m_TagString: Enemy
@@ -113,26 +114,27 @@ MonoBehaviour:
   animator: {fileID: 0}
   maxHits: 5
   currentHits: 0
-  attackRange: 5.02
-  attackCooldown: 1.5
-  player: {fileID: 0}
-  rb: {fileID: 3960421595996800390}
-  enemyCollider: {fileID: 0}
-  lastAttackTime: 0
-  startingState: {fileID: 11400000, guid: 65480f5da2a8aa24397aa633c93a914f, type: 2}
-  patrolPoints: []
-  currentPatrolIndex: 0
-  detectionRange: 14
-  suitDrop: {fileID: 11400000, guid: 4fadc748692153649ba80993fda0ca7f, type: 2}
   deathParticleSystem: {fileID: 7580926129972904592, guid: 542dff70430918f4ca406e2005a569f0, type: 3}
   damageParticleSystem: {fileID: 2074108216402693229, guid: 0778f7f1bbd6fd143a7787638d020fe1, type: 3}
+  damageReset: {fileID: 6950592432353944306}
   fieldOfViewAngle: 120
+  rb: {fileID: 3960421595996800390}
+  player: {fileID: 0}
+  detectionRange: 14
   obstacleLayerMask:
     serializedVersion: 2
     m_Bits: 72
   playerLayerMask:
     serializedVersion: 2
     m_Bits: 256
+  attackRange: 5.02
+  attackCooldown: 1.5
+  enemyCollider: {fileID: 0}
+  lastAttackTime: 0
+  startingState: {fileID: 11400000, guid: 65480f5da2a8aa24397aa633c93a914f, type: 2}
+  patrolPoints: []
+  currentPatrolIndex: 0
+  suitDrop: {fileID: 11400000, guid: 4fadc748692153649ba80993fda0ca7f, type: 2}
 --- !u!95 &855339260648117484
 Animator:
   serializedVersion: 5
@@ -197,7 +199,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: 157775333, guid: cc6c29487aeca5545ad1eccc4837ea7e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 7.7, y: 7.7}
@@ -206,3 +208,16 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &6950592432353944306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7096119597824284522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38f98d909f694befb2530d767f3e1037, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultRecoilForce: 100

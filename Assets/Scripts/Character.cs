@@ -9,7 +9,8 @@ public abstract class Character : MonoBehaviour
     public int currentHits;
     [SerializeField] private ParticleSystem deathParticleSystem;
     [SerializeField] private ParticleSystem damageParticleSystem;
-    public int CurrentFacingDirection { get; set; } = -1;
+    [SerializeField] private DamageReset damageReset;
+    public int CurrentFacingDirection { get; set; } = 1;
 
     protected virtual void Awake()
     {
@@ -29,6 +30,8 @@ public abstract class Character : MonoBehaviour
         {
             OnDeath();
         }
+
+        damageReset.ApplyRecoil();
     }
     
     protected virtual void OnDeath()

@@ -14,9 +14,10 @@ GameObject:
   - component: {fileID: 892373915230371651}
   - component: {fileID: 2686971659692769838}
   - component: {fileID: 2283813016072950788}
-  m_Layer: 0
+  - component: {fileID: -5725977889965049011}
+  m_Layer: 9
   m_Name: SimpleEnemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -193,11 +194,34 @@ MonoBehaviour:
   animator: {fileID: 0}
   maxHits: 5
   currentHits: 0
-  target: {fileID: 0}
+  deathParticleSystem: {fileID: 7580926129972904592, guid: 542dff70430918f4ca406e2005a569f0, type: 3}
+  damageParticleSystem: {fileID: 2074108216402693229, guid: 0778f7f1bbd6fd143a7787638d020fe1, type: 3}
+  damageReset: {fileID: -5725977889965049011}
+  fieldOfViewAngle: 120
+  rb: {fileID: 892373915230371651}
+  player: {fileID: 0}
+  detectionRange: 10
+  obstacleLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  playerLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
   speed: 3
   distanceToNextPoint: 0
-  rb: {fileID: 892373915230371651}
   circleCollider: {fileID: 2686971659692769838}
   lastAttackTime: -Infinity
-  detectionRange: 10
   seeker: {fileID: 2617208843704306959}
+--- !u!114 &-5725977889965049011
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2911004294621234838}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38f98d909f694befb2530d767f3e1037, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultRecoilForce: 5
