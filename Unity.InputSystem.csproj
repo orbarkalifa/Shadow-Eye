@@ -218,8 +218,8 @@
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.11.2\InputSystem\Devices\Sensor.cs" />
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.11.2\InputSystem\Editor\Settings\InputSettingsBuildProvider.cs" />
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.11.2\InputSystem\Plugins\Linux\SDLDeviceBuilder.cs" />
-    <Compile Include="Library\PackageCache\com.unity.inputsystem@1.11.2\InputSystem\Devices\Haptics\DualMotorRumbleCommand.cs" />
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.11.2\InputSystem\Editor\ControlPicker\InputControlPathEditor.cs" />
+    <Compile Include="Library\PackageCache\com.unity.inputsystem@1.11.2\InputSystem\Devices\Haptics\DualMotorRumbleCommand.cs" />
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.11.2\InputSystem\Actions\Composites\ButtonWithOneModifier.cs" />
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.11.2\InputSystem\Plugins\XR\Haptics\SendBufferedHapticsCommand.cs" />
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.11.2\InputSystem\Events\TextEvent.cs" />

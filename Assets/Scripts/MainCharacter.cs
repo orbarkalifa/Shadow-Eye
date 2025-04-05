@@ -12,7 +12,6 @@ public class MainCharacter : Character
     
     
     [Header("Visuals")] 
-    public Vector2 facingDirection = Vector2.right; // Default facing direction
     [SerializeField] private GameObject eye;
     [Header("Sprite Library Settings")]
     [SerializeField] private SpriteLibrary spriteLibrary;
@@ -23,6 +22,7 @@ public class MainCharacter : Character
 
     protected override void Awake()
     {
+        CurrentFacingDirection = 1;
         base.Awake();
         inputActions = new InputSystem_Actions();
         characterMovement = GetComponent<CharacterMovement>();
@@ -43,12 +43,10 @@ public class MainCharacter : Character
         beacon.uiChannel.ChangeHealth(currentHits);
     }
 
-    private void Update()
-    {
-        facingDirection = characterMovement.movementInput.x < 0 ? Vector2.left : Vector2.right;
-    }
+    
     private void FixedUpdate()
     {
+        
         characterMovement.Move();
     }
     
@@ -77,7 +75,7 @@ public class MainCharacter : Character
     private void PerformBasicAttack()
     {
         Debug.Log($"{gameObject.name} performs a basic attack.");
-        characterCombat.BasicAttack(facingDirection);
+        characterCombat.BasicAttack(CurrentFacingDirection);
     }
     
     private void PerformSpecialAttack()

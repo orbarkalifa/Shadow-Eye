@@ -44,7 +44,7 @@ public class CharacterCombat : MonoBehaviour
         
     }
     
-    public void BasicAttack(Vector2 facingDirection)
+    public void BasicAttack(int facingDirection)
     {
         if (isOnCooldown)
             return;

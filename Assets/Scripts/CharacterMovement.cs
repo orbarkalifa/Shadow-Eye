@@ -22,7 +22,6 @@ public class CharacterMovement : MonoBehaviour
     [SerializeField] private float moveSpeed = 20f;
     [SerializeField] private float jumpForce = 35;
     [SerializeField] private float extraHeight = 1.5f;
-    public Vector2 movementInput;
 
 
     [Header("Dash Settings")]
@@ -64,7 +63,6 @@ public class CharacterMovement : MonoBehaviour
 
     private void Update()
     {
-        SetHorizontalInput(movementInput);
 
         animator.SetBool(isRunningHash, horizontalInput != 0 && IsGrounded());
 
@@ -87,12 +85,12 @@ public class CharacterMovement : MonoBehaviour
     
     public void OnMovePerformed(InputAction.CallbackContext context)
     {
-        movementInput = context.ReadValue<Vector2>();
+        horizontalInput = context.ReadValue<Vector2>().x;
     }
 
     public void OnMoveCanceled(InputAction.CallbackContext context)
     {
-        movementInput = Vector2.zero;
+        horizontalInput = Vector2.zero.x;
     }
 
     private bool IsTouchingWall()
@@ -114,11 +112,7 @@ public class CharacterMovement : MonoBehaviour
             canWallJump = true;
         }
     }
-
-    public void SetHorizontalInput(Vector2 value)
-    {
-        horizontalInput = value.x;
-    }
+    
 
     public void Move()
     {

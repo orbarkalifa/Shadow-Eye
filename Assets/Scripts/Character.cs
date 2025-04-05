@@ -9,11 +9,14 @@ public abstract class Character : MonoBehaviour
     public int currentHits;
     [SerializeField] private ParticleSystem deathParticleSystem;
     [SerializeField] private ParticleSystem damageParticleSystem;
+    public int CurrentFacingDirection { get; set; } = -1;
+
     protected virtual void Awake()
     {
-        animator = GetComponent<Animator>();
+        if (animator == null) animator = GetComponent<Animator>();
         currentHits = maxHits;
     }
+    
     
     public virtual void TakeDamage(int damage)
     {

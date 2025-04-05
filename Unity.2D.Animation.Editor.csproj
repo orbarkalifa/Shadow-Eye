@@ -171,8 +171,8 @@
     <Compile Include="Library\PackageCache\com.unity.2d.animation@9.1.3\Editor\SkinningModule\UI\WeightInspectorIMGUIPanel.cs" />
     <Compile Include="Library\PackageCache\com.unity.2d.animation@9.1.3\Editor\SkinningModule\SpriteBoneInfluence\InfluenceWindow.cs" />
     <Compile Include="Library\PackageCache\com.unity.2d.animation@9.1.3\Editor\SkinningModule\IMGUI\ISpriteMeshView.cs" />
-    <Compile Include="Library\PackageCache\com.unity.2d.animation@9.1.3\Editor\SkinningModule\SkeletonTool\SkeletonToolWrapper.cs" />
     <Compile Include="Library\PackageCache\com.unity.2d.animation@9.1.3\Editor\UpgradeTools\SpriteLibUpgrader.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.animation@9.1.3\Editor\SkinningModule\SkeletonTool\SkeletonToolWrapper.cs" />
     <Compile Include="Library\PackageCache\com.unity.2d.animation@9.1.3\Editor\AssemblyInfo.cs" />
     <Compile Include="Library\PackageCache\com.unity.2d.animation@9.1.3\Editor\SkinningModule\Selectors\CircleVertexSelector.cs" />
     <Compile Include="Library\PackageCache\com.unity.2d.animation@9.1.3\Editor\SkinningModule\SkinningCache\SkinningCachePersistentState.cs" />
@@ -219,8 +219,8 @@
     <Compile Include="Library\PackageCache\com.unity.2d.animation@9.1.3\Editor\SkinningModule\Triangulation\TriangulationUtility.cs" />
     <Compile Include="Library\PackageCache\com.unity.2d.animation@9.1.3\Editor\SkinningModule\SkinningCache\SpriteCache.cs" />
     <Compile Include="Library\PackageCache\com.unity.2d.animation@9.1.3\Editor\SpriteLib\SpriteLibCombineCache.cs" />
-    <Compile Include="Library\PackageCache\com.unity.2d.animation@9.1.3\Editor\SkinningModule\SkeletonTool\SkeletonTool.cs" />
     <Compile Include="Library\PackageCache\com.unity.2d.animation@9.1.3\Editor\SkinningModule\IMGUI\RectSelectionTool.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.animation@9.1.3\Editor\SkinningModule\SkeletonTool\SkeletonTool.cs" />
     <Compile Include="Library\PackageCache\com.unity.2d.animation@9.1.3\Editor\SkinningModule\SkinningCache\BoneCacheExtensions.cs" />
     <Compile Include="Library\PackageCache\com.unity.2d.animation@9.1.3\Editor\SkinningModule\Selection\IndexedSelection.cs" />
     <Compile Include="Library\PackageCache\com.unity.2d.animation@9.1.3\Editor\SkinningModule\VisibilityTool\SpriteVisibilityTool.cs" />

@@ -19,7 +19,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &9199154740833285730
 RectTransform:
   m_ObjectHideFlags: 0
@@ -294,6 +294,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameStart
       objectReference: {fileID: 0}
+    - target: {fileID: 5662810346860506007, guid: c88e5a9ba3b65d04b81c78b91a5dd1c9, type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8029898024596939672, guid: c88e5a9ba3b65d04b81c78b91a5dd1c9, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -397,6 +401,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 9199154740833285730}
     m_Modifications:
+    - target: {fileID: 1439151952213875263, guid: d36dcdc293d89714782688d69accbf31, type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2480026698867718615, guid: d36dcdc293d89714782688d69accbf31, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4281479730
+      objectReference: {fileID: 0}
+    - target: {fileID: 2480026698867718615, guid: d36dcdc293d89714782688d69accbf31, type: 3}
+      propertyPath: m_TextStyleHashCode
+      value: -1183493901
+      objectReference: {fileID: 0}
     - target: {fileID: 5211195652836859510, guid: d36dcdc293d89714782688d69accbf31, type: 3}
       propertyPath: m_Name
       value: GameOver

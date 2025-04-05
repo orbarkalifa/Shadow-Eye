@@ -6,13 +6,11 @@ using UnityEngine.Serialization;
 namespace EnemyAI
 {
     [RequireComponent(typeof(Rigidbody2D))]
-    public class EnemyController : Character 
+    public class EnemyController : Enemy 
     {
         [Header("Basic Settings")]
         public float attackRange = 5f;
         public float attackCooldown = 2f;
-        public Transform player;
-        public Rigidbody2D rb;
         public Collider2D enemyCollider;
 
         [HideInInspector] public float lastAttackTime = -Mathf.Infinity;
@@ -21,44 +19,17 @@ namespace EnemyAI
         [Header("Patrol Points")]
         public Vector3[] patrolPoints;
         [HideInInspector] public int currentPatrolIndex; 
-        public float detectionRange = 10f;
 
         [Header("Suit Drop")]
         [SerializeField] private Suit suitDrop;
-        [FormerlySerializedAs("explodeParticles")]
-        [Header("Vision Settings")]
-        [Range(0f, 360f)]
-        public float fieldOfViewAngle = 120f;
-        public LayerMask obstacleLayerMask;
-        public LayerMask playerLayerMask;
-
-        public float CurrentFacingDirection { get; set; } = -1f;
-
+        
         public EnemyStateMachine StateMachine { get; private set; }
 
         protected override void Awake()
         {
             base.Awake();
 
-            if (animator == null) animator = GetComponent<Animator>();
-            if (rb == null) rb = GetComponent<Rigidbody2D>();
             if (enemyCollider == null) enemyCollider = GetComponent<Collider2D>();
-
-            if (player == null)
-            {
-                GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
-                if (playerObject != null)
-                {
-                    player = playerObject.transform;
-                }
-                else
-                {
-                    Debug.LogError($"EnemyController ({gameObject.name}): Player not found! Make sure player has 'Player' tag or is assigned.", this);
-                    enabled = false;
-                    return;
-                }
-            }
-
             StateMachine = new EnemyStateMachine();
             if (startingState != null)
             {
@@ -89,25 +60,6 @@ namespace EnemyAI
             }
         }
 
-        public void UpdateFacingDirection(float xDirection)
-        {
-            if(Mathf.Sign(xDirection) != CurrentFacingDirection)
-            {
-                Flip();
-            }
-        }
-
-        public void Flip()
-        {
-            Vector3 scale = transform.localScale;
-            scale.x *= -1;
-            transform.localScale = scale;
-
-            CurrentFacingDirection = -CurrentFacingDirection;
-
-        }
-
-
         public void TriggerAttackDamage()
         {
             Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, attackRange, playerLayerMask);
@@ -124,70 +76,6 @@ namespace EnemyAI
                 }
             }
         }
-        
-        public bool CanSeePlayer()
-        {
-            if (player == null) return false;
-
-            Vector2 enemyPosition = transform.position;
-            Vector2 playerPosition = player.position;
-            Vector2 directionToPlayer = (playerPosition - enemyPosition);
-            float distanceToPlayer = directionToPlayer.magnitude;
-
-            // 1. Check Distance
-            if (distanceToPlayer > detectionRange)
-            {
-                return false;
-            }
-
-            // 2. Check Field of View (FOV)
-            // Use the public property CurrentFacingDirection which is now updated correctly
-            Vector2 forwardDirection = transform.right * CurrentFacingDirection;
-            float angleToPlayer = Vector2.Angle(forwardDirection, directionToPlayer);
-
-            if (angleToPlayer > fieldOfViewAngle / 2f)
-            {
-#if UNITY_EDITOR
-                // Draw FOV lines only when player is potentially in range but outside FOV
-                Debug.DrawLine(enemyPosition, enemyPosition + (Vector2)(Quaternion.Euler(0, 0, fieldOfViewAngle / 2f) * forwardDirection * detectionRange), Color.grey);
-                Debug.DrawLine(enemyPosition, enemyPosition + (Vector2)(Quaternion.Euler(0, 0, -fieldOfViewAngle / 2f) * forwardDirection * detectionRange), Color.grey);
-#endif
-                return false;
-            }
-
-            // 3. Check Line of Sight (LOS)
-            // Combine obstacle and player layers for the raycast check
-            int combinedLayerMask = obstacleLayerMask | playerLayerMask;
-            RaycastHit2D hit = Physics2D.Raycast(enemyPosition, directionToPlayer.normalized, distanceToPlayer, combinedLayerMask);
-
-#if UNITY_EDITOR
-            // Visualize the ray and its result
-            if (hit.collider != null)
-            {
-                // Green if player hit, Red if obstacle hit
-                var rayColor = (playerLayerMask == (playerLayerMask | (1 << hit.collider.gameObject.layer))) ? Color.green : Color.red; // Default if nothing hit within range (unlikely)
-                Debug.DrawRay(enemyPosition, directionToPlayer.normalized * hit.distance, rayColor); // Draw only up to hit point
-            }
-            else
-            {
-                // If nothing hit, draw full length (should mean direct LOS if within range/FOV)
-                Debug.DrawRay(enemyPosition, directionToPlayer.normalized * distanceToPlayer, Color.cyan); // Use a different color like cyan
-            }
-#endif
-
-            // Check if the ray hit anything AND if that thing was on the player layer
-            // If hit.collider is null, it means LOS is clear up to distanceToPlayer
-            if (hit.collider == null || (playerLayerMask == (playerLayerMask | (1 << hit.collider.gameObject.layer))))
-            {
-                // Nothing hit OR the first thing hit was the player.
-                return true;
-            }
-
-            // An obstacle was hit before the player
-            return false;
-        }
-        // --- End Visibility Check ---
-
         
 
         protected override void OnDeath()
@@ -310,18 +198,8 @@ namespace EnemyAI
             Handles.color = Color.red;
             Handles.DrawWireDisc(transform.position, Vector3.forward, attackRange); // Use Handles for consistency
 
-            // Draw Detection Range
-            Handles.color = Color.cyan;
-            Handles.DrawWireDisc(transform.position, Vector3.forward, detectionRange);
-
-            // Draw FOV lines if selected
-            if (CanSeePlayer()) // Example condition, or always draw if selected
-            {
-                Vector2 enemyPosition = transform.position;
-                Vector2 forward = transform.right * CurrentFacingDirection;
-                Handles.color = new Color(1f, 1f, 0f, 0.2f); // Semi-transparent yellow
-                Handles.DrawSolidArc(enemyPosition, Vector3.forward, Quaternion.Euler(0,0,-fieldOfViewAngle/2f) * forward, fieldOfViewAngle, detectionRange);
-            }
+           
+           
         }
 #endif
     }

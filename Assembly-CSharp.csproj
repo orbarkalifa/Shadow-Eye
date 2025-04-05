@@ -53,8 +53,9 @@
     <Compile Include="Assets\Scripts\Suits\Abilities\FireballAttack.cs" />
     <Compile Include="Assets\Scripts\Suits\Abilities\DashMovement.cs" />
     <Compile Include="Assets\Scripts\EnemyAI\EnemyStateSO.cs" />
+    <Compile Include="Assets\Scripts\GameStateManagement\LevelManager.cs" />
+    <Compile Include="Assets\Scripts\UIFlasher.cs" />
     <Compile Include="Assets\Scripts\Projectile.cs" />
-    <Compile Include="Assets\LevelManager.cs" />
     <Compile Include="Assets\Scripts\Character.cs" />
     <Compile Include="Assets\Scripts\CharacterCombat.cs" />
     <Compile Include="Assets\Scripts\EnemyAI\EnemyController.cs" />
@@ -74,17 +75,17 @@
     <Compile Include="Assets\Scripts\EnemyAI\PatrolStateSO.cs" />
     <Compile Include="Assets\Scripts\GameStateManagement\StartGameState.cs" />
     <Compile Include="Assets\Scripts\GameStateManagement\GameStateSO.cs" />
-    <Compile Include="Assets\UIFlasher.cs" />
+    <Compile Include="Assets\Scripts\EnemyAI\Enemy.cs" />
     <Compile Include="Assets\Scripts\Suits\Suit.cs" />
     <Compile Include="Assets\Scripts\CameraShake.cs" />
     <Compile Include="Assets\Scripts\GameStateManagement\InGameStateSO.cs" />
     <Compile Include="Assets\Scripts\GameStateManagement\GameStateChannelSO.cs" />
-    <Compile Include="Assets\SimpleEnemy.cs" />
     <Compile Include="Assets\Scripts\UIEyeScript.cs" />
     <Compile Include="Assets\Scripts\GameStateManagement\MenuStateSO.cs" />
     <Compile Include="Assets\Scripts\EnemyAI\HealingStateSO.cs" />
     <Compile Include="Assets\Scripts\Suits\SuitAbility.cs" />
     <Compile Include="Assets\Scripts\GameStateManagement\InputReader.cs" />
+    <Compile Include="Assets\Scripts\SimpleEnemy.cs" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
     <None Include="Library\PackageCache\com.unity.burst@1.8.18\package.json" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
@@ -852,9 +853,9 @@
       <Project>{f8ac7ad2-7863-cbf7-d669-3d29c6a41d1f}</Project>
       <Name>Unity.VisualScripting.Flow</Name>
     </ProjectReference>
-    <ProjectReference Include="Unity.VisualScripting.Flow.Editor.csproj">
-      <Project>{491d7665-20f5-df02-87c9-160fe353679c}</Project>
-      <Name>Unity.VisualScripting.Flow.Editor</Name>
+    <ProjectReference Include="PackageToolsEditor.csproj">
+      <Project>{e02c85b5-3de6-3c55-87ef-2e470bcaee21}</Project>
+      <Name>PackageToolsEditor</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.InternalAPIEngineBridge.001.csproj">
       <Project>{35564a2c-74ca-2ad5-cf3a-c5b847f78ef7}</Project>
@@ -864,6 +865,10 @@
       <Project>{c7ce9501-0871-614a-2d59-e939fb0afd65}</Project>
       <Name>Unity.Mathematics.Editor</Name>
     </ProjectReference>
+    <ProjectReference Include="Unity.VisualScripting.Flow.Editor.csproj">
+      <Project>{491d7665-20f5-df02-87c9-160fe353679c}</Project>
+      <Name>Unity.VisualScripting.Flow.Editor</Name>
+    </ProjectReference>
     <ProjectReference Include="Unity.2D.Common.Runtime.csproj">
       <Project>{366fa0b7-a2c5-d2bd-63a2-5c4bc088ce30}</Project>
       <Name>Unity.2D.Common.Runtime</Name>
@@ -871,10 +876,6 @@
     <ProjectReference Include="Unity.2D.Tilemap.Extras.Editor.csproj">
       <Project>{966de161-4322-d84d-c5b9-2ecce370e749}</Project>
       <Name>Unity.2D.Tilemap.Extras.Editor</Name>
-    </ProjectReference>
-    <ProjectReference Include="PackageToolsEditor.csproj">
-      <Project>{e02c85b5-3de6-3c55-87ef-2e470bcaee21}</Project>
-      <Name>PackageToolsEditor</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.Timeline.csproj">
       <Project>{1d99f211-0c33-6103-87d9-8e73ef2673cd}</Project>
