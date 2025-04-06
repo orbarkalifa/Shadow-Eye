@@ -63,14 +63,14 @@ namespace EnemyAI
         public void TriggerAttackDamage()
         {
             Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, attackRange, playerLayerMask);
-
             foreach (var hitCollider in hitColliders)
             {
                 MainCharacter playerController = hitCollider.GetComponent<MainCharacter>();
                 if (playerController != null && !playerController.IsInvincible)
                 {
+                    Vector2 recoilDirection = ((Vector2)transform.position - (Vector2)player.transform.position).normalized;
                     Debug.Log($"[{gameObject.name}] Attack hit {hitCollider.name}");
-                    playerController.TakeDamage(1);
+                    playerController.TakeDamage(1,recoilDirection);
                     break;
                 }
             }

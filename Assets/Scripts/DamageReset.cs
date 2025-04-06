@@ -9,9 +9,9 @@ public class DamageReset : MonoBehaviour
     [Header("Flashing Settings")]
     [SerializeField] private float flashDuration = 1.0f;
     [SerializeField] private float flashInterval = 0.1f;
+    private SpriteRenderer sr;
 
     private Rigidbody2D rb;
-    private SpriteRenderer sr;
 
     private void Awake()
     {
@@ -19,7 +19,7 @@ public class DamageReset : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
     }
     
-    public void AppleKnockback(Transform damageSource = null)
+    public void ApplyKnockback(Transform damageSource = null)
     {
         Vector2 knockbackDirection;
         if (damageSource != null)

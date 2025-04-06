@@ -24,6 +24,11 @@ public class MainCharacter : Character
     [SerializeField] private SpriteLibraryAsset normalSpriteLibraryAsset;
     [SerializeField] private SpriteLibraryAsset suitSpriteLibraryAsset;
 
+    
+    [Header("Flashing Settings")]
+    [SerializeField] private float flashDuration = 1.0f;
+    [SerializeField] private float flashInterval = 0.1f;
+    private SpriteRenderer sr;
   
 
     protected override void Awake()
@@ -33,6 +38,8 @@ public class MainCharacter : Character
         inputActions = new InputSystem_Actions();
         characterMovement = GetComponent<CharacterMovement>();
         characterCombat = GetComponent<CharacterCombat>();
+        sr = GetComponent<SpriteRenderer>();
+
         
         if (!characterMovement)
             Debug.LogError("CharacterMovement component is missing.");
@@ -52,7 +59,7 @@ public class MainCharacter : Character
     
     private void FixedUpdate()
     {
-        
+        if(isRecoiling) return;
         characterMovement.Move();
     }
     
@@ -82,6 +89,7 @@ public class MainCharacter : Character
     {
         Debug.Log($"{gameObject.name} performs a basic attack.");
         characterCombat.BasicAttack(CurrentFacingDirection);
+        characterMovement.AddRecoil(new Vector2(CurrentFacingDirection*-1,0));
     }
     
     private void PerformSpecialAttack()
@@ -130,14 +138,18 @@ public class MainCharacter : Character
     }
 
     
-    public override void TakeDamage(int damage)
+    public override void TakeDamage(int damage, Vector2 direction)
     {
         if (IsInvincible)
             return;
         
+        
+        characterMovement.AddRecoil(direction);
         base.TakeDamage(damage);
         beacon.uiChannel.ChangeHealth(currentHits);
+        StartCoroutine(FlashSprite());
         StartCoroutine(InvincibilityCoroutine());
+        
     }
     
     private IEnumerator InvincibilityCoroutine()
@@ -186,5 +198,22 @@ public class MainCharacter : Character
             Debug.LogError("PlayerHealth: Beacon, GameStateChannel, or GameOverState is not assigned!");
         }
         base.OnDeath();
+    }
+    protected IEnumerator FlashSprite()
+    {
+        
+        if (sr == null)
+            yield break;
+
+        float timer = 0f;
+        while (timer < flashDuration)
+        {
+            sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 0.5f);
+            yield return new WaitForSeconds(flashInterval);
+            sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 1f);
+            yield return new WaitForSeconds(flashInterval);
+            timer += flashInterval * 2;
+        }
+        sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 1f);
     }
 }

@@ -10,7 +10,6 @@ public class CharacterCombat : MonoBehaviour
     public LayerMask enemyLayer;
     public float attackCooldown = 0.3f;
     [Header("Recoil Settings")]
-    [SerializeField] private float recoilForce = 5f;
 
     private Animator animator;
     private int comboStep;
@@ -102,12 +101,12 @@ public class CharacterCombat : MonoBehaviour
         );
 
         bool enemyHit = false;
-
         foreach (Collider2D enemy in hitEnemies)
         {
-            if (enemy.TryGetComponent(out EnemyController enemyComponent))
+            if (enemy.TryGetComponent(out Enemy enemyComponent))
             {
-                enemyComponent.TakeDamage(attackDamage);
+                Vector2 recoilDirection = ((Vector2)transform.position - (Vector2)enemyComponent.transform.position).normalized;
+                enemyComponent.TakeDamage(attackDamage , recoilDirection);
                 enemyHit = true;
             }
         }
@@ -122,8 +121,6 @@ public class CharacterCombat : MonoBehaviour
     {
         if (characterMovement != null)
         {
-            Vector2 recoilDirection = transform.localScale.x > 0 ? Vector2.left : Vector2.right;
-            characterMovement.GetComponent<Rigidbody2D>().AddForce(recoilDirection * recoilForce, ForceMode2D.Impulse);
             cameraShake.ShakeCamera(hitShakeDuration, hitShakeMagnitude); 
         }
         else

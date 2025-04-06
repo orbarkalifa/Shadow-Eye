@@ -9,7 +9,7 @@ namespace EnemyAI
         [Header("Vision Settings")]
         [Range(0f, 360f)]
         public float fieldOfViewAngle = 120f;
-
+        public float recoilForce = 100;
         public Rigidbody2D rb;
         public Transform player;
         public float detectionRange = 10f;
@@ -104,10 +104,12 @@ namespace EnemyAI
         
         private void OnCollisionEnter2D(Collision2D collision)
         {
+            
             if(collision.gameObject.CompareTag("Player"))
             {
                 MainCharacter player = collision.gameObject.GetComponent<MainCharacter>();
-                player.TakeDamage(1);
+                Vector2 recoilDirection = ((Vector2)transform.position - (Vector2)player.transform.position).normalized;
+                player.TakeDamage(1,recoilDirection);
             }
         }
 
@@ -125,6 +127,14 @@ namespace EnemyAI
                 Handles.color = new Color(1f, 1f, 0f, 0.2f); // Semi-transparent yellow
                 Handles.DrawSolidArc(enemyPosition, Vector3.forward, Quaternion.Euler(0,0,-fieldOfViewAngle/2f) * forward, fieldOfViewAngle, detectionRange);
             }
+        }
+
+        public override void TakeDamage(int damage, Vector2 direction)
+        {
+            rb.velocity = Vector2.zero;
+            rb.AddForce(direction*recoilForce , ForceMode2D.Impulse);
+            base.TakeDamage(damage);
+            
         }
     }
 }

@@ -1,6 +1,7 @@
 
 using UnityEngine;
 using UnityEngine.Serialization;
+using System.Collections;
 
 public abstract class Character : MonoBehaviour
 {
@@ -11,14 +12,18 @@ public abstract class Character : MonoBehaviour
     [SerializeField] private ParticleSystem damageParticleSystem;
     [SerializeField] private DamageReset damageReset;
     public int CurrentFacingDirection { get; set; } = 1;
+    protected bool isRecoiling = false;
+
 
     protected virtual void Awake()
     {
         if (animator == null) animator = GetComponent<Animator>();
         currentHits = maxHits;
     }
-    
-    
+
+
+    public abstract void TakeDamage(int damage, Vector2 direction);
+
     public virtual void TakeDamage(int damage)
     {
         ActivateDamageParticles();
@@ -30,10 +35,7 @@ public abstract class Character : MonoBehaviour
         {
             OnDeath();
         }
-
-        damageReset.AppleKnockback();
     }
-    
     protected virtual void OnDeath()
     {
         ActivateDeathParticles();
