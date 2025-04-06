@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.U2D.Animation;
 
@@ -8,6 +9,11 @@ public class MainCharacter : Character
     private InputSystem_Actions inputActions;
     private Suit equippedSuit;
     
+    [Header("Damage & Invincibility Settings")]
+    [SerializeField] private float invincibilityDuration = 1.0f;
+
+    public bool IsInvincible { get; set; } = false;
+
     [SerializeField] private BeaconSO beacon;
     
     
@@ -126,8 +132,20 @@ public class MainCharacter : Character
     
     public override void TakeDamage(int damage)
     {
+        if (IsInvincible)
+            return;
+        
         base.TakeDamage(damage);
         beacon.uiChannel.ChangeHealth(currentHits);
+        StartCoroutine(InvincibilityCoroutine());
+    }
+    
+    private IEnumerator InvincibilityCoroutine()
+    {
+        IsInvincible = true;
+        // Optionally add visual feedback such as blinking the sprite.
+        yield return new WaitForSeconds(invincibilityDuration);
+        IsInvincible = false;
     }
     
     private void UnEquipSuit()

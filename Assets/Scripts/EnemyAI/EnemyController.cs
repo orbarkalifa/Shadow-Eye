@@ -67,12 +67,11 @@ namespace EnemyAI
             foreach (var hitCollider in hitColliders)
             {
                 MainCharacter playerController = hitCollider.GetComponent<MainCharacter>();
-                if (playerController != null)
+                if (playerController != null && !playerController.IsInvincible)
                 {
                     Debug.Log($"[{gameObject.name}] Attack hit {hitCollider.name}");
-                    playerController.TakeDamage(1); // Deal damage
-
-                    break; // Remove if multiple targets could be hit simultaneously
+                    playerController.TakeDamage(1);
+                    break;
                 }
             }
         }
