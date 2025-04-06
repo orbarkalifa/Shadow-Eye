@@ -49,7 +49,6 @@ namespace EnemyAI
             Vector3 scale = transform.localScale;
             scale.x *= -1;
             transform.localScale = scale;
-
             CurrentFacingDirection = -CurrentFacingDirection;
         }
         
@@ -104,11 +103,16 @@ namespace EnemyAI
         
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            
+            Vector2 recoilDirection = Vector2.zero;
             if(collision.gameObject.CompareTag("Player"))
             {
                 MainCharacter player = collision.gameObject.GetComponent<MainCharacter>();
-                Vector2 recoilDirection = ((Vector2)transform.position - (Vector2)player.transform.position).normalized;
+                if(recoilDirection.x !=0)
+                    recoilDirection = recoilDirection.x>0 ? Vector2.right : Vector2.left;
+                else
+                {
+                    recoilDirection = Vector2.up;
+                }
                 player.TakeDamage(1,recoilDirection);
             }
         }
@@ -132,6 +136,7 @@ namespace EnemyAI
         public override void TakeDamage(int damage, Vector2 direction)
         {
             rb.velocity = Vector2.zero;
+            Debug.Log($"added recoil{direction*recoilForce}");
             rb.AddForce(direction*recoilForce , ForceMode2D.Impulse);
             base.TakeDamage(damage);
             

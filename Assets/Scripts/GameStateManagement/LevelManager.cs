@@ -24,6 +24,7 @@ public class LevelManager : MonoBehaviour
     // This method will be called when the button is clicked.
     public void LoadLevelScene(string levelName)
     {
+        
         var scene = SceneManager.LoadSceneAsync(levelName);
         scene.allowSceneActivation = false;
         do

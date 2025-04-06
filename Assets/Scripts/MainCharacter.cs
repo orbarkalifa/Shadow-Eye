@@ -59,8 +59,8 @@ public class MainCharacter : Character
     
     private void FixedUpdate()
     {
-        if(isRecoiling) return;
         characterMovement.Move();
+        if(transform.localScale.x < 0.1f) CurrentFacingDirection = -1;
     }
     
     private void OnEnable()
@@ -87,9 +87,8 @@ public class MainCharacter : Character
     
     private void PerformBasicAttack()
     {
-        Debug.Log($"{gameObject.name} performs a basic attack.");
+        Debug.Log($"{gameObject.name} performs a basic attack.dirction {CurrentFacingDirection}");
         characterCombat.BasicAttack(CurrentFacingDirection);
-        characterMovement.AddRecoil(new Vector2(CurrentFacingDirection*-1,0));
     }
     
     private void PerformSpecialAttack()

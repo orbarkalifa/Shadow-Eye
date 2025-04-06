@@ -10,9 +10,7 @@ public abstract class Character : MonoBehaviour
     public int currentHits;
     [SerializeField] private ParticleSystem deathParticleSystem;
     [SerializeField] private ParticleSystem damageParticleSystem;
-    [SerializeField] private DamageReset damageReset;
-    public int CurrentFacingDirection { get; set; } = 1;
-    protected bool isRecoiling = false;
+    public int CurrentFacingDirection { get; protected set; } = 1;
 
 
     protected virtual void Awake()

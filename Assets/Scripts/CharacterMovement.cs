@@ -8,7 +8,7 @@ public class CharacterMovement : MonoBehaviour
     private static readonly int isRunningHash = Animator.StringToHash("isRunning");
     private static readonly int isJumpingHash = Animator.StringToHash("Jumping");
     private static readonly int isWallSlidingHash = Animator.StringToHash("isWallSliding");
-    [SerializeField] private float recoilForce = 5;
+    [SerializeField] private float recoilForce = 50;
 
     private Animator animator;
     private Rigidbody2D rb;
@@ -274,9 +274,8 @@ public class CharacterMovement : MonoBehaviour
 
     public void AddRecoil(Vector2 forceDirection)
     {
-        Debug.Log("added recoil");
         rb.velocity = Vector2.zero;
-        rb.AddForce(forceDirection*recoilForce , ForceMode2D.Impulse);
+        rb.AddForce(forceDirection * recoilForce, ForceMode2D.Impulse);
     }
 
 }
