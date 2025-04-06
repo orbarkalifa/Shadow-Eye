@@ -31,7 +31,7 @@ public abstract class Character : MonoBehaviour
             OnDeath();
         }
 
-        damageReset.ApplyRecoil();
+        damageReset.AppleKnockback();
     }
     
     protected virtual void OnDeath()
