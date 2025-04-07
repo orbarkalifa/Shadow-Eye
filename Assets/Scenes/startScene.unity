@@ -718,6 +718,50 @@ PrefabInstance:
       propertyPath: m_ReferenceResolution.y
       value: 1024
       objectReference: {fileID: 0}
+    - target: {fileID: 1115125801938577246, guid: eb20a34974ec9164dbe1a5397c7d9e92, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1230004593689366149, guid: eb20a34974ec9164dbe1a5397c7d9e92, type: 3}
+      propertyPath: m_fontColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1230004593689366149, guid: eb20a34974ec9164dbe1a5397c7d9e92, type: 3}
+      propertyPath: m_fontColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1230004593689366149, guid: eb20a34974ec9164dbe1a5397c7d9e92, type: 3}
+      propertyPath: m_fontColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1230004593689366149, guid: eb20a34974ec9164dbe1a5397c7d9e92, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 1665300778795794769, guid: eb20a34974ec9164dbe1a5397c7d9e92, type: 3}
+      propertyPath: m_fontColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1665300778795794769, guid: eb20a34974ec9164dbe1a5397c7d9e92, type: 3}
+      propertyPath: m_fontColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1665300778795794769, guid: eb20a34974ec9164dbe1a5397c7d9e92, type: 3}
+      propertyPath: m_fontColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1665300778795794769, guid: eb20a34974ec9164dbe1a5397c7d9e92, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 1665300778795794769, guid: eb20a34974ec9164dbe1a5397c7d9e92, type: 3}
+      propertyPath: m_TextStyleHashCode
+      value: -1183493901
+      objectReference: {fileID: 0}
+    - target: {fileID: 1665300778795794769, guid: eb20a34974ec9164dbe1a5397c7d9e92, type: 3}
+      propertyPath: m_enableWordWrapping
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1673275587058075766, guid: eb20a34974ec9164dbe1a5397c7d9e92, type: 3}
       propertyPath: m_Name
       value: UICanvas
@@ -762,12 +806,48 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 121.1
       objectReference: {fileID: 0}
+    - target: {fileID: 4013361987302175318, guid: eb20a34974ec9164dbe1a5397c7d9e92, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4013361987302175318, guid: eb20a34974ec9164dbe1a5397c7d9e92, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4013361987302175318, guid: eb20a34974ec9164dbe1a5397c7d9e92, type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4013361987302175318, guid: eb20a34974ec9164dbe1a5397c7d9e92, type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6308332920403372921, guid: eb20a34974ec9164dbe1a5397c7d9e92, type: 3}
       propertyPath: m_BlockingMask.m_Bits
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7846772626963137502, guid: eb20a34974ec9164dbe1a5397c7d9e92, type: 3}
       propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7967441319218643860, guid: eb20a34974ec9164dbe1a5397c7d9e92, type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7967441319218643860, guid: eb20a34974ec9164dbe1a5397c7d9e92, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7967441319218643860, guid: eb20a34974ec9164dbe1a5397c7d9e92, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7967441319218643860, guid: eb20a34974ec9164dbe1a5397c7d9e92, type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7967441319218643860, guid: eb20a34974ec9164dbe1a5397c7d9e92, type: 3}
+      propertyPath: m_Color.r
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7988703969043171716, guid: eb20a34974ec9164dbe1a5397c7d9e92, type: 3}
