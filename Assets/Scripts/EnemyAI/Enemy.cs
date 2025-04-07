@@ -103,10 +103,10 @@ namespace EnemyAI
         
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            if(collision.gameObject.CompareTag("Player"))
+            if (collision.gameObject.CompareTag("Player"))
             {
                 MainCharacter player = collision.gameObject.GetComponent<MainCharacter>();
-                float recoilDirection = player.transform.position.x - transform.position.x;
+                var recoilDirection = player.transform.position.x - transform.position.x;
                 player.TakeDamage(1, recoilDirection);
             }
         }
