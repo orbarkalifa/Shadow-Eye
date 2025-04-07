@@ -10,7 +10,7 @@ public class Projectile : MonoBehaviour
         // Handle destructible or enemy hit
         if (collision.CompareTag("Destructible") || collision.CompareTag("Enemy"))
         {
-            Vector2 recoilDirection = transform.localScale.x > 0 ? Vector2.left : Vector2.right;
+            float recoilDirection = transform.localScale.x > 0 ? -1 : 1;
             if (collision.TryGetComponent(out Destructible destructible))
                 destructible.TakeDamage(damage);
 

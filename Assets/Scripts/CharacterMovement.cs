@@ -272,10 +272,10 @@ public class CharacterMovement : MonoBehaviour
             rb.velocity += Vector2.up * -jumpForce * variableJumpMultiplier;
     }
 
-    public void AddRecoil(Vector2 forceDirection)
+    public void AddRecoil(float recoilDirection)
     {
         rb.velocity = Vector2.zero;
-        rb.AddForce(forceDirection * recoilForce, ForceMode2D.Impulse);
+        rb.AddForce(new Vector2(recoilDirection * recoilForce,0), ForceMode2D.Impulse);
     }
 
 }

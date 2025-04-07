@@ -99,19 +99,13 @@ public class CharacterCombat : MonoBehaviour
             0f,
             enemyLayer
         );
-        Vector2 recoilDirection = Vector2.zero;
+        float recoilDirection = 0;
         bool enemyHit = false;
         foreach (Collider2D enemy in hitEnemies)
         {
             if (enemy.TryGetComponent(out Enemy enemyComponent))
             {
-                recoilDirection = ( (Vector2)enemyComponent.transform.position -  (Vector2)transform.position).normalized;
-                if(recoilDirection.x !=0)
-                    recoilDirection = recoilDirection.x>0 ? Vector2.right : Vector2.left;
-                else
-                {
-                    recoilDirection = Vector2.up;
-                }
+                recoilDirection = ((Vector2)enemyComponent.transform.position -  (Vector2)transform.position).normalized.x;
                 enemyComponent.TakeDamage(attackDamage , recoilDirection);
                 enemyHit = true;
             }

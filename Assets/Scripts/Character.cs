@@ -20,7 +20,7 @@ public abstract class Character : MonoBehaviour
     }
 
 
-    public abstract void TakeDamage(int damage, Vector2 direction);
+    public abstract void TakeDamage(int damage, float direction);
 
     public virtual void TakeDamage(int damage)
     {

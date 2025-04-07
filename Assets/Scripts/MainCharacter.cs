@@ -137,11 +137,10 @@ public class MainCharacter : Character
     }
 
     
-    public override void TakeDamage(int damage, Vector2 direction)
+    public override void TakeDamage(int damage, float direction)
     {
         if (IsInvincible)
             return;
-        
         
         characterMovement.AddRecoil(direction);
         base.TakeDamage(damage);
