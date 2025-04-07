@@ -49,7 +49,7 @@ namespace EnemyAI
             if(path != null)
             {
                 Vector2 direction = ((Vector2)path.vectorPath[currentPoint] - rb.position).normalized;
-                rb.AddForce(direction * speed);
+                rb.AddForce(direction * (speed * Time.deltaTime));
 
 
                 distanceToNextPoint = Vector2.Distance(rb.position, path.vectorPath[currentPoint]);
