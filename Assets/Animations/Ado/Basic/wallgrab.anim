@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Ira_wallgrab
+  m_Name: wallgrab
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -113,7 +113,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.00027529415
+        value: 6.934581e-22
         inSlope: Infinity
         outSlope: Infinity
         tangentMode: 103
@@ -122,7 +122,7 @@ AnimationClip:
         outWeight: 0
       - serializedVersion: 3
         time: 0.016666668
-        value: 0.00027529415
+        value: 6.934581e-22
         inSlope: Infinity
         outSlope: Infinity
         tangentMode: 103
@@ -338,7 +338,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.00027529415
+        value: 6.934581e-22
         inSlope: Infinity
         outSlope: Infinity
         tangentMode: 103
@@ -347,7 +347,7 @@ AnimationClip:
         outWeight: 0
       - serializedVersion: 3
         time: 0.016666668
-        value: 0.00027529415
+        value: 6.934581e-22
         inSlope: Infinity
         outSlope: Infinity
         tangentMode: 103
