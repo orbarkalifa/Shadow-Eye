@@ -141,7 +141,7 @@ public class MainCharacter : Character
     {
         if (IsInvincible)
             return;
-        
+        Debug.Log($"got hit and has recoil {direction}");
         characterMovement.AddRecoil(direction);
         base.TakeDamage(damage);
         beacon.uiChannel.ChangeHealth(currentHits);

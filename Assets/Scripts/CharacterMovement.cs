@@ -15,7 +15,7 @@ public class CharacterMovement : MonoBehaviour
     private bool isFacingRight = true;
     private float horizontalInput;
     private bool isDashing;
-
+    private bool canMove = true;
     private int jumpCount;
     private readonly int maxJumpCount = 1; // Change this to 2 if you want to allow double jump
 
@@ -117,15 +117,18 @@ public class CharacterMovement : MonoBehaviour
 
     public void Move()
     {
-        if (!isWallJumping)
+        if(canMove)
         {
-            if (!isDashing)
-                rb.velocity = new Vector2(horizontalInput * moveSpeed, rb.velocity.y);
+            if(!isWallJumping)
+            {
+                if(!isDashing)
+                    rb.velocity = new Vector2(horizontalInput * moveSpeed, rb.velocity.y);
 
-            if ((horizontalInput > 0 && !isFacingRight) || (horizontalInput < 0 && isFacingRight))
-                Flip();
+                if((horizontalInput > 0 && !isFacingRight) || (horizontalInput < 0 && isFacingRight))
+                    Flip();
 
-            UpdateGroundedState();
+                UpdateGroundedState();
+            }
         }
     }
 
@@ -271,11 +274,19 @@ public class CharacterMovement : MonoBehaviour
         if (rb.velocity.y > 0)
             rb.velocity += Vector2.up * -jumpForce * variableJumpMultiplier;
     }
-
     public void AddRecoil(float recoilDirection)
     {
-        rb.velocity = Vector2.zero;
-        rb.AddForce(new Vector2(recoilDirection * recoilForce,0), ForceMode2D.Impulse);
+        StartCoroutine(RecoilCoroutine(recoilDirection));
     }
 
+    private IEnumerator RecoilCoroutine(float recoilDirection)
+    {
+        canMove = false;
+        rb.velocity = Vector2.zero;
+        Debug.Log($"Applying {recoilDirection} * {recoilForce}");
+        rb.AddForce(new Vector2(recoilDirection * recoilForce, 0), ForceMode2D.Impulse);
+        // Wait for a short duration to allow the recoil to take effect.
+        yield return new WaitForSeconds(0.2f);
+        canMove = true;
+    }
 }

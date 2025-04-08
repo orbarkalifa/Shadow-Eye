@@ -100,14 +100,19 @@ namespace EnemyAI
 
             return false;
         }
+
+        protected float GetRecoilDirection(Transform target)
+        {
+            return  (target.transform.position - transform.position).normalized.x;
+        }
         
         private void OnCollisionEnter2D(Collision2D collision)
         {
             if (collision.gameObject.CompareTag("Player"))
             {
-                MainCharacter player = collision.gameObject.GetComponent<MainCharacter>();
-                var recoilDirection = player.transform.position.x - transform.position.x;
-                player.TakeDamage(1, recoilDirection);
+                MainCharacter playerColison = collision.gameObject.GetComponent<MainCharacter>();
+                var recoilDirection = GetRecoilDirection(playerColison.transform) > 0 ? 1:-1 ;
+                playerColison.TakeDamage(1, recoilDirection);
             }
         }
 
@@ -130,10 +135,8 @@ namespace EnemyAI
         public override void TakeDamage(int damage, float direction)
         {
             rb.velocity = Vector2.zero;
-            Debug.Log($"added recoil{direction*recoilForce}");
             rb.AddForce(new Vector2(direction*recoilForce, 0) , ForceMode2D.Impulse);
             base.TakeDamage(damage);
-            
         }
     }
 }

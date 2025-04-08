@@ -69,8 +69,7 @@ namespace EnemyAI
                 MainCharacter playerController = hitCollider.GetComponent<MainCharacter>();
                 if (playerController != null && !playerController.IsInvincible)
                 {
-                    recoilDirection = (player.transform.position - transform.position).normalized.x;
-                    Debug.Log($"[{gameObject.name}] Attack hit {hitCollider.name} direction: {recoilDirection}");
+                    recoilDirection = GetRecoilDirection(playerController.transform);
                     playerController.TakeDamage(1,recoilDirection);
                     break;
                 }
