@@ -118,10 +118,12 @@ namespace EnemyAI
 
         private void OnDrawGizmosSelected()
         {
+#if UNITY_EDITOR
+
             // Draw Detection Range
             Handles.color = Color.cyan;
             Handles.DrawWireDisc(transform.position, Vector3.forward, detectionRange);
-            
+
             // Draw FOV lines if selected
             if (CanSeePlayer()) // Example condition, or always draw if selected
             {
@@ -130,8 +132,21 @@ namespace EnemyAI
                 Handles.color = new Color(1f, 1f, 0f, 0.2f); // Semi-transparent yellow
                 Handles.DrawSolidArc(enemyPosition, Vector3.forward, Quaternion.Euler(0,0,-fieldOfViewAngle/2f) * forward, fieldOfViewAngle, detectionRange);
             }
+#endif            
         }
+        public bool IsDeadEnd()
+        {
+            var direction = new Vector2(transform.localScale.x, 0);
+            RaycastHit2D hit = Physics2D.Raycast(rb.position, direction, detectionRange*0.5f, obstacleLayerMask);
+            Debug.DrawRay(rb.position, direction * (detectionRange * 0.5f), Color.black); // Draw only up to hit point
 
+            if (hit.collider != null)
+            {
+                return true;
+            }
+
+            return false;
+        }
         public override void TakeDamage(int damage, float direction)
         {
             rb.velocity = Vector2.zero;

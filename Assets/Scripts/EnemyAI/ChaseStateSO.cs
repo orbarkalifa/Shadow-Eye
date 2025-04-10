@@ -36,7 +36,7 @@ public class ChaseStateSO : EnemyStateSO
             return;
         }
 
-        if (fleeState != null && enemy.currentHits <= 1 ) 
+        if (fleeState != null && enemy.currentHits <= 1 && enemy.canFlee) 
         {
             enemy.StateMachine.ChangeState(enemy, fleeState);
             return; // Transitioned to flee

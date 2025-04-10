@@ -1,6 +1,7 @@
 using EnemyAI;
 using UnityEngine;
 
+
 [CreateAssetMenu(menuName = "EnemyAI/States/Flee State")]
 public class FleeStateSO : EnemyStateSO
 {
@@ -11,6 +12,7 @@ public class FleeStateSO : EnemyStateSO
 
     [Header("Transitions")]
     public EnemyStateSO healingState;
+    public EnemyStateSO chaseState;
 
     public override void OnEnter(EnemyController enemy)
     {
@@ -20,9 +22,14 @@ public class FleeStateSO : EnemyStateSO
 
     public override void OnUpdate(EnemyController enemy)
     {
-        if (Vector2.Distance(enemy.transform.position, enemy.player.position) > fleeDistance)
+        if(Vector2.Distance(enemy.transform.position, enemy.player.position) > fleeDistance)
         {
             enemy.StateMachine.ChangeState(enemy, healingState); // Transition to healing
+        }
+        if (enemy.IsDeadEnd())
+        {
+            enemy.canFlee = false;
+            enemy.StateMachine.ChangeState(enemy, chaseState);
         }
     }
 
@@ -39,4 +46,6 @@ public class FleeStateSO : EnemyStateSO
     {
         Debug.Log("Exiting Flee State");
     }
+
+    
 }

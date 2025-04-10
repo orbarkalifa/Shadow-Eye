@@ -44,6 +44,8 @@ public class HealingStateSO : EnemyStateSO
             enemy.currentHits = Mathf.Min(enemy.maxHits, enemy.currentHits + (int)(healRate * Time.deltaTime));
             // Optional: Add visual feedback for healing (e.g., a particle effect)
         }
+
+        enemy.canFlee = true;
     }
 
     public override void OnFixedUpdate(EnemyController enemy)

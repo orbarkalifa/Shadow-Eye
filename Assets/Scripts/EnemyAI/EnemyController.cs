@@ -16,6 +16,8 @@ namespace EnemyAI
         [HideInInspector] public float lastAttackTime = -Mathf.Infinity;
         public EnemyStateSO startingState;
 
+        public bool canFlee = true;
+            
         [Header("Patrol Points")]
         public Vector3[] patrolPoints;
         [HideInInspector] public int currentPatrolIndex; 
