@@ -803,10 +803,6 @@
       <Project>{17c87bc9-418e-f763-f6a1-8b73e825d7d3}</Project>
       <Name>Unity.Burst</Name>
     </ProjectReference>
-    <ProjectReference Include="NavMeshPlus.csproj">
-      <Project>{2cde49e5-3a07-5a80-4e4b-335b1d8fe09f}</Project>
-      <Name>NavMeshPlus</Name>
-    </ProjectReference>
     <ProjectReference Include="Unity.2D.Common.Path.Editor.csproj">
       <Project>{8e9ba01b-36c9-a7e2-00b2-1907ca771d91}</Project>
       <Name>Unity.2D.Common.Path.Editor</Name>
@@ -950,10 +946,6 @@
     <ProjectReference Include="Unity.VisualScripting.State.csproj">
       <Project>{4eeece08-22aa-775e-ae9c-00a2f3e8e092}</Project>
       <Name>Unity.VisualScripting.State</Name>
-    </ProjectReference>
-    <ProjectReference Include="NavMeshPlusEditor.csproj">
-      <Project>{9b494bb9-3926-56b8-f555-2d42b6ad3a05}</Project>
-      <Name>NavMeshPlusEditor</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.2D.SpriteShape.Editor.csproj">
       <Project>{6ea82a8b-08b8-643b-f900-a3d09adff7e9}</Project>
