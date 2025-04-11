@@ -176,9 +176,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.102142334, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.69371414
 --- !u!114 &6715403607110928045
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -196,8 +196,8 @@ MonoBehaviour:
   currentHits: 0
   deathParticleSystem: {fileID: 7580926129972904592, guid: 542dff70430918f4ca406e2005a569f0, type: 3}
   damageParticleSystem: {fileID: 2074108216402693229, guid: 0778f7f1bbd6fd143a7787638d020fe1, type: 3}
-  fieldOfViewAngle: 120
-  recoilForce: 100
+  fieldOfViewAngle: 125
+  recoilForce: 10
   rb: {fileID: 892373915230371651}
   player: {fileID: 0}
   detectionRange: 10
@@ -207,11 +207,14 @@ MonoBehaviour:
   playerLayerMask:
     serializedVersion: 2
     m_Bits: 256
+  homePosition: {x: 0, y: 0}
+  maxChaseDistance: 15
   speed: 10
-  distanceToNextPoint: 0
+  pointReachThreshold: 0.1
+  pathUpdateInterval: 0.5
   circleCollider: {fileID: 2686971659692769838}
-  lastAttackTime: -Infinity
   seeker: {fileID: 2617208843704306959}
+  lastAttackTime: -Infinity
 --- !u!95 &7443854127681212632
 Animator:
   serializedVersion: 5

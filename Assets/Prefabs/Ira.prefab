@@ -126,7 +126,9 @@ MonoBehaviour:
   playerLayerMask:
     serializedVersion: 2
     m_Bits: 256
-  attackRange: 5.02
+  homePosition: {x: 0, y: 0}
+  maxChaseDistance: 15
+  attackRange: 6
   attackCooldown: 1.5
   enemyCollider: {fileID: 0}
   lastAttackTime: 0

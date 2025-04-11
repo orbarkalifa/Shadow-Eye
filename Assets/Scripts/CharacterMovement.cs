@@ -98,9 +98,16 @@ public class CharacterMovement : MonoBehaviour
     {
         Vector2 position = transform.position;
         float wallCheckDistance = 1f;
-        bool leftCheck = Physics2D.Raycast(position, Vector2.left, wallCheckDistance, wallLayer);
-        bool rightCheck = Physics2D.Raycast(position, Vector2.right, wallCheckDistance, wallLayer);
-        return leftCheck || rightCheck;
+    
+        bool wallOnRight = Physics2D.Raycast(position, Vector2.right, wallCheckDistance, wallLayer);
+        bool wallOnLeft = Physics2D.Raycast(position, Vector2.left, wallCheckDistance, wallLayer);
+    
+        if (wallOnRight && horizontalInput > 0)
+            return true;
+        if (wallOnLeft && horizontalInput < 0)
+            return true;
+    
+        return false;
     }
 
     private void HandleWallSliding()
