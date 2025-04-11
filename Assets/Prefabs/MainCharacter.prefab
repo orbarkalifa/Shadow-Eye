@@ -16,7 +16,6 @@ GameObject:
   - component: {fileID: 3369896988289008927}
   - component: {fileID: 4221994717303993257}
   - component: {fileID: 291038759977586518}
-  - component: {fileID: 4429612542203577233}
   - component: {fileID: 4765230739529832497}
   - component: {fileID: 4220106826234026160}
   m_Layer: 8
@@ -206,13 +205,14 @@ MonoBehaviour:
   currentHits: 3
   deathParticleSystem: {fileID: 7580926129972904592, guid: 542dff70430918f4ca406e2005a569f0, type: 3}
   damageParticleSystem: {fileID: 2074108216402693229, guid: 0778f7f1bbd6fd143a7787638d020fe1, type: 3}
-  damageReset: {fileID: 4429612542203577233}
   invincibilityDuration: 1
   beacon: {fileID: 11400000, guid: 59dca663c0488ef4997f2a487402c779, type: 2}
   eye: {fileID: 0}
   spriteLibrary: {fileID: 4765230739529832497}
   normalSpriteLibraryAsset: {fileID: 7108339969198208228, guid: 1c0eb76793e460b4baefddb2249e4652, type: 3}
   suitSpriteLibraryAsset: {fileID: 7108339969198208228, guid: 66c1a4998c50a404690ed8fb03cb6425, type: 3}
+  flashDuration: 1
+  flashInterval: 0.1
 --- !u!114 &4221994717303993257
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -225,6 +225,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36771cfc7f4d4e3478824d81f049c6b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  recoilForce: 50
   moveSpeed: 20
   jumpForce: 35
   extraHeight: 2
@@ -264,24 +265,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   attackCooldown: 0.3
-  recoilForce: 5
   hitShakeDuration: 0.1
   hitShakeMagnitude: 0.05
---- !u!114 &4429612542203577233
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2290307870951479210}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38f98d909f694befb2530d767f3e1037, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  defaultRecoilForce: 150
-  flashDuration: 1
-  flashInterval: 0.1
 --- !u!114 &4765230739529832497
 MonoBehaviour:
   m_ObjectHideFlags: 0

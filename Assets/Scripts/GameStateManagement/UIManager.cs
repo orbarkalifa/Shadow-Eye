@@ -10,7 +10,7 @@ namespace GameStateManagement
         [SerializeField] private GameObject pauseMenuPanel;
         [SerializeField] private GameObject gameOverPanel;
         [SerializeField] private GameObject inGameHUDPanel;
-
+        [SerializeField] private GameObject winGameHUDPanel;
         private BeaconSO beacon;
         private void Awake()
         {
@@ -29,6 +29,7 @@ namespace GameStateManagement
             if(pauseMenuPanel) pauseMenuPanel.SetActive(false);
             if(gameOverPanel) gameOverPanel.SetActive(false);
             if(inGameHUDPanel) inGameHUDPanel.SetActive(false);
+            if(winGameHUDPanel) winGameHUDPanel.SetActive(false);
         }
 
         public void ShowStartMenuPanel()
@@ -84,6 +85,20 @@ namespace GameStateManagement
             else
             {
                 Debug.LogError("UIManager: In-Game HUD Panel is not assigned!");
+            }
+        }
+
+        public void ShowWinGameHUDPanel()
+        {
+            HideAllPanels();
+            if(winGameHUDPanel != null)
+            {
+                winGameHUDPanel.SetActive(true);
+                Debug.Log("UIManager: Win HUD Panel activated");
+            }
+            else
+            {
+                Debug.LogError("UIManager: Win HUD Panel is not assigned!");
             }
         }
     }

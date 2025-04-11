@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 2005051570296961486}
   - component: {fileID: 855339260648117484}
   - component: {fileID: 1750789061894208110}
-  - component: {fileID: 6950592432353944306}
   m_Layer: 9
   m_Name: Ira
   m_TagString: Enemy
@@ -132,6 +131,7 @@ MonoBehaviour:
   enemyCollider: {fileID: 0}
   lastAttackTime: 0
   startingState: {fileID: 11400000, guid: 65480f5da2a8aa24397aa633c93a914f, type: 2}
+  canFlee: 1
   patrolPoints: []
   currentPatrolIndex: 0
   suitDrop: {fileID: 11400000, guid: 4fadc748692153649ba80993fda0ca7f, type: 2}
@@ -208,18 +208,3 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &6950592432353944306
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7096119597824284522}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38f98d909f694befb2530d767f3e1037, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  defaultRecoilForce: 100
-  flashDuration: 1
-  flashInterval: 0.1

@@ -12,6 +12,7 @@ namespace GameStateManagement
         public GameStateSO inGameState;
         public GameStateSO menuState;
         public GameStateSO gameOverState;
+        public GameStateSO gameWinState;
         
         private UIManager uiManager;
 
@@ -120,6 +121,7 @@ namespace GameStateManagement
             if (inGameState != null) stateLookup.Add(inGameState.stateName, inGameState);
             if (menuState != null) stateLookup.Add(menuState.stateName, menuState);
             if (gameOverState != null) stateLookup.Add(gameOverState.stateName, gameOverState);
+            if (gameWinState != null) stateLookup.Add(gameWinState.stateName, gameWinState);
         }
         
         private void initializeUIListeners()
@@ -152,6 +154,12 @@ namespace GameStateManagement
             {
                 gameOverState.onEnterState.RemoveAllListeners();
                 gameOverState.onEnterState.AddListener(uiManager.ShowGameOverPanel);
+            }
+
+            if(gameWinState != null)
+            {
+                gameWinState.onEnterState.RemoveAllListeners();
+                gameWinState.onEnterState.AddListener(uiManager.ShowWinGameHUDPanel);
             }
         }
         

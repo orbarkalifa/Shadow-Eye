@@ -50,3 +50,4 @@ MonoBehaviour:
   inGameState: {fileID: 11400000, guid: b4824f9cde0042f4a86a5f2926de66c5, type: 2}
   menuState: {fileID: 11400000, guid: f051759967fc97a498aa32db69cb0c19, type: 2}
   gameOverState: {fileID: 11400000, guid: c6d80b85c72b87542bc1293f8aae8d9c, type: 2}
+  gameWinState: {fileID: 11400000, guid: 2a54d205559ccee43ba24833e9f80c59, type: 2}
