@@ -15,10 +15,13 @@ namespace EnemyAI
         public float detectionRange = 10f;
         public LayerMask obstacleLayerMask;
         public LayerMask playerLayerMask;
+        public Vector2 homePosition;
+        public float maxChaseDistance = 15f;
 
         protected override void Awake()
         {
             base.Awake();
+            homePosition =  transform.position;
             if (rb == null) rb = GetComponent<Rigidbody2D>();
 
             if (player == null)
