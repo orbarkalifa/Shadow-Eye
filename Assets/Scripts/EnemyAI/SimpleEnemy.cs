@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Pathfinding;
 using UnityEngine;
@@ -13,6 +14,7 @@ namespace EnemyAI
         [SerializeField] private CircleCollider2D circleCollider;
 
         [Header("Pathfinding")]
+        [SerializeField] private Transform pathfindingTarget;
         [SerializeField] private Seeker seeker;
         private Path path;
         private int currentPoint ;
@@ -22,6 +24,7 @@ namespace EnemyAI
         protected override void Awake()
         {
             base.Awake();
+            pathfindingTarget = player.transform;
             StartCoroutine(RecalculatePath());
         }
 
@@ -29,7 +32,7 @@ namespace EnemyAI
         {
             while (player != null)
             {
-                seeker.StartPath(transform.position, player.position, OnPathComplete);
+                seeker.StartPath(transform.position, pathfindingTarget.position, OnPathComplete);
                 yield return new WaitForSeconds(pathUpdateInterval);
             }
         }
@@ -40,6 +43,19 @@ namespace EnemyAI
             {
                 path = p;
                 currentPoint = 0;
+            }
+        }
+
+        protected void Update()
+        {
+            if(Vector2.Distance(homePosition, rb.position) > maxChaseDistance)
+            {
+                pathfindingTarget.position = homePosition;
+            }
+
+            if(rb.position == homePosition)
+            {
+                pathfindingTarget = player.transform;
             }
         }
 
