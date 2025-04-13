@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 3776705884941532368}
   - component: {fileID: 7350990428156485070}
   - component: {fileID: 1868495212633219630}
+  - component: {fileID: 8749851870715918119}
   m_Layer: 8
   m_Name: MainCharacter
   m_TagString: Player
@@ -182,7 +183,7 @@ MonoBehaviour:
   recoilForce: 10
   moveSpeed: 25
   jumpForce: 45
-  extraHeight: 1.3
+  extraHeight: 1.7
   dashDuration: 0.3
   dashSpeed: 35
   dashCooldown: 1.5
@@ -251,6 +252,41 @@ MonoBehaviour:
   m_labelHash: 1.3558667e-14
   m_SpriteKey: 0
   m_SpriteHash: 979917322
+--- !u!70 &8749851870715918119
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2227962405335339412}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.06369209, y: 0.20544696}
+  m_Size: {x: 2.6045341, y: 7.289106}
+  m_Direction: 0
 --- !u!1 &6867231022661534063
 GameObject:
   m_ObjectHideFlags: 0
