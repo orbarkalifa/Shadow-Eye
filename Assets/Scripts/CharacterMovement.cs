@@ -239,12 +239,13 @@ public class CharacterMovement : MonoBehaviour
         {
             WallJump();
         }
-        else if ((coyoteTimeCounter > 0f || IsGrounded()) && jumpCount < maxJumpCount)
+        else if ((coyoteTimeCounter > 0f && rb.velocity.y<0 || IsGrounded()) && jumpCount < maxJumpCount)
         {
-            animator.SetBool(isJumpingHash, true);
-            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
             jumpCount++;
             coyoteTimeCounter = 0;
+            animator.SetBool(isJumpingHash, true);
+            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+            
         }
     }
 
