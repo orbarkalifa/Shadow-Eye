@@ -48,14 +48,14 @@ namespace EnemyAI
 
         protected void Update()
         {
-            if(Vector2.Distance(homePosition, rb.position) > maxChaseDistance)
+            if(Vector2.Distance(homePosition.position, rb.position) > maxChaseDistance)
             {
-                pathfindingTarget.position = homePosition;
+                pathfindingTarget = homePosition;
             }
 
-            if(rb.position == homePosition)
+            if(rb.position == new Vector2(homePosition.position.x, homePosition.position.y))
             {
-                pathfindingTarget = player.transform;
+                pathfindingTarget = player;
             }
         }
 

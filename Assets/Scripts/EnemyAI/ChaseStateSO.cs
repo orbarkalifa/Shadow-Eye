@@ -22,7 +22,7 @@ public class ChaseStateSO : EnemyStateSO
 
     public override void OnUpdate(EnemyController enemy)
     {
-        if (Vector2.Distance(enemy.transform.position, enemy.homePosition) > enemy.maxChaseDistance)
+        if (Vector2.Distance(enemy.transform.position, enemy.homePosition.position) > enemy.maxChaseDistance)
         {
             enemy.StateMachine.ChangeState(enemy, patrolState);
             return;
