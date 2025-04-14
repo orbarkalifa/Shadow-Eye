@@ -72,7 +72,6 @@ namespace GameStateManagement
                 pauseMenuPanel.SetActive(true);
                 var defaultButton = pauseMenuPanel.GetComponentInChildren<Button>();
                 if (defaultButton != null)
-                    Debug.Log("pause button selected");
                     SetSelectedUI(defaultButton.gameObject);
                 Debug.Log("UIManager: Pause Menu Panel activated.");
             }
