@@ -9,13 +9,15 @@ public class WallGrabUnlock : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (!other.CompareTag("Player")) return;
-        if (!GameStateManagement.GSManager.Instance.tutorialsEnabled) return;
 
         var player = other.GetComponent<MainCharacter>();
         if (player != null)
         {
             player.UnlockWallGrabAbility();
-            tutorialPanel.ShowMessage(tutorialMessage, duration);
+            if(GameStateManagement.GSManager.Instance.tutorialsEnabled)
+            {
+                tutorialPanel.ShowMessage(tutorialMessage, duration);
+            }
             GameStateManagement.GSManager.Instance.DisableTutorials();
             Destroy(gameObject);
         }

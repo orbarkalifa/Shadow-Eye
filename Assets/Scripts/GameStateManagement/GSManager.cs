@@ -37,6 +37,7 @@ namespace GameStateManagement
                 Destroy(gameObject);
                 return;
             }
+            EnableTutorials();
             DontDestroyOnLoad(gameObject);
             uiManager = FindObjectOfType<UIManager>();
             if (uiManager == null)

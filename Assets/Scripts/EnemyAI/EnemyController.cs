@@ -13,7 +13,7 @@ namespace EnemyAI
         public float attackRange = 5f;
         public float attackCooldown = 2f;
         public Collider2D enemyCollider;
-        private static bool hasShownSuitTutorial = false;
+        private static bool hasShownSuitTutorial;
 
         [HideInInspector] public float lastAttackTime = -Mathf.Infinity;
         public EnemyStateSO startingState;
