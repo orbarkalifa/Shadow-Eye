@@ -103,7 +103,7 @@ namespace GameStateManagement
             {
                           
                 beacon.gameStateChannel.RaiseStateTransitionRequest(inGameState); // Go to InGame state
-                beacon.uiChannel.ChangeLevel("SampleScene");
+                beacon.uiChannel.ChangeLevel("IntroLevel");
             }
         }
 
