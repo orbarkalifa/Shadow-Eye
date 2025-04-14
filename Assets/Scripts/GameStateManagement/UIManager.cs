@@ -5,6 +5,9 @@ namespace GameStateManagement
 {
     public class UIManager : MonoBehaviour
     {
+        
+        public static UIManager Instance { get; private set; }
+        
         [Header("UI Panels")]
         [SerializeField] private GameObject startMenuPanel;
         [SerializeField] private GameObject pauseMenuPanel;
@@ -14,11 +17,13 @@ namespace GameStateManagement
         private BeaconSO beacon;
         private void Awake()
         {
-            if (FindObjectsByType<UIManager>(FindObjectsInactive.Include, FindObjectsSortMode.None).Length > 1)
+            if (Instance != null && Instance != this || FindObjectsByType<UIManager>(FindObjectsInactive.Include, FindObjectsSortMode.None).Length > 1)
             {
                 Destroy(gameObject);
                 return;
             }
+
+            Instance = this;
             DontDestroyOnLoad(gameObject);
         }
 

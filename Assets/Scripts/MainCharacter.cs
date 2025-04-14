@@ -8,7 +8,7 @@ public class MainCharacter : Character
     private CharacterCombat characterCombat;
     private InputSystem_Actions inputActions;
     private Suit equippedSuit;
-    
+
     [Header("Damage & Invincibility Settings")]
     [SerializeField] private float invincibilityDuration = 1.0f;
 
@@ -113,8 +113,14 @@ public class MainCharacter : Character
         {
             Debug.LogWarning("No suit equipped or no special movement available.");
         }
-
     }
+
+    public void UnlockWallGrabAbility()
+    {
+        characterMovement.canWallGrab = true;
+        // visual/audio feedback
+    }
+
     
     public void EquipSuit(Suit newSuit)
     {

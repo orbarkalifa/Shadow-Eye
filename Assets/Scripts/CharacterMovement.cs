@@ -34,8 +34,8 @@ public class CharacterMovement : MonoBehaviour
     [SerializeField] private float coyoteTime = 0.2f;
     [SerializeField] private float variableJumpMultiplier = 0.5f;
 
-    [FormerlySerializedAs("GroundLayer")]
     [Header("Wall Jumping")]
+    public bool canWallGrab;
     [SerializeField] private LayerMask groundLayer;
     [FormerlySerializedAs("WallLayer")]
     [SerializeField] private LayerMask wallLayer;
@@ -112,7 +112,7 @@ public class CharacterMovement : MonoBehaviour
 
     private void HandleWallSliding()
     {
-        isWallSliding = IsTouchingWall() && !IsGrounded();
+        isWallSliding = IsTouchingWall() && !IsGrounded() && canWallGrab;
         animator.SetBool(isWallSlidingHash, isWallSliding);
         if (isWallSliding)
         {

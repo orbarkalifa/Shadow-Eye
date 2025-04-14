@@ -1,3 +1,4 @@
+using GameStateManagement;
 using Suits;
 using UnityEditor;
 using UnityEngine;
@@ -12,6 +13,7 @@ namespace EnemyAI
         public float attackRange = 5f;
         public float attackCooldown = 2f;
         public Collider2D enemyCollider;
+        private static bool hasShownSuitTutorial = false;
 
         [HideInInspector] public float lastAttackTime = -Mathf.Infinity;
         public EnemyStateSO startingState;
@@ -82,6 +84,16 @@ namespace EnemyAI
         protected override void OnDeath()
         {
             DropSuit();
+            if (!hasShownSuitTutorial && GSManager.Instance.tutorialsEnabled)
+            {
+                hasShownSuitTutorial = true;
+
+                TutorialPanelController tutorialPanel = FindObjectOfType<TutorialPanelController>();
+                if (tutorialPanel != null)
+                {
+                    tutorialPanel.ShowMessage("You acquired the Suit! Press [X] to use special ability.", 3f);
+                }
+            }
             StateMachine = null; 
             rb.velocity = Vector2.zero;
             if(enemyCollider) enemyCollider.enabled = false; 

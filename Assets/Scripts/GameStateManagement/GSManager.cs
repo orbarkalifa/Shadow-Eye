@@ -15,11 +15,23 @@ namespace GameStateManagement
         public GameStateSO gameWinState;
         
         private UIManager uiManager;
+        
+        public bool tutorialsEnabled = true;
 
         private readonly Dictionary<string, GameStateSO> stateLookup = new Dictionary<string, GameStateSO>();
+        public static GSManager Instance { get; private set; }
+        
 
-        void Awake()
+        private void Awake()
         {
+            if (Instance != null && Instance != this)
+            {
+                Destroy(gameObject);
+                return;
+            }
+
+            Instance = this;
+ 
             if (FindObjectsByType<GSManager>(FindObjectsInactive.Include, FindObjectsSortMode.None).Length > 1)
             {
                 Destroy(gameObject);
@@ -61,10 +73,24 @@ namespace GameStateManagement
                 beacon.gameStateChannel.onStateTransitionRequested -= transitionToState;
             }
         }
+        
+        public void DisableTutorials()
+        {
+            tutorialsEnabled = false;
+            PlayerPrefs.SetInt("TutorialsEnabled", 0);
+        }
+
+        public void EnableTutorials()
+        {
+            tutorialsEnabled = true;
+            PlayerPrefs.SetInt("TutorialsEnabled", 1);
+        }
 
         void Start()
         {
             populateStateLookup();
+
+            tutorialsEnabled = PlayerPrefs.GetInt("TutorialsEnabled", 1) == 1;
 
             if (startGameState != null)
             {
