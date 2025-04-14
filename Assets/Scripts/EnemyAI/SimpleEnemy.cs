@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using Pathfinding;
 using UnityEngine;
@@ -17,22 +16,22 @@ namespace EnemyAI
         [SerializeField] private Transform pathfindingTarget;
         [SerializeField] private Seeker seeker;
         private Path path;
-        private int currentPoint ;
- 
-        [HideInInspector] public float lastAttackTime = -Mathf.Infinity;
-
+        private int currentPoint;
+        private bool isReturningHome;
+        private Vector2 currentTargetPosition;
+        
         protected override void Awake()
         {
             base.Awake();
-            pathfindingTarget = player.transform;
+            currentTargetPosition = player.position;
             StartCoroutine(RecalculatePath());
         }
 
         private IEnumerator RecalculatePath()
         {
-            while (player != null)
+            while (true)
             {
-                seeker.StartPath(transform.position, pathfindingTarget.position, OnPathComplete);
+                seeker.StartPath(transform.position, currentTargetPosition, OnPathComplete);
                 yield return new WaitForSeconds(pathUpdateInterval);
             }
         }
@@ -48,14 +47,34 @@ namespace EnemyAI
 
         protected void Update()
         {
-            if(Vector2.Distance(homePosition.position, rb.position) > maxChaseDistance)
+            // Only check for the player; homePosition is a value type and does not need null checking.
+            if (player == null)
+                return;
+
+            // When not returning home, update the target position to the player's current position.
+            if (!isReturningHome)
             {
-                pathfindingTarget = homePosition;
+                currentTargetPosition = player.position;
             }
 
-            if(rb.position == new Vector2(homePosition.position.x, homePosition.position.y))
+            float distanceFromHome = Vector2.Distance(rb.position, homePosition);
+            bool tooFar = distanceFromHome > maxChaseDistance;
+            // Adjusted threshold: consider "close enough" if within 1 unit.
+            bool closeEnough = distanceFromHome <= 1.0f;
+
+            Debug.Log($"[SimpleEnemy] distFromHome: {distanceFromHome}, tooFar: {tooFar}, closeEnough: {closeEnough}, isReturningHome: {isReturningHome}");
+
+            // If too far from home, switch target to home.
+            if (tooFar && !isReturningHome)
             {
-                pathfindingTarget = player;
+                isReturningHome = true;
+                SwitchTarget(homePosition);
+            }
+            // If returning home and close enough, resume chasing the player.
+            else if (isReturningHome && closeEnough)
+            {
+                isReturningHome = false;
+                SwitchTarget(player.position);
             }
         }
 
@@ -86,11 +105,18 @@ namespace EnemyAI
 
             rb.velocity = Vector2.Lerp(rb.velocity, desiredVelocity, 0.1f);
 
-            var distanceToNextPoint = Vector2.Distance(rb.position, nextWaypoint);
+            float distanceToNextPoint = Vector2.Distance(rb.position, nextWaypoint);
             if (distanceToNextPoint <= pointReachThreshold)
             {
                 currentPoint++;
             }
+        }
+
+        private void SwitchTarget(Vector2 newTargetPosition)
+        {
+            Debug.Log("Switching to " + newTargetPosition);
+            currentTargetPosition = newTargetPosition;
+            seeker.StartPath(transform.position, currentTargetPosition, OnPathComplete);
         }
     }
 }

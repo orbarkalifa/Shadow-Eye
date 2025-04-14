@@ -1,4 +1,3 @@
-
 using UnityEngine;
 using UnityEngine.Serialization;
 using System.Collections;
@@ -12,13 +11,11 @@ public abstract class Character : MonoBehaviour
     [SerializeField] private ParticleSystem damageParticleSystem;
     public int CurrentFacingDirection { get; protected set; } = 1;
 
-
     protected virtual void Awake()
     {
         if (animator == null) animator = GetComponent<Animator>();
         currentHits = maxHits;
     }
-
 
     public abstract void TakeDamage(int damage, float direction);
 
@@ -28,7 +25,7 @@ public abstract class Character : MonoBehaviour
         currentHits -= damage;
         Debug.Log($"{gameObject.name} took {damage} damage. HP: {currentHits}");
         animator.Play("damaged");
-        
+
         if (currentHits <= 0)
         {
             OnDeath();
@@ -37,9 +34,9 @@ public abstract class Character : MonoBehaviour
     protected virtual void OnDeath()
     {
         ActivateDeathParticles();
-        Destroy(gameObject); 
+        Destroy(gameObject);
     }
-    //particles functions 
+    // Particle functions 
     void ActivateDeathParticles()
     {
         Instantiate(deathParticleSystem, transform.position, Quaternion.identity);

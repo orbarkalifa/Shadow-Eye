@@ -15,13 +15,14 @@ namespace EnemyAI
         public float detectionRange = 10f;
         public LayerMask obstacleLayerMask;
         public LayerMask playerLayerMask;
-        public Transform homePosition;
+        public Vector2 homePosition;
         public float maxChaseDistance = 15f;
 
         protected override void Awake()
         {
             base.Awake();
-            homePosition =  transform;
+            homePosition = transform.position;
+            
             if (rb == null) rb = GetComponent<Rigidbody2D>();
 
             if (player == null)
@@ -42,7 +43,7 @@ namespace EnemyAI
 
         public void UpdateFacingDirection(float xDirection)
         {
-            if(!Mathf.Approximately(Mathf.Sign(xDirection), CurrentFacingDirection))
+            if (!Mathf.Approximately(Mathf.Sign(xDirection), CurrentFacingDirection))
             {
                 Flip();
             }
@@ -87,12 +88,12 @@ namespace EnemyAI
 #if UNITY_EDITOR
             if (hit.collider != null)
             {
-                var rayColor = (playerLayerMask == (playerLayerMask | (1 << hit.collider.gameObject.layer))) ? Color.green : Color.red; // Default if nothing hit within range (unlikely)
-                Debug.DrawRay(enemyPosition, directionToPlayer.normalized * hit.distance, rayColor); // Draw only up to hit point
+                var rayColor = (playerLayerMask == (playerLayerMask | (1 << hit.collider.gameObject.layer))) ? Color.green : Color.red;
+                Debug.DrawRay(enemyPosition, directionToPlayer.normalized * hit.distance, rayColor);
             }
             else
             {
-                Debug.DrawRay(enemyPosition, directionToPlayer.normalized * distanceToPlayer, Color.cyan); // Use a different color like cyan
+                Debug.DrawRay(enemyPosition, directionToPlayer.normalized * distanceToPlayer, Color.cyan);
             }
 #endif
 
@@ -106,54 +107,48 @@ namespace EnemyAI
 
         protected float GetRecoilDirection(Transform target)
         {
-            return  (target.transform.position - transform.position).normalized.x;
+            return (target.position - transform.position).normalized.x;
         }
         
         private void OnCollisionEnter2D(Collision2D collision)
         {
             if (collision.gameObject.CompareTag("Player"))
             {
-                MainCharacter playerColison = collision.gameObject.GetComponent<MainCharacter>();
-                var recoilDirection = GetRecoilDirection(playerColison.transform) > 0 ? 1:-1 ;
-                playerColison.TakeDamage(1, recoilDirection);
+                MainCharacter playerCollision = collision.gameObject.GetComponent<MainCharacter>();
+                var recoilDirection = GetRecoilDirection(playerCollision.transform) > 0 ? 1 : -1;
+                playerCollision.TakeDamage(1, recoilDirection);
             }
         }
 
         private void OnDrawGizmosSelected()
         {
 #if UNITY_EDITOR
-
             // Draw Detection Range
             Handles.color = Color.cyan;
             Handles.DrawWireDisc(transform.position, Vector3.forward, detectionRange);
 
             // Draw FOV lines if selected
-            if (CanSeePlayer()) // Example condition, or always draw if selected
+            if (CanSeePlayer())
             {
                 Vector2 enemyPosition = transform.position;
                 Vector2 forward = transform.right * CurrentFacingDirection;
-                Handles.color = new Color(1f, 1f, 0f, 0.2f); // Semi-transparent yellow
-                Handles.DrawSolidArc(enemyPosition, Vector3.forward, Quaternion.Euler(0,0,-fieldOfViewAngle/2f) * forward, fieldOfViewAngle, detectionRange);
+                Handles.color = new Color(1f, 1f, 0f, 0.2f);
+                Handles.DrawSolidArc(enemyPosition, Vector3.forward, Quaternion.Euler(0, 0, -fieldOfViewAngle / 2f) * forward, fieldOfViewAngle, detectionRange);
             }
 #endif            
         }
         public bool IsDeadEnd()
         {
             var direction = new Vector2(transform.localScale.x, 0);
-            RaycastHit2D hit = Physics2D.Raycast(rb.position, direction, detectionRange*0.5f, obstacleLayerMask);
-            Debug.DrawRay(rb.position, direction * (detectionRange * 0.5f), Color.black); // Draw only up to hit point
+            RaycastHit2D hit = Physics2D.Raycast(rb.position, direction, detectionRange * 0.5f, obstacleLayerMask);
+            Debug.DrawRay(rb.position, direction * (detectionRange * 0.5f), Color.black);
 
-            if (hit.collider != null)
-            {
-                return true;
-            }
-
-            return false;
+            return hit.collider != null;
         }
         public override void TakeDamage(int damage, float direction)
         {
             rb.velocity = Vector2.zero;
-            rb.AddForce(new Vector2(direction*recoilForce, 0) , ForceMode2D.Impulse);
+            rb.AddForce(new Vector2(direction * recoilForce, 0), ForceMode2D.Impulse);
             base.TakeDamage(damage);
         }
     }

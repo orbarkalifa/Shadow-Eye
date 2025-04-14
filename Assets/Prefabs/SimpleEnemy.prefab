@@ -207,10 +207,10 @@ MonoBehaviour:
   playerLayerMask:
     serializedVersion: 2
     m_Bits: 256
-  homePosition: {x: 0, y: 0}
-  maxChaseDistance: 15
-  speed: 10
-  pointReachThreshold: 0.1
+  homePosition: {fileID: 0}
+  maxChaseDistance: 20
+  speed: 15
+  pointReachThreshold: 0.2
   pathUpdateInterval: 0.5
   circleCollider: {fileID: 2686971659692769838}
   pathfindingTarget: {fileID: 0}

@@ -93,7 +93,7 @@ public class PatrolStateSO : EnemyStateSO
         Vector2 direction = ((Vector2)targetPoint - (Vector2)enemy.transform.position).normalized;
 
         var distanceToPoint = Vector2.Distance(enemy.transform.position, targetPoint);
-        if (distanceToPoint > 0.5f) 
+        if (distanceToPoint > 1f) 
         {
             enemy.rb.velocity = new Vector2(direction.x * patrolSpeed, enemy.rb.velocity.y);
             enemy.UpdateFacingDirection(direction.x);

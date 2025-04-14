@@ -26,7 +26,7 @@ public class FleeStateSO : EnemyStateSO
         {
             enemy.StateMachine.ChangeState(enemy, healingState); // Transition to healing
         }
-        if (enemy.IsDeadEnd() || Vector2.Distance(enemy.transform.position, enemy.homePosition.position) > enemy.maxChaseDistance)
+        if (enemy.IsDeadEnd() || Vector2.Distance(enemy.transform.position, enemy.homePosition) > enemy.maxChaseDistance)
         {
             enemy.canFlee = false;
             enemy.StateMachine.ChangeState(enemy, chaseState);
