@@ -87,7 +87,7 @@ namespace EnemyAI
             }
 
             float distanceToPlayer = Vector2.Distance(transform.position, player.position);
-            if (path == null || distanceToPlayer > detectionRange)
+            if (path == null || (distanceToPlayer > detectionRange && !isReturningHome))
             {
                 rb.velocity = Vector2.zero;
                 return;
