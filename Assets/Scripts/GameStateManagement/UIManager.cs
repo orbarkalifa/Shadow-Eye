@@ -1,5 +1,7 @@
 using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace GameStateManagement
 {
@@ -37,12 +39,23 @@ namespace GameStateManagement
             if(winGameHUDPanel) winGameHUDPanel.SetActive(false);
         }
 
+        private void SetSelectedUI(GameObject selectable)
+        {
+            EventSystem.current.SetSelectedGameObject(null);
+            EventSystem.current.SetSelectedGameObject(selectable);
+        }
+
+
         public void ShowStartMenuPanel()
         {
             HideAllPanels();
             if (startMenuPanel != null)
             {
                 startMenuPanel.SetActive(true);
+                var defaultButton = startMenuPanel.GetComponentInChildren<Button>();
+                if (defaultButton != null)
+                    SetSelectedUI(defaultButton.gameObject);
+
                 Debug.Log("UIManager: Start Menu Panel activated. Active state: " + startMenuPanel.activeSelf);
             }
             else
@@ -57,6 +70,10 @@ namespace GameStateManagement
             if (pauseMenuPanel != null)
             {
                 pauseMenuPanel.SetActive(true);
+                var defaultButton = pauseMenuPanel.GetComponentInChildren<Button>();
+                if (defaultButton != null)
+                    Debug.Log("pause button selected");
+                    SetSelectedUI(defaultButton.gameObject);
                 Debug.Log("UIManager: Pause Menu Panel activated.");
             }
             else
@@ -71,6 +88,9 @@ namespace GameStateManagement
             if(gameOverPanel != null)
             {
                 gameOverPanel.SetActive(true);
+                var defaultButton = gameOverPanel.GetComponentInChildren<Button>();
+                if (defaultButton != null)
+                    SetSelectedUI(defaultButton.gameObject);
                 Debug.Log("UIManager: Game Over Panel activated.");
             }
             else
