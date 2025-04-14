@@ -11,12 +11,7 @@ public class TutorialPanelController : MonoBehaviour
     [SerializeField] private float fadeDuration = 0.25f;
 
     private Coroutine currentRoutine;
-
-    /// <summary>
-    /// Displays a tutorial message for a given duration.
-    /// </summary>
-    /// <param name="message">The message to display</param>
-    /// <param name="displayDuration">Time in seconds to show the message</param>
+    
     public void ShowMessage(string message, float displayDuration)
     {
         messageText.text = message;

@@ -16,6 +16,7 @@ public class WallGrabUnlock : MonoBehaviour
         {
             player.UnlockWallGrabAbility();
             tutorialPanel.ShowMessage(tutorialMessage, duration);
+            GameStateManagement.GSManager.Instance.DisableTutorials();
             Destroy(gameObject);
         }
     }
