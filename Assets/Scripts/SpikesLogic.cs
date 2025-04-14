@@ -17,9 +17,7 @@ public class SpikesLogic : MonoBehaviour
             var player = other.GetComponent<MainCharacter>();
             if (player != null)
             {
-                Debug.Log("SPIKED");
-                player.transform.position = resetPosition.position;
-                player.TakeDamage(1);
+                ResetPlayer(player);
             }
         }
     }
@@ -27,7 +25,7 @@ public class SpikesLogic : MonoBehaviour
 
     private void ResetPlayer(MainCharacter player)
     {
-        player.TakeDamage(1);
+        player.TakeDamage(1, -1f);
         Debug.Log("SPIKED");
         player.transform.position = resetPosition.position;
     }
