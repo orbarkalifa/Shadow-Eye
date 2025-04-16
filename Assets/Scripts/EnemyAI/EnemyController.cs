@@ -91,7 +91,7 @@ namespace EnemyAI
                 TutorialPanelController tutorialPanel = FindObjectOfType<TutorialPanelController>();
                 if (tutorialPanel != null)
                 {
-                    tutorialPanel.ShowMessage("You acquired a Suit! Try Shift and RMB to use your special abilities.", 3f);
+                    tutorialPanel.ShowMessage("You acquired a Suit! Try Shift and Q to use your special abilities.", 3f);
                 }
             }
             StateMachine = null; 
