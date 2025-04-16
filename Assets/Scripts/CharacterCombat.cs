@@ -1,6 +1,7 @@
 using System.Collections;
 using EnemyAI;
 using UnityEngine;
+using Cinemachine;
 
 public class CharacterCombat : MonoBehaviour
 {
@@ -18,13 +19,7 @@ public class CharacterCombat : MonoBehaviour
     private bool isAttacking;
     private bool isOnCooldown;
     private CharacterMovement characterMovement; 
-    
-    [Header("Camera Shake Settings")]
-    [SerializeField] private float hitShakeDuration = 0.1f;
-    [SerializeField] private float hitShakeMagnitude = 0.05f;
-
-    private CameraShake cameraShake;
-    
+    private CinemachineImpulseSource impulseSource;
     
     private void Awake()
     {
@@ -35,10 +30,10 @@ public class CharacterCombat : MonoBehaviour
             Debug.LogError("CharacterMovement component not found on " + gameObject.name);
         }
         
-        cameraShake = Camera.main?.GetComponent<CameraShake>();
-        if (cameraShake == null)
+        impulseSource = GetComponent<CinemachineImpulseSource>();
+        if (impulseSource == null)
         {
-            Debug.LogError("CameraShake component not found on Main Camera!");
+            Debug.LogError("impuls component not found on Main Camera!");
         }
         
     }
@@ -122,11 +117,11 @@ public class CharacterCombat : MonoBehaviour
     {
         if (characterMovement != null)
         {
-            cameraShake.ShakeCamera(hitShakeDuration, hitShakeMagnitude); 
+            impulseSource.GenerateImpulse();
         }
         else
         {
-            if (cameraShake == null)
+            if (impulseSource == null)
                 Debug.LogError("CameraShake reference is missing in CharacterCombat, cannot apply camera shake.");
             else
                 Debug.LogError("CharacterMovement component is missing in CharacterCombat, cannot apply recoil.");

@@ -62,8 +62,6 @@ namespace EnemyAI
             // Adjusted threshold: consider "close enough" if within 1 unit.
             bool closeEnough = distanceFromHome <= 1.0f;
 
-            Debug.Log($"[SimpleEnemy] distFromHome: {distanceFromHome}, tooFar: {tooFar}, closeEnough: {closeEnough}, isReturningHome: {isReturningHome}");
-
             // If too far from home, switch target to home.
             if (tooFar && !isReturningHome)
             {

@@ -334,6 +334,7 @@ GameObject:
   - component: {fileID: 8253696599482452033}
   - component: {fileID: 2537676609277093864}
   - component: {fileID: 8704421782251392102}
+  - component: {fileID: 1814898843761638170}
   m_Layer: 8
   m_Name: MainCharacter
   m_TagString: Player
@@ -505,6 +506,7 @@ MonoBehaviour:
   dashCooldown: 1.5
   coyoteTime: 0.2
   variableJumpMultiplier: 0.5
+  canWallGrab: 0
   groundLayer:
     serializedVersion: 2
     m_Bits: 72
@@ -603,3 +605,56 @@ CapsuleCollider2D:
   m_Offset: {x: -0.06369209, y: 0.20544696}
   m_Size: {x: 2.6045341, y: 7.289106}
   m_Direction: 0
+--- !u!114 &1814898843761638170
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7935966632806674806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 180ecf9b41d478f468eb3e9083753217, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ImpulseDefinition:
+    m_ImpulseChannel: 1
+    m_ImpulseShape: 3
+    m_CustomImpulseShape:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_ImpulseDuration: 0.15
+    m_ImpulseType: 0
+    m_DissipationRate: 0.25
+    m_RawSignal: {fileID: 0}
+    m_AmplitudeGain: 1
+    m_FrequencyGain: 1
+    m_RepeatMode: 0
+    m_Randomize: 1
+    m_TimeEnvelope:
+      m_AttackShape:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      m_DecayShape:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      m_AttackTime: 0
+      m_SustainTime: 0.2
+      m_DecayTime: 0.7
+      m_ScaleWithImpact: 1
+      m_HoldForever: 0
+    m_ImpactRadius: 100
+    m_DirectionMode: 0
+    m_DissipationMode: 2
+    m_DissipationDistance: 100
+    m_PropagationSpeed: 343
+  m_DefaultVelocity: {x: 0, y: -1, z: 0}
