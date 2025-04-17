@@ -27,12 +27,17 @@ public class LevelManager : MonoBehaviour
         
         var scene = SceneManager.LoadSceneAsync(levelName);
         scene.allowSceneActivation = false;
+        beacon.uiChannel.PassLoadPercent(0);
         do
         {
-            Debug.Log($"loading level {levelName} progress: {scene.progress}");
+            
+            beacon.uiChannel.PassLoadPercent(Mathf.Clamp01(scene.progress / 0.9f));
+            Debug.Log($"loading level {levelName} progress: {Mathf.Clamp01(scene.progress / 0.9f)}");
+            
         }
         while(scene.progress < 0.9f);
         scene.allowSceneActivation = true;
+        beacon.gameStateChannel.RaiseStateTransitionRequest(beacon.gameStateChannel.GetGameStateByName("In Game"));
     }
 
     private void OnDestroy()

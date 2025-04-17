@@ -7,7 +7,7 @@ namespace GameStateManagement
     public class UIChannelSO :ScriptableObject
     {
         public event Action<int> OnChangeHealth;
-        public event Action<CinemachineVirtualCamera> OnChangeCamera;
+        public event Action<float> Onload;
         public event Action<string> OnChangeLevel;
         public void ChangeHealth(int health)
         {
@@ -19,9 +19,9 @@ namespace GameStateManagement
             OnChangeLevel?.Invoke(level);
         }
 
-        public void ChangeCamera(CinemachineVirtualCamera virtualCamera)
+        public void PassLoadPercent(float percent)
         {
-            OnChangeCamera?.Invoke(virtualCamera);
+            Onload?.Invoke(percent);
         }
     }
 }

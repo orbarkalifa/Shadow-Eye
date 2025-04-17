@@ -101,9 +101,8 @@ namespace GameStateManagement
             Debug.Log("OnStartGameButton");
             if (beacon != null && beacon.gameStateChannel != null && startGameState != null)
             {
-                          
-                beacon.gameStateChannel.RaiseStateTransitionRequest(inGameState); // Go to InGame state
                 beacon.uiChannel.ChangeLevel("IntroLevel");
+                
             }
         }
 

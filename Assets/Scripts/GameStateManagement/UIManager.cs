@@ -16,7 +16,9 @@ namespace GameStateManagement
         [SerializeField] private GameObject gameOverPanel;
         [SerializeField] private GameObject inGameHUDPanel;
         [SerializeField] private GameObject winGameHUDPanel;
-        private BeaconSO beacon;
+        [SerializeField] private GameObject LoadScreenHUDPanel;
+        [SerializeField] private Image loadingImage;
+        [SerializeField]private BeaconSO beacon;
         private void Awake()
         {
             if (Instance != null && Instance != this || FindObjectsByType<UIManager>(FindObjectsInactive.Include, FindObjectsSortMode.None).Length > 1)
@@ -24,7 +26,7 @@ namespace GameStateManagement
                 Destroy(gameObject);
                 return;
             }
-
+            beacon.uiChannel.Onload += UpdateLoadingProgress;
             Instance = this;
             DontDestroyOnLoad(gameObject);
         }
@@ -37,6 +39,7 @@ namespace GameStateManagement
             if(gameOverPanel) gameOverPanel.SetActive(false);
             if(inGameHUDPanel) inGameHUDPanel.SetActive(false);
             if(winGameHUDPanel) winGameHUDPanel.SetActive(false);
+            if(LoadScreenHUDPanel) LoadScreenHUDPanel.SetActive(false);
         }
 
         private void SetSelectedUI(GameObject selectable)
@@ -125,5 +128,30 @@ namespace GameStateManagement
                 Debug.LogError("UIManager: Win HUD Panel is not assigned!");
             }
         }
+        
+        public void ShowLoadingScreenPanel()
+        {
+            HideAllPanels();
+            if (LoadScreenHUDPanel != null)
+            {
+                LoadScreenHUDPanel.SetActive(true);
+                Debug.Log("UIManager: Loading Screen Panel activated.");
+            }
+            else
+            {
+                Debug.LogError("UIManager: Loading Screen Panel is not assigned!");
+            }
+        }
+
+        // Update loading progress visuals: slider, text, and if you're using an image with Fill method.
+        public void UpdateLoadingProgress(float progress)
+        {
+            if(!LoadScreenHUDPanel.activeSelf)ShowLoadingScreenPanel();
+            if(progress == 1) ShowInGameHUDPanel();
+            // If your loadingImage is set to a fill method (e.g. Fill Amount), update it here
+            if (loadingImage != null)
+                loadingImage.fillAmount = 1;
+        }
     }
 }
+
