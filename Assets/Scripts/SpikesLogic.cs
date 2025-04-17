@@ -6,8 +6,6 @@ using UnityEngine;
 
 public class SpikesLogic : MonoBehaviour
 {
-    public Transform resetPosition;
-
     [SerializeField] private LayerMask playerLayer;
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -27,6 +25,6 @@ public class SpikesLogic : MonoBehaviour
     {
         player.TakeDamage(1, -1f);
         Debug.Log("SPIKED");
-        player.transform.position = resetPosition.position;
+        player.ResetPosition();
     }
 }

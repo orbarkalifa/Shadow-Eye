@@ -8,6 +8,7 @@ public class MainCharacter : Character
     private CharacterCombat characterCombat;
     private InputSystem_Actions inputActions;
     private Suit equippedSuit;
+    private Transform lastCheckPoint;
 
     [Header("Damage & Invincibility Settings")]
     [SerializeField] private float invincibilityDuration = 1.0f;
@@ -219,5 +220,15 @@ public class MainCharacter : Character
             timer += flashInterval * 2;
         }
         sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 1f);
+    }
+
+    public void ChangeResetPoint(Transform resetPoint)
+    {
+        lastCheckPoint = resetPoint;
+    }
+
+    public void ResetPosition()
+    {
+        transform.position = lastCheckPoint.position;
     }
 }

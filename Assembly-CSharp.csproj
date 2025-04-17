@@ -56,6 +56,7 @@
     <Compile Include="Assets\Scripts\GameStateManagement\LevelManager.cs" />
     <Compile Include="Assets\Scripts\UIFlasher.cs" />
     <Compile Include="Assets\Scripts\Projectile.cs" />
+    <Compile Include="Assets\Scripts\CheckPoint.cs" />
     <Compile Include="Assets\Scripts\TutorialPanelController.cs" />
     <Compile Include="Assets\Scripts\Character.cs" />
     <Compile Include="Assets\Scripts\CharacterCombat.cs" />
