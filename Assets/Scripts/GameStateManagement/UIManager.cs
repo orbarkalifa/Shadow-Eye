@@ -147,7 +147,6 @@ namespace GameStateManagement
         public void UpdateLoadingProgress(float progress)
         {
             if(!LoadScreenHUDPanel.activeSelf)ShowLoadingScreenPanel();
-            if(progress == 1) ShowInGameHUDPanel();
             // If your loadingImage is set to a fill method (e.g. Fill Amount), update it here
             if (loadingImage != null)
                 loadingImage.fillAmount = 1;

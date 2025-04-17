@@ -19,9 +19,9 @@ namespace GameStateManagement
             OnChangeLevel?.Invoke(level);
         }
 
-        public void PassLoadPercent(float percent)
+        public void PassLoadPercent(float p)
         {
-            Onload?.Invoke(percent);
+            Onload?.Invoke(p);
         }
     }
 }

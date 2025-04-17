@@ -24,24 +24,35 @@ public class LevelManager : MonoBehaviour
     // This method will be called when the button is clicked.
     public void LoadLevelScene(string levelName)
     {
+        StartCoroutine(LoadLevelCoroutine(levelName));
         
-        var scene = SceneManager.LoadSceneAsync(levelName);
-        scene.allowSceneActivation = false;
-        beacon.uiChannel.PassLoadPercent(0);
-        do
-        {
-            
-            beacon.uiChannel.PassLoadPercent(Mathf.Clamp01(scene.progress / 0.9f));
-            Debug.Log($"loading level {levelName} progress: {Mathf.Clamp01(scene.progress / 0.9f)}");
-            
-        }
-        while(scene.progress < 0.9f);
-        scene.allowSceneActivation = true;
-        beacon.gameStateChannel.RaiseStateTransitionRequest(beacon.gameStateChannel.GetGameStateByName("In Game"));
+
     }
 
     private void OnDestroy()
     {
         beacon.uiChannel.OnChangeLevel -= LoadLevelScene;
+    }
+    private IEnumerator LoadLevelCoroutine(string levelName)
+    {
+        AsyncOperation op = SceneManager.LoadSceneAsync(levelName);
+        op.allowSceneActivation = false;
+
+        // 3) Each frame, send progress and yield so the UI can update
+        while (op.progress < 0.9f)
+        {
+            float p = Mathf.Clamp01(op.progress / 0.9f);
+            beacon.uiChannel.PassLoadPercent(p);    // pass the actual float
+            Debug.Log($"Loading {levelName}: {p*100:F0}%");
+            yield return null;
+        }
+
+        // 4) Final “100%”
+        beacon.uiChannel.PassLoadPercent(1f);
+        yield return null;  // let the UI draw “full” for at least one frame
+
+        // 5) Activate the scene
+        op.allowSceneActivation = true;
+        beacon.gameStateChannel.RaiseStateTransitionRequest(beacon.gameStateChannel.GetGameStateByName("In Game"));
     }
 }
