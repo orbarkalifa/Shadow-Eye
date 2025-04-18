@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using GameStateManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -22,10 +23,11 @@ public class LevelManager : MonoBehaviour
     }
 
     // This method will be called when the button is clicked.
-    public void LoadLevelScene(string levelName)
+    public void LoadLevelScene(string levelName, GameStateSO state)
     {
-        StartCoroutine(LoadLevelCoroutine(levelName));
+        StartCoroutine(LoadLevelCoroutine(levelName,state));
         
+
 
     }
 
@@ -33,7 +35,7 @@ public class LevelManager : MonoBehaviour
     {
         beacon.uiChannel.OnChangeLevel -= LoadLevelScene;
     }
-    private IEnumerator LoadLevelCoroutine(string levelName)
+    private IEnumerator LoadLevelCoroutine(string levelName, GameStateSO state)
     {
         AsyncOperation op = SceneManager.LoadSceneAsync(levelName);
         op.allowSceneActivation = false;
@@ -53,6 +55,7 @@ public class LevelManager : MonoBehaviour
 
         // 5) Activate the scene
         op.allowSceneActivation = true;
-        beacon.gameStateChannel.RaiseStateTransitionRequest(beacon.gameStateChannel.GetGameStateByName("In Game"));
+        beacon.gameStateChannel.RaiseStateTransitionRequest(state);
+        yield return null;
     }
 }

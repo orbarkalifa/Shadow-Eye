@@ -8,15 +8,15 @@ namespace GameStateManagement
     {
         public event Action<int> OnChangeHealth;
         public event Action<float> Onload;
-        public event Action<string> OnChangeLevel;
+        public event Action<string , GameStateSO> OnChangeLevel;
         public void ChangeHealth(int health)
         {
             OnChangeHealth?.Invoke(health);
         }
 
-        public void ChangeLevel(string level)
+        public void ChangeLevel(string level, GameStateSO state)
         {
-            OnChangeLevel?.Invoke(level);
+            OnChangeLevel?.Invoke(level,state);
         }
 
         public void PassLoadPercent(float p)

@@ -101,8 +101,7 @@ namespace GameStateManagement
             Debug.Log("OnStartGameButton");
             if (beacon != null && beacon.gameStateChannel != null && startGameState != null)
             {
-                beacon.uiChannel.ChangeLevel("IntroLevel");
-                
+                beacon.uiChannel.ChangeLevel("IntroLevel", inGameState);
             }
         }
 
@@ -118,16 +117,14 @@ namespace GameStateManagement
         {
             if (beacon != null && beacon.gameStateChannel != null && inGameState != null)
             {
-                beacon.uiChannel.ChangeLevel(SceneManager.GetActiveScene().name);
-                beacon.gameStateChannel.RaiseStateTransitionRequest(inGameState); // Restart Game
+                beacon.uiChannel.ChangeLevel(SceneManager.GetActiveScene().name,inGameState);
             }
         }
         public void OnExitButton() 
         {
             if (beacon != null && beacon.gameStateChannel != null && startGameState != null)
             {
-                beacon.uiChannel.ChangeLevel("startScene");   
-                beacon.gameStateChannel.RaiseStateTransitionRequest(startGameState); // Exit to start panel
+                beacon.uiChannel.ChangeLevel("startScene", startGameState);   
             }
         }
 
