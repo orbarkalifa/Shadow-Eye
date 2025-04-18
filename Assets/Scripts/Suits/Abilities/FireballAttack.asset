@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ec4fb099060476418f38b27eea185a0, type: 3}
   m_Name: FireballAttack
   m_EditorClassIdentifier: 
+  cooldownTime: 1.7
   Lifetime: 2
   FireballPrefab: {fileID: 8434955306321526862, guid: e065202464f2c8743ac48bde732042db, type: 3}

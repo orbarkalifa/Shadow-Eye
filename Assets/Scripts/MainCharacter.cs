@@ -30,7 +30,9 @@ public class MainCharacter : Character
     [SerializeField] private float flashDuration = 1.0f;
     [SerializeField] private float flashInterval = 0.1f;
     private SpriteRenderer sr;
-  
+    
+    private bool usedSpecialAttack = false;
+      
 
     protected override void Awake()
     {
@@ -96,7 +98,15 @@ public class MainCharacter : Character
     {
         if (equippedSuit?.specialAttack != null)
         {
-            equippedSuit.specialAttack.ExecuteAbility(gameObject);
+            if(!usedSpecialAttack)
+            {
+                equippedSuit.specialAttack.ExecuteAbility(gameObject);
+                StartCoroutine(SPCooldown(equippedSuit.specialAttack.cooldownTime));
+            }
+            else
+            {
+                Debug.Log("mot time yet");
+            }
         }
         else
         {
@@ -204,7 +214,8 @@ public class MainCharacter : Character
         }
         base.OnDeath();
     }
-    protected IEnumerator FlashSprite()
+
+    private IEnumerator FlashSprite()
     {
         
         if (sr == null)
@@ -230,5 +241,11 @@ public class MainCharacter : Character
     public void ResetPosition()
     {
         transform.position = lastCheckPoint.position;
+    }
+    private IEnumerator SPCooldown(float time)
+    {
+        usedSpecialAttack = true;
+        yield return new WaitForSeconds(time);
+        usedSpecialAttack = false;
     }
 }
