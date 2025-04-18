@@ -280,10 +280,10 @@ PolygonCollider2D:
     - - {x: -13, y: 15}
       - {x: -40, y: 15}
       - {x: -40, y: -16}
-      - {x: 27.509727, y: -16}
-      - {x: 27.20588, y: -7}
-      - {x: 32.679916, y: -7}
-      - {x: 32.220703, y: 11}
+      - {x: 46, y: -16}
+      - {x: 46, y: -7}
+      - {x: 32, y: -7}
+      - {x: 32, y: 11}
       - {x: -13, y: 11}
   m_UseDelaunayMesh: 0
 --- !u!1 &8605240338819636977
@@ -296,7 +296,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3584529234352432208}
   - component: {fileID: 8967989264448174225}
-  - component: {fileID: 9221381753442775186}
+  - component: {fileID: 6774885644627978321}
   m_Layer: 0
   m_Name: Outside2
   m_TagString: Untagged
@@ -334,8 +334,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vcam: {fileID: 8912110005185530514}
---- !u!61 &9221381753442775186
-BoxCollider2D:
+--- !u!60 &6774885644627978321
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -353,20 +353,20 @@ BoxCollider2D:
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 0
   m_ForceReceiveLayers:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 0
   m_ContactCaptureLayers:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 0
   m_CallbackLayers:
     serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 1
+    m_Bits: 0
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -5.702446, y: -2.4347467}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -376,6 +376,14 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 69.26216, y: 27.017473}
-  m_EdgeRadius: 0
+  m_Points:
+    m_Paths:
+    - - {x: -13, y: 15}
+      - {x: -40, y: 15}
+      - {x: -40, y: -16}
+      - {x: 46, y: -16}
+      - {x: 46, y: -7}
+      - {x: 32, y: -7}
+      - {x: 32, y: 11}
+      - {x: -13, y: 11}
+  m_UseDelaunayMesh: 0

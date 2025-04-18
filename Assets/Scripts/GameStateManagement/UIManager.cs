@@ -149,7 +149,12 @@ namespace GameStateManagement
             if(!LoadScreenHUDPanel.activeSelf)ShowLoadingScreenPanel();
             // If your loadingImage is set to a fill method (e.g. Fill Amount), update it here
             if (loadingImage != null)
-                loadingImage.fillAmount = 1;
+                loadingImage.fillAmount = progress;
+            if(Mathf.Approximately(progress, 1))
+            {
+                loadingImage.fillAmount = 0;
+                LoadScreenHUDPanel.SetActive(false);
+            }
         }
     }
 }

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2918394092793489100}
   - component: {fileID: 7764693284913836186}
-  - component: {fileID: 7255520304400427162}
+  - component: {fileID: 5120869914235822857}
   m_Layer: 0
   m_Name: Cave2
   m_TagString: Untagged
@@ -49,7 +49,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vcam: {fileID: 3811764509292973824}
---- !u!60 &7255520304400427162
+--- !u!60 &5120869914235822857
 PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -93,12 +93,12 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 23, y: 16}
+    - - {x: 23, y: 21}
+      - {x: 23, y: 16}
       - {x: -35, y: 16}
       - {x: -35, y: -7}
       - {x: 39, y: -7}
-      - {x: 39, y: 30}
-      - {x: 23, y: 30}
+      - {x: 39, y: 21}
   m_UseDelaunayMesh: 0
 --- !u!1 &5915102814237574446
 GameObject:
@@ -274,7 +274,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f453f694addf4275988fac205bc91968, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_BoundingShape2D: {fileID: 8963854836623117787}
+  m_BoundingShape2D: {fileID: 0}
   m_Damping: 0.5
   m_MaxWindowSize: 0
   m_Padding: 0
@@ -342,7 +342,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9138770860455720917}
-  - component: {fileID: 8963854836623117787}
+  - component: {fileID: 6330365618842948621}
   m_Layer: 11
   m_Name: Cave2Bond
   m_TagString: Untagged
@@ -365,7 +365,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2918394092793489100}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!60 &8963854836623117787
+--- !u!60 &6330365618842948621
 PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -384,17 +384,17 @@ PolygonCollider2D:
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4294967295
   m_ForceReceiveLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4294967295
   m_ContactCaptureLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4294967295
   m_CallbackLayers:
     serializedVersion: 2
-    m_Bits: 0
-  m_IsTrigger: 0
+    m_Bits: 4294967295
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -409,12 +409,12 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 22, y: 30}
-      - {x: 22, y: 16}
+    - - {x: 23, y: 21}
+      - {x: 23, y: 16}
       - {x: -35, y: 16}
       - {x: -35, y: -7}
       - {x: 39, y: -7}
-      - {x: 39, y: 30}
+      - {x: 39, y: 21}
   m_UseDelaunayMesh: 0
 --- !u!1001 &788750796341877872
 PrefabInstance:
