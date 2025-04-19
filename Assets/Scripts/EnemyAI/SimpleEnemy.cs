@@ -8,7 +8,7 @@ namespace EnemyAI
     {
         [Header("Movement Settings")]
         [SerializeField] private float speed = 3f;
-        [SerializeField] private float pointReachThreshold = 0.1f;
+        [SerializeField] private float pointReachThreshold = 0.5f;
         [SerializeField] private float pathUpdateInterval = 0.5f;
         [SerializeField] private CircleCollider2D circleCollider;
 
@@ -51,6 +51,7 @@ namespace EnemyAI
             if (player == null)
                 return;
             if(!canMove) return;
+
             // When not returning home, update the target position to the player's current position.
             if (!isReturningHome)
             {
@@ -83,6 +84,7 @@ namespace EnemyAI
                 rb.velocity = Vector2.zero;
                 return;
             }
+            if(!canMove) return;
 
             float distanceToPlayer = Vector2.Distance(transform.position, player.position);
             if (path == null || (distanceToPlayer > detectionRange && !isReturningHome))
@@ -115,6 +117,24 @@ namespace EnemyAI
             Debug.Log("Switching to " + newTargetPosition);
             currentTargetPosition = newTargetPosition;
             seeker.StartPath(transform.position, currentTargetPosition, OnPathComplete);
+        }
+
+        protected override void OnCollisionEnter2D(Collision2D collision)
+        {
+            base.OnCollisionEnter2D(collision);
+            Vector2 contactPoint = collision.GetContact(0).point;
+            Vector2 knockDir = ((Vector2)transform.position - contactPoint).normalized;
+
+            rb.velocity = Vector2.zero;
+            rb.AddForce(knockDir * recoilForce, ForceMode2D.Force);
+            StartCoroutine(StunRoutine());
+        }
+
+        private IEnumerator StunRoutine()
+        {
+            canMove = false;
+            yield return new WaitForSeconds(0.5f);
+            canMove = true;
         }
     }
 }
