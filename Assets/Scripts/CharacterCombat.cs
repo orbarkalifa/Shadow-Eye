@@ -93,29 +93,29 @@ public class CharacterCombat : MonoBehaviour
 
     private void DoAttackHit()
     {
-        Collider2D[] hitEnemies = Physics2D.OverlapBoxAll(
+        Collider2D[] gotHit = Physics2D.OverlapBoxAll(
             attackBox.transform.position,
             attackBox.size,
             0f,
             enemyLayer
         );
         float recoilDirection = 0;
-        bool enemyHit = false;
-        foreach (Collider2D enemy in hitEnemies)
+        bool hitSomthing = false;
+        foreach (Collider2D hit in gotHit)
         {
-            if (enemy.TryGetComponent(out Enemy enemyComponent))
+            if (hit.TryGetComponent(out Enemy enemyComponent))
             {
                 recoilDirection = ((Vector2)enemyComponent.transform.position -  (Vector2)transform.position).normalized.x;
                 enemyComponent.TakeDamage(attackDamage , recoilDirection);
-                enemyHit = true;
+                hitSomthing = true;
             }
-            if (enemy.TryGetComponent(out Destructible obj))
+            else if (hit.TryGetComponent(out Destructible obj))
             {
                 obj.TakeDamage(attackDamage);
-                enemyHit = true;}
+                hitSomthing = true;}
         }
 
-        if (enemyHit)
+        if (hitSomthing)
         {
             characterMovement.AddRecoil(recoilDirection*-1);
             ApplyRecoil();

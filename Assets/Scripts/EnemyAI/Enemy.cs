@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEditor;
 using UnityEngine;
 
@@ -17,6 +18,7 @@ namespace EnemyAI
         public LayerMask playerLayerMask;
         public Vector2 homePosition;
         public float maxChaseDistance = 15f;
+        protected bool canMove = true;
 
         protected override void Awake()
         {
@@ -147,9 +149,20 @@ namespace EnemyAI
         }
         public override void TakeDamage(int damage, float direction)
         {
-            rb.velocity = Vector2.zero;
-            rb.AddForce(new Vector2(direction * recoilForce, 0), ForceMode2D.Impulse);
+           StartCoroutine(EnemyRecoilCoroutine(direction));
             base.TakeDamage(damage);
+        }
+
+
+        private IEnumerator EnemyRecoilCoroutine(float recoilDirection)
+        {
+            canMove = false;
+            rb.velocity = Vector2.zero;
+            Debug.Log($"Applying {recoilDirection} * {recoilForce}");
+            rb.AddForce(new Vector2(recoilDirection * recoilForce* rb.mass, 0), ForceMode2D.Impulse);
+            // Wait for a short duration to allow the recoil to take effect.
+            yield return new WaitForSeconds(0.2f);
+            canMove = true;
         }
     }
 }

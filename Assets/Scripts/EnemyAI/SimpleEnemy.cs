@@ -50,7 +50,7 @@ namespace EnemyAI
             // Only check for the player; homePosition is a value type and does not need null checking.
             if (player == null)
                 return;
-
+            if(!canMove) return;
             // When not returning home, update the target position to the player's current position.
             if (!isReturningHome)
             {

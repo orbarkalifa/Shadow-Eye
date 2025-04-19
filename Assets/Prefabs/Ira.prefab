@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2005051570296961486}
   - component: {fileID: 855339260648117484}
   - component: {fileID: 1750789061894208110}
-  m_Layer: 9
+  m_Layer: 6
   m_Name: Ira
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -116,7 +116,7 @@ MonoBehaviour:
   deathParticleSystem: {fileID: 7580926129972904592, guid: 542dff70430918f4ca406e2005a569f0, type: 3}
   damageParticleSystem: {fileID: 2074108216402693229, guid: 0778f7f1bbd6fd143a7787638d020fe1, type: 3}
   fieldOfViewAngle: 90
-  recoilForce: 25
+  recoilForce: 10
   rb: {fileID: 3960421595996800390}
   player: {fileID: 0}
   detectionRange: 14

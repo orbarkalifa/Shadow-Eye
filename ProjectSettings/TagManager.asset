@@ -17,14 +17,14 @@ TagManager:
   - Ground
   - Water
   - UI
-  - Destructible
+  - Attaclable
   - Projectile
   - Player
   - Enemy
   - Deadly
   - MaspBonds
-  - Sky
-  - Cave
+  - 
+  - 
   - 
   - 
   - 

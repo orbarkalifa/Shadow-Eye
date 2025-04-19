@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 2686971659692769838}
   - component: {fileID: 6715403607110928045}
   - component: {fileID: 7443854127681212632}
-  m_Layer: 9
+  m_Layer: 6
   m_Name: SimpleEnemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -197,7 +197,7 @@ MonoBehaviour:
   deathParticleSystem: {fileID: 7580926129972904592, guid: 542dff70430918f4ca406e2005a569f0, type: 3}
   damageParticleSystem: {fileID: 2074108216402693229, guid: 0778f7f1bbd6fd143a7787638d020fe1, type: 3}
   fieldOfViewAngle: 125
-  recoilForce: 15
+  recoilForce: 25
   rb: {fileID: 892373915230371651}
   player: {fileID: 0}
   detectionRange: 10
