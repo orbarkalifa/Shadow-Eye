@@ -195,7 +195,7 @@ public class CharacterMovement : MonoBehaviour
     {
         BoxCollider2D myCollider = GetComponent<BoxCollider2D>();
         int playerLayer = gameObject.layer; // Get the player's current layer
-        int enemyLayerValue = LayerMask.NameToLayer("Enemy"); // Get the layer value of "Enemy" layer
+        int enemyLayerValue = LayerMask.NameToLayer("Attackable"); // Get the layer value of "Enemy" layer
 
         if (enemyLayerValue == -1) // Check if "Enemy" layer exists. If not, fallback to old behavior or handle error.
         {

@@ -1,14 +1,16 @@
+using UnityEngine.Serialization;
+
 namespace Suits
 {
     using UnityEngine;
 
     public class SuitPickup : MonoBehaviour
     {
-        private Suit m_Suit;
+         [SerializeField] private Suit suit;
 
         public void Initialize(Suit suit)
         {
-            m_Suit = suit;
+            this.suit = suit;
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
@@ -19,7 +21,7 @@ namespace Suits
                 MainCharacter player = collision.GetComponent<MainCharacter>();
                 if (player)
                 {
-                    player.EquipSuit(m_Suit);
+                    player.EquipSuit(suit);
                     Destroy(gameObject);
                 }
             }

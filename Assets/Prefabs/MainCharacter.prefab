@@ -519,7 +519,7 @@ MonoBehaviour:
   wallJumpCooldown: 0.2
   enemyLayer:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 576
 --- !u!114 &787045820951972257
 MonoBehaviour:
   m_ObjectHideFlags: 0

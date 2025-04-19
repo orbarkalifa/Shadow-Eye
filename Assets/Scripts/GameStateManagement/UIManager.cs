@@ -27,7 +27,7 @@ namespace GameStateManagement
                 Destroy(gameObject);
                 return;
             }
-            beacon.uiChannel.Onload += UpdateLoadingProgress;
+            beacon.uiChannel. Onload += UpdateLoadingProgress;
             Instance = this;
             DontDestroyOnLoad(gameObject);
         }
@@ -147,7 +147,7 @@ namespace GameStateManagement
         // Update loading progress visuals: slider, text, and if you're using an image with Fill method.
         public void UpdateLoadingProgress(float progress)
         {
-            if(!loadScreenHUDPanel.activeSelf)ShowLoadingScreenPanel();
+            if (!loadScreenHUDPanel.activeSelf) ShowLoadingScreenPanel();
             // If your loadingImage is set to a fill method (e.g. Fill Amount), update it here
             if (loadingImage != null)
                 loadingImage.fillAmount = progress;
