@@ -171,5 +171,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14604e371dd8cbb46b34c311b7960497, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Health: 50
-  DestroyOnHit: 0
+  hitParticles: {fileID: 2074108216402693229, guid: 0778f7f1bbd6fd143a7787638d020fe1, type: 3}
+  destoyParticles: {fileID: 7580926129972904592, guid: 542dff70430918f4ca406e2005a569f0, type: 3}
+  Health: 3
+  DestroyOnHit: 1

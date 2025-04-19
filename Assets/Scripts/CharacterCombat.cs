@@ -109,6 +109,10 @@ public class CharacterCombat : MonoBehaviour
                 enemyComponent.TakeDamage(attackDamage , recoilDirection);
                 enemyHit = true;
             }
+            if (enemy.TryGetComponent(out Destructible obj))
+            {
+                obj.TakeDamage(attackDamage);
+                enemyHit = true;}
         }
 
         if (enemyHit)
