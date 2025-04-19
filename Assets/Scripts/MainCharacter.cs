@@ -151,6 +151,7 @@ public class MainCharacter : Character
                 spriteLibrary.spriteLibraryAsset = suitSpriteLibraryAsset;
             }
         }
+        characterCombat.ChangeRange(equippedSuit.attackRange);
     }
 
     
@@ -177,12 +178,12 @@ public class MainCharacter : Character
     
     private void UnEquipSuit()
     {
-        eye.SetActive(true);
         if (equippedSuit != null)
         {
+            eye.SetActive(true);
             Debug.Log($"Unequipped suit: {equippedSuit.suitName}");
             equippedSuit = null;
-            
+            characterCombat.ChangeRange(0);
             if(spriteLibrary != null && normalSpriteLibraryAsset != null)
                 spriteLibrary.spriteLibraryAsset = normalSpriteLibraryAsset;
             Heal();

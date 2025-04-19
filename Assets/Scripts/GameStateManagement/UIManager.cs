@@ -1,6 +1,6 @@
-using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace GameStateManagement
@@ -16,7 +16,8 @@ namespace GameStateManagement
         [SerializeField] private GameObject gameOverPanel;
         [SerializeField] private GameObject inGameHUDPanel;
         [SerializeField] private GameObject winGameHUDPanel;
-        [SerializeField] private GameObject LoadScreenHUDPanel;
+        [FormerlySerializedAs("LoadScreenHUDPanel")]
+        [SerializeField] private GameObject loadScreenHUDPanel;
         [SerializeField] private Image loadingImage;
         [SerializeField]private BeaconSO beacon;
         private void Awake()
@@ -39,7 +40,7 @@ namespace GameStateManagement
             if(gameOverPanel) gameOverPanel.SetActive(false);
             if(inGameHUDPanel) inGameHUDPanel.SetActive(false);
             if(winGameHUDPanel) winGameHUDPanel.SetActive(false);
-            if(LoadScreenHUDPanel) LoadScreenHUDPanel.SetActive(false);
+            if(loadScreenHUDPanel) loadScreenHUDPanel.SetActive(false);
         }
 
         private void SetSelectedUI(GameObject selectable)
@@ -132,9 +133,9 @@ namespace GameStateManagement
         public void ShowLoadingScreenPanel()
         {
             HideAllPanels();
-            if (LoadScreenHUDPanel != null)
+            if (loadScreenHUDPanel != null)
             {
-                LoadScreenHUDPanel.SetActive(true);
+                loadScreenHUDPanel.SetActive(true);
                 Debug.Log("UIManager: Loading Screen Panel activated.");
             }
             else
@@ -146,14 +147,14 @@ namespace GameStateManagement
         // Update loading progress visuals: slider, text, and if you're using an image with Fill method.
         public void UpdateLoadingProgress(float progress)
         {
-            if(!LoadScreenHUDPanel.activeSelf)ShowLoadingScreenPanel();
+            if(!loadScreenHUDPanel.activeSelf)ShowLoadingScreenPanel();
             // If your loadingImage is set to a fill method (e.g. Fill Amount), update it here
             if (loadingImage != null)
                 loadingImage.fillAmount = progress;
             if(Mathf.Approximately(progress, 1))
             {
                 loadingImage.fillAmount = 0;
-                LoadScreenHUDPanel.SetActive(false);
+                loadScreenHUDPanel.SetActive(false);
             }
         }
     }

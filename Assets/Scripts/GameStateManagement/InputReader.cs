@@ -1,4 +1,3 @@
-using System;
 using UnityEngine.SceneManagement;
 
 namespace GameStateManagement
@@ -51,14 +50,6 @@ namespace GameStateManagement
         }
 
         // --- Input Action Event Handlers ---
-
-        private void OnStartGamePerformed(InputAction.CallbackContext context)
-        {
-            if (beacon != null && beacon.gameStateChannel != null && startGameState != null)
-            {
-                beacon.gameStateChannel.RaiseStateTransitionRequest(inGameState); 
-            }
-        }
 
         private void OnOpenMenuPerformed(InputAction.CallbackContext context)
         {

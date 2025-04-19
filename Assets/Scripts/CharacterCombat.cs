@@ -6,7 +6,8 @@ using Cinemachine;
 public class CharacterCombat : MonoBehaviour
 {
     [Header("Attack Settings")]
-    public Transform attackRange;
+    /*public Transform attackRange;*/
+    public BoxCollider2D attackBox;
     public int attackDamage = 1;
     public LayerMask enemyLayer;
     public float attackCooldown = 0.3f;
@@ -20,6 +21,8 @@ public class CharacterCombat : MonoBehaviour
     private bool isOnCooldown;
     private CharacterMovement characterMovement; 
     private CinemachineImpulseSource impulseSource;
+    private float basicRange;
+    
     
     private void Awake()
     {
@@ -35,7 +38,9 @@ public class CharacterCombat : MonoBehaviour
         {
             Debug.LogError("impuls component not found on Main Camera!");
         }
-        
+
+        basicRange = attackBox.size.x;
+
     }
     
     public void BasicAttack(int facingDirection)
@@ -89,8 +94,8 @@ public class CharacterCombat : MonoBehaviour
     private void DoAttackHit()
     {
         Collider2D[] hitEnemies = Physics2D.OverlapBoxAll(
-            attackRange.position,
-            attackRange.GetComponent<BoxCollider2D>().size,
+            attackBox.transform.position,
+            attackBox.size,
             0f,
             enemyLayer
         );
@@ -126,5 +131,14 @@ public class CharacterCombat : MonoBehaviour
             else
                 Debug.LogError("CharacterMovement component is missing in CharacterCombat, cannot apply recoil.");
         }
+    }
+
+    public void ChangeRange(float range)
+    {
+        if(range <= 0f)
+            attackBox.size = new Vector2(basicRange, attackBox.size.y);
+        else
+            attackBox.size = new Vector2(range, attackBox.size.y);
+        
     }
 }

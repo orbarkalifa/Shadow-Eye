@@ -197,7 +197,7 @@ MonoBehaviour:
   deathParticleSystem: {fileID: 7580926129972904592, guid: 542dff70430918f4ca406e2005a569f0, type: 3}
   damageParticleSystem: {fileID: 2074108216402693229, guid: 0778f7f1bbd6fd143a7787638d020fe1, type: 3}
   fieldOfViewAngle: 125
-  recoilForce: 10
+  recoilForce: 15
   rb: {fileID: 892373915230371651}
   player: {fileID: 0}
   detectionRange: 10
@@ -207,7 +207,7 @@ MonoBehaviour:
   playerLayerMask:
     serializedVersion: 2
     m_Bits: 256
-  homePosition: {fileID: 0}
+  homePosition: {x: 0, y: 0}
   maxChaseDistance: 20
   speed: 15
   pointReachThreshold: 0.2
@@ -215,7 +215,6 @@ MonoBehaviour:
   circleCollider: {fileID: 2686971659692769838}
   pathfindingTarget: {fileID: 0}
   seeker: {fileID: 2617208843704306959}
-  lastAttackTime: -Infinity
 --- !u!95 &7443854127681212632
 Animator:
   serializedVersion: 5
