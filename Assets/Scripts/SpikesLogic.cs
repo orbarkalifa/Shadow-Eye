@@ -1,13 +1,10 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class SpikesLogic : MonoBehaviour
 {
+    
     [SerializeField] private LayerMask playerLayer;
-
+    
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (((1 << other.gameObject.layer) & playerLayer) != 0)
@@ -19,7 +16,6 @@ public class SpikesLogic : MonoBehaviour
             }
         }
     }
-
 
     private void ResetPlayer(MainCharacter player)
     {

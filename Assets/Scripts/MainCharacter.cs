@@ -13,7 +13,7 @@ public class MainCharacter : Character
     [Header("Damage & Invincibility Settings")]
     [SerializeField] private float invincibilityDuration = 1.0f;
 
-    public bool IsInvincible { get; set; } = false;
+    public bool IsInvincible { get; set; }
 
     [SerializeField] private BeaconSO beacon;
     
@@ -31,7 +31,7 @@ public class MainCharacter : Character
     [SerializeField] private float flashInterval = 0.1f;
     private SpriteRenderer sr;
     
-    private bool usedSpecialAttack = false;
+    private bool usedSpecialAttack;
       
 
     protected override void Awake()
@@ -101,7 +101,7 @@ public class MainCharacter : Character
             if(!usedSpecialAttack)
             {
                 equippedSuit.specialAttack.ExecuteAbility(gameObject);
-                StartCoroutine(SPCooldown(equippedSuit.specialAttack.cooldownTime));
+                StartCoroutine(SpecialAttackCD(equippedSuit.specialAttack.cooldownTime));
             }
             else
             {
@@ -243,7 +243,7 @@ public class MainCharacter : Character
     {
         transform.position = lastCheckPoint.position;
     }
-    private IEnumerator SPCooldown(float time)
+    private IEnumerator SpecialAttackCD(float time)
     {
         usedSpecialAttack = true;
         yield return new WaitForSeconds(time);

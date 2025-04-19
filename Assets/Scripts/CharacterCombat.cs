@@ -25,7 +25,7 @@ public class CharacterCombat : MonoBehaviour
     
     
     private void Awake()
-    {
+   {
         animator = GetComponent<Animator>();
         characterMovement = GetComponent<CharacterMovement>(); 
         if (characterMovement == null)
@@ -139,10 +139,9 @@ public class CharacterCombat : MonoBehaviour
 
     public void ChangeRange(float range)
     {
-        if(range <= 0f)
+        if (range <= 0f)
             attackBox.size = new Vector2(basicRange, attackBox.size.y);
         else
             attackBox.size = new Vector2(range, attackBox.size.y);
-        
     }
 }
