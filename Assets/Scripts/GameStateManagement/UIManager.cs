@@ -27,7 +27,7 @@ namespace GameStateManagement
                 Destroy(gameObject);
                 return;
             }
-            beacon.uiChannel. Onload += UpdateLoadingProgress;
+            beacon.uiChannel.Onload += UpdateLoadingProgress;
             Instance = this;
             DontDestroyOnLoad(gameObject);
         }

@@ -225,6 +225,7 @@ GameObject:
   - component: {fileID: 3966245631602190974}
   - component: {fileID: 6421962119213998989}
   - component: {fileID: 6652505500781029231}
+  - component: {fileID: 1846079213319578766}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -291,6 +292,22 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1846079213319578766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 284356886597293326}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a855bbcfde54f04f928b8abb39edfdf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  imageComp: {fileID: 0}
+  current: {fileID: 0}
+  deafult: {fileID: 21300000, guid: e82d8a59050bc5042bc980228772094f, type: 3}
+  beacon: {fileID: 11400000, guid: 59dca663c0488ef4997f2a487402c779, type: 2}
 --- !u!1 &540544693083530296
 GameObject:
   m_ObjectHideFlags: 0
@@ -2697,7 +2714,7 @@ MonoBehaviour:
   gameOverPanel: {fileID: 2826676308969181465}
   inGameHUDPanel: {fileID: 3224416741550948099}
   winGameHUDPanel: {fileID: 4423426768904306467}
-  LoadScreenHUDPanel: {fileID: 4553237704344325201}
+  loadScreenHUDPanel: {fileID: 4553237704344325201}
   loadingImage: {fileID: 4646947293586411553}
   beacon: {fileID: 11400000, guid: 59dca663c0488ef4997f2a487402c779, type: 2}
 --- !u!1 &6071922835438745003

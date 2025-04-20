@@ -145,13 +145,16 @@ public class MainCharacter : Character
 
         if (equippedSuit != null)
         {
+            
             if(spriteLibrary != null && suitSpriteLibraryAsset != null)
             {
                 eye.SetActive(false);
                 spriteLibrary.spriteLibraryAsset = suitSpriteLibraryAsset;
             }
+            beacon.uiChannel.ChangeHud(equippedSuit.hudSprite);
+            characterCombat.ChangeRange(equippedSuit.attackRange);
         }
-        characterCombat.ChangeRange(equippedSuit.attackRange);
+        
     }
 
     
@@ -184,6 +187,7 @@ public class MainCharacter : Character
             Debug.Log($"Unequipped suit: {equippedSuit.suitName}");
             equippedSuit = null;
             characterCombat.ChangeRange(0);
+            beacon.uiChannel.ChangeHud(null);
             if(spriteLibrary != null && normalSpriteLibraryAsset != null)
                 spriteLibrary.spriteLibraryAsset = normalSpriteLibraryAsset;
             Heal();

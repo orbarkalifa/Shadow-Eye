@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Suit : ScriptableObject
 {
@@ -8,4 +9,5 @@ public class Suit : ScriptableObject
     public SuitAbility specialMovement;
     public GameObject suitPrefab; // For the equipped visual
     public float attackRange = 4f;
+    public Sprite hudSprite;
 }
