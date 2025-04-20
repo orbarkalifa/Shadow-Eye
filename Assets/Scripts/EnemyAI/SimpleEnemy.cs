@@ -47,12 +47,9 @@ namespace EnemyAI
 
         protected void Update()
         {
-            // Only check for the player; homePosition is a value type and does not need null checking.
-            if (player == null)
+            if (player == null || !canMove)
                 return;
-            if(!canMove) return;
 
-            // When not returning home, update the target position to the player's current position.
             if (!isReturningHome)
             {
                 currentTargetPosition = player.position;
@@ -60,16 +57,13 @@ namespace EnemyAI
 
             float distanceFromHome = Vector2.Distance(rb.position, homePosition);
             bool tooFar = distanceFromHome > maxChaseDistance;
-            // Adjusted threshold: consider "close enough" if within 1 unit.
             bool closeEnough = distanceFromHome <= 1.0f;
 
-            // If too far from home, switch target to home.
             if (tooFar && !isReturningHome)
             {
                 isReturningHome = true;
                 SwitchTarget(homePosition);
             }
-            // If returning home and close enough, resume chasing the player.
             else if (isReturningHome && closeEnough)
             {
                 isReturningHome = false;
@@ -79,14 +73,13 @@ namespace EnemyAI
 
         private void FixedUpdate()
         {
-            if (player == null)
+            if (player == null || !canMove)
             {
                 rb.velocity = Vector2.zero;
                 return;
             }
-            if(!canMove) return;
 
-            float distanceToPlayer = Vector2.Distance(transform.position, player.position);
+            float distanceToPlayer = Vector2.Distance(rb.position, player.position);
             if (path == null || (distanceToPlayer > detectionRange && !isReturningHome))
             {
                 rb.velocity = Vector2.zero;
@@ -100,17 +93,19 @@ namespace EnemyAI
             }
 
             Vector2 nextWaypoint = path.vectorPath[currentPoint];
-            Vector2 direction = (nextWaypoint - rb.position).normalized;
-            Vector2 desiredVelocity = direction * speed;
+            Vector2 moveDir = (nextWaypoint - rb.position).normalized;
 
-            rb.velocity = Vector2.Lerp(rb.velocity, desiredVelocity, 0.1f);
+            UpdateFacingDirection(moveDir.x);
 
-            float distanceToNextPoint = Vector2.Distance(rb.position, nextWaypoint);
-            if (distanceToNextPoint <= pointReachThreshold)
+            Vector2 desiredVel = moveDir * speed;
+            rb.velocity = Vector2.Lerp(rb.velocity, desiredVel, 0.1f);
+
+            if (Vector2.Distance(rb.position, nextWaypoint) <= pointReachThreshold)
             {
                 currentPoint++;
             }
         }
+
 
         private void SwitchTarget(Vector2 newTargetPosition)
         {
