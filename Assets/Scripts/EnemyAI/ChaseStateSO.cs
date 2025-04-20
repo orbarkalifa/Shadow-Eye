@@ -12,7 +12,8 @@ public class ChaseStateSO : EnemyStateSO
     [Header("Transitions")]
     public EnemyStateSO attackState;
     public EnemyStateSO patrolState;
-    public EnemyStateSO fleeState; // Keep flee logic if you have it
+    public EnemyStateSO fleeState;
+    public EnemyStateSO returnHomeState;
 
 
     public override void OnEnter(EnemyController enemy)
@@ -24,7 +25,8 @@ public class ChaseStateSO : EnemyStateSO
     {
         if (Vector2.Distance(enemy.transform.position, enemy.homePosition) > enemy.maxChaseDistance)
         {
-            enemy.StateMachine.ChangeState(enemy, patrolState);
+            // was patrolState
+            enemy.StateMachine.ChangeState(enemy, returnHomeState);
             return;
         }
         if (!enemy.CanSeePlayer())

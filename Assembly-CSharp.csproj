@@ -60,6 +60,7 @@
     <Compile Include="Assets\Scripts\TutorialPanelController.cs" />
     <Compile Include="Assets\Scripts\Character.cs" />
     <Compile Include="Assets\Scripts\CharacterCombat.cs" />
+    <Compile Include="Assets\Scripts\EnemyAI\ReturnHomeStateSO.cs" />
     <Compile Include="Assets\Scripts\GameStateManagement\WinStateSO.cs" />
     <Compile Include="Assets\Scripts\EnemyAI\EnemyController.cs" />
     <Compile Include="Assets\Scripts\Suits\SuitPickup.cs" />

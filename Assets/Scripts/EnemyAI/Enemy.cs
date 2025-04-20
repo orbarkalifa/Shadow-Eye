@@ -142,8 +142,8 @@ namespace EnemyAI
         public bool IsDeadEnd()
         {
             var direction = new Vector2(transform.localScale.x, 0);
-            RaycastHit2D hit = Physics2D.Raycast(rb.position, direction, detectionRange * 0.5f, obstacleLayerMask);
-            Debug.DrawRay(rb.position, direction * (detectionRange * 0.5f), Color.black);
+            RaycastHit2D hit = Physics2D.Raycast(rb.position - new Vector2(0,1), direction, detectionRange * 0.5f, obstacleLayerMask);
+            Debug.DrawRay(rb.position - new Vector2(0,1), direction * (detectionRange * 0.5f), Color.black);
 
             return hit.collider != null;
         }
