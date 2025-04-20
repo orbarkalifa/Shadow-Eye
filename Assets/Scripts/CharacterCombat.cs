@@ -2,6 +2,7 @@ using System.Collections;
 using EnemyAI;
 using UnityEngine;
 using Cinemachine;
+using UnityEngine.Serialization;
 
 public class CharacterCombat : MonoBehaviour
 {
@@ -9,7 +10,7 @@ public class CharacterCombat : MonoBehaviour
     /*public Transform attackRange;*/
     public BoxCollider2D attackBox;
     public int attackDamage = 1;
-    public LayerMask enemyLayer;
+    public LayerMask attackableLayerMask;
     public float attackCooldown = 0.3f;
     [Header("Recoil Settings")]
 
@@ -97,7 +98,7 @@ public class CharacterCombat : MonoBehaviour
             attackBox.transform.position,
             attackBox.size,
             0f,
-            enemyLayer
+            attackableLayerMask
         );
         float recoilDirection = 0;
         bool hitSomthing = false;

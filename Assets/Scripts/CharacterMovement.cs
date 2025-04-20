@@ -194,17 +194,17 @@ public class CharacterMovement : MonoBehaviour
     private IEnumerator DashRoutine()
     {
         BoxCollider2D myCollider = GetComponent<BoxCollider2D>();
-        int playerLayer = gameObject.layer; // Get the player's current layer
-        int enemyLayerValue = LayerMask.NameToLayer("Attackable"); // Get the layer value of "Enemy" layer
+        int playerLayer = gameObject.layer; 
+        int enemyLayerValue = LayerMask.NameToLayer("Enemy"); 
 
-        if (enemyLayerValue == -1) // Check if "Enemy" layer exists. If not, fallback to old behavior or handle error.
+        if (enemyLayerValue == -1)
         {
             Debug.LogWarning("Layer 'Enemy' not found. Falling back to disabling collider completely for dash.");
-            myCollider.enabled = false; // Fallback to disabling collider if "Enemy" layer is not found.
+            myCollider.enabled = false; 
         }
         else
         {
-            Physics2D.IgnoreLayerCollision(playerLayer, enemyLayerValue, true); // Ignore collisions with Enemy layer
+            Physics2D.IgnoreLayerCollision(playerLayer, enemyLayerValue, true);
         }
 
         isDashing = true;
@@ -221,11 +221,11 @@ public class CharacterMovement : MonoBehaviour
 
         if (enemyLayerValue != -1)
         {
-            Physics2D.IgnoreLayerCollision(playerLayer, enemyLayerValue, false); // Re-enable collisions with Enemy layer
+            Physics2D.IgnoreLayerCollision(playerLayer, enemyLayerValue, false);
         }
         else
         {
-            myCollider.enabled = true; // Re-enable collider if layer was not found and collider was disabled as fallback.
+            myCollider.enabled = true;
         }
 
         rb.gravityScale = storedGravity;
