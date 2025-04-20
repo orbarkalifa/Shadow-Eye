@@ -195,16 +195,16 @@ public class CharacterMovement : MonoBehaviour
     {
         BoxCollider2D myCollider = GetComponent<BoxCollider2D>();
         int playerLayer = gameObject.layer; 
-        int enemyLayerValue = LayerMask.NameToLayer("Enemy"); 
+        int layerToIgnoreOnDash = LayerMask.NameToLayer("Enemy") | LayerMask.NameToLayer("Deadly") ; 
 
-        if (enemyLayerValue == -1)
+        if (layerToIgnoreOnDash == -1)
         {
-            Debug.LogWarning("Layer 'Enemy' not found. Falling back to disabling collider completely for dash.");
+            Debug.LogWarning("Layer 'Enemy' or 'Deadly' not found. Falling back to disabling collider completely for dash.");
             myCollider.enabled = false; 
         }
         else
         {
-            Physics2D.IgnoreLayerCollision(playerLayer, enemyLayerValue, true);
+            Physics2D.IgnoreLayerCollision(playerLayer, layerToIgnoreOnDash, true);
         }
 
         isDashing = true;
@@ -219,9 +219,9 @@ public class CharacterMovement : MonoBehaviour
 
         yield return new WaitForSeconds(dashDuration);
 
-        if (enemyLayerValue != -1)
+        if (layerToIgnoreOnDash != -1)
         {
-            Physics2D.IgnoreLayerCollision(playerLayer, enemyLayerValue, false);
+            Physics2D.IgnoreLayerCollision(playerLayer, layerToIgnoreOnDash, false);
         }
         else
         {
