@@ -6,7 +6,7 @@ public class TutorialTrigger : MonoBehaviour
     [SerializeField] private float duration = 3f;
     [SerializeField] private TutorialPanelController tutorialPanel;
 
-    private bool triggered = false;
+    private bool triggered;
 
     private void OnTriggerEnter2D(Collider2D other)
     {

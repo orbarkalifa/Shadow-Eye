@@ -79,7 +79,6 @@ public class MainCharacter : Character
         inputActions.Player.BasicAttack.performed += _ => PerformBasicAttack();
         inputActions.Player.SpecialAttack.performed += _ => PerformSpecialAttack();
         inputActions.Player.SpecialMove.performed += _ => PerformSpecialMovement();
-        inputActions.Player.Consume.performed += _ => UnEquipSuit();
         
     }
    
@@ -131,6 +130,11 @@ public class MainCharacter : Character
     {
         characterMovement.canWallGrab = true;
         // visual/audio feedback
+    }
+
+    public void UnlockConsumeAbility()
+    {
+        inputActions.Player.Consume.performed += _ => UnEquipSuit();
     }
 
     
