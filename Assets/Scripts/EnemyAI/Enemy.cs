@@ -156,7 +156,7 @@ namespace EnemyAI
         
         protected virtual void OnCollisionEnter2D(Collision2D collision)
         {
-            if (collision.gameObject.CompareTag("Player"))
+            if (collision.gameObject. CompareTag("Player"))
             {
                 MainCharacter playerCollision = collision.gameObject.GetComponent<MainCharacter>();
                 var recoilDirection = GetRecoilDirection(playerCollision.transform) > 0 ? 1 : -1;
@@ -191,7 +191,7 @@ namespace EnemyAI
         }
         public override void TakeDamage(int damage, float direction)
         {
-           StartCoroutine(EnemyRecoilCoroutine(direction));
+            StartCoroutine(EnemyRecoilCoroutine(direction));
             base.TakeDamage(damage);
         }
 
@@ -201,9 +201,9 @@ namespace EnemyAI
             canMove = false;
             rb.velocity = Vector2.zero;
             Debug.Log($"Applying {recoilDirection} * {recoilForce}");
-            rb.AddForce(new Vector2(recoilDirection * recoilForce* rb.mass, 0), ForceMode2D.Impulse);
+            rb.AddForce(new Vector2(recoilDirection * recoilForce * rb.mass, 0), ForceMode2D.Impulse);
             // Wait for a short duration to allow the recoil to take effect.
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(0.4f);
             canMove = true;
         }
     }

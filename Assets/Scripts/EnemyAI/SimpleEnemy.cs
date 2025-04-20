@@ -47,8 +47,10 @@ namespace EnemyAI
 
         protected void Update()
         {
-            if (player == null || !canMove)
+            if(!canMove)return;
+            if (player == null)
                 return;
+            
 
             if (!isReturningHome)
             {
@@ -73,11 +75,17 @@ namespace EnemyAI
 
         private void FixedUpdate()
         {
-            if (player == null || !canMove)
+            if(!canMove)
+            {
+                return;
+            }
+            if (player == null)
             {
                 rb.velocity = Vector2.zero;
                 return;
             }
+
+
 
             float distanceToPlayer = Vector2.Distance(rb.position, player.position);
             if (path == null || (distanceToPlayer > detectionRange && !isReturningHome))
