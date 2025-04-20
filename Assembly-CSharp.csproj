@@ -49,13 +49,13 @@
     <Compile Include="Assets\Scripts\EyeController.cs" />
     <Compile Include="Assets\Scripts\GameStateManagement\UIChannelSO.cs" />
     <Compile Include="Assets\Scripts\EnemyAI\EnemyStateMachine.cs" />
+    <Compile Include="Assets\Scripts\ConsumeUnlock.cs" />
     <Compile Include="Assets\Scripts\CharacterMovement.cs" />
     <Compile Include="Assets\Scripts\Suits\Abilities\FireballAttack.cs" />
     <Compile Include="Assets\Scripts\Suits\Abilities\DashMovement.cs" />
     <Compile Include="Assets\Scripts\EnemyAI\EnemyStateSO.cs" />
     <Compile Include="Assets\Scripts\GameStateManagement\LevelManager.cs" />
     <Compile Include="Assets\Scripts\UIFlasher.cs" />
-    <Compile Include="Assets\ConsumeUnlock.cs" />
     <Compile Include="Assets\Scripts\Projectile.cs" />
     <Compile Include="Assets\Scripts\CheckPoint.cs" />
     <Compile Include="Assets\Scripts\TutorialPanelController.cs" />
