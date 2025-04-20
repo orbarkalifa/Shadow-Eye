@@ -94,6 +94,7 @@ namespace GameStateManagement
                 var defaultButton = gameOverPanel.GetComponentInChildren<Button>();
                 if (defaultButton != null)
                     SetSelectedUI(defaultButton.gameObject);
+                
                 Debug.Log("UIManager: Game Over Panel activated.");
             }
             else
@@ -122,6 +123,10 @@ namespace GameStateManagement
             if(winGameHUDPanel != null)
             {
                 winGameHUDPanel.SetActive(true);
+                var defaultButton = winGameHUDPanel.GetComponentInChildren<Button>();
+                if (defaultButton != null)
+                    SetSelectedUI(defaultButton.gameObject);
+
                 Debug.Log("UIManager: Win HUD Panel activated");
             }
             else
