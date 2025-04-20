@@ -12,10 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0650c22c8832484b9a74ee2617fa5965, type: 3}
   m_Name: FleeState
   m_EditorClassIdentifier: 
-  fleeSpeed: 7
+  fleeSpeed: 10
   fleeDistance: 20
-  combinedLayerMask:
-    serializedVersion: 2
-    m_Bits: 72
   healingState: {fileID: 11400000, guid: 592cf6e3e12726f42a078ade4f594dc8, type: 2}
   chaseState: {fileID: 11400000, guid: 0aeeba061f758d94ea31a619c7ab322e, type: 2}

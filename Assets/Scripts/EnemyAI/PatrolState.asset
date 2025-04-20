@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3777b2bcc8f49d3b97f787bcdebec57, type: 3}
   m_Name: PatrolState
   m_EditorClassIdentifier: 
-  patrolSpeed: 3
+  patrolSpeed: 5
   chaseState: {fileID: 11400000, guid: 0aeeba061f758d94ea31a619c7ab322e, type: 2}
