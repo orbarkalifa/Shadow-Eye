@@ -16,11 +16,10 @@ public class ConsumeUnlock : MonoBehaviour
         if (player != null)
         {
             player.UnlockConsumeAbility();
-            if(GameStateManagement.GSManager.Instance.tutorialsEnabled)
+            if (GameStateManagement.GSManager.Instance.tutorialsEnabled)
             {
                 tutorialPanel.ShowMessage(tutorialMessage, duration);
             }
-            Destroy(gameObject);
         }
     }
 }

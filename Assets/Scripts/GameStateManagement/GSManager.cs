@@ -79,6 +79,7 @@ namespace GameStateManagement
         {
             tutorialsEnabled = false;
             PlayerPrefs.SetInt("TutorialsEnabled", 0);
+            
         }
 
         public void EnableTutorials()

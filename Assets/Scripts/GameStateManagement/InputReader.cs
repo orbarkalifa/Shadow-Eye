@@ -93,6 +93,7 @@ namespace GameStateManagement
             if (beacon != null && beacon.gameStateChannel != null && startGameState != null)
             {
                 beacon.uiChannel.ChangeLevel("IntroLevel", inGameState);
+                GSManager.Instance.EnableTutorials();
             }
         }
 
