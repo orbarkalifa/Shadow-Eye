@@ -51,7 +51,8 @@ public class MainCharacter : Character
         
         if(spriteLibrary != null && normalSpriteLibraryAsset != null)
             spriteLibrary.spriteLibraryAsset = normalSpriteLibraryAsset;
-        
+        beacon.uiChannel.ChangeHud(null);
+
     }
 
     private void Start()

@@ -64,7 +64,7 @@
     <Compile Include="Assets\Scripts\GameStateManagement\WinStateSO.cs" />
     <Compile Include="Assets\Scripts\EnemyAI\EnemyController.cs" />
     <Compile Include="Assets\Scripts\Suits\SuitPickup.cs" />
-    <Compile Include="Assets\ChangeInGameHud.cs" />
+    <Compile Include="Assets\Scripts\ChangeInGameHud.cs" />
     <Compile Include="Assets\Scripts\InputSystem_Actions.cs" />
     <Compile Include="Assets\Scripts\WinTrigger.cs" />
     <Compile Include="Assets\Scripts\GameStateManagement\GSManager.cs" />
