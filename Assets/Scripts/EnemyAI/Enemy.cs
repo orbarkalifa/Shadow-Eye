@@ -106,7 +106,49 @@ namespace EnemyAI
 
             return false;
         }
+        public bool CheckBehindForPlayer()
+        {
+            if (!player) return false;
 
+            Vector2 enemyPosition = transform.position;
+            Vector2 playerPosition = player.position;
+
+            float distanceToPlayer = Vector2.Distance(enemyPosition, playerPosition);
+            if (distanceToPlayer > detectionRange)
+            {
+                return false;
+            }
+
+            Vector2 backDirection = -transform.right * CurrentFacingDirection;
+            int combinedLayerMask = obstacleLayerMask | playerLayerMask;
+
+            RaycastHit2D hit = Physics2D.Raycast(
+                enemyPosition,
+                backDirection,
+                detectionRange,
+                combinedLayerMask
+            );
+
+#if UNITY_EDITOR
+            Color rayColor = Color.magenta; 
+            if (hit.collider)
+            {
+                rayColor = (playerLayerMask == (playerLayerMask | (1 << hit.collider.gameObject.layer))) ? Color.green : Color.red;
+                Debug.DrawRay(enemyPosition, backDirection * hit.distance, rayColor);
+            }
+            else
+            {
+                Debug.DrawRay(enemyPosition, backDirection * detectionRange, rayColor * 0.5f); 
+            }
+#endif
+
+            if (hit.collider && (playerLayerMask == (playerLayerMask | (1 << hit.collider.gameObject.layer))))
+            {
+                return true;
+            }
+
+            return false;
+        }
         protected float GetRecoilDirection(Transform target)
         {
             return (target.position - transform.position).normalized.x;

@@ -127,7 +127,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   homePosition: {x: 0, y: 0}
-  maxChaseDistance: 15
+  maxChaseDistance: 25
   attackRange: 6
   attackCooldown: 1.5
   enemyCollider: {fileID: 0}

@@ -5,7 +5,7 @@ namespace EnemyAI
     [CreateAssetMenu(menuName = "EnemyAI/States/Return Home State")]
     public class ReturnHomeStateSO : EnemyStateSO
     {
-        public float returnSpeed = 2f;
+        public float returnSpeed = 4f;
         public EnemyStateSO patrolState;
 
         public override void OnEnter(EnemyController enemy)
@@ -16,7 +16,7 @@ namespace EnemyAI
         public override void OnUpdate(EnemyController enemy)
         {
             float distToHome = Vector2.Distance(enemy.transform.position, enemy.homePosition);
-            if (distToHome <= 0.1f)
+            if (distToHome <= 1f)
             {
                 enemy.StateMachine.ChangeState(enemy, patrolState);
             }

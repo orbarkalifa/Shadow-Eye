@@ -25,11 +25,10 @@ public class ChaseStateSO : EnemyStateSO
     {
         if (Vector2.Distance(enemy.transform.position, enemy.homePosition) > enemy.maxChaseDistance)
         {
-            // was patrolState
             enemy.StateMachine.ChangeState(enemy, returnHomeState);
             return;
         }
-        if (!enemy.CanSeePlayer())
+        if (!enemy.CanSeePlayer() || enemy.CheckBehindForPlayer())
         {
             enemy.StateMachine.ChangeState(enemy, patrolState);
             return; 
