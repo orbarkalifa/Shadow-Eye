@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 6715403607110928045}
   - component: {fileID: 7443854127681212632}
   m_Layer: 6
-  m_Name: SimpleEnemy
+  m_Name: Senti
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
