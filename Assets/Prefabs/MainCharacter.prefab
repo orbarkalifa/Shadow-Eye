@@ -533,7 +533,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   recoilForce: 10
-  moveSpeed: 25
+  moveSpeed: 20
   jumpForce: 45
   extraHeight: 1.7
   dashDuration: 0.3
