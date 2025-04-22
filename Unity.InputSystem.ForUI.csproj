@@ -46,8 +46,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.11.2\InputSystem\Plugins\InputForUI\InputSystemProvider.cs" />
-    <Compile Include="Library\PackageCache\com.unity.inputsystem@1.11.2\InputSystem\Plugins\InputForUI\InputActionAssetVerifier.cs" />
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.11.2\InputSystem\Plugins\InputForUI\AssemblyInfo.cs" />
+    <Compile Include="Library\PackageCache\com.unity.inputsystem@1.11.2\InputSystem\Plugins\InputForUI\InputActionAssetVerifier.cs" />
     <None Include="Library\PackageCache\com.unity.inputsystem@1.11.2\InputSystem\Plugins\InputForUI\InputSystemForUI.asmdef" />
     <Reference Include="UnityEngine">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2022.3.52f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>

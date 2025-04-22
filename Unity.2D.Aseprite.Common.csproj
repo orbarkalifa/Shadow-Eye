@@ -45,11 +45,11 @@
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\2022.3.52f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Library\PackageCache\com.unity.2d.aseprite@1.1.6\Editor\Common\ImagePacker\ImagePackNode.cs" />
     <Compile Include="Library\PackageCache\com.unity.2d.aseprite@1.1.6\Editor\Common\ImagePacker\Jobs\FindTightRectJob.cs" />
     <Compile Include="Library\PackageCache\com.unity.2d.aseprite@1.1.6\Editor\Common\TextureGenerator\TextureGeneratorHelper.cs" />
     <Compile Include="Library\PackageCache\com.unity.2d.aseprite@1.1.6\Editor\Common\ImagePacker\ImagePacker.cs" />
     <Compile Include="Library\PackageCache\com.unity.2d.aseprite@1.1.6\Editor\Common\AssemblyInfo.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.aseprite@1.1.6\Editor\Common\ImagePacker\ImagePackNode.cs" />
     <None Include="Library\PackageCache\com.unity.2d.aseprite@1.1.6\Editor\Common\Unity.2D.Aseprite.Common.asmdef" />
     <Reference Include="UnityEngine">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2022.3.52f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>

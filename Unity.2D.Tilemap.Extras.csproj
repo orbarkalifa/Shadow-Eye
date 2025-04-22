@@ -45,13 +45,13 @@
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\2022.3.52f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Library\PackageCache\com.unity.2d.tilemap.extras@3.1.3\Runtime\Tiles\HexagonalRuleTile\HexagonalRuleTile.cs" />
     <Compile Include="Library\PackageCache\com.unity.2d.tilemap.extras@3.1.3\Runtime\Tiles\RuleOverrideTile\AdvancedRuleOverrideTile.cs" />
-    <Compile Include="Library\PackageCache\com.unity.2d.tilemap.extras@3.1.3\Runtime\Tiles\RuleTile\RuleTile.cs" />
-    <Compile Include="Library\PackageCache\com.unity.2d.tilemap.extras@3.1.3\Runtime\Tiles\RuleOverrideTile\RuleOverrideTile.cs" />
     <Compile Include="Library\PackageCache\com.unity.2d.tilemap.extras@3.1.3\Runtime\Tiles\IsometricRuleTile\IsometricRuleTile.cs" />
     <Compile Include="Library\PackageCache\com.unity.2d.tilemap.extras@3.1.3\Runtime\GridInformation\GridInformation.cs" />
     <Compile Include="Library\PackageCache\com.unity.2d.tilemap.extras@3.1.3\Runtime\Tiles\AnimatedTile\AnimatedTile.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.tilemap.extras@3.1.3\Runtime\Tiles\HexagonalRuleTile\HexagonalRuleTile.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.tilemap.extras@3.1.3\Runtime\Tiles\RuleTile\RuleTile.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.tilemap.extras@3.1.3\Runtime\Tiles\RuleOverrideTile\RuleOverrideTile.cs" />
     <None Include="Library\PackageCache\com.unity.2d.tilemap.extras@3.1.3\Runtime\Unity.2D.Tilemap.Extras.asmdef" />
     <Reference Include="UnityEngine">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2022.3.52f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>

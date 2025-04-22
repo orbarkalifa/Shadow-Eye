@@ -45,27 +45,27 @@
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\2022.3.52f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Library\PackageCache\com.unity.2d.animation@9.1.3\Runtime\SpriteSkinUtility.cs" />
-    <Compile Include="Library\PackageCache\com.unity.2d.animation@9.1.3\Runtime\SpriteLib\ISpriteLibraryCategory.cs" />
     <Compile Include="Library\PackageCache\com.unity.2d.animation@9.1.3\Runtime\SpriteLib\SpriteLibraryData.cs" />
     <Compile Include="Library\PackageCache\com.unity.2d.animation@9.1.3\Runtime\SpriteLib\SpriteLibraryUtility.cs" />
-    <Compile Include="Library\PackageCache\com.unity.2d.animation@9.1.3\Runtime\SpriteSkin.cs" />
     <Compile Include="Library\PackageCache\com.unity.2d.animation@9.1.3\Runtime\BufferManager.cs" />
     <Compile Include="Library\PackageCache\com.unity.2d.animation@9.1.3\Runtime\SpriteLib\ISpriteLibraryLabel.cs" />
-    <Compile Include="Library\PackageCache\com.unity.2d.animation@9.1.3\Runtime\SpriteLib\SpriteLibrary.cs" />
-    <Compile Include="Library\PackageCache\com.unity.2d.animation@9.1.3\Runtime\TransformAccessJob.cs" />
-    <Compile Include="Library\PackageCache\com.unity.2d.animation@9.1.3\Runtime\Bone.cs" />
     <Compile Include="Library\PackageCache\com.unity.2d.animation@9.1.3\Runtime\AssemblyInfo.cs" />
     <Compile Include="Library\PackageCache\com.unity.2d.animation@9.1.3\Runtime\SpriteLib\SpriteLibraryAsset.cs" />
-    <Compile Include="Library\PackageCache\com.unity.2d.animation@9.1.3\Runtime\UpdateBoundsJob.cs" />
     <Compile Include="Library\PackageCache\com.unity.2d.animation@9.1.3\Runtime\IconUtility.cs" />
     <Compile Include="Library\PackageCache\com.unity.2d.animation@9.1.3\Runtime\SpriteSkinComposite.cs" />
     <Compile Include="Library\PackageCache\com.unity.2d.animation@9.1.3\Runtime\SpriteLib\SpriteLibrarySourceAsset.cs" />
-    <Compile Include="Library\PackageCache\com.unity.2d.animation@9.1.3\Runtime\SpriteSkinUpdateHelper.cs" />
     <Compile Include="Library\PackageCache\com.unity.2d.animation@9.1.3\Runtime\SpriteLib\SpriteResolver.cs" />
     <Compile Include="Library\PackageCache\com.unity.2d.animation@9.1.3\Runtime\SkeletonAsset.cs" />
     <Compile Include="Library\PackageCache\com.unity.2d.animation@9.1.3\Runtime\NativeCustomSlice.cs" />
     <Compile Include="Library\PackageCache\com.unity.2d.animation@9.1.3\Runtime\NativeArrayHelper.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.animation@9.1.3\Runtime\SpriteSkinUtility.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.animation@9.1.3\Runtime\SpriteLib\ISpriteLibraryCategory.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.animation@9.1.3\Runtime\SpriteSkin.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.animation@9.1.3\Runtime\SpriteLib\SpriteLibrary.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.animation@9.1.3\Runtime\TransformAccessJob.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.animation@9.1.3\Runtime\Bone.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.animation@9.1.3\Runtime\UpdateBoundsJob.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.animation@9.1.3\Runtime\SpriteSkinUpdateHelper.cs" />
     <None Include="Library\PackageCache\com.unity.2d.animation@9.1.3\Runtime\Unity.2D.Animation.Runtime.asmdef" />
     <Reference Include="UnityEngine">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2022.3.52f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>

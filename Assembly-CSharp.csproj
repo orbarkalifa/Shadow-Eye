@@ -48,51 +48,51 @@
     <Compile Include="Assets\Scripts\MainCharacter.cs" />
     <Compile Include="Assets\Scripts\EyeController.cs" />
     <Compile Include="Assets\Scripts\GameStateManagement\UIChannelSO.cs" />
-    <Compile Include="Assets\Scripts\EnemyAI\EnemyStateMachine.cs" />
-    <Compile Include="Assets\Scripts\ConsumeUnlock.cs" />
     <Compile Include="Assets\Scripts\CharacterMovement.cs" />
     <Compile Include="Assets\Scripts\Suits\Abilities\FireballAttack.cs" />
-    <Compile Include="Assets\Scripts\Suits\Abilities\DashMovement.cs" />
     <Compile Include="Assets\Scripts\EnemyAI\EnemyStateSO.cs" />
     <Compile Include="Assets\Scripts\GameStateManagement\LevelManager.cs" />
-    <Compile Include="Assets\Scripts\UIFlasher.cs" />
-    <Compile Include="Assets\Scripts\Projectile.cs" />
     <Compile Include="Assets\Scripts\CheckPoint.cs" />
     <Compile Include="Assets\Scripts\TutorialPanelController.cs" />
     <Compile Include="Assets\Scripts\Character.cs" />
     <Compile Include="Assets\Scripts\CharacterCombat.cs" />
-    <Compile Include="Assets\Scripts\EnemyAI\ReturnHomeStateSO.cs" />
     <Compile Include="Assets\Scripts\GameStateManagement\WinStateSO.cs" />
     <Compile Include="Assets\Scripts\EnemyAI\EnemyController.cs" />
-    <Compile Include="Assets\Scripts\Suits\SuitPickup.cs" />
-    <Compile Include="Assets\Scripts\ChangeInGameHud.cs" />
     <Compile Include="Assets\Scripts\InputSystem_Actions.cs" />
-    <Compile Include="Assets\Scripts\WinTrigger.cs" />
-    <Compile Include="Assets\Scripts\GameStateManagement\GSManager.cs" />
     <Compile Include="Assets\Scripts\UIEyeBar.cs" />
     <Compile Include="Assets\Scripts\EnemyAI\AttackStateSO.cs" />
-    <Compile Include="Assets\Scripts\EnemyAI\FleeStateSO.cs" />
-    <Compile Include="Assets\Scripts\GameStateManagement\UIManager.cs" />
-    <Compile Include="Assets\Scripts\EnemyAI\IdleStateSO.cs" />
     <Compile Include="Assets\Scripts\Destructible.cs" />
-    <Compile Include="Assets\Scripts\EnemyAI\ChaseStateSO.cs" />
-    <Compile Include="Assets\Scripts\GameStateManagement\BeaconSO.cs" />
     <Compile Include="Assets\Scripts\TutorialTrigger.cs" />
     <Compile Include="Assets\Scripts\GameStateManagement\GameOverStateSO.cs" />
     <Compile Include="Assets\Scripts\EnemyAI\PatrolStateSO.cs" />
-    <Compile Include="Assets\Scripts\WallGrabUnlock.cs" />
-    <Compile Include="Assets\Scripts\GameStateManagement\StartGameState.cs" />
-    <Compile Include="Assets\Scripts\EnemyAI\SimpleEnemy.cs" />
     <Compile Include="Assets\Scripts\GameStateManagement\GameStateSO.cs" />
     <Compile Include="Assets\Scripts\EnemyAI\Enemy.cs" />
-    <Compile Include="Assets\Scripts\Suits\Suit.cs" />
     <Compile Include="Assets\Scripts\GameStateManagement\InGameStateSO.cs" />
-    <Compile Include="Assets\Scripts\GameStateManagement\GameStateChannelSO.cs" />
     <Compile Include="Assets\Scripts\UIEyeScript.cs" />
     <Compile Include="Assets\Scripts\GameStateManagement\MenuStateSO.cs" />
     <Compile Include="Assets\Scripts\EnemyAI\HealingStateSO.cs" />
-    <Compile Include="Assets\Scripts\MapLimit.cs" />
     <Compile Include="Assets\Scripts\SpikesLogic.cs" />
+    <Compile Include="Assets\Scripts\EnemyAI\EnemyStateMachine.cs" />
+    <Compile Include="Assets\Scripts\ConsumeUnlock.cs" />
+    <Compile Include="Assets\Scripts\Suits\Abilities\DashMovement.cs" />
+    <Compile Include="Assets\Scripts\UIFlasher.cs" />
+    <Compile Include="Assets\Scripts\Projectile.cs" />
+    <Compile Include="Assets\Scripts\EnemyAI\ReturnHomeStateSO.cs" />
+    <Compile Include="Assets\Scripts\Suits\SuitPickup.cs" />
+    <Compile Include="Assets\Scripts\ChangeInGameHud.cs" />
+    <Compile Include="Assets\Scripts\WinTrigger.cs" />
+    <Compile Include="Assets\Scripts\GameStateManagement\GSManager.cs" />
+    <Compile Include="Assets\Scripts\EnemyAI\FleeStateSO.cs" />
+    <Compile Include="Assets\Scripts\GameStateManagement\UIManager.cs" />
+    <Compile Include="Assets\Scripts\EnemyAI\IdleStateSO.cs" />
+    <Compile Include="Assets\Scripts\EnemyAI\ChaseStateSO.cs" />
+    <Compile Include="Assets\Scripts\GameStateManagement\BeaconSO.cs" />
+    <Compile Include="Assets\Scripts\WallGrabUnlock.cs" />
+    <Compile Include="Assets\Scripts\GameStateManagement\StartGameState.cs" />
+    <Compile Include="Assets\Scripts\EnemyAI\SimpleEnemy.cs" />
+    <Compile Include="Assets\Scripts\Suits\Suit.cs" />
+    <Compile Include="Assets\Scripts\GameStateManagement\GameStateChannelSO.cs" />
+    <Compile Include="Assets\Scripts\MapLimit.cs" />
     <Compile Include="Assets\Scripts\Suits\SuitAbility.cs" />
     <Compile Include="Assets\Scripts\GameStateManagement\InputReader.cs" />
     <None Include="Library\PackageCache\com.unity.postprocessing@3.4.0\PostProcessing\Shaders\StdLib.hlsl" />
@@ -147,6 +147,7 @@
     <None Include="Library\PackageCache\com.unity.postprocessing@3.4.0\PostProcessing\Shaders\API\WebGPU.hlsl" />
     <None Include="Library\PackageCache\com.unity.textmeshpro@3.0.7\ValidationExceptions.json" />
     <None Include="Library\PackageCache\com.unity.ide.rider@3.0.34\package.json" />
+    <None Include="Library\PackageCache\com.unity.searcher@4.9.2\package.json" />
     <None Include="Library\PackageCache\com.unity.ide.rider@3.0.34\ValidationExceptions.json" />
     <None Include="Library\PackageCache\com.unity.test-framework@1.1.33\package.json" />
     <None Include="Library\PackageCache\com.unity.postprocessing@3.4.0\package.json" />
@@ -847,14 +848,47 @@
     <Reference Include="System.Xml.Serialization">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2022.3.52f1\Editor\Data\NetStandard\compat\2.1.0\shims\netfx\System.Xml.Serialization.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEditor.UI">
-      <HintPath>C:\Users\Daniel Fradkin\unity Projects\Final-Game-Project\Library\ScriptAssemblies\UnityEditor.UI.dll</HintPath>
+    <Reference Include="Unity.RenderPipelines.Core.Runtime">
+      <HintPath>C:\Users\Daniel Fradkin\unity Projects\Final-Game-Project\Library\ScriptAssemblies\Unity.RenderPipelines.Core.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="Unity.2D.Sprite.Editor">
       <HintPath>C:\Users\Daniel Fradkin\unity Projects\Final-Game-Project\Library\ScriptAssemblies\Unity.2D.Sprite.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.RenderPipelines.Universal.Config.Runtime">
+      <HintPath>C:\Users\Daniel Fradkin\unity Projects\Final-Game-Project\Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Config.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipelines.Core.Editor">
+      <HintPath>C:\Users\Daniel Fradkin\unity Projects\Final-Game-Project\Library\ScriptAssemblies\Unity.RenderPipelines.Core.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipelines.Core.ShaderLibrary">
+      <HintPath>C:\Users\Daniel Fradkin\unity Projects\Final-Game-Project\Library\ScriptAssemblies\Unity.RenderPipelines.Core.ShaderLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="PPv2URPConverters">
+      <HintPath>C:\Users\Daniel Fradkin\unity Projects\Final-Game-Project\Library\ScriptAssemblies\PPv2URPConverters.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipelines.Universal.Editor">
+      <HintPath>C:\Users\Daniel Fradkin\unity Projects\Final-Game-Project\Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary">
+      <HintPath>C:\Users\Daniel Fradkin\unity Projects\Final-Game-Project\Library\ScriptAssemblies\Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipelines.Universal.Runtime">
+      <HintPath>C:\Users\Daniel Fradkin\unity Projects\Final-Game-Project\Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.ShaderGraph.Editor">
+      <HintPath>C:\Users\Daniel Fradkin\unity Projects\Final-Game-Project\Library\ScriptAssemblies\Unity.ShaderGraph.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.UI">
+      <HintPath>C:\Users\Daniel Fradkin\unity Projects\Final-Game-Project\Library\ScriptAssemblies\UnityEditor.UI.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine.UI">
       <HintPath>C:\Users\Daniel Fradkin\unity Projects\Final-Game-Project\Library\ScriptAssemblies\UnityEngine.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipeline.Universal.ShaderLibrary">
+      <HintPath>C:\Users\Daniel Fradkin\unity Projects\Final-Game-Project\Library\ScriptAssemblies\Unity.RenderPipeline.Universal.ShaderLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipelines.Universal.Shaders">
+      <HintPath>C:\Users\Daniel Fradkin\unity Projects\Final-Game-Project\Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Shaders.dll</HintPath>
     </Reference>
     <Reference Include="Unity.2D.Tilemap.Editor">
       <HintPath>C:\Users\Daniel Fradkin\unity Projects\Final-Game-Project\Library\ScriptAssemblies\Unity.2D.Tilemap.Editor.dll</HintPath>
@@ -864,10 +898,6 @@
     <ProjectReference Include="Unity.2D.IK.Runtime.csproj">
       <Project>{f6d628e2-fca0-ea2e-7796-270df3ac5ad8}</Project>
       <Name>Unity.2D.IK.Runtime</Name>
-    </ProjectReference>
-    <ProjectReference Include="PsdPlugin.csproj">
-      <Project>{23c9a185-7d30-83e4-94c9-bacf57ad6f1f}</Project>
-      <Name>PsdPlugin</Name>
     </ProjectReference>
     <ProjectReference Include="com.unity.cinemachine.editor.csproj">
       <Project>{36e992b6-1085-723d-6912-10c3e87e872d}</Project>
@@ -881,13 +911,69 @@
       <Project>{2cf369ca-c609-aa1a-fcbf-ba2c8cda6150}</Project>
       <Name>Unity.Burst.Editor</Name>
     </ProjectReference>
-    <ProjectReference Include="Unity.Burst.csproj">
-      <Project>{17c87bc9-418e-f763-f6a1-8b73e825d7d3}</Project>
-      <Name>Unity.Burst</Name>
-    </ProjectReference>
     <ProjectReference Include="Unity.2D.Common.Path.Editor.csproj">
       <Project>{8e9ba01b-36c9-a7e2-00b2-1907ca771d91}</Project>
       <Name>Unity.2D.Common.Path.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.2D.PixelPerfect.Editor.csproj">
+      <Project>{3efd4108-1928-4d57-4a38-5dece3e8d900}</Project>
+      <Name>Unity.2D.PixelPerfect.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.Rider.Editor.csproj">
+      <Project>{710b7e8d-3e54-8abd-3705-f1c331be9ae0}</Project>
+      <Name>Unity.Rider.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.2D.Aseprite.Common.csproj">
+      <Project>{773ca530-857d-a6cf-7410-4a0ff1e4e749}</Project>
+      <Name>Unity.2D.Aseprite.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.VisualScripting.Flow.csproj">
+      <Project>{44a48cb0-3f3b-c496-1fd3-b27ed17f7d4a}</Project>
+      <Name>Unity.VisualScripting.Flow</Name>
+    </ProjectReference>
+    <ProjectReference Include="PackageToolsEditor.csproj">
+      <Project>{162a3679-85c2-49d3-2ae9-ce53acd4339f}</Project>
+      <Name>PackageToolsEditor</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.Mathematics.Editor.csproj">
+      <Project>{b16c538f-6d76-6236-edaf-4269d4c8fc87}</Project>
+      <Name>Unity.Mathematics.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.2D.Tilemap.Extras.Editor.csproj">
+      <Project>{2354426c-74d8-29b0-91e8-000e6a1970f7}</Project>
+      <Name>Unity.2D.Tilemap.Extras.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.Collections.csproj">
+      <Project>{4caf4462-2934-a570-7a08-390cfec0dcf4}</Project>
+      <Name>Unity.Collections</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.2D.SpriteShape.Runtime.csproj">
+      <Project>{51126fe1-be8a-5a04-7ca5-089b6ab221f5}</Project>
+      <Name>Unity.2D.SpriteShape.Runtime</Name>
+    </ProjectReference>
+    <ProjectReference Include="AstarPathfindingProjectEditor.csproj">
+      <Project>{390b9084-d355-d604-f667-2b2f813ca513}</Project>
+      <Name>AstarPathfindingProjectEditor</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.2D.PixelPerfect.csproj">
+      <Project>{23ea699b-69fc-9afc-2b04-172b90fd5a6b}</Project>
+      <Name>Unity.2D.PixelPerfect</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.TextMeshPro.csproj">
+      <Project>{9793ecb9-61a9-ed95-6e1a-d74691f5479c}</Project>
+      <Name>Unity.TextMeshPro</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.2D.Aseprite.Editor.csproj">
+      <Project>{1ac0d6a7-267a-c1ff-e26d-c79fbec5baa0}</Project>
+      <Name>Unity.2D.Aseprite.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="PsdPlugin.csproj">
+      <Project>{23c9a185-7d30-83e4-94c9-bacf57ad6f1f}</Project>
+      <Name>PsdPlugin</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.Burst.csproj">
+      <Project>{17c87bc9-418e-f763-f6a1-8b73e825d7d3}</Project>
+      <Name>Unity.Burst</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.Timeline.Editor.csproj">
       <Project>{58621b5e-07c2-cf66-32db-8f9be26f1cd0}</Project>
@@ -917,45 +1003,17 @@
       <Project>{f20939a7-1fd4-61df-8943-0f6d370a6c24}</Project>
       <Name>Unity.VisualScripting.Core.Editor</Name>
     </ProjectReference>
-    <ProjectReference Include="Unity.Rider.Editor.csproj">
-      <Project>{710b7e8d-3e54-8abd-3705-f1c331be9ae0}</Project>
-      <Name>Unity.Rider.Editor</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.2D.PixelPerfect.Editor.csproj">
-      <Project>{3efd4108-1928-4d57-4a38-5dece3e8d900}</Project>
-      <Name>Unity.2D.PixelPerfect.Editor</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.2D.Aseprite.Common.csproj">
-      <Project>{773ca530-857d-a6cf-7410-4a0ff1e4e749}</Project>
-      <Name>Unity.2D.Aseprite.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.VisualScripting.Flow.csproj">
-      <Project>{44a48cb0-3f3b-c496-1fd3-b27ed17f7d4a}</Project>
-      <Name>Unity.VisualScripting.Flow</Name>
+    <ProjectReference Include="Unity.VisualScripting.Flow.Editor.csproj">
+      <Project>{56b47f8b-06d3-e2fa-8666-afd681b65169}</Project>
+      <Name>Unity.VisualScripting.Flow.Editor</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.InternalAPIEngineBridge.001.csproj">
       <Project>{ba617d37-4bae-9cce-d71c-89c7cdca3a10}</Project>
       <Name>Unity.InternalAPIEngineBridge.001</Name>
     </ProjectReference>
-    <ProjectReference Include="Unity.Mathematics.Editor.csproj">
-      <Project>{b16c538f-6d76-6236-edaf-4269d4c8fc87}</Project>
-      <Name>Unity.Mathematics.Editor</Name>
-    </ProjectReference>
-    <ProjectReference Include="PackageToolsEditor.csproj">
-      <Project>{162a3679-85c2-49d3-2ae9-ce53acd4339f}</Project>
-      <Name>PackageToolsEditor</Name>
-    </ProjectReference>
     <ProjectReference Include="Unity.2D.Common.Runtime.csproj">
       <Project>{d258ff20-9285-e50f-4cbb-548af43b6c4c}</Project>
       <Name>Unity.2D.Common.Runtime</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.2D.Tilemap.Extras.Editor.csproj">
-      <Project>{2354426c-74d8-29b0-91e8-000e6a1970f7}</Project>
-      <Name>Unity.2D.Tilemap.Extras.Editor</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.VisualScripting.Flow.Editor.csproj">
-      <Project>{56b47f8b-06d3-e2fa-8666-afd681b65169}</Project>
-      <Name>Unity.VisualScripting.Flow.Editor</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.Timeline.csproj">
       <Project>{5ae7d277-267e-4833-8154-39fa396caa03}</Project>
@@ -973,21 +1031,13 @@
       <Project>{cd64500e-2ad1-10e6-e661-a0f40ccf0dcc}</Project>
       <Name>Unity.VisualScripting.SettingsProvider.Editor</Name>
     </ProjectReference>
-    <ProjectReference Include="Unity.Collections.csproj">
-      <Project>{4caf4462-2934-a570-7a08-390cfec0dcf4}</Project>
-      <Name>Unity.Collections</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.2D.Psdimporter.Editor.csproj">
-      <Project>{68b3b948-67dd-6fcd-3d8e-6381bcd8c4a4}</Project>
-      <Name>Unity.2D.Psdimporter.Editor</Name>
-    </ProjectReference>
     <ProjectReference Include="Unity.InternalAPIEditorBridge.001.csproj">
       <Project>{0a7810f6-1c29-a761-71e9-da797e3c990f}</Project>
       <Name>Unity.InternalAPIEditorBridge.001</Name>
     </ProjectReference>
-    <ProjectReference Include="Unity.2D.SpriteShape.Runtime.csproj">
-      <Project>{51126fe1-be8a-5a04-7ca5-089b6ab221f5}</Project>
-      <Name>Unity.2D.SpriteShape.Runtime</Name>
+    <ProjectReference Include="Unity.2D.Psdimporter.Editor.csproj">
+      <Project>{68b3b948-67dd-6fcd-3d8e-6381bcd8c4a4}</Project>
+      <Name>Unity.2D.Psdimporter.Editor</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.Postprocessing.Editor.csproj">
       <Project>{d6011337-74d0-c201-672a-7fa999cc6649}</Project>
@@ -996,14 +1046,6 @@
     <ProjectReference Include="Unity.VisualScripting.State.Editor.csproj">
       <Project>{fd071b45-76d7-f10c-5e60-96ff08f8c0e0}</Project>
       <Name>Unity.VisualScripting.State.Editor</Name>
-    </ProjectReference>
-    <ProjectReference Include="AstarPathfindingProjectEditor.csproj">
-      <Project>{390b9084-d355-d604-f667-2b2f813ca513}</Project>
-      <Name>AstarPathfindingProjectEditor</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.2D.PixelPerfect.csproj">
-      <Project>{23ea699b-69fc-9afc-2b04-172b90fd5a6b}</Project>
-      <Name>Unity.2D.PixelPerfect</Name>
     </ProjectReference>
     <ProjectReference Include="AstarPathfindingProject.csproj">
       <Project>{6516fa5e-524e-ffcf-4eb8-7e6e8d7dec0f}</Project>
@@ -1017,17 +1059,13 @@
       <Project>{ba24e8cf-1d76-07f1-c7d9-cdba9b6a5682}</Project>
       <Name>Unity.2D.Common.Editor</Name>
     </ProjectReference>
-    <ProjectReference Include="Unity.TextMeshPro.csproj">
-      <Project>{9793ecb9-61a9-ed95-6e1a-d74691f5479c}</Project>
-      <Name>Unity.TextMeshPro</Name>
-    </ProjectReference>
     <ProjectReference Include="Unity.TextMeshPro.Editor.csproj">
       <Project>{f2367760-0e6d-2f94-8774-0d6e8a52da54}</Project>
       <Name>Unity.TextMeshPro.Editor</Name>
     </ProjectReference>
-    <ProjectReference Include="Unity.2D.Aseprite.Editor.csproj">
-      <Project>{1ac0d6a7-267a-c1ff-e26d-c79fbec5baa0}</Project>
-      <Name>Unity.2D.Aseprite.Editor</Name>
+    <ProjectReference Include="Unity.Searcher.Editor.csproj">
+      <Project>{0f59b56d-261b-3df5-494c-03c8851dd38a}</Project>
+      <Name>Unity.Searcher.Editor</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.VisualScripting.State.csproj">
       <Project>{4eeece08-22aa-775e-ae9c-00a2f3e8e092}</Project>

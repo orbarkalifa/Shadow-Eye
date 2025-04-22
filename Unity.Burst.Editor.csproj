@@ -50,20 +50,20 @@
     <Compile Include="Library\PackageCache\com.unity.burst@1.8.18\Editor\BurstDisassembler.Core.LLVMIR.info.cs" />
     <Compile Include="Library\PackageCache\com.unity.burst@1.8.18\Editor\BurstDisassembler.Core.LLVMIR.cs" />
     <Compile Include="Library\PackageCache\com.unity.burst@1.8.18\Editor\BurstPlatformAotSettings.cs" />
-    <Compile Include="Library\PackageCache\com.unity.burst@1.8.18\Editor\LabeledPopup.cs" />
-    <Compile Include="Library\PackageCache\com.unity.burst@1.8.18\Editor\BurstDisassembler.Core.cs" />
     <Compile Include="Library\PackageCache\com.unity.burst@1.8.18\Editor\BurstDisassembler.Core.ARM64.info.cs" />
-    <Compile Include="Library\PackageCache\com.unity.burst@1.8.18\Editor\BurstDisassembler.cs" />
-    <Compile Include="Library\PackageCache\com.unity.burst@1.8.18\Editor\BurstDisassembler.Core.x86.info.cs" />
     <Compile Include="Library\PackageCache\com.unity.burst@1.8.18\Editor\LongTextArea.cs" />
     <Compile Include="Library\PackageCache\com.unity.burst@1.8.18\Editor\BurstDisassembler.Core.ARM64.cs" />
-    <Compile Include="Library\PackageCache\com.unity.burst@1.8.18\Editor\BurstMath.cs" />
     <Compile Include="Library\PackageCache\com.unity.burst@1.8.18\Editor\BurstStringSearch.cs" />
-    <Compile Include="Library\PackageCache\com.unity.burst@1.8.18\Editor\BurstMenu.cs" />
     <Compile Include="Library\PackageCache\com.unity.burst@1.8.18\Editor\BurstDisassembler.Core.Wasm.info.cs" />
     <Compile Include="Library\PackageCache\com.unity.burst@1.8.18\Editor\BurstDisassembler.Core.x86.cs" />
     <Compile Include="Library\PackageCache\com.unity.burst@1.8.18\Editor\BurstAotCompiler.cs" />
     <Compile Include="Library\PackageCache\com.unity.burst@1.8.18\Editor\BurstLoader.cs" />
+    <Compile Include="Library\PackageCache\com.unity.burst@1.8.18\Editor\LabeledPopup.cs" />
+    <Compile Include="Library\PackageCache\com.unity.burst@1.8.18\Editor\BurstDisassembler.Core.cs" />
+    <Compile Include="Library\PackageCache\com.unity.burst@1.8.18\Editor\BurstDisassembler.cs" />
+    <Compile Include="Library\PackageCache\com.unity.burst@1.8.18\Editor\BurstDisassembler.Core.x86.info.cs" />
+    <Compile Include="Library\PackageCache\com.unity.burst@1.8.18\Editor\BurstMath.cs" />
+    <Compile Include="Library\PackageCache\com.unity.burst@1.8.18\Editor\BurstMenu.cs" />
     <None Include="Library\PackageCache\com.unity.burst@1.8.18\Editor\Unity.Burst.Editor.asmdef" />
     <Reference Include="UnityEngine">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2022.3.52f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>

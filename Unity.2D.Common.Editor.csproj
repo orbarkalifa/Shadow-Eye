@@ -46,10 +46,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Library\PackageCache\com.unity.2d.common@8.0.4\Editor\TextureGenerator\TextureGeneratorHelper.cs" />
-    <Compile Include="Library\PackageCache\com.unity.2d.common@8.0.4\Editor\ImagePacker\ImagePackNode.cs" />
     <Compile Include="Library\PackageCache\com.unity.2d.common@8.0.4\Editor\ImagePacker\ImagePacker.cs" />
-    <Compile Include="Library\PackageCache\com.unity.2d.common@8.0.4\Editor\InspectorUtils.cs" />
     <Compile Include="Library\PackageCache\com.unity.2d.common@8.0.4\Editor\AssemblyInfo.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.common@8.0.4\Editor\ImagePacker\ImagePackNode.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.common@8.0.4\Editor\InspectorUtils.cs" />
     <Compile Include="Library\PackageCache\com.unity.2d.common@8.0.4\Editor\ImagePacker\Jobs\FindTightRectJob.cs" />
     <Compile Include="Library\PackageCache\com.unity.2d.common@8.0.4\Editor\ImagePacker\ImagePackerDebugEditor.cs" />
     <Compile Include="Library\PackageCache\com.unity.2d.common@8.0.4\Editor\VisualElementExtensions.cs" />

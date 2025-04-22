@@ -46,19 +46,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Library\PackageCache\com.unity.2d.animation@9.1.3\IK\Runtime\AssemblyInfo.cs" />
-    <Compile Include="Library\PackageCache\com.unity.2d.animation@9.1.3\IK\Runtime\Solvers\FABRIK2D.cs" />
     <Compile Include="Library\PackageCache\com.unity.2d.animation@9.1.3\IK\Runtime\IKUtility.cs" />
-    <Compile Include="Library\PackageCache\com.unity.2d.animation@9.1.3\IK\Runtime\Solver2D.cs" />
-    <Compile Include="Library\PackageCache\com.unity.2d.animation@9.1.3\IK\Runtime\IKManager2D.cs" />
     <Compile Include="Library\PackageCache\com.unity.2d.animation@9.1.3\IK\Runtime\Solvers\CCD2D.cs" />
     <Compile Include="Library\PackageCache\com.unity.2d.animation@9.1.3\IK\Runtime\LimbSolver2D.cs" />
     <Compile Include="Library\PackageCache\com.unity.2d.animation@9.1.3\IK\Runtime\Solver2DMenuAttribute.cs" />
-    <Compile Include="Library\PackageCache\com.unity.2d.animation@9.1.3\IK\Runtime\IKChain2D.cs" />
     <Compile Include="Library\PackageCache\com.unity.2d.animation@9.1.3\IK\Runtime\FabrikSolver2D.cs" />
-    <Compile Include="Library\PackageCache\com.unity.2d.animation@9.1.3\IK\Runtime\CCDSolver2D.cs" />
     <Compile Include="Library\PackageCache\com.unity.2d.animation@9.1.3\IK\Runtime\Solvers\Limb.cs" />
     <Compile Include="Library\PackageCache\com.unity.2d.animation@9.1.3\IK\Runtime\IconUtility.cs" />
     <Compile Include="Library\PackageCache\com.unity.2d.animation@9.1.3\IK\Runtime\IKManager2DEditorData.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.animation@9.1.3\IK\Runtime\Solvers\FABRIK2D.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.animation@9.1.3\IK\Runtime\Solver2D.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.animation@9.1.3\IK\Runtime\IKManager2D.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.animation@9.1.3\IK\Runtime\IKChain2D.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.animation@9.1.3\IK\Runtime\CCDSolver2D.cs" />
     <None Include="Library\PackageCache\com.unity.2d.animation@9.1.3\IK\Runtime\Unity.2D.IK.Runtime.asmdef" />
     <Reference Include="UnityEngine">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2022.3.52f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
