@@ -45,6 +45,7 @@
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\2022.3.52f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Library\PackageCache\com.unity.inputsystem@1.11.2\InputSystem\Plugins\DualShock\DualShockGamepad.cs" />
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.11.2\InputSystem\Editor\Dialog.cs" />
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.11.2\InputSystem\Utilities\PrimitiveValue.cs" />
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.11.2\InputSystem\Editor\ControlPicker\InputControlDropdownItem.cs" />
@@ -103,8 +104,8 @@
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.11.2\InputSystem\Utilities\Comparers.cs" />
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.11.2\InputSystem\Plugins\Steam\SteamController.cs" />
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.11.2\InputSystem\Editor\Internal\SerializedPropertyLinqExtensions.cs" />
-    <Compile Include="Library\PackageCache\com.unity.inputsystem@1.11.2\InputSystem\State\IInputStateTypeInfo.cs" />
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.11.2\InputSystem\Actions\Interactions\PressInteraction.cs" />
+    <Compile Include="Library\PackageCache\com.unity.inputsystem@1.11.2\InputSystem\State\IInputStateTypeInfo.cs" />
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.11.2\InputSystem\Utilities\DynamicBitfield.cs" />
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.11.2\InputSystem\Controls\AnyKeyControl.cs" />
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.11.2\InputSystem\State\InputStateBlock.cs" />
@@ -301,8 +302,8 @@
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.11.2\InputSystem\Controls\AxisControl.cs" />
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.11.2\InputSystem\Plugins\Steam\SteamSupport.cs" />
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.11.2\InputSystem\Controls\InputControlList.cs" />
-    <Compile Include="Library\PackageCache\com.unity.inputsystem@1.11.2\InputSystem\Utilities\JsonParser.cs" />
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.11.2\InputSystem\Plugins\HID\HIDDescriptorWindow.cs" />
+    <Compile Include="Library\PackageCache\com.unity.inputsystem@1.11.2\InputSystem\Utilities\JsonParser.cs" />
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.11.2\InputSystem\Controls\Processors\AxisDeadzoneProcessor.cs" />
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.11.2\InputSystem\Plugins\UI\ExtendedPointerEventData.cs" />
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.11.2\InputSystem\Plugins\Steam\SteamControllerType.cs" />
@@ -380,8 +381,8 @@
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.11.2\InputSystem\Events\InputEventTrace.cs" />
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.11.2\InputSystem\Plugins\UI\ExtendedAxisEventData.cs" />
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.11.2\InputSystem\InputSystem.cs" />
-    <Compile Include="Library\PackageCache\com.unity.inputsystem@1.11.2\InputSystem\Actions\InputActionTrace.cs" />
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.11.2\InputSystem\Events\IInputEventTypeInfo.cs" />
+    <Compile Include="Library\PackageCache\com.unity.inputsystem@1.11.2\InputSystem\Actions\InputActionTrace.cs" />
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.11.2\InputSystem\Controls\TouchPhaseControl.cs" />
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.11.2\InputSystem\Utilities\PredictiveParser.cs" />
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.11.2\InputSystem\Actions\Composites\ButtonWithTwoModifiers.cs" />
@@ -440,7 +441,6 @@
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.11.2\InputSystem\Controls\Processors\NormalizeVector2Processor.cs" />
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.11.2\InputSystem\Devices\Remote\InputRemoting.cs" />
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.11.2\InputSystem\Editor\Analytics\InputActionsEditorSessionAnalytic.cs" />
-    <Compile Include="Library\PackageCache\com.unity.inputsystem@1.11.2\InputSystem\Plugins\DualShock\DualShockGamepad.cs" />
     <None Include="Library\PackageCache\com.unity.inputsystem@1.11.2\InputSystem\Editor\UITKAssetEditor\PackageResources\ControlSchemeEditor.uxml" />
     <None Include="Library\PackageCache\com.unity.inputsystem@1.11.2\InputSystem\Editor\UITKAssetEditor\PackageResources\BindingPanelRowTemplate.uxml" />
     <None Include="Library\PackageCache\com.unity.inputsystem@1.11.2\InputSystem\Editor\UITKAssetEditor\PackageResources\InputActionsTreeViewItem.uxml" />
