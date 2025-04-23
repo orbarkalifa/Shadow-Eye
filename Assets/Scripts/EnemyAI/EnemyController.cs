@@ -34,7 +34,7 @@ namespace EnemyAI
             base.Awake();
             if (enemyCollider == null) enemyCollider = GetComponent<Collider2D>();
             StateMachine = new EnemyStateMachine();
-            hasShownSuitTutorial = true;
+            hasShownSuitTutorial = false;
             if (startingState != null)
             {
                 StateMachine.Initialize(this, startingState);
