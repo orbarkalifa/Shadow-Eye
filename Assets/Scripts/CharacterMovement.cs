@@ -84,10 +84,7 @@ public class CharacterMovement : MonoBehaviour
         HandleFalling();
     }
     
-    public void OnMovePerformed(InputAction.CallbackContext context)
-    {
-        horizontalInput = context.ReadValue<Vector2>().x;
-    }
+
 
     public void OnMoveCanceled(InputAction.CallbackContext context)
     {
@@ -137,6 +134,11 @@ public class CharacterMovement : MonoBehaviour
                 UpdateGroundedState();
             }
         }
+    }
+
+    public void SetHorizontalInput(float value)
+    {
+        horizontalInput = value;
     }
 
     private void UpdateGroundedState()
