@@ -157,7 +157,7 @@ public class MainCharacter : Character
                 spriteLibrary.spriteLibraryAsset = suitSpriteLibraryAsset;
             }
             beacon.uiChannel.ChangeHud(equippedSuit.hudSprite);
-            characterCombat.ChangeRange(equippedSuit.attackRange);
+            characterCombat.ParamtersSwap(equippedSuit);
         }
         
     }
@@ -191,7 +191,7 @@ public class MainCharacter : Character
             eye.SetActive(true);
             Debug.Log($"Unequipped suit: {equippedSuit.suitName}");
             equippedSuit = null;
-            characterCombat.ChangeRange(0);
+            characterCombat.ParamtersSwap(null);
             beacon.uiChannel.ChangeHud(null);
             if(spriteLibrary != null && normalSpriteLibraryAsset != null)
                 spriteLibrary.spriteLibraryAsset = normalSpriteLibraryAsset;

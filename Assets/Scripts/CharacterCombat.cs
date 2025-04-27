@@ -11,7 +11,9 @@ public class CharacterCombat : MonoBehaviour
     public BoxCollider2D attackBox;
     public int attackDamage = 1;
     public LayerMask attackableLayerMask;
-    public float attackCooldown = 0.3f;
+    [FormerlySerializedAs("defaultAttackCooldown")]
+    public float basicAttackCooldown = 0.5f;
+    public float attackCooldown;
     [Header("Recoil Settings")]
 
     private Animator animator;
@@ -40,6 +42,7 @@ public class CharacterCombat : MonoBehaviour
             Debug.LogError("impuls component not found on Main Camera!");
         }
 
+        attackCooldown = basicAttackCooldown;
         basicRange = attackBox.size.x;
 
     }
@@ -138,11 +141,35 @@ public class CharacterCombat : MonoBehaviour
         }
     }
 
-    public void ChangeRange(float range)
+    private void ChangeRange(float range)
     {
         if (range <= 0f)
             attackBox.size = new Vector2(basicRange, attackBox.size.y);
         else
             attackBox.size = new Vector2(range, attackBox.size.y);
     }
+
+    private void ChangeCooldown(float cooldown)
+    {
+
+        if(cooldown <= 0f)
+            attackCooldown = basicAttackCooldown;
+        else
+            attackCooldown = cooldown;
+    }
+
+    public void ParamtersSwap(Suit suit)
+    {
+        if(suit != null)
+        {
+            ChangeCooldown(suit.cooldownTime);
+            ChangeRange(suit.attackRange);
+            return;
+        }
+        ChangeCooldown(-1);
+        ChangeRange(-1);
+        
+        
+    }
+    
 }
