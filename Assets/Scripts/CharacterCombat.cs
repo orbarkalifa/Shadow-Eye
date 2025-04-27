@@ -11,7 +11,6 @@ public class CharacterCombat : MonoBehaviour
     public BoxCollider2D attackBox;
     public int attackDamage = 1;
     public LayerMask attackableLayerMask;
-    [FormerlySerializedAs("defaultAttackCooldown")]
     public float basicAttackCooldown = 0.5f;
     public float attackCooldown;
     [Header("Recoil Settings")]
@@ -25,7 +24,7 @@ public class CharacterCombat : MonoBehaviour
     private CharacterMovement characterMovement; 
     private CinemachineImpulseSource impulseSource;
     private float basicRange;
-    
+    private bool attackUp = false;
     
     private void Awake()
    {
@@ -45,6 +44,11 @@ public class CharacterCombat : MonoBehaviour
         attackCooldown = basicAttackCooldown;
         basicRange = attackBox.size.x;
 
+    }
+
+    public void PressedUp(bool isPressed)
+    {
+        attackUp = isPressed;
     }
     
     public void BasicAttack(int facingDirection)
@@ -97,32 +101,37 @@ public class CharacterCombat : MonoBehaviour
 
     private void DoAttackHit()
     {
-        Collider2D[] gotHit = Physics2D.OverlapBoxAll(
-            attackBox.transform.position,
-            attackBox.size,
-            0f,
-            attackableLayerMask
-        );
-        float recoilDirection = 0;
-        bool hitSomthing = false;
-        foreach (Collider2D hit in gotHit)
+        if(attackUp){}
+        else
         {
-            if (hit.TryGetComponent(out Enemy enemyComponent))
+            Collider2D[] gotHit = Physics2D.OverlapBoxAll(
+                attackBox.transform.position,
+                attackBox.size,
+                0f,
+                attackableLayerMask);
+            float recoilDirection = 0;
+            bool hitSomthing = false;
+            foreach(Collider2D hit in gotHit)
             {
-                recoilDirection = ((Vector2)enemyComponent.transform.position -  (Vector2)transform.position).normalized.x;
-                enemyComponent.TakeDamage(attackDamage , recoilDirection);
-                hitSomthing = true;
+                if(hit.TryGetComponent(out Enemy enemyComponent))
+                {
+                    recoilDirection = ((Vector2)enemyComponent.transform.position - (Vector2)transform.position)
+                        .normalized.x;
+                    enemyComponent.TakeDamage(attackDamage, recoilDirection);
+                    hitSomthing = true;
+                }
+                else if(hit.TryGetComponent(out Destructible obj))
+                {
+                    obj.TakeDamage(attackDamage);
+                    hitSomthing = true;
+                }
             }
-            else if (hit.TryGetComponent(out Destructible obj))
-            {
-                obj.TakeDamage(attackDamage);
-                hitSomthing = true;}
-        }
 
-        if (hitSomthing)
-        {
-            characterMovement.AddRecoil(recoilDirection*-1);
-            ApplyRecoil();
+            if(hitSomthing)
+            {
+                characterMovement.AddRecoil(recoilDirection * -1);
+                ApplyRecoil();
+            }
         }
     }
 

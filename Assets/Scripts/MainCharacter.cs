@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.U2D.Animation;
 
 public class MainCharacter : Character
@@ -72,7 +73,7 @@ public class MainCharacter : Character
         inputActions.Enable();
 
         // Register Input Action Callbacks
-        inputActions.Player.Move.performed += characterMovement.OnMovePerformed;
+        inputActions.Player.Move.performed += OnMovePerformed;
         inputActions.Player.Move.canceled += characterMovement.OnMoveCanceled;
         inputActions.Player.Jump.performed += _ => characterMovement.Jump();
         inputActions.Player.Jump.canceled += _ => characterMovement.OnJumpReleased();
@@ -257,5 +258,10 @@ public class MainCharacter : Character
         usedSpecialAttack = true;
         yield return new WaitForSeconds(time);
         usedSpecialAttack = false;
+    }
+    public void OnMovePerformed(InputAction.CallbackContext context)
+    {
+        characterMovement.SetHorizontalInput(context.ReadValue<Vector2>().x);
+        characterCombat.PressedUp(context.ReadValue<Vector2>().y == 1);
     }
 }

@@ -100,7 +100,7 @@ namespace EnemyAI
                 return;
             }
 
-            Vector2 nextWaypoint = path.vectorPath[currentPoint];
+            Vector2 nextWaypoint = GetSmoothedTarget();
             Vector2 moveDir = (nextWaypoint - rb.position).normalized;
 
             UpdateFacingDirection(moveDir.x);
@@ -138,6 +138,16 @@ namespace EnemyAI
             canMove = false;
             yield return new WaitForSeconds(0.5f);
             canMove = true;
+        }
+        private Vector2 GetSmoothedTarget()
+        {
+            int maxStep = Mathf.Min(5, path.vectorPath.Count - currentPoint - 1);
+            Vector2 sum = Vector2.zero;
+            for (int i = 0; i <= maxStep; i++)
+            {
+                sum += (Vector2)path.vectorPath[currentPoint + i];
+            }
+            return sum / (maxStep + 1);
         }
     }
 }
