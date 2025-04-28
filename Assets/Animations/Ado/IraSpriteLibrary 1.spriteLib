@@ -168,8 +168,13 @@ MonoBehaviour:
       m_Sprite: {fileID: -418541420, guid: 745897e2e1dc7fe4c8a93f3d5491624b, type: 3}
       m_FromMain: 1
       m_SpriteOverride: {fileID: 529201640, guid: c34bc725e008f70409d63ca67f5f9d43, type: 3}
+    - m_Name: Ira_attack_up_0
+      m_Hash: 333658223
+      m_Sprite: {fileID: -1294656727, guid: 62f744b5c5656b045b6f23719c653fdb, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -1294656727, guid: 62f744b5c5656b045b6f23719c653fdb, type: 3}
     m_FromMain: 1
-    m_EntryOverrideCount: 13
+    m_EntryOverrideCount: 14
   - m_Name: Ado_jump
     m_Hash: 989481331
     m_CategoryList: []
@@ -280,6 +285,32 @@ MonoBehaviour:
       m_SpriteOverride: {fileID: 21300000, guid: a3eb95e2be3f71c41848ee8343fb5968, type: 3}
     m_FromMain: 1
     m_EntryOverrideCount: 1
+  - m_Name: Ado_upAttack
+    m_Hash: 74436449
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: Ado_attack_up_0
+      m_Hash: 956075906
+      m_Sprite: {fileID: -1855062811, guid: f0b2c950a236616458bd898a6692a18c, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: -1294656727, guid: 62f744b5c5656b045b6f23719c653fdb, type: 3}
+    - m_Name: Ado_attack_up_1
+      m_Hash: 268156692
+      m_Sprite: {fileID: 1617630998, guid: f0b2c950a236616458bd898a6692a18c, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: -1895016069, guid: 62f744b5c5656b045b6f23719c653fdb, type: 3}
+    - m_Name: Ado_attack_up_2
+      m_Hash: 385019566
+      m_Sprite: {fileID: 1565265069, guid: f0b2c950a236616458bd898a6692a18c, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: -1811286713, guid: 62f744b5c5656b045b6f23719c653fdb, type: 3}
+    - m_Name: Ado_attack_up_3
+      m_Hash: 569761336
+      m_Sprite: {fileID: 530635963, guid: f0b2c950a236616458bd898a6692a18c, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: -543796251, guid: 62f744b5c5656b045b6f23719c653fdb, type: 3}
+    m_FromMain: 1
+    m_EntryOverrideCount: 4
   - m_Name: Dash
     m_Hash: 995914302
     m_CategoryList: []
@@ -337,5 +368,5 @@ MonoBehaviour:
     m_FromMain: 0
     m_EntryOverrideCount: 0
   m_PrimaryLibraryGUID: 1c0eb76793e460b4baefddb2249e4652
-  m_ModificationHash: 638796460836681394
+  m_ModificationHash: 638814584403979594
   m_Version: 1

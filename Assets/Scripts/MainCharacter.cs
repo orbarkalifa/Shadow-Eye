@@ -74,7 +74,7 @@ public class MainCharacter : Character
 
         // Register Input Action Callbacks
         inputActions.Player.Move.performed += OnMovePerformed;
-        inputActions.Player.Move.canceled += characterMovement.OnMoveCanceled;
+        inputActions.Player.Move.canceled += OnMoveCanceled;
         inputActions.Player.Jump.performed += _ => characterMovement.Jump();
         inputActions.Player.Jump.canceled += _ => characterMovement.OnJumpReleased();
         inputActions.Player.BasicAttack.performed += _ => PerformBasicAttack();
@@ -92,7 +92,7 @@ public class MainCharacter : Character
     private void PerformBasicAttack()
     {
         Debug.Log($"{gameObject.name} performs a basic attack.dirction {CurrentFacingDirection}");
-        characterCombat.BasicAttack(CurrentFacingDirection);
+        characterCombat.BasicAttack();
     }
     
     private void PerformSpecialAttack()
@@ -158,7 +158,7 @@ public class MainCharacter : Character
                 spriteLibrary.spriteLibraryAsset = suitSpriteLibraryAsset;
             }
             beacon.uiChannel.ChangeHud(equippedSuit.hudSprite);
-            characterCombat.ParamtersSwap(equippedSuit);
+            characterCombat.ParametersSwap(equippedSuit);
         }
         
     }
@@ -192,7 +192,7 @@ public class MainCharacter : Character
             eye.SetActive(true);
             Debug.Log($"Unequipped suit: {equippedSuit.suitName}");
             equippedSuit = null;
-            characterCombat.ParamtersSwap(null);
+            characterCombat.ParametersSwap(null);
             beacon.uiChannel.ChangeHud(null);
             if(spriteLibrary != null && normalSpriteLibraryAsset != null)
                 spriteLibrary.spriteLibraryAsset = normalSpriteLibraryAsset;
@@ -261,7 +261,17 @@ public class MainCharacter : Character
     }
     public void OnMovePerformed(InputAction.CallbackContext context)
     {
-        characterMovement.SetHorizontalInput(context.ReadValue<Vector2>().x);
-        characterCombat.PressedUp(context.ReadValue<Vector2>().y == 1);
+        var movementInput = context.ReadValue<Vector2>();
+        Debug.Log("Movement input: " + movementInput);
+        characterMovement.SetHorizontalInput(movementInput.x);
+        characterCombat.PressedUp(movementInput.y > 0.5);
+    }
+    public void OnMoveCanceled(InputAction.CallbackContext context)
+    {
+        var movementInput = context.ReadValue<Vector2>();
+        Debug.Log("Movement input: " + movementInput);
+        characterMovement.SetHorizontalInput(0);
+        characterCombat.PressedUp(movementInput.y > 0.5);
+        
     }
 }

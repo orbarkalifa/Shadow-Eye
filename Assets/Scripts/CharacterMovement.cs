@@ -86,10 +86,7 @@ public class CharacterMovement : MonoBehaviour
     
 
 
-    public void OnMoveCanceled(InputAction.CallbackContext context)
-    {
-        horizontalInput = Vector2.zero.x;
-    }
+
 
     private bool IsTouchingWall()
     {
