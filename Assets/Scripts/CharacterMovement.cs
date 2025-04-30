@@ -9,7 +9,6 @@ public class CharacterMovement : MonoBehaviour
     private static readonly int isJumpingHash = Animator.StringToHash("Jumping");
     private static readonly int isWallSlidingHash = Animator.StringToHash("isWallSliding");
     [SerializeField] private float recoilForce = 50;
-
     private Animator animator;
     private Rigidbody2D rb;
     private bool isFacingRight = true;
@@ -18,12 +17,10 @@ public class CharacterMovement : MonoBehaviour
     private bool canMove = true;
     private int jumpCount;
     private readonly int maxJumpCount = 1; // Change this to 2 if you want to allow double jump
-
     [Header("Movement Settings")]
     [SerializeField] private float moveSpeed = 20f;
     [SerializeField] private float jumpForce = 35;
     [SerializeField] private float extraHeight = 1.5f;
-
 
     [Header("Dash Settings")]
     [SerializeField] private float dashDuration = 0.15f;
@@ -64,9 +61,7 @@ public class CharacterMovement : MonoBehaviour
 
     private void Update()
     {
-
         animator.SetBool(isRunningHash, horizontalInput != 0 && IsGrounded());
-
         if (IsGrounded())
             coyoteTimeCounter = coyoteTime;
         else
@@ -96,9 +91,9 @@ public class CharacterMovement : MonoBehaviour
         bool wallOnRight = Physics2D.Raycast(position, Vector2.right, wallCheckDistance, wallLayer);
         bool wallOnLeft = Physics2D.Raycast(position, Vector2.left, wallCheckDistance, wallLayer);
     
-        if (wallOnRight && horizontalInput > 0)
+        if (wallOnRight && isFacingRight)
             return true;
-        if (wallOnLeft && horizontalInput < 0)
+        if (wallOnLeft && !isFacingRight)
             return true;
     
         return false;
