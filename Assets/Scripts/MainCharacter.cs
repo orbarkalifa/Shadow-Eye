@@ -24,7 +24,6 @@ public class MainCharacter : Character
     [Header("Sprite Library Settings")]
     [SerializeField] private SpriteLibrary spriteLibrary;
     [SerializeField] private SpriteLibraryAsset normalSpriteLibraryAsset;
-    [SerializeField] private SpriteLibraryAsset suitSpriteLibraryAsset;
 
     
     [Header("Flashing Settings")]
@@ -152,10 +151,10 @@ public class MainCharacter : Character
         if (equippedSuit != null)
         {
             
-            if(spriteLibrary != null && suitSpriteLibraryAsset != null)
+            if(spriteLibrary != null)
             {
                 eye.SetActive(false);
-                spriteLibrary.spriteLibraryAsset = suitSpriteLibraryAsset;
+                spriteLibrary.spriteLibraryAsset = equippedSuit.spriteLibrary;
             }
             beacon.uiChannel.ChangeHud(equippedSuit.hudSprite);
             characterCombat.ParametersSwap(equippedSuit);

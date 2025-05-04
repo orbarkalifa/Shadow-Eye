@@ -1,4 +1,5 @@
 using System.Collections;
+using Suits;
 using UnityEngine;
 
 public class DashMovement : SuitAbility

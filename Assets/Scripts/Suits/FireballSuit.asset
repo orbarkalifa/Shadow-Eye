@@ -18,4 +18,6 @@ MonoBehaviour:
   specialMovement: {fileID: 11400000, guid: 6f3127a9bb19c6d418894cefe24caabf, type: 2}
   suitPrefab: {fileID: 3961360938351345007, guid: d8344dc5221032e409f2fe87a96a5103, type: 3}
   attackRange: 4
+  basicAttackCooldownTime: 0.2
   hudSprite: {fileID: 21300000, guid: b909ee1e536a7ad4995787450de56bdc, type: 3}
+  spriteLibrary: {fileID: 7108339969198208228, guid: 66c1a4998c50a404690ed8fb03cb6425, type: 3}
