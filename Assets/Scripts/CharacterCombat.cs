@@ -199,7 +199,7 @@ public class CharacterCombat : MonoBehaviour
     {
         if(suit != null)
         {
-            ChangeCooldown(suit.cooldownTime);
+            ChangeCooldown(suit.basicAttackCooldown);
             ChangeRange(suit.attackRange);
             return;
         }
