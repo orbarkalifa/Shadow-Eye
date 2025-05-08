@@ -2,12 +2,10 @@ using System.Collections;
 using EnemyAI;
 using UnityEngine;
 using Cinemachine;
-using UnityEngine.Serialization;
 
 public class CharacterCombat : MonoBehaviour
 {
     [Header("Attack Settings")]
-    /*public Transform attackRange;*/
     public BoxCollider2D attackBox;
     public int attackDamage = 1;
     public LayerMask attackableLayerMask;
