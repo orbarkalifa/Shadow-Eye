@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1dc9face461726345ad9105867102787, type: 3}
+  m_Name: DuriSuit
+  m_EditorClassIdentifier: 
+  suitName: Duri
+  suitSprite: {fileID: 21300000, guid: 18e3dfd4e8e31c64d927cfa879e31f57, type: 3}
+  specialAttack: {fileID: 11400000, guid: 9bb75a85fcd0a6a428e501318970324a, type: 2}
+  specialMovement: {fileID: 11400000, guid: 6f3127a9bb19c6d418894cefe24caabf, type: 2}
+  suitPrefab: {fileID: 0}
+  attackRange: 6
+  basicAttackCooldown: 0.6
+  hudSprite: {fileID: 0}
+  spriteLibrary: {fileID: 7108339969198208228, guid: 2529cc0a47d61ae45b1a09fb5d0b64cc, type: 3}
