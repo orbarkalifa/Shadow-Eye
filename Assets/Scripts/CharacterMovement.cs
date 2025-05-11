@@ -17,6 +17,7 @@ public class CharacterMovement : MonoBehaviour
     private bool canMove = true;
     private int jumpCount;
     private readonly int maxJumpCount = 1; // Change this to 2 if you want to allow double jump
+    
     [Header("Movement Settings")]
     [SerializeField] private float moveSpeed = 20f;
     [SerializeField] private float jumpForce = 35;

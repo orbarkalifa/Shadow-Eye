@@ -52,6 +52,7 @@
     <Compile Include="Assets/Scripts/Suits/Abilities/FireballAttack.cs" />
     <Compile Include="Assets/Scripts/EnemyAI/EnemyStateSO.cs" />
     <Compile Include="Assets/Scripts/GameStateManagement/LevelManager.cs" />
+    <Compile Include="Assets/Scripts/Suits/Abilities/StoneForm.cs" />
     <Compile Include="Assets/Scripts/CheckPoint.cs" />
     <Compile Include="Assets/Scripts/TutorialPanelController.cs" />
     <Compile Include="Assets/Scripts/Character.cs" />
@@ -63,6 +64,7 @@
     <Compile Include="Assets/Scripts/EnemyAI/AttackStateSO.cs" />
     <Compile Include="Assets/Scripts/Destructible.cs" />
     <Compile Include="Assets/Scripts/TutorialTrigger.cs" />
+    <Compile Include="Assets/Scripts/Suits/Abilities/PushEnemies.cs" />
     <Compile Include="Assets/Scripts/GameStateManagement/GameOverStateSO.cs" />
     <Compile Include="Assets/Scripts/EnemyAI/PatrolStateSO.cs" />
     <Compile Include="Assets/Scripts/GameStateManagement/GameStateSO.cs" />
