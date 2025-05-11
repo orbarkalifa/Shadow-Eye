@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22dd8425312d4824fac9713b3ed2fbe3, type: 3}
   m_Name: DashMovement
   m_EditorClassIdentifier: 
-  m_DashSpeed: 1000
+  cooldownTime: 1.2

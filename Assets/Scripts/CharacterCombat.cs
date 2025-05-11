@@ -9,7 +9,7 @@ public class CharacterCombat : MonoBehaviour
     public BoxCollider2D attackBox;
     public int attackDamage = 1;
     public LayerMask attackableLayerMask;
-    public float basicAttackCooldown = 0.5f;
+    public readonly float basicAttackCooldown = 0.5f;
     public float attackCooldown;
     [Header("Recoil Settings")]
 

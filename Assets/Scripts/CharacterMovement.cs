@@ -25,7 +25,6 @@ public class CharacterMovement : MonoBehaviour
     [Header("Dash Settings")]
     [SerializeField] private float dashDuration = 0.15f;
     [SerializeField] private float dashSpeed = 35f;
-    [SerializeField] private float dashCooldown = 1f;
 
     [Header("Jump Tuning")]
     [SerializeField] private float coyoteTime = 0.2f;
@@ -48,8 +47,6 @@ public class CharacterMovement : MonoBehaviour
     private bool isWallSliding;
     private bool canWallJump;
     private bool isWallJumping;
-
-    private float lastDashTime = -Mathf.Infinity;
 
     protected void Awake()
     {
@@ -79,10 +76,6 @@ public class CharacterMovement : MonoBehaviour
         HandleFalling();
     }
     
-
-
-
-
     private bool IsTouchingWall()
     {
         Vector2 position = transform.position;
@@ -110,7 +103,6 @@ public class CharacterMovement : MonoBehaviour
         }
     }
     
-
     public void Move()
     {
         if(canMove)
@@ -176,13 +168,7 @@ public class CharacterMovement : MonoBehaviour
 
     public void Dash()
     {
-        if (isDashing || !(Time.time >= lastDashTime + dashCooldown))
-        {
-            return;
-        }
-
         StartCoroutine(DashRoutine());
-        lastDashTime = Time.time;
     }
 
     private IEnumerator DashRoutine()

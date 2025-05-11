@@ -32,6 +32,7 @@ public class MainCharacter : Character
     private SpriteRenderer sr;
     
     private bool usedSpecialAttack;
+    private bool usedSpecialMovement;
       
 
     protected override void Awake()
@@ -118,13 +119,19 @@ public class MainCharacter : Character
     {
         if (equippedSuit?.specialMovement != null)
         {
-            equippedSuit.specialMovement.ExecuteAbility(gameObject);
+            if(!usedSpecialMovement)
+            {
+                equippedSuit.specialMovement.ExecuteAbility(gameObject);
+                StartCoroutine(SpecialMovementCD(equippedSuit.specialMovement.cooldownTime));
+            }
         }
         else
         {
             Debug.LogWarning("No suit equipped or no special movement available.");
         }
     }
+
+    
 
     public void UnlockWallGrabAbility()
     {
@@ -258,6 +265,13 @@ public class MainCharacter : Character
         yield return new WaitForSeconds(time);
         usedSpecialAttack = false;
     }
+    private IEnumerator SpecialMovementCD(float specialMovementCooldownTime)
+    {
+        usedSpecialMovement = true;
+        yield return new WaitForSeconds(specialMovementCooldownTime);
+        usedSpecialMovement = false;
+    }
+    
     public void OnMovePerformed(InputAction.CallbackContext context)
     {
         var movementInput = context.ReadValue<Vector2>();
