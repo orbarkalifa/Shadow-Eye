@@ -12,11 +12,11 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{162a3679-85c2-49d3-2ae9-ce53acd4339f}</ProjectGuid>
+    <ProjectGuid>{68b3b948-67dd-6fcd-3d8e-6381bcd8c4a4}</ProjectGuid>
     <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <AssemblyName>PackageToolsEditor</AssemblyName>
+    <AssemblyName>Unity.2D.Psdimporter.Editor</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <BaseDirectory>.</BaseDirectory>
@@ -25,12 +25,12 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>Temp\Bin\Debug\PackageToolsEditor\</OutputPath>
+    <OutputPath>Temp\Bin\Debug\Unity.2D.Psdimporter.Editor\</OutputPath>
     <DefineConstants>UNITY_2022_3_52;UNITY_2022_3;UNITY_2022;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_2017_1_OR_NEWER;UNITY_2017_2_OR_NEWER;UNITY_2017_3_OR_NEWER;UNITY_2017_4_OR_NEWER;UNITY_2018_1_OR_NEWER;UNITY_2018_2_OR_NEWER;UNITY_2018_3_OR_NEWER;UNITY_2018_4_OR_NEWER;UNITY_2019_1_OR_NEWER;UNITY_2019_2_OR_NEWER;UNITY_2019_3_OR_NEWER;UNITY_2019_4_OR_NEWER;UNITY_2020_1_OR_NEWER;UNITY_2020_2_OR_NEWER;UNITY_2020_3_OR_NEWER;UNITY_2021_1_OR_NEWER;UNITY_2021_2_OR_NEWER;UNITY_2021_3_OR_NEWER;UNITY_2022_1_OR_NEWER;UNITY_2022_2_OR_NEWER;UNITY_2022_3_OR_NEWER;PLATFORM_ARCH_64;UNITY_64;UNITY_INCLUDE_TESTS;ENABLE_AR;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_EVENT_QUEUE;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_TEXTURE_STREAMING;ENABLE_VIRTUALTEXTURING;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_VR;ENABLE_WEBCAM;ENABLE_UNITYWEBREQUEST;ENABLE_WWW;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_SERVICES_USE_WEBREQUEST;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_EDITOR_GAME_SERVICES;ENABLE_UNITY_GAME_SERVICES_ANALYTICS_SUPPORT;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_HUB_LICENSE;ENABLE_WEBSOCKET_CLIENT;ENABLE_GENERATE_NATIVE_PLUGINS_FOR_ASSEMBLIES_API;ENABLE_DIRECTOR_AUDIO;ENABLE_DIRECTOR_TEXTURE;ENABLE_MANAGED_JOBS;ENABLE_MANAGED_TRANSFORM_JOBS;ENABLE_MANAGED_ANIMATION_JOBS;ENABLE_MANAGED_AUDIO_JOBS;ENABLE_MANAGED_UNITYTLS;INCLUDE_DYNAMIC_GI;ENABLE_SCRIPTING_GC_WBARRIERS;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;ENABLE_VIDEO;ENABLE_ACCELERATOR_CLIENT_DEBUGGING;ENABLE_NAVIGATION_PACKAGE_DEBUG_VISUALIZATION;ENABLE_NAVIGATION_HEIGHTMESH_RUNTIME_SUPPORT;ENABLE_NAVIGATION_UI_REQUIRES_PACKAGE;PLATFORM_STANDALONE;TEXTCORE_1_0_OR_NEWER;PLATFORM_STANDALONE_WIN;UNITY_STANDALONE_WIN;UNITY_STANDALONE;ENABLE_RUNTIME_GI;ENABLE_MOVIES;ENABLE_NETWORK;ENABLE_NVIDIA;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_OUT_OF_PROCESS_CRASH_HANDLER;ENABLE_CLUSTER_SYNC;ENABLE_CLUSTERINPUT;PLATFORM_UPDATES_TIME_OUTSIDE_OF_PLAYER_LOOP;GFXDEVICE_WAITFOREVENT_MESSAGEPUMP;PLATFORM_INITIALIZES_MEMORY_MANAGER_EXPLICITLY;ENABLE_MONO;NET_4_6;NET_UNITY_4_8;ENABLE_PROFILER;DEBUG;TRACE;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN;ENABLE_UNITY_COLLECTIONS_CHECKS;ENABLE_BURST_AOT;UNITY_TEAM_LICENSE;ENABLE_CUSTOM_RENDER_TEXTURE;ENABLE_DIRECTOR;ENABLE_LOCALIZATION;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_TILEMAP;ENABLE_TIMELINE;ENABLE_INPUT_SYSTEM;ENABLE_LEGACY_INPUT_MANAGER;TEXTCORE_FONT_ENGINE_1_5_OR_NEWER;UNITY_POST_PROCESSING_STACK_V2;CSHARP_7_OR_LATER;CSHARP_7_3_OR_NEWER;UNITY_EDITOR_ONLY_COMPILATION</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoWarn>0169,0649</NoWarn>
-    <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
     <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup>
@@ -45,10 +45,40 @@
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\2022.3.52f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\AstarPathfindingProject\PackageTools\Editor\EnumFlagDrawer.cs" />
-    <Compile Include="Assets\AstarPathfindingProject\PackageTools\Editor\EditorGUIx.cs" />
-    <Compile Include="Assets\AstarPathfindingProject\PackageTools\Editor\EditorBase.cs" />
-    <None Include="Assets\AstarPathfindingProject\PackageTools\Editor\PackageToolsEditor.asmdef" />
+    <Compile Include="Library\PackageCache\com.unity.2d.psdimporter@8.0.5\Editor\PSDLayer.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.psdimporter@8.0.5\Editor\PSDLayerMappingStrategy.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.psdimporter@8.0.5\Editor\PSDImporterAssetPostProcessor.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.psdimporter@8.0.5\Editor\PSDImporterEditor.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.psdimporter@8.0.5\Editor\UTK\ImportColumnHeaderToggle.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.psdimporter@8.0.5\Editor\UTK\PSDImporterMultiColumnTreeViewUI.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.psdimporter@8.0.5\Editor\PSDImportData.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.psdimporter@8.0.5\Editor\PSDGameObjectPreviewData.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.psdimporter@8.0.5\Editor\PSDImporterAPI.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.psdimporter@8.0.5\Editor\PSDImportPostProcessor.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.psdimporter@8.0.5\Editor\PSDImporter.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.psdimporter@8.0.5\Editor\TexturePlatformSettingsController.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.psdimporter@8.0.5\Editor\UTK\UIColumn.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.psdimporter@8.0.5\Editor\AssemblyInfo.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.psdimporter@8.0.5\Editor\TexturePlatformSettingsView.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.psdimporter@8.0.5\Editor\Tasks\FlattenImageTask.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.psdimporter@8.0.5\Editor\ImportUtilites.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.psdimporter@8.0.5\Editor\Analytics.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.psdimporter@8.0.5\Editor\UTK\ImportColumn.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.psdimporter@8.0.5\Editor\SpriteData.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.psdimporter@8.0.5\Editor\Pipeline.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.psdimporter@8.0.5\Editor\UTK\LayerNameColumn.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.psdimporter@8.0.5\Editor\TexturePlatformSettingsModal.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.psdimporter@8.0.5\Editor\PSDImporterDataProvider.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.psdimporter@8.0.5\Editor\TextureSettingsGUI.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.psdimporter@8.0.5\Editor\Tasks\ExtractLayerTask.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.psdimporter@8.0.5\Editor\TextureImporterUtilities.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.psdimporter@8.0.5\Editor\PSDImporterEditorExternalData.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.psdimporter@8.0.5\Editor\TextContent.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.psdimporter@8.0.5\Editor\PSDSpriteEditorDataProvider.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.psdimporter@8.0.5\Editor\UTK\Tooltips.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.psdimporter@8.0.5\Editor\PSDImporterEditorLayerTreeView.cs" />
+    <None Include="Library\PackageCache\com.unity.2d.psdimporter@8.0.5\Editor\Assets\UI\PSDImporterStyleSheet.uss" />
+    <None Include="Library\PackageCache\com.unity.2d.psdimporter@8.0.5\Editor\Unity.2D.Psdimporter.Editor.asmdef" />
     <Reference Include="UnityEngine">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2022.3.52f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
     </Reference>
@@ -703,6 +733,9 @@
     <Reference Include="System.Xml.XPath.XDocument">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2022.3.52f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Xml.XPath.XDocument.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.2D.Sprite.Editor">
+      <HintPath>D:\Users\unity Projects\Final-Game-Project\Library\ScriptAssemblies\Unity.2D.Sprite.Editor.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEditor.UI">
       <HintPath>D:\Users\unity Projects\Final-Game-Project\Library\ScriptAssemblies\UnityEditor.UI.dll</HintPath>
     </Reference>
@@ -711,9 +744,37 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="AstarPathfindingProject.csproj">
-      <Project>{6516fa5e-524e-ffcf-4eb8-7e6e8d7dec0f}</Project>
-      <Name>AstarPathfindingProject</Name>
+    <ProjectReference Include="PsdPlugin.csproj">
+      <Project>{23c9a185-7d30-83e4-94c9-bacf57ad6f1f}</Project>
+      <Name>PsdPlugin</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.InternalAPIEditorBridge.001.csproj">
+      <Project>{0a7810f6-1c29-a761-71e9-da797e3c990f}</Project>
+      <Name>Unity.InternalAPIEditorBridge.001</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.2D.Common.Editor.csproj">
+      <Project>{ba24e8cf-1d76-07f1-c7d9-cdba9b6a5682}</Project>
+      <Name>Unity.2D.Common.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.2D.Animation.Editor.csproj">
+      <Project>{b0e4e47a-063b-7e36-b881-39df5574331e}</Project>
+      <Name>Unity.2D.Animation.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.2D.Animation.Runtime.csproj">
+      <Project>{4433f46e-3a88-55bb-b163-1f6d4ac09e2e}</Project>
+      <Name>Unity.2D.Animation.Runtime</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.Mathematics.csproj">
+      <Project>{9ff125fc-a4c7-d285-b4cf-4a1958bdde9d}</Project>
+      <Name>Unity.Mathematics</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.Burst.csproj">
+      <Project>{17c87bc9-418e-f763-f6a1-8b73e825d7d3}</Project>
+      <Name>Unity.Burst</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.InternalAPIEngineBridge.001.csproj">
+      <Project>{ba617d37-4bae-9cce-d71c-89c7cdca3a10}</Project>
+      <Name>Unity.InternalAPIEngineBridge.001</Name>
     </ProjectReference>
     <ProjectReference Include="UnityEditor.TestRunner.csproj">
       <Project>{9d900e39-e4ae-b792-1a96-80a40b1e98fe}</Project>

@@ -287,4 +287,27 @@ public class MainCharacter : Character
         characterCombat.PressedUp(movementInput.y > 0.5);
         
     }
+
+    public bool IsGrounded()
+    {
+        return characterMovement.IsGrounded();
+    }
+    public void ChangeInvincibleState()
+    {
+        IsInvincible = !IsInvincible;
+    }
+    public void ChangeSprite(Sprite sprite)
+    {
+        sr.sprite = sprite;
+        animator.enabled = false;
+    }
+
+    public void ToggleControls()
+    {
+        if(characterMovement.canMove)
+            characterMovement.DisableMovement();
+        else
+            characterMovement.EnableMovement();
+        
+    }
 }

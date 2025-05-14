@@ -2,7 +2,7 @@ namespace Suits.Abilities
 {
     using UnityEngine;
     using UnityEngine.Serialization;
-
+    [CreateAssetMenu(fileName = "Projectile", menuName = "Ability/Projectile")]
     public class FireballAttack : SuitAbility
     {
         [SerializeField] private float Lifetime = 2f;

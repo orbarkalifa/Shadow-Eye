@@ -1,8 +1,7 @@
 using UnityEngine;
 
 namespace Suits
-{  
-    
+{
     public abstract class SuitAbility : ScriptableObject
     {
         public float cooldownTime;

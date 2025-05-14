@@ -14,7 +14,7 @@ public class CharacterMovement : MonoBehaviour
     private bool isFacingRight = true;
     private float horizontalInput;
     private bool isDashing;
-    private bool canMove = true;
+    public bool canMove = true;
     private int jumpCount;
     private readonly int maxJumpCount = 1; // Change this to 2 if you want to allow double jump
     
@@ -157,7 +157,7 @@ public class CharacterMovement : MonoBehaviour
         transform.localScale = localScale;
     }
 
-    private bool IsGrounded()
+    public bool IsGrounded()
     {
         Vector2 position = transform.position;
         Vector2 boxSize = new Vector2(0.8f, 0.8f);
