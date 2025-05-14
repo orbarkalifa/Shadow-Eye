@@ -11,7 +11,6 @@ namespace EnemyAI
         [Range(0f, 360f)]
         public float fieldOfViewAngle = 120f;
         public float recoilForce = 100;
-        public Rigidbody2D rb;
         public Transform player;
         public float detectionRange = 10f;
         public LayerMask obstacleLayerMask;
@@ -25,8 +24,6 @@ namespace EnemyAI
             base.Awake();
             homePosition = transform.position;
             
-            if (rb == null) rb = GetComponent<Rigidbody2D>();
-
             if (player == null)
             {
                 GameObject playerObject = GameObject.FindGameObjectWithTag("Player");

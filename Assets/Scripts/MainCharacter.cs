@@ -13,9 +13,7 @@ public class MainCharacter : Character
 
     [Header("Damage & Invincibility Settings")]
     [SerializeField] private float invincibilityDuration = 1.0f;
-
-    public bool IsInvincible { get; set; }
-
+    
     [SerializeField] private BeaconSO beacon;
     
     
@@ -91,12 +89,14 @@ public class MainCharacter : Character
     
     private void PerformBasicAttack()
     {
+        if (!characterCombat.canAttack) return;
         Debug.Log($"{gameObject.name} performs a basic attack.dirction {CurrentFacingDirection}");
         characterCombat.BasicAttack();
     }
     
     private void PerformSpecialAttack()
     {
+        if (!characterCombat.canAttack) return;
         if (equippedSuit?.specialAttack != null)
         {
             if(!usedSpecialAttack)

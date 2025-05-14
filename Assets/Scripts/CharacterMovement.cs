@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
 
 public class CharacterMovement : MonoBehaviour
@@ -9,6 +8,7 @@ public class CharacterMovement : MonoBehaviour
     private static readonly int isJumpingHash = Animator.StringToHash("Jumping");
     private static readonly int isWallSlidingHash = Animator.StringToHash("isWallSliding");
     [SerializeField] private float recoilForce = 50;
+    private MainCharacter character;
     private Animator animator;
     private Rigidbody2D rb;
     private bool isFacingRight = true;
@@ -49,10 +49,13 @@ public class CharacterMovement : MonoBehaviour
     private bool canWallJump;
     private bool isWallJumping;
 
-    protected void Awake()
+    protected void Start()
     {
-        animator = GetComponent<Animator>();
-        rb = GetComponent<Rigidbody2D>();
+        character = GetComponent<MainCharacter>();
+        animator = character.animator;
+        if (!animator)
+            Debug.LogError("Animator is missing!");
+        rb = character.rb;
         if (!rb)
             Debug.LogError("Rigidbody2D is missing!");
     }
@@ -76,7 +79,16 @@ public class CharacterMovement : MonoBehaviour
 
         HandleFalling();
     }
-    
+
+    public void DisableMovement()
+    {
+        canMove = false;
+    }
+    public void EnableMovement()
+    {
+        canMove = true;
+    }
+ 
     private bool IsTouchingWall()
     {
         Vector2 position = transform.position;

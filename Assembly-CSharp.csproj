@@ -72,6 +72,7 @@
     <Compile Include="Assets/Scripts/GameStateManagement/MenuStateSO.cs" />
     <Compile Include="Assets/Scripts/EnemyAI/HealingStateSO.cs" />
     <Compile Include="Assets/Scripts/SpikesLogic.cs" />
+    <Compile Include="Assets/Scripts/Suits/Abilities/RockAbility.cs" />
     <Compile Include="Assets/Scripts/EnemyAI/EnemyStateMachine.cs" />
     <Compile Include="Assets/Scripts/ConsumeUnlock.cs" />
     <Compile Include="Assets/Scripts/Suits/Abilities/DashMovement.cs" />

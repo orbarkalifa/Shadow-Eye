@@ -11,9 +11,12 @@ public class CharacterCombat : MonoBehaviour
     public LayerMask attackableLayerMask;
     public readonly float basicAttackCooldown = 0.5f;
     public float attackCooldown;
-    [Header("Recoil Settings")]
+    public bool canAttack;
 
+    private MainCharacter character;
     private Animator animator;
+    private Rigidbody2D rb;
+    
     private int comboStep;
     private float lastAttackTime;
     private readonly float comboResetTime = 1f;
@@ -22,12 +25,21 @@ public class CharacterCombat : MonoBehaviour
     private CharacterMovement characterMovement; 
     private CinemachineImpulseSource impulseSource;
     private float basicRange;
-    private bool attackUp = false;
+    private bool attackUp;
     
-    private void Awake()
+    private void Start()
    {
-        animator = GetComponent<Animator>();
-        characterMovement = GetComponent<CharacterMovement>(); 
+       canAttack = true;
+       character = GetComponent<MainCharacter>();
+       animator = character.animator;
+       if (!animator)
+           Debug.LogError("Animator is missing!");
+       
+       rb = character.rb;
+       if (!rb)
+           Debug.LogError("Rigidbody2D is missing!");
+       
+       characterMovement = GetComponent<CharacterMovement>(); 
         if (characterMovement == null)
         {
             Debug.LogError("CharacterMovement component not found on " + gameObject.name);
