@@ -1,8 +1,7 @@
 using Suits;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.U2D.Animation;
-using UnityEngine.UI;
+
 [CreateAssetMenu(fileName = "New Suit", menuName = "Suit")]
 public class Suit : ScriptableObject
 {

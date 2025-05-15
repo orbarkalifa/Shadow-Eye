@@ -110,14 +110,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be20cec3f45f40cd9f9ed593cf3b724b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 0}
   maxHits: 4
   currentHits: 0
   deathParticleSystem: {fileID: 7580926129972904592, guid: 542dff70430918f4ca406e2005a569f0, type: 3}
   damageParticleSystem: {fileID: 2074108216402693229, guid: 0778f7f1bbd6fd143a7787638d020fe1, type: 3}
   fieldOfViewAngle: 90
-  recoilForce: 10
-  rb: {fileID: 3960421595996800390}
+  recoilForce: 5
   player: {fileID: 0}
   detectionRange: 14
   obstacleLayerMask:
@@ -128,6 +126,7 @@ MonoBehaviour:
     m_Bits: 256
   homePosition: {x: 0, y: 0}
   maxChaseDistance: 25
+  stunColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   attackRange: 6
   attackCooldown: 1.5
   enemyCollider: {fileID: 0}

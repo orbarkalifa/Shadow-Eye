@@ -36,7 +36,7 @@ public class AttackStateSO : EnemyStateSO
             return;
         }
     
-        if (enemy.currentHits <= 1 && fleeState != null) // Assuming flee threshold is 1 for now
+        if (enemy.currentHits <= 1 && fleeState != null && enemy.canFlee) // Assuming flee threshold is 1 for now
         {
             enemy.StateMachine.ChangeState(enemy, fleeState);
         }

@@ -8,9 +8,10 @@ public class MainCharacter : Character
     private CharacterMovement characterMovement;
     private CharacterCombat characterCombat;
     private InputSystem_Actions inputActions;
-    private Suit equippedSuit;
     private Transform lastCheckPoint;
-
+    
+    [SerializeField] private Suit equippedSuit;
+    
     [Header("Damage & Invincibility Settings")]
     [SerializeField] private float invincibilityDuration = 1.0f;
     
@@ -93,6 +94,7 @@ public class MainCharacter : Character
     private void PerformSpecialAttack()
     {
         if (!characterCombat.canAttack) return;
+        
         if (equippedSuit?.specialAttack != null)
         {
             if(!usedSpecialAttack)
@@ -113,7 +115,7 @@ public class MainCharacter : Character
     
     private void PerformSpecialMovement()
     {
-        if (equippedSuit?.specialMovement != null)
+        if (equippedSuit.specialMovement != null)
         {
             if(!usedSpecialMovement)
             {

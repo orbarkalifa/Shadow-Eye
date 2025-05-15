@@ -7,7 +7,6 @@ public class MapLimit : MonoBehaviour
     
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log($"{gameObject.name} OnTriggerEnter2D with {other.name}"); // Log any collision
 
         if(!other.gameObject.CompareTag("Player"))
         {
@@ -16,7 +15,6 @@ public class MapLimit : MonoBehaviour
 
         if (vcam != null)
         {
-            Debug.Log($"Player entered {gameObject.name}. Setting Priority to 10 for VCam: {vcam.name}");
             vcam.enabled = true;
             vcam.Priority = 10;
         }
@@ -28,7 +26,6 @@ public class MapLimit : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        Debug.Log($"{gameObject.name} OnTriggerExit2D with {other.name}"); // Log any collision exit
 
         if(!other.gameObject.CompareTag("Player"))
         {
@@ -37,7 +34,6 @@ public class MapLimit : MonoBehaviour
 
         if (vcam != null)
         {
-            Debug.Log($"Player exited {gameObject.name}. Setting Priority to 0 for VCam: {vcam.name}");
             vcam.enabled = false;
             vcam.Priority = 0;
         }

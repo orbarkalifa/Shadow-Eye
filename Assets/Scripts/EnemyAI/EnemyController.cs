@@ -2,7 +2,6 @@ using GameStateManagement;
 using Suits;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace EnemyAI
 {
