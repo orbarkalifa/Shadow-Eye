@@ -148,8 +148,7 @@ public class MainCharacter : Character
     {
         if (equippedSuit != null)
         {
-            Heal();
-            return;
+            UnEquipSuit();
         }
         
         equippedSuit = newSuit;
