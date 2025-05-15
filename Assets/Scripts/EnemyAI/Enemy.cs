@@ -20,7 +20,7 @@ namespace EnemyAI
         
         [Header("Stun Settings")]
         [SerializeField] private Color stunColor = Color.yellow;
-        private bool isStunned;
+        protected bool isStunned;
         private Color originalColor;
         
         protected bool CanMove = true;
@@ -51,7 +51,7 @@ namespace EnemyAI
 
         private void Update()
         {
-            if (!CanMove) rb.velocity = Vector2.zero;;
+            if (!CanMove || isStunned) rb.velocity = Vector2.zero;;
         }
 
         public void UpdateFacingDirection(float xDirection)
@@ -218,11 +218,12 @@ namespace EnemyAI
         private IEnumerator StunCoroutine(float duration)
         {
             isStunned = true;
-            CanMove   = false;                         // stop your AI from moving
+            CanMove   = false;
 
             if (sr != null)
                 sr.color = stunColor;
 
+            animator.Play("damaged");
             yield return new WaitForSeconds(duration);
 
             CanMove   = true;

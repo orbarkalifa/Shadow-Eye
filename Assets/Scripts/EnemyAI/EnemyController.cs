@@ -49,7 +49,10 @@ namespace EnemyAI
 
         private void Update()
         {
-            if(!CanMove) return;
+            if (!CanMove)
+            {
+                return;
+            }
             if (StateMachine != null && player != null)
             {
                 StateMachine.Update(this);
@@ -58,7 +61,12 @@ namespace EnemyAI
 
         private void FixedUpdate()
         {
-            if(!CanMove) return;
+            if (!CanMove || isStunned)
+            {
+                rb.velocity = Vector2.zero;
+                return;
+            }           
+            
             if (StateMachine != null && player != null)
             {
                 StateMachine.FixedUpdate(this);

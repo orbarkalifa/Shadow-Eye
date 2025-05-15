@@ -94,8 +94,8 @@ namespace Suits.Abilities
         foreach (var c in enemies)
             if (c.TryGetComponent(out Enemy e))
             {
-                e.Stun(cfg.StunDuration);
                 e.TakeDamage(cfg.SmashDamage, -1);
+                e.Stun(cfg.StunDuration);
             }
         
     }

@@ -59,8 +59,8 @@
     <Compile Include="Assets/Scripts/EnemyAI/AttackStateSO.cs" />
     <Compile Include="Assets/Scripts/Destructible.cs" />
     <Compile Include="Assets/Scripts/UI/UIEyeScript.cs" />
-    <Compile Include="Assets/Scripts/GameStateManagement/GameOverStateSO.cs" />
     <Compile Include="Assets/Scripts/Player/MainCharacter.cs" />
+    <Compile Include="Assets/Scripts/GameStateManagement/GameOverStateSO.cs" />
     <Compile Include="Assets/Scripts/EnemyAI/PatrolStateSO.cs" />
     <Compile Include="Assets/Scripts/Tutorial/WallGrabUnlock.cs" />
     <Compile Include="Assets/Scripts/Player/EyeController.cs" />
