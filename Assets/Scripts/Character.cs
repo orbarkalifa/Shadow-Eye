@@ -4,6 +4,8 @@ public abstract class Character : MonoBehaviour
 {
     public Animator animator { get; private set; }
     public Rigidbody2D rb { get; private set; }
+    public SpriteRenderer sr { get; private set; }
+
     
     public int maxHits = 5;
     public int currentHits;
@@ -16,6 +18,7 @@ public abstract class Character : MonoBehaviour
 
     protected virtual void Awake()
     {
+        if (sr == null) sr = GetComponent<SpriteRenderer>();
         if (animator == null) animator = GetComponent<Animator>();
         if (rb == null) rb = GetComponent<Rigidbody2D>();
         currentHits = maxHits;

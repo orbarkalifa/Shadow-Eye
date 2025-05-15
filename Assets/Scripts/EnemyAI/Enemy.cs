@@ -17,12 +17,21 @@ namespace EnemyAI
         public LayerMask playerLayerMask;
         public Vector2 homePosition;
         public float maxChaseDistance = 15f;
-        protected bool canMove = true;
+        
+        [Header("Stun Settings")]
+        [SerializeField] private Color stunColor = Color.yellow;
+        private bool isStunned;
+        private Color originalColor;
+        
+        protected bool CanMove = true;
 
         protected override void Awake()
         {
             base.Awake();
             homePosition = transform.position;
+            
+            if (sr != null)
+                originalColor = sr.color;
             
             if (player == null)
             {
@@ -40,6 +49,11 @@ namespace EnemyAI
             }
         }
 
+        private void Update()
+        {
+            if (!CanMove) rb.velocity = Vector2.zero;;
+        }
+
         public void UpdateFacingDirection(float xDirection)
         {
             if (!Mathf.Approximately(Mathf.Sign(xDirection), CurrentFacingDirection))
@@ -47,6 +61,8 @@ namespace EnemyAI
                 Flip();
             }
         }
+        
+
         public void Flip()
         {
             Vector3 scale = transform.localScale;
@@ -192,16 +208,38 @@ namespace EnemyAI
             base.TakeDamage(damage);
         }
 
+        public virtual void Stun(float duration)
+        {
+            // don’t stack stuns
+            if (isStunned) return;
+            StartCoroutine(StunCoroutine(duration));
+        }
+        
+        private IEnumerator StunCoroutine(float duration)
+        {
+            isStunned = true;
+            CanMove   = false;                         // stop your AI from moving
+
+            if (sr != null)
+                sr.color = stunColor;
+
+            yield return new WaitForSeconds(duration);
+
+            CanMove   = true;
+            isStunned = false;
+            if (sr != null)
+                sr.color = originalColor;
+        }
 
         private IEnumerator EnemyRecoilCoroutine(float recoilDirection)
         {
-            canMove = false;
+            CanMove = false;
             rb.velocity = Vector2.zero;
             Debug.Log($"Applying {recoilDirection} * {recoilForce}");
             rb.AddForce(new Vector2(recoilDirection * recoilForce * rb.mass, 0), ForceMode2D.Impulse);
             // Wait for a short duration to allow the recoil to take effect.
             yield return new WaitForSeconds(0.4f);
-            canMove = true;
+            CanMove = true;
         }
     }
 }

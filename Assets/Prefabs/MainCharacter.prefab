@@ -558,7 +558,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99e6e400f2b6b944a8ba571102fdd636, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 0}
   maxHits: 5
   currentHits: 5
   deathParticleSystem: {fileID: 7580926129972904592, guid: 542dff70430918f4ca406e2005a569f0, type: 3}
@@ -568,7 +567,6 @@ MonoBehaviour:
   eye: {fileID: 5704360418295708609}
   spriteLibrary: {fileID: 8253696599482452033}
   normalSpriteLibraryAsset: {fileID: 7108339969198208228, guid: 1c0eb76793e460b4baefddb2249e4652, type: 3}
-  suitSpriteLibraryAsset: {fileID: 7108339969198208228, guid: 66c1a4998c50a404690ed8fb03cb6425, type: 3}
   flashDuration: 1
   flashInterval: 0.1
 --- !u!114 &5631171217590643361
@@ -584,12 +582,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   recoilForce: 10
+  canMove: 1
   moveSpeed: 20
   jumpForce: 45
   extraHeight: 1.7
   dashDuration: 0.3
   dashSpeed: 35
-  dashCooldown: 1.2
   coyoteTime: 0.2
   variableJumpMultiplier: 0.5
   canWallGrab: 0
@@ -623,8 +621,8 @@ MonoBehaviour:
   attackableLayerMask:
     serializedVersion: 2
     m_Bits: 0
-  basicAttackCooldown: 0.5
   attackCooldown: 0.5
+  canAttack: 0
 --- !u!114 &8253696599482452033
 MonoBehaviour:
   m_ObjectHideFlags: 0

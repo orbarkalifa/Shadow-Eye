@@ -9,7 +9,7 @@ public class CharacterCombat : MonoBehaviour
     public BoxCollider2D attackBox;
     public int attackDamage = 1;
     public LayerMask attackableLayerMask;
-    public readonly float basicAttackCooldown = 0.5f;
+    private readonly float basicAttackCooldown = 0.5f;
     public float attackCooldown;
     public bool canAttack;
 
@@ -151,14 +151,14 @@ public class CharacterCombat : MonoBehaviour
         bool hitSomthing = false;
         foreach(Collider2D hit in gotHit)
         {
-            if(hit.TryGetComponent(out Enemy enemyComponent))
+            if (hit.TryGetComponent(out Enemy enemyComponent))
             {
                 recoilDirection = ((Vector2)enemyComponent.transform.position - (Vector2)transform.position)
                     .normalized.x;
                 enemyComponent.TakeDamage(attackDamage, recoilDirection);
                 hitSomthing = true;
             }
-            else if(hit.TryGetComponent(out Destructible obj))
+            else if (hit.TryGetComponent(out Destructible obj))
             {
                 obj.TakeDamage(attackDamage);
                 hitSomthing = true;
@@ -215,8 +215,6 @@ public class CharacterCombat : MonoBehaviour
         }
         ChangeCooldown(-1);
         ChangeRange(-1);
-        
-        
     }
     
 #if UNITY_EDITOR

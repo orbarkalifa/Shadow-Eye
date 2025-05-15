@@ -27,7 +27,6 @@ public class MainCharacter : Character
     [Header("Flashing Settings")]
     [SerializeField] private float flashDuration = 1.0f;
     [SerializeField] private float flashInterval = 0.1f;
-    private SpriteRenderer sr;
     
     private bool usedSpecialAttack;
     private bool usedSpecialMovement;
@@ -40,7 +39,6 @@ public class MainCharacter : Character
         inputActions = new InputSystem_Actions();
         characterMovement = GetComponent<CharacterMovement>();
         characterCombat = GetComponent<CharacterCombat>();
-        sr = GetComponent<SpriteRenderer>();
 
         
         if (!characterMovement)
@@ -78,9 +76,7 @@ public class MainCharacter : Character
         inputActions.Player.BasicAttack.performed += _ => PerformBasicAttack();
         inputActions.Player.SpecialAttack.performed += _ => PerformSpecialAttack();
         inputActions.Player.SpecialMove.performed += _ => PerformSpecialMovement();
-        
     }
-   
     
     private void OnDisable()
     {
@@ -122,7 +118,10 @@ public class MainCharacter : Character
             if(!usedSpecialMovement)
             {
                 equippedSuit.specialMovement.ExecuteAbility(gameObject);
-                StartCoroutine(SpecialMovementCD(equippedSuit.specialMovement.cooldownTime));
+                if (equippedSuit.suitName != "Duri")
+                {
+                    StartCoroutine(SpecialMovementCD(equippedSuit.specialMovement.cooldownTime));
+                }
             }
         }
         else
@@ -130,9 +129,7 @@ public class MainCharacter : Character
             Debug.LogWarning("No suit equipped or no special movement available.");
         }
     }
-
     
-
     public void UnlockWallGrabAbility()
     {
         characterMovement.canWallGrab = true;
@@ -259,13 +256,13 @@ public class MainCharacter : Character
     {
         transform.position = lastCheckPoint.position;
     }
-    private IEnumerator SpecialAttackCD(float time)
+    public IEnumerator SpecialAttackCD(float time)
     {
         usedSpecialAttack = true;
         yield return new WaitForSeconds(time);
         usedSpecialAttack = false;
     }
-    private IEnumerator SpecialMovementCD(float specialMovementCooldownTime)
+    public IEnumerator SpecialMovementCD(float specialMovementCooldownTime)
     {
         usedSpecialMovement = true;
         yield return new WaitForSeconds(specialMovementCooldownTime);
@@ -275,17 +272,14 @@ public class MainCharacter : Character
     public void OnMovePerformed(InputAction.CallbackContext context)
     {
         var movementInput = context.ReadValue<Vector2>();
-        Debug.Log("Movement input: " + movementInput);
         characterMovement.SetHorizontalInput(movementInput.x);
         characterCombat.PressedUp(movementInput.y > 0.5);
     }
     public void OnMoveCanceled(InputAction.CallbackContext context)
     {
         var movementInput = context.ReadValue<Vector2>();
-        Debug.Log("Movement input: " + movementInput);
         characterMovement.SetHorizontalInput(0);
         characterCombat.PressedUp(movementInput.y > 0.5);
-        
     }
 
     public bool IsGrounded()
@@ -301,13 +295,5 @@ public class MainCharacter : Character
         sr.sprite = sprite;
         animator.enabled = false;
     }
-
-    public void ToggleControls()
-    {
-        if(characterMovement.canMove)
-            characterMovement.DisableMovement();
-        else
-            characterMovement.EnableMovement();
-        
-    }
+    
 }

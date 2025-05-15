@@ -228,6 +228,7 @@ public class CharacterMovement : MonoBehaviour
 
     public void Jump()
     {
+        if (!canMove) return;
         if (isWallSliding)
         {
             WallJump();

@@ -50,7 +50,7 @@ namespace EnemyAI
 
         private void Update()
         {
-            if(!canMove) return;
+            if(!CanMove) return;
             if (StateMachine != null && player != null)
             {
                 StateMachine.Update(this);
@@ -59,7 +59,7 @@ namespace EnemyAI
 
         private void FixedUpdate()
         {
-            if(!canMove) return;
+            if(!CanMove) return;
             if (StateMachine != null && player != null)
             {
                 StateMachine.FixedUpdate(this);

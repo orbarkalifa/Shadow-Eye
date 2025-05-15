@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   suitName: Duri
   suitSprite: {fileID: 21300000, guid: 18e3dfd4e8e31c64d927cfa879e31f57, type: 3}
-  specialAttack: {fileID: 11400000, guid: 9bb75a85fcd0a6a428e501318970324a, type: 2}
-  specialMovement: {fileID: 11400000, guid: 6f3127a9bb19c6d418894cefe24caabf, type: 2}
-  suitPrefab: {fileID: 0}
-  attackRange: 6
-  basicAttackCooldown: 0.6
+  specialAttack: {fileID: 11400000, guid: 19d6582aa3790c64c8101a3c65a44a8e, type: 2}
+  specialMovement: {fileID: 11400000, guid: b9de945e938798f4991094449cd5e66a, type: 2}
+  suitPrefab: {fileID: 3961360938351345007, guid: 63df09bd82067ad438dbe50392f250bf, type: 3}
+  attackRange: 7
+  basicAttackCooldown: 0.7
   hudSprite: {fileID: 0}
   spriteLibrary: {fileID: 7108339969198208228, guid: 2529cc0a47d61ae45b1a09fb5d0b64cc, type: 3}

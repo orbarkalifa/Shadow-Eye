@@ -47,7 +47,7 @@ namespace EnemyAI
 
         protected void Update()
         {
-            if(!canMove)return;
+            if(!CanMove)return;
             if (player == null)
                 return;
             
@@ -75,7 +75,7 @@ namespace EnemyAI
 
         private void FixedUpdate()
         {
-            if(!canMove)
+            if(!CanMove)
             {
                 return;
             }
@@ -135,9 +135,9 @@ namespace EnemyAI
 
         private IEnumerator StunRoutine()
         {
-            canMove = false;
+            CanMove = false;
             yield return new WaitForSeconds(0.5f);
-            canMove = true;
+            CanMove = true;
         }
         private Vector2 GetSmoothedTarget()
         {
