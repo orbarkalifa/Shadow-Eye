@@ -12,6 +12,7 @@ namespace EnemyAI
         public float fieldOfViewAngle = 120f;
         public float recoilForce = 100;
         public Transform player;
+        protected Vector3 lastKnownPlayerPosition;
         public float detectionRange = 10f;
         public LayerMask obstacleLayerMask;
         public LayerMask playerLayerMask;
@@ -44,7 +45,6 @@ namespace EnemyAI
                 {
                     Debug.LogError($"EnemyController ({gameObject.name}): Player not found! Make sure player has 'Player' tag or is assigned.", this);
                     enabled = false;
-                    return;
                 }
             }
         }
@@ -61,8 +61,12 @@ namespace EnemyAI
                 Flip();
             }
         }
-        
 
+        public float GetDistanceToPlayer()
+        {
+            if (player == null) return 0;
+            return Vector2.Distance(transform.position, player.position);
+        }
         public void Flip()
         {
             Vector3 scale = transform.localScale;
@@ -114,6 +118,7 @@ namespace EnemyAI
 
             if (hit.collider == null || (playerLayerMask == (playerLayerMask | (1 << hit.collider.gameObject.layer))))
             {
+                lastKnownPlayerPosition = player.position;
                 return true;
             }
 

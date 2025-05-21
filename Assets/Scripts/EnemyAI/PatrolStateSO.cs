@@ -5,10 +5,9 @@ using UnityEngine;
 public class PatrolStateSO : EnemyStateSO
 {
     private static readonly int isWalking = Animator.StringToHash("isWalking");
-    [Header("Movement")]
+    [Header("Movement")] // How close to be to consider "arrived"
     public float patrolSpeed = 2f;
-    public float waypointArrivalThreshold = 0.5f; // How close to be to consider "arrived"
-
+    public float waypointArrivalThreshold = 0.5f; 
     [Header("Transitions")]
     public EnemyStateSO chaseState;
 
@@ -16,21 +15,14 @@ public class PatrolStateSO : EnemyStateSO
     {
         enemy.animator.SetBool(isWalking, true);
         // Ensure enemy faces and starts moving towards its patrol point immediately.
-        MoveTowardsPatrolPoint(enemy);
+        enemy.Patrol();
     }
 
     public override void OnUpdate(EnemyController enemy)
     {
-        if (enemy.CheckBehindForPlayer())
-        {
-            enemy.Flip();
-            enemy.StateMachine.ChangeState(enemy, chaseState);
-            return;
-        }
-        if (enemy.CanSeePlayer())
+        if (enemy.CheckBehindForPlayer() || enemy.CanSeePlayer())
         {
             enemy.StateMachine.ChangeState(enemy, chaseState);
-            return;
         }
     }
 
@@ -39,7 +31,7 @@ public class PatrolStateSO : EnemyStateSO
         // If transitions occur in OnUpdate, this FixedUpdate will execute for the current state.
         // If player is seen, OnUpdate will handle the state change.
         // ChaseState's OnEnter/OnFixedUpdate will take over movement.
-        MoveTowardsPatrolPoint(enemy);
+        enemy.Patrol();
     }
 
     private void MoveTowardsPatrolPoint(EnemyController enemy)

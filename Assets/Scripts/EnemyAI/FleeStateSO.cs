@@ -6,9 +6,7 @@ using UnityEngine;
 public class FleeStateSO : EnemyStateSO
 {
     private static readonly int isWalking = Animator.StringToHash("isWalking");
-    [Header("Flee Settings")]
-    public float fleeSpeed = 6f;
-    public float fleeDistance = 10f;
+
 
     [Header("Transitions")]
     public EnemyStateSO healingState;
@@ -22,7 +20,7 @@ public class FleeStateSO : EnemyStateSO
 
     public override void OnUpdate(EnemyController enemy)
     {
-        if(Vector2.Distance(enemy.transform.position, enemy.player.position) > fleeDistance)
+        if(Vector2.Distance(enemy.transform.position, enemy.player.position) > enemy.fleeDistance)
         {
             enemy.StateMachine.ChangeState(enemy, healingState); // Transition to healing
         }
@@ -35,11 +33,7 @@ public class FleeStateSO : EnemyStateSO
 
     public override void OnFixedUpdate(EnemyController enemy)
     {
-        Vector2 directionToPlayer = enemy.player.position - enemy.transform.position;
-        Vector2 fleeDirection = -directionToPlayer.normalized;
-
-        enemy.rb.velocity = new Vector2(fleeDirection.x * fleeSpeed, enemy.rb.velocity.y);
-        enemy.UpdateFacingDirection(fleeDirection.x); 
+      enemy.Flee();
     }
 
     public override void OnExit(EnemyController enemy)

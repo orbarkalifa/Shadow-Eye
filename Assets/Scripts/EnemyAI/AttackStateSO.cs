@@ -16,7 +16,7 @@ public class AttackStateSO : EnemyStateSO
         enemy.animator.SetBool(isWalking, false);
         Debug.Log("Entered attack state");
         enemy.rb.velocity = new Vector2(0f, enemy.rb.velocity.y);
-        Attack(enemy);
+        enemy.Attack();
     }
 
     public override void OnUpdate(EnemyController enemy)
@@ -43,7 +43,7 @@ public class AttackStateSO : EnemyStateSO
         
         if (Time.time >= enemy.lastAttackTime + enemy.attackCooldown)
         {
-            Attack(enemy);
+            enemy.Attack();
         }
     }
 
@@ -55,12 +55,6 @@ public class AttackStateSO : EnemyStateSO
     public override void OnExit(EnemyController enemy)
     {
         // Optionally reset or clean up any attack state here.
-    }
-
-    private void Attack(EnemyController enemy)
-    {
-        enemy.lastAttackTime = Time.time;
-        enemy.animator.CrossFadeInFixedTime("Ira_attack", 0.05f);
     }
 
 }

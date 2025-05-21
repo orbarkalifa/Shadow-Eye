@@ -6,7 +6,7 @@ using UnityEngine;
 namespace EnemyAI
 {
     [RequireComponent(typeof(Rigidbody2D))]
-    public class EnemyController : Enemy 
+    public class EnemyController : Enemy, IEnemyBehivior
     {
         [Header("Basic Settings")]
         public float attackRange = 5f;
@@ -16,13 +16,26 @@ namespace EnemyAI
 
         [HideInInspector] public float lastAttackTime = -Mathf.Infinity;
         public EnemyStateSO startingState;
+        
+        
 
         public bool canFlee = true;
-            
+        
+        [Header("Chase Settings")]
+        public float chaseSpeed = 4f;
+        
         [Header("Patrol Points")]
+        public float patrolSpeed = 2f;
+        public float waypointArrivalThreshold = 0.5f; 
         public Vector3[] patrolPoints;
-        [HideInInspector] public int currentPatrolIndex; 
-
+        [HideInInspector] public int currentPatrolIndex;
+        
+        [Header("Flee Settings")]
+        public float fleeSpeed = 6f;
+        public float fleeDistance = 10f;
+        
+        [Header("Return Home Settings")]
+        public float returnSpeed = 4f;
         [Header("Suit Drop")]
         [SerializeField] private Suit suitDrop;
         
@@ -158,6 +171,83 @@ namespace EnemyAI
             return pickup;
         }
 
+        public void Attack()
+        {
+            lastAttackTime = Time.time;
+            animator.CrossFadeInFixedTime("Ira_attack", 0.05f);
+        }
+
+        public void Patrol()
+        {
+            if (patrolPoints == null || patrolPoints.Length == 0)
+            {
+                rb.velocity = new Vector2(0, rb.velocity.y); // Stop if no patrol points
+                return;
+            }
+
+            Vector3 currentTargetPoint = patrolPoints[currentPatrolIndex];
+            float distanceToCurrentTarget = Vector2.Distance(transform.position, currentTargetPoint);
+
+            // Check if we need to switch to the next patrol point
+            if (distanceToCurrentTarget <= waypointArrivalThreshold)
+            {
+                currentPatrolIndex = (currentPatrolIndex + 1) % patrolPoints.Length;
+                currentTargetPoint = patrolPoints[currentPatrolIndex]; // Update to the new target
+                // Optionally, add a small pause here (e.g. with a timer) if desired.
+            }
+
+            // Move towards the (potentially new) current target point
+            Vector2 direction = ((Vector2)currentTargetPoint - (Vector2)transform.position).normalized;
+
+            if (direction.sqrMagnitude > 0.01f) // If there's a direction to move (not already at target)
+            {
+                rb.velocity = new Vector2(direction.x * patrolSpeed, rb.velocity.y);
+                UpdateFacingDirection(direction.x);
+            }
+            else
+            {
+                // Very close or at the target, stop to prevent jitter.
+                rb.velocity = new Vector2(0, rb.velocity.y);
+            }
+        }
+
+        public void Chase()
+        {
+            Vector2 directionToGo;
+            if(CheckBehindForPlayer()|| CanSeePlayer())
+                directionToGo = (player.position - transform.position).normalized;
+            else
+            {
+                directionToGo = (lastKnownPlayerPosition - transform.position).normalized;
+            }
+            if (Vector2.Distance(transform.position, directionToGo) > 0.5f) 
+            {
+                rb.velocity = new Vector2(directionToGo.x * chaseSpeed* 0.75f, rb.velocity.y); 
+            }
+            else
+            {
+                rb.velocity = new Vector2(directionToGo.x * chaseSpeed* 0.75f, rb.velocity.y); 
+            }
+            UpdateFacingDirection(directionToGo.x); 
+            
+        }
+
+        public void Flee()
+        {
+            Vector2 directionToPlayer = player.position - transform.position;
+            Vector2 fleeDirection = -directionToPlayer.normalized;
+
+            rb.velocity = new Vector2(fleeDirection.x * fleeSpeed, rb.velocity.y);
+            UpdateFacingDirection(fleeDirection.x);
+        }
+
+        public void ReturnHome()
+        {
+            Vector2 dir = (homePosition - (Vector2)transform.position).normalized;
+            rb.velocity = new Vector2(dir.x * returnSpeed, rb.velocity.y);
+            UpdateFacingDirection(dir.x);
+        }
+
 
 #if UNITY_EDITOR
         private void OnDrawGizmosSelected()
@@ -224,5 +314,6 @@ namespace EnemyAI
            
         }
 #endif
+
     }
 }
