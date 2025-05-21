@@ -8,7 +8,12 @@ public class HealingStateSO : EnemyStateSO
     [Header("Healing Settings")]
     public float healRate = 1f; // How much health to heal per second
     public float healDuration = 5f; // How long to heal for (or until full health)
+    
+    [Header("Healing Interruption")]
+    public float interruptHealingRange = 7f; // Or use enemy.detectionRange
+    private float healProgressAccumulator;
 
+    
     [Header("Transitions")]
     public EnemyStateSO patrolState; // State to go to after healing
     public EnemyStateSO chaseState;  // State to go to if player is detected during healing
@@ -21,28 +26,31 @@ public class HealingStateSO : EnemyStateSO
         enemy.animator.SetBool(isWalking, false); // Stop movement
         // Optionally play a healing animation
         healStartTime = Time.time;
+        healProgressAccumulator = 0f; // Reset accumulator
+
     }
 
     public override void OnUpdate(EnemyController enemy)
     {
-        // Check if player is detected during healing
         float distanceToPlayer = Vector2.Distance(enemy.transform.position, enemy.player.position);
-        if (distanceToPlayer <= enemy.fleeDistance)
+        if (distanceToPlayer <= enemy.fleeDistance && enemy.currentHits > 1)
         {
             enemy.StateMachine.ChangeState(enemy, chaseState);
             return;
         }
-
-        // Heal over time
-        if (Time.time >= healStartTime + healDuration)
+        if (Time.time >= healStartTime + healDuration || enemy.currentHits >= enemy.maxHits)
         {
-            enemy.currentHits = enemy.maxHits; // Heal to full health
+            enemy.currentHits = enemy.maxHits;
+            enemy.canFlee = true;
             enemy.StateMachine.ChangeState(enemy, patrolState);
+            return;
         }
-        else
+        healProgressAccumulator += healRate * Time.deltaTime;
+        if (healProgressAccumulator >= 1.0f)
         {
-            enemy.currentHits = Mathf.Min(enemy.maxHits, enemy.currentHits + (int)(healRate * Time.deltaTime));
-            // Optional: Add visual feedback for healing (e.g., a particle effect)
+            int amountToHeal = Mathf.FloorToInt(healProgressAccumulator);
+            enemy.currentHits = Mathf.Min(enemy.maxHits, enemy.currentHits + amountToHeal);
+            healProgressAccumulator -= amountToHeal;
         }
 
         enemy.canFlee = true;

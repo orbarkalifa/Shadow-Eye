@@ -7,6 +7,8 @@ namespace EnemyAI
     {
         
         public EnemyStateSO patrolState;
+        [Header("Arrival")]
+        public float homeArrivalThreshold = 1f;
 
         public override void OnEnter(EnemyController enemy)
         {
@@ -16,7 +18,7 @@ namespace EnemyAI
         public override void OnUpdate(EnemyController enemy)
         {
             float distToHome = Vector2.Distance(enemy.transform.position, enemy.homePosition);
-            if (distToHome <= 1f)
+            if (distToHome <= homeArrivalThreshold)
             {
                 enemy.StateMachine.ChangeState(enemy, patrolState);
             }

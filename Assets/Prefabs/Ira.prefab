@@ -133,8 +133,14 @@ MonoBehaviour:
   lastAttackTime: 0
   startingState: {fileID: 11400000, guid: 65480f5da2a8aa24397aa633c93a914f, type: 2}
   canFlee: 1
+  chaseSpeed: 4
+  patrolSpeed: 2
+  waypointArrivalThreshold: 0.5
   patrolPoints: []
   currentPatrolIndex: 0
+  fleeSpeed: 6
+  fleeDistance: 20
+  returnSpeed: 4
   suitDrop: {fileID: 11400000, guid: 4fadc748692153649ba80993fda0ca7f, type: 2}
 --- !u!95 &855339260648117484
 Animator:

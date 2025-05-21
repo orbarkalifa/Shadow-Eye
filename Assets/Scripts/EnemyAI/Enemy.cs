@@ -49,11 +49,6 @@ namespace EnemyAI
             }
         }
 
-        private void Update()
-        {
-            if (!CanMove || isStunned) rb.velocity = Vector2.zero;;
-        }
-
         public void UpdateFacingDirection(float xDirection)
         {
             if (!Mathf.Approximately(Mathf.Sign(xDirection), CurrentFacingDirection))
@@ -224,8 +219,8 @@ namespace EnemyAI
         {
             isStunned = true;
             CanMove   = false;
-
-            if (sr != null)
+            rb.velocity = Vector2.zero;
+            if (sr)
                 sr.color = stunColor;
 
             animator.Play("damaged");
@@ -233,7 +228,7 @@ namespace EnemyAI
 
             CanMove   = true;
             isStunned = false;
-            if (sr != null)
+            if (sr)
                 sr.color = originalColor;
         }
 

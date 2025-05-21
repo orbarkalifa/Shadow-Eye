@@ -216,26 +216,49 @@ namespace EnemyAI
 
         public void Chase()
         {
-            if (!CanMove || isStunned)
+            if (!CanMove || isStunned || player == null)
             {
+                if (player == null) rb.velocity = new Vector2(0, rb.velocity.y); // Stop if player is gone
                 return;
-            }       
-            Vector2 directionToGo;
-            if(CheckBehindForPlayer())
-            {
-                Flip();
             }
-            directionToGo = CanSeePlayer() ? (player.position - transform.position).normalized : (lastKnownPlayerPosition - transform.position).normalized;
-            if (Vector2.Distance(transform.position, directionToGo) > 0.5f) 
+
+            // Determine if we should react to player behind us (optional quick turn)
+            if (CheckBehindForPlayer() && !CanSeePlayer()) // Prioritize actual sight if available
             {
-                rb.velocity = new Vector2(directionToGo.x * chaseSpeed , rb.velocity.y); 
+                Flip(); // This updates CurrentFacingDirection
+            }
+
+            Vector3 targetPosition;
+            bool currentlySeesPlayer = CanSeePlayer(); // Cache for this frame
+
+            if (currentlySeesPlayer)
+            {
+                targetPosition = player.position; // lastKnownPlayerPosition is updated by CanSeePlayer
             }
             else
             {
-                rb.velocity = new Vector2(directionToGo.x * chaseSpeed* 0.75f, rb.velocity.y); 
+                targetPosition = lastKnownPlayerPosition;
             }
-            UpdateFacingDirection(directionToGo.x); 
-            
+
+            Vector2 directionToTarget = ((Vector2)targetPosition - (Vector2)transform.position);
+            float distanceToTarget = directionToTarget.magnitude; // Get actual distance
+
+            // If not seeing player and have arrived at LKP, stop. State machine will handle transition.
+            // Use a small threshold to prevent jitter.
+            if (!currentlySeesPlayer && distanceToTarget < waypointArrivalThreshold * 0.5f) // Or a dedicated LKP arrival threshold
+            {
+                rb.velocity = new Vector2(0, rb.velocity.y);
+            }
+            else
+            {
+                rb.velocity = new Vector2(directionToTarget.normalized.x * chaseSpeed, rb.velocity.y);
+            }
+
+            // Update facing direction based on movement or target direction
+            if (Mathf.Abs(directionToTarget.normalized.x) > 0.01f)
+            {
+                UpdateFacingDirection(directionToTarget.normalized.x);
+            }
         }
 
         public void Flee()

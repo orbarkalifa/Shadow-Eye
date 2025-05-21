@@ -67,7 +67,6 @@ public class ChaseStateSO : EnemyStateSO
             enemy.StateMachine.ChangeState(enemy, attackState);
             return;
         }
-        enemy.Chase();
 
         if (fleeState != null && enemy.currentHits <= 1 && enemy.canFlee) 
         {
@@ -81,6 +80,7 @@ public class ChaseStateSO : EnemyStateSO
         {
             enemy.rb.velocity = new Vector2(0, enemy.rb.velocity.y);
         }
+        enemy.Chase();
     }
 
     public override void OnExit(EnemyController enemy)
