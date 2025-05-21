@@ -38,7 +38,6 @@ namespace Suits.Duri
             Vector2 center = (Vector2)character.transform.position
                            + new Vector2(attackOffset.x * dir, attackOffset.y);
 
-            // Debug.Log($"HeavySmash: Dir: {dir}, Center: {center}, Size: {attackSize}, Layer: {LayerMask.LayerToName(enemyLayer)}");
 
             Collider2D[] hits = Physics2D.OverlapBoxAll(center, attackSize, 0f, enemyLayer);
 
