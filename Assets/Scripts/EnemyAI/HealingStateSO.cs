@@ -27,7 +27,7 @@ public class HealingStateSO : EnemyStateSO
     {
         // Check if player is detected during healing
         float distanceToPlayer = Vector2.Distance(enemy.transform.position, enemy.player.position);
-        if (distanceToPlayer <= enemy.detectionRange)
+        if (distanceToPlayer <= enemy.fleeDistance)
         {
             enemy.StateMachine.ChangeState(enemy, chaseState);
             return;

@@ -76,7 +76,6 @@ namespace EnemyAI
         {
             if (!CanMove || isStunned)
             {
-                rb.velocity = Vector2.zero;
                 return;
             }           
             
@@ -179,6 +178,10 @@ namespace EnemyAI
 
         public void Patrol()
         {
+            if (!CanMove || isStunned)
+            {
+                return;
+            }       
             if (patrolPoints == null || patrolPoints.Length == 0)
             {
                 rb.velocity = new Vector2(0, rb.velocity.y); // Stop if no patrol points
@@ -213,16 +216,19 @@ namespace EnemyAI
 
         public void Chase()
         {
-            Vector2 directionToGo;
-            if(CheckBehindForPlayer()|| CanSeePlayer())
-                directionToGo = (player.position - transform.position).normalized;
-            else
+            if (!CanMove || isStunned)
             {
-                directionToGo = (lastKnownPlayerPosition - transform.position).normalized;
+                return;
+            }       
+            Vector2 directionToGo;
+            if(CheckBehindForPlayer())
+            {
+                Flip();
             }
+            directionToGo = CanSeePlayer() ? (player.position - transform.position).normalized : (lastKnownPlayerPosition - transform.position).normalized;
             if (Vector2.Distance(transform.position, directionToGo) > 0.5f) 
             {
-                rb.velocity = new Vector2(directionToGo.x * chaseSpeed* 0.75f, rb.velocity.y); 
+                rb.velocity = new Vector2(directionToGo.x * chaseSpeed , rb.velocity.y); 
             }
             else
             {
@@ -234,15 +240,22 @@ namespace EnemyAI
 
         public void Flee()
         {
+            if (!CanMove || isStunned)
+            {
+                return;
+            }       
             Vector2 directionToPlayer = player.position - transform.position;
             Vector2 fleeDirection = -directionToPlayer.normalized;
-
             rb.velocity = new Vector2(fleeDirection.x * fleeSpeed, rb.velocity.y);
             UpdateFacingDirection(fleeDirection.x);
         }
 
         public void ReturnHome()
         {
+            if (!CanMove || isStunned)
+            {
+                return;
+            }       
             Vector2 dir = (homePosition - (Vector2)transform.position).normalized;
             rb.velocity = new Vector2(dir.x * returnSpeed, rb.velocity.y);
             UpdateFacingDirection(dir.x);

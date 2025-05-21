@@ -20,7 +20,8 @@ public class FleeStateSO : EnemyStateSO
 
     public override void OnUpdate(EnemyController enemy)
     {
-        if(Vector2.Distance(enemy.transform.position, enemy.player.position) > enemy.fleeDistance)
+        float distance = enemy.GetDistanceToPlayer();
+        if(distance > enemy.fleeDistance)
         {
             enemy.StateMachine.ChangeState(enemy, healingState); // Transition to healing
         }

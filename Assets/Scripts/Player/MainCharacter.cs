@@ -115,7 +115,7 @@ public class MainCharacter : Character
     
     private void PerformSpecialMovement()
     {
-        if (equippedSuit.specialMovement != null)
+        if (equippedSuit?.specialMovement != null)
         {
             if(!usedSpecialMovement)
             {
