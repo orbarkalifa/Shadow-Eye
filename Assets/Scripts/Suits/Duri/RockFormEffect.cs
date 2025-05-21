@@ -1,5 +1,5 @@
-using System;
 using System.Collections;
+using Cinemachine;
 using EnemyAI;
 using UnityEngine;
 
@@ -13,12 +13,10 @@ namespace Suits.Abilities
     CharacterCombat combat;
     Rigidbody2D rb;
     Animator animator;
-
+    CinemachineImpulseSource impulseSource; // Add this
+    
     bool origInvincible;
-
-
     Coroutine velocityCoroutine;
-
     private bool waitForLanding;
 
     private void Awake()
@@ -28,6 +26,12 @@ namespace Suits.Abilities
         combat = GetComponent<CharacterCombat>();
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        impulseSource = GetComponent<CinemachineImpulseSource>(); // Get the component
+
+        if (impulseSource == null)
+        {
+            Debug.LogWarning("RockFormEffect: CinemachineImpulseSource not found on the player. Camera shake on smash will not work.");
+        }
     }
 
     public void Initialize(RockAbility config)
@@ -51,6 +55,7 @@ namespace Suits.Abilities
         velocityCoroutine = StartCoroutine(DropVelocity());
 
         waitForLanding = !player.IsGrounded();
+        
     }
 
     void Update()
@@ -94,10 +99,23 @@ namespace Suits.Abilities
         foreach (var c in enemies)
             if (c.TryGetComponent(out Enemy e))
             {
-                e.TakeDamage(cfg.SmashDamage, -1);
+                // Determine a recoil direction based on relative position for this specific enemy
+                float recoilDirForEnemy = Mathf.Sign(e.transform.position.x - transform.position.x);
+                if (recoilDirForEnemy == 0) recoilDirForEnemy = -1; // Default if perfectly aligned vertically
+                e.TakeDamage(cfg.SmashDamage, recoilDirForEnemy); // Pass the calculated direction
                 e.Stun(cfg.StunDuration);
             }
-        
+
+        // Trigger Camera Shake
+        if (impulseSource != null)
+        {
+            impulseSource.GenerateImpulse();
+            Debug.Log("Rock Smash - Camera Shake Triggered!");
+        }
+        else
+        {
+            Debug.LogWarning("Rock Smash - No Impulse Source to trigger shake.");
+        }
     }
 
     public void DeactivateAndDestroy()

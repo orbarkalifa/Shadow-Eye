@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: HeavySmash
   m_EditorClassIdentifier: 
   cooldownTime: 3
-  attackSize: {x: 5, y: 1}
+  attackSize: {x: 10, y: 5}
   attackOffset: {x: 1, y: 0}
   enemyLayer:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 576
   bounceForce: 5
