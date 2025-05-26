@@ -7,6 +7,8 @@ using Suits.Duri;
 
 public class CharacterCombat : MonoBehaviour
 {
+    private static readonly int attackSpeedMultiplier = Animator.StringToHash("AttackSpeedMultiplier");
+
     [Header("Attack Settings")]
     public BoxCollider2D attackBox;
     public int attackDamage = 1;
@@ -19,6 +21,7 @@ public class CharacterCombat : MonoBehaviour
     private Animator animator;
     private Rigidbody2D rb;
     
+    private float currentSuitAttackAnimSpeed = 1.0f;
     private int comboStep;
     private float lastAttackTime;
     private readonly float comboResetTime = 1f;
@@ -67,6 +70,9 @@ public class CharacterCombat : MonoBehaviour
     {
         if (isOnCooldown)
             return;
+        
+        animator.SetFloat(attackSpeedMultiplier, currentSuitAttackAnimSpeed);
+        
         if (attackUp)
         {
             isAttacking = true;
@@ -218,6 +224,7 @@ public class CharacterCombat : MonoBehaviour
         {
             ChangeCooldown(suit.basicAttackCooldown);
             ChangeRange(suit.attackRange);
+            currentSuitAttackAnimSpeed = suit.basicAttackAnimationSpeed;
             return;
         }
         ChangeCooldown(-1);
