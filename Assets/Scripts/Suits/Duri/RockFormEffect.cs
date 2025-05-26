@@ -82,7 +82,7 @@ namespace Suits.Duri
             // Phase 1: Play Transform-In Animation
             animator.speed = 1f;
             animator.CrossFadeInFixedTime(cfg.TransformInClip.name, 0f);
-            yield return new WaitForSeconds(transformInClipLength+1);
+            yield return new WaitForSeconds(transformInClipLength+0.1f);
 
             // Phase 2: Hold Last Frame (by setting speed to 0 after 'In' animation)
             animator.speed = 0f; // Freeze animation at the last frame of TransformInClip
