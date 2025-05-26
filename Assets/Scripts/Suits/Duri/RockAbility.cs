@@ -1,3 +1,4 @@
+using Player;
 using UnityEngine;
 
 namespace Suits.Duri
@@ -11,23 +12,28 @@ namespace Suits.Duri
         [field:SerializeField] public int SmashDamage { get; private set; } = 5;
         [field:SerializeField] public float StunDuration { get; private set; } = 2f;
         [field:SerializeField] public float VelocityDropRate { get; private set; } = 20f; 
-        
         [field: SerializeField] public AnimationClip TransformInClip { get; private set; }  // New: For transforming IN
         [field: SerializeField] public AnimationClip TransformOutClip { get; private set; } // New: 
 
-        public override void ExecuteAbility(GameObject character)
+        public override void Execute(PlayerController character) // Parameter changed
         {
+            // The toggle logic for adding/removing the effect remains.
+            // PlayerController will handle the cooldown for "RockAbility" immediately after this.
             var effect = character.GetComponent<RockFormEffect>();
             if (effect == null)
             {
-                effect = character.AddComponent<RockFormEffect>();
-                effect.Initialize(this);
-                effect.Activate();
+                effect = character.gameObject.AddComponent<RockFormEffect>();
+                effect.Initialize(this, character); // Pass this RockAbility SO
+                effect.Activate(); // Effect will disable canMove/canAttack
             }
             else
             {
-                effect.DeactivateAndDestroy();
+                effect.DeactivateAndDestroy(); // Effect will re-enable canMove/canAttack
             }
+        }
+        public void TriggerCooldownRequestFromEffect(PlayerController caster)
+        {
+            RequestCooldownStart(caster);
         }
     }
 }

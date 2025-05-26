@@ -1,14 +1,16 @@
+using Player;
+
 namespace Suits.Abilities
 {
     using UnityEngine;
-    using UnityEngine.Serialization;
+
     [CreateAssetMenu(fileName = "Projectile", menuName = "Ability/Projectile")]
     public class FireballAttack : SuitAbility
     {
         [SerializeField] private float Lifetime = 2f;
         public GameObject FireballPrefab;
 
-        public override void ExecuteAbility(GameObject character)
+        public override void Execute(PlayerController character)
         {
             Transform firePoint = character.transform.Find("Weapon Spawn Point"); 
             if (FireballPrefab != null && firePoint != null)
@@ -21,6 +23,8 @@ namespace Suits.Abilities
                 fireball.GetComponent<Rigidbody2D>().velocity = new Vector2(facingDirection * 40f, 0);
                 
                 Destroy(fireball, Lifetime);
+                
+                RequestCooldownStart(character);
 
             }
             else

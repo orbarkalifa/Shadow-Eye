@@ -1,16 +1,23 @@
-using System;
-using System.Collections;
-using Suits;
+using Player;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Dash", menuName = "Ability/Dash")]
-public class DashMovement : SuitAbility
+namespace Suits.Ira
 {
-    public override void ExecuteAbility(GameObject character)
+    [CreateAssetMenu(fileName = "Dash", menuName = "Ability/Dash")]
+    public class DashMovement : SuitAbility
     {
-        CharacterMovement movement = character.GetComponent<CharacterMovement>();
-        movement.Dash();
+        public override void Execute(PlayerController character)
+        {
+            CharacterMovement movement = character.GetComponent<CharacterMovement>();
+            if (movement != null && movement.canMove)
+            {
+                movement.Dash();
+                RequestCooldownStart(character);
+            }
+            else if (movement == null)
+            {
+                Debug.LogError("DashMovement: CharacterMovement component not found on character.");
+            }
+        }
     }
-    
-    
 }

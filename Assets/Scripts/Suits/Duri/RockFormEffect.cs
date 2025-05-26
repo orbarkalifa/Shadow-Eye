@@ -8,7 +8,7 @@ namespace Suits.Duri
 {
     public class RockFormEffect : MonoBehaviour
     {
-        RockAbility cfg; // This will hold the reference to your RockAbility ScriptableObject
+        private RockAbility rockAbilitySO;
         PlayerController player;
         CharacterMovement movement;
         CharacterCombat combat;
@@ -25,39 +25,38 @@ namespace Suits.Duri
 
         void Awake()
         {
-            player = GetComponent<PlayerController>();
-            movement = GetComponent<CharacterMovement>();
-            combat = GetComponent<CharacterCombat>();
-            rb = GetComponent<Rigidbody2D>();
-            animator = GetComponent<Animator>();
             impulseSource = GetComponent<CinemachineImpulseSource>();
 
-            if (animator == null) Debug.LogError("RockFormEffect: Animator not found!");
             if (impulseSource == null)
                 Debug.LogWarning("RockFormEffect: No CinemachineImpulseSource – camera shake disabled.");
         }
 
-        public void Initialize(RockAbility config) 
+        public void Initialize(RockAbility config, PlayerController caster)
         {
-            cfg = config; 
+            player = caster;
+            movement = caster.characterMovement;
+            combat = caster.characterCombat;
+            rockAbilitySO = config; 
+            rb = player.rb;
+            animator = player.animator;
 
-            if (cfg.TransformInClip == null)
+            if (rockAbilitySO.TransformInClip == null)
             {
-                Debug.LogError("RockFormEffect: TransformInClip is not assigned in RockAbility config!", cfg);
+                Debug.LogError("RockFormEffect: TransformInClip is not assigned in RockAbility config!", rockAbilitySO);
                 transformInClipLength = 0f;
                 enabled = false; 
                 return;
             }
-            transformInClipLength = cfg.TransformInClip.length;
+            transformInClipLength = rockAbilitySO.TransformInClip.length;
 
-            if (cfg.TransformOutClip == null)
+            if (rockAbilitySO.TransformOutClip == null)
             {
-                Debug.LogWarning("RockFormEffect: TransformOutClip is not assigned. Reverting animation will be skipped.", cfg);
+                Debug.LogWarning("RockFormEffect: TransformOutClip is not assigned. Reverting animation will be skipped.", rockAbilitySO);
                 transformOutClipLength = 0f;
             }
             else
             {
-                transformOutClipLength = cfg.TransformOutClip.length;
+                transformOutClipLength = rockAbilitySO.TransformOutClip.length;
             }
         }
 
@@ -81,7 +80,7 @@ namespace Suits.Duri
         {
             // Phase 1: Play Transform-In Animation
             animator.speed = 1f;
-            animator.CrossFadeInFixedTime(cfg.TransformInClip.name, 0f);
+            animator.CrossFadeInFixedTime(rockAbilitySO.TransformInClip.name, 0f);
             yield return new WaitForSeconds(transformInClipLength+0.1f);
 
             // Phase 2: Hold Last Frame (by setting speed to 0 after 'In' animation)
@@ -107,7 +106,7 @@ namespace Suits.Duri
         {
             if (waitForLanding)
             {
-                rb.velocity += Vector2.down * (cfg.VelocityDropRate * 0.1f * Time.fixedDeltaTime);
+                rb.velocity += Vector2.down * (rockAbilitySO.VelocityDropRate * 0.1f * Time.fixedDeltaTime);
             }
         }
 
@@ -115,7 +114,7 @@ namespace Suits.Duri
         {
             while (Mathf.Abs(rb.velocity.x) > 0.05f)
             {
-                float newX = Mathf.MoveTowards(rb.velocity.x, 0f, cfg.VelocityDropRate * Time.deltaTime);
+                float newX = Mathf.MoveTowards(rb.velocity.x, 0f, rockAbilitySO.VelocityDropRate * Time.deltaTime);
                 rb.velocity = new Vector2(newX, rb.velocity.y);
                 yield return null;
             }
@@ -124,15 +123,15 @@ namespace Suits.Duri
 
         void Smash()
         {
-            Vector2 center = (Vector2)transform.position + cfg.SmashAreaOffset;
-            var enemies = Physics2D.OverlapBoxAll(center, cfg.SmashAreaSize, 0f, cfg.EnemyLayerMask);
+            Vector2 center = (Vector2)transform.position + rockAbilitySO.SmashAreaOffset;
+            var enemies = Physics2D.OverlapBoxAll(center, rockAbilitySO.SmashAreaSize, 0f, rockAbilitySO.EnemyLayerMask);
             foreach (var c in enemies)
                 if (c.TryGetComponent<Enemy>(out var e))
                 {
                     float dir = Mathf.Sign(e.transform.position.x - transform.position.x);
                     if (dir == 0) dir = -1f;
-                    e.TakeDamage(cfg.SmashDamage, dir);
-                    e.Stun(cfg.StunDuration);
+                    e.TakeDamage(rockAbilitySO.SmashDamage, dir);
+                    e.Stun(rockAbilitySO.StunDuration);
                 }
             if (impulseSource != null)
             {
@@ -162,9 +161,9 @@ namespace Suits.Duri
             // Phase 3: Play Transform-Out Animation (using the dedicated TransformOutClip)
             animator.speed = 1f; // Ensure animator speed is normal for playing the out clip
 
-            if (cfg.TransformOutClip != null && transformOutClipLength > 0)
+            if (rockAbilitySO.TransformOutClip && transformOutClipLength > 0)
             {
-                animator.CrossFadeInFixedTime(cfg.TransformOutClip.name, 0f);
+                animator.CrossFadeInFixedTime(rockAbilitySO.TransformOutClip.name, 0f);
                 yield return new WaitForSeconds(transformOutClipLength);
             }
 
@@ -178,21 +177,21 @@ namespace Suits.Duri
             if (player.IsInvincible != origInvincible)
                 player.ChangeInvincibleState();
 
-            if (cfg.cooldownTime > 0)
+            if (rockAbilitySO.cooldownTime > 0 && player)
             {
-                player.StartCoroutine(player.SpecialMovementCD(cfg.cooldownTime));
+                rockAbilitySO.TriggerCooldownRequestFromEffect(player);
             }
-
+            
             Destroy(this);
         }
 
 #if UNITY_EDITOR
         void OnDrawGizmosSelected()
         {
-            if (cfg == null) return; 
+            if (rockAbilitySO == null) return; 
             Gizmos.color = new Color(1, 0, 0, 0.5f);
-            Vector3 c = transform.position + (Vector3)cfg.SmashAreaOffset;
-            Gizmos.DrawWireCube(c, cfg.SmashAreaSize);
+            Vector3 c = transform.position + (Vector3)rockAbilitySO.SmashAreaOffset;
+            Gizmos.DrawWireCube(c, rockAbilitySO.SmashAreaSize);
         }
 #endif
     }

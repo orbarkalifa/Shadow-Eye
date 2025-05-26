@@ -12,10 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6dea6d5a53b040799f7d87963eb0c14e, type: 3}
   m_Name: HeavySmash
   m_EditorClassIdentifier: 
+  abilityName: HeavySmash
   cooldownTime: 3
   attackSize: {x: 10, y: 5}
   attackOffset: {x: 1, y: 0}
   enemyLayer:
     serializedVersion: 2
     m_Bits: 576
+  smashDamage: 2
   bounceForce: 5

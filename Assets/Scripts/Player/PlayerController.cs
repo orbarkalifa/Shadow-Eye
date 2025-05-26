@@ -1,4 +1,6 @@
 using System.Collections;
+using System.Collections.Generic;
+using Suits;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.U2D.Animation;
@@ -7,8 +9,8 @@ namespace Player
 {
     public class PlayerController : Character
     {
-        private CharacterMovement characterMovement;
-        private CharacterCombat characterCombat;
+        public CharacterMovement characterMovement;
+        public CharacterCombat characterCombat;
         private InputSystem_Actions inputActions;
         private Transform lastCheckPoint;
     
@@ -34,6 +36,7 @@ namespace Player
         private bool usedSpecialAttack;
         private bool usedSpecialMovement;
       
+        private Dictionary<SuitAbility, Coroutine> activeAbilityCooldowns = new Dictionary<SuitAbility, Coroutine>();
 
         protected override void Awake()
         {
@@ -89,85 +92,156 @@ namespace Player
         private void PerformBasicAttack()
         {
             if (!characterCombat.canAttack) return;
-            Debug.Log($"{gameObject.name} performs a basic attack.dirction {CurrentFacingDirection}");
             characterCombat.BasicAttack();
         }
-    
+        
         private void PerformSpecialAttack()
         {
-            if (!characterCombat.canAttack) return;
-        
             if (equippedSuit?.specialAttack != null)
             {
-                if(!usedSpecialAttack)
-                {
-                    equippedSuit.specialAttack.ExecuteAbility(gameObject);
-                    StartCoroutine(SpecialAttackCD(equippedSuit.specialAttack.cooldownTime));
-                }
-                else
-                {
-                    Debug.Log("mot time yet");
-                }
-            }
-            else
-            {
-                Debug.LogWarning("No suit equipped or no special attack available.");
+                AttemptExecuteAbility(equippedSuit.specialAttack);
             }
         }
-    
+
         private void PerformSpecialMovement()
         {
             if (equippedSuit?.specialMovement != null)
             {
-                if(!usedSpecialMovement)
-                {
-                    equippedSuit.specialMovement.ExecuteAbility(gameObject);
-                    if (equippedSuit.suitName != "Duri")
-                    {
-                        StartCoroutine(SpecialMovementCD(equippedSuit.specialMovement.cooldownTime));
-                    }
-                }
-            }
-            else
-            {
-                Debug.LogWarning("No suit equipped or no special movement available.");
+                AttemptExecuteAbility(equippedSuit.specialMovement, true);
             }
         }
-    
-        public void UnlockWallGrabAbility()
+        
+        private void AttemptExecuteAbility(SuitAbility ability, bool isSpecialMovement = false)
         {
-            characterMovement.canWallGrab = true;
-            // visual/audio feedback
+            if (ability == null) return;
+
+            if (IsAbilityOnCooldown(ability))
+            {
+                Debug.Log($"{ability.abilityName} is on cooldown.");
+                return;
+            }
+
+            if (isSpecialMovement && !characterMovement.canMove && ability.abilityName != "RockForm") 
+            {
+                Debug.Log($"Cannot use {ability.abilityName} - movement disabled.");
+                return;
+            }
+            if (!isSpecialMovement && !characterCombat.canAttack) 
+            {
+                Debug.Log($"Cannot use {ability.abilityName} - combat disabled.");
+                return;
+            }
+
+            ability.Execute(this); 
+            
+        }
+        
+        public bool IsAbilityOnCooldown(SuitAbility ability)
+        {
+            return activeAbilityCooldowns.ContainsKey(ability);
+        }
+        
+        public void StartTrackingCooldown(SuitAbility abilityToCooldown)
+        {
+            if (abilityToCooldown == null || abilityToCooldown.cooldownTime <= 0)
+            {
+                // Debug.LogWarning($"Attempted to start cooldown for a null ability or ability with no cooldown time: {abilityToCooldown?.name}");
+                return;
+            }
+
+            if (IsAbilityOnCooldown(abilityToCooldown))
+            {
+                // Already on cooldown, typically do nothing or maybe reset it if that's desired behavior.
+                // For now, let's prevent re-starting an existing cooldown.
+                // Debug.LogWarning($"{abilityToCooldown.name} requested cooldown start but is already on cooldown with this PlayerController.");
+                return;
+            }
+
+            activeAbilityCooldowns[abilityToCooldown] = StartCoroutine(AbilityCooldownCoroutine(abilityToCooldown, abilityToCooldown.cooldownTime));
+            Debug.Log($"PlayerController: Tracking {abilityToCooldown.cooldownTime}s cooldown for {abilityToCooldown.abilityName}.");
         }
 
-        public void UnlockConsumeAbility()
+        
+        // ReSharper disable Unity.PerformanceAnalysis
+        private IEnumerator AbilityCooldownCoroutine(SuitAbility ability, float duration)
         {
-            inputActions.Player.Consume.performed += _ => UnEquipSuit();
+            yield return new WaitForSeconds(duration);
+            activeAbilityCooldowns.Remove(ability);
+            Debug.Log($"PlayerController: Cooldown finished for {ability.abilityName}");
         }
+        
 
     
         public void EquipSuit(Suit newSuit)
         {
-            if (equippedSuit != null)
-            {
-                Heal();
-                return;
-            }
-        
-            equippedSuit = newSuit;
+            if (newSuit == null) return;
+            if (equippedSuit != null) { Heal(); return; }
 
+            equippedSuit = newSuit;
+            ApplySuitChanges();
+        }
+
+        public void UnEquipSuit()
+        {
             if (equippedSuit != null)
             {
-            
-                if(spriteLibrary != null)
+                // If an ability effect needs cleanup on unequip, it should handle it.
+                // Example: If RockFormEffect was active, its DeactivateAndDestroy should ideally be called.
+                // This is a bit tricky if an effect is "stuck" on.
+                // For simplicity, we'll assume effects self-manage or are toggled off.
+                // Clear active cooldowns for the suit being unequipped.
+                ClearCooldownsForSuit(equippedSuit);
+
+                Debug.Log($"Unequipped suit: {equippedSuit.suitName}");
+                equippedSuit = null;
+                ApplySuitChanges();
+                Heal();
+            }
+        }
+        
+        private void ClearCooldownsForSuit(Suit suitToClear)
+        {
+            if (suitToClear == null) return;
+
+            List<SuitAbility> abilitiesToClear = new List<SuitAbility>();
+            if (suitToClear.specialAttack != null) abilitiesToClear.Add(suitToClear.specialAttack);
+            if (suitToClear.specialMovement != null) abilitiesToClear.Add(suitToClear.specialMovement);
+            // Add other ability slots if any
+
+            foreach (var ability in abilitiesToClear)
+            {
+                if (IsAbilityOnCooldown(ability))
                 {
-                    eye.SetActive(false);
-                    spriteLibrary.spriteLibraryAsset = equippedSuit.spriteLibrary;
+                    StopCoroutine(activeAbilityCooldowns[ability]);
+                    activeAbilityCooldowns.Remove(ability);
+                     Debug.Log($"Cleared cooldown for {ability.abilityName} due to unequip.");
                 }
+            }
+        }
+
+        private void ApplySuitChanges()
+        {
+            if (equippedSuit != null)
+            {
+                if (spriteLibrary != null && equippedSuit.spriteLibrary != null)
+                    spriteLibrary.spriteLibraryAsset = equippedSuit.spriteLibrary;
+                eye.SetActive(false);
                 beacon.uiChannel.ChangeHud(equippedSuit.hudSprite);
                 characterCombat.ParametersSwap(equippedSuit);
             }
-        
+            else
+            {
+                if (spriteLibrary != null && normalSpriteLibraryAsset != null)
+                    spriteLibrary.spriteLibraryAsset = normalSpriteLibraryAsset;
+                eye.SetActive(true);
+                beacon.uiChannel.ChangeHud(null);
+                characterCombat.ParametersSwap(null);
+            }
+        }
+        private void Heal()
+        {
+            currentHits = Mathf.Min(currentHits + 1, maxHits);
+            beacon.uiChannel.ChangeHealth(currentHits);
         }
 
     
@@ -192,27 +266,19 @@ namespace Player
             IsInvincible = false;
         }
     
-        private void UnEquipSuit()
-        {
-            if (equippedSuit != null)
-            {
-                eye.SetActive(true);
-                Debug.Log($"Unequipped suit: {equippedSuit.suitName}");
-                equippedSuit = null;
-                characterCombat.ParametersSwap(null);
-                beacon.uiChannel.ChangeHud(null);
-                if(spriteLibrary != null && normalSpriteLibraryAsset != null)
-                    spriteLibrary.spriteLibraryAsset = normalSpriteLibraryAsset;
-                Heal();
-            }
         
-        }
-        private void Heal()
-        {
-            currentHits = Mathf.Min(currentHits + 1, maxHits);
-            beacon.uiChannel.ChangeHealth(currentHits);
-        }
     
+        public void UnlockWallGrabAbility()
+        {
+            characterMovement.canWallGrab = true;
+            // visual/audio feedback
+        }
+
+        public void UnlockConsumeAbility()
+        {
+            inputActions.Player.Consume.performed += _ => UnEquipSuit();
+        }
+        
         private void OnDestroy()
         {
             inputActions?.Dispose();
@@ -259,18 +325,6 @@ namespace Player
         public void ResetPosition()
         {
             transform.position = lastCheckPoint.position;
-        }
-        public IEnumerator SpecialAttackCD(float time)
-        {
-            usedSpecialAttack = true;
-            yield return new WaitForSeconds(time);
-            usedSpecialAttack = false;
-        }
-        public IEnumerator SpecialMovementCD(float specialMovementCooldownTime)
-        {
-            usedSpecialMovement = true;
-            yield return new WaitForSeconds(specialMovementCooldownTime);
-            usedSpecialMovement = false;
         }
     
         public void OnMovePerformed(InputAction.CallbackContext context)

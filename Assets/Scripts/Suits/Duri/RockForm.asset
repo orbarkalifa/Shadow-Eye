@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7e7b057598a475eb668bdc291039e70, type: 3}
   m_Name: RockForm
   m_EditorClassIdentifier: 
+  abilityName: RockForm
   cooldownTime: 2
-  <SmashAreaSize>k__BackingField: {x: 15, y: 3}
+  <SmashAreaSize>k__BackingField: {x: 25, y: 5}
   <SmashAreaOffset>k__BackingField: {x: 0, y: -1}
   <EnemyLayerMask>k__BackingField:
     serializedVersion: 2

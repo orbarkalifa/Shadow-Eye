@@ -124,9 +124,10 @@ public class CharacterCombat : MonoBehaviour
     
     public void OnHeavySmashImpact()
     {
-        // delegate back to the ability so you don’t duplicate code
-        var ability = character.equippedSuit.specialAttack as HeavySmashAbility;
-        ability?.ApplySmashEffect(gameObject);
+        if (character.equippedSuit?.specialAttack is HeavySmashAbility heavySmash)
+        {
+            heavySmash.ApplySmashEffect(character); // Pass PlayerController
+        }
     }
     private IEnumerator AttackCooldown()
     {

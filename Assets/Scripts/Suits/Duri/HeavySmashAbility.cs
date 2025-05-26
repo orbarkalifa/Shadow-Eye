@@ -18,7 +18,7 @@ namespace Suits.Duri
         PlayerController main;
         CharacterCombat combat;
 
-        public override void ExecuteAbility(GameObject character)
+        public override void Execute(PlayerController character)
         {
             Debug.Log("HeavySmashAbility.ExecuteAbility called.");
 
@@ -36,9 +36,11 @@ namespace Suits.Duri
             }
 
             main.animator.CrossFadeInFixedTime("HeavySmash", 0.1f);
+            RequestCooldownStart(character);
+
             
         }
-        public void ApplySmashEffect(GameObject character)
+        public void ApplySmashEffect(PlayerController character)
         {
             float dir = main.CurrentFacingDirection;
             Vector2 center = (Vector2)character.transform.position
@@ -56,7 +58,8 @@ namespace Suits.Duri
                     e.TakeDamage(smashDamage, recoilDir); // Using CharacterCombat's base attack damage
                     e.rb.AddForce(Vector2.up * bounceForce * e.rb.mass, ForceMode2D.Impulse);
                 }
-            }        }
+            }
+        }
 
     #if UNITY_EDITOR
         void OnDrawGizmosSelected()
