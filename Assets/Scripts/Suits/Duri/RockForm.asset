@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: RockForm
   m_EditorClassIdentifier: 
   cooldownTime: 2
-  <RockSprite>k__BackingField: {fileID: 21300000, guid: 270e899d4c949534ea12ff0ee129dfe3, type: 3}
   <SmashAreaSize>k__BackingField: {x: 15, y: 3}
   <SmashAreaOffset>k__BackingField: {x: 0, y: -1}
   <EnemyLayerMask>k__BackingField:
@@ -22,4 +21,5 @@ MonoBehaviour:
   <SmashDamage>k__BackingField: 3
   <StunDuration>k__BackingField: 2
   <VelocityDropRate>k__BackingField: 20
-  <TransformClip>k__BackingField: {fileID: 7400000, guid: c1800170d64424f6897da95bef3078a8, type: 2}
+  <TransformInClip>k__BackingField: {fileID: 7400000, guid: c1800170d64424f6897da95bef3078a8, type: 2}
+  <TransformOutClip>k__BackingField: {fileID: 7400000, guid: 87dcbefa49c5f4babbce595f2d52684c, type: 2}

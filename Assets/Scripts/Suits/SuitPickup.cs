@@ -1,3 +1,4 @@
+using Player;
 using UnityEngine.Serialization;
 
 namespace Suits

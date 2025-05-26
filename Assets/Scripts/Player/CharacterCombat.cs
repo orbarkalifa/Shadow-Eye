@@ -2,6 +2,7 @@ using System.Collections;
 using EnemyAI;
 using UnityEngine;
 using Cinemachine;
+using Player;
 using Suits.Duri;
 
 public class CharacterCombat : MonoBehaviour

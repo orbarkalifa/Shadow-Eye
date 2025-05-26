@@ -1,4 +1,5 @@
 using GameStateManagement;
+using Player;
 using Suits;
 using UnityEditor;
 using UnityEngine;

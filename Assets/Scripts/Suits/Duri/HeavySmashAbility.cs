@@ -1,5 +1,6 @@
 using UnityEngine;
 using EnemyAI;
+using Player;
 
 namespace Suits.Duri
 {
