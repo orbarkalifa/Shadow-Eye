@@ -92,7 +92,7 @@ namespace EnemyAI
             Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, attackRange, playerLayerMask);
             foreach (var hitCollider in hitColliders)
             {
-                MainCharacter playerController = hitCollider.GetComponent<MainCharacter>();
+                PlayerController playerController = hitCollider.GetComponent<PlayerController>();
                 if (playerController != null && !playerController.IsInvincible)
                 {
                     recoilDirection = GetRecoilDirection(playerController.transform);

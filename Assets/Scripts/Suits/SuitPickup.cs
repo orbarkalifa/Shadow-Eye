@@ -19,7 +19,7 @@ namespace Suits
 
             if (collision.CompareTag("Player"))
             {
-                MainCharacter player = collision.GetComponent<MainCharacter>();
+                PlayerController player = collision.GetComponent<PlayerController>();
                 if (player)
                 {
                     player.EquipSuit(suit);

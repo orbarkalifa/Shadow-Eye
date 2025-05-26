@@ -5,7 +5,7 @@ using UnityEngine.U2D.Animation;
 
 namespace Player
 {
-    public class MainCharacter : Character
+    public class PlayerController : Character
     {
         private CharacterMovement characterMovement;
         private CharacterCombat characterCombat;

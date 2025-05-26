@@ -9,7 +9,7 @@ namespace Suits.Duri
     public class RockFormEffect : MonoBehaviour
     {
         RockAbility cfg; // This will hold the reference to your RockAbility ScriptableObject
-        MainCharacter player;
+        PlayerController player;
         CharacterMovement movement;
         CharacterCombat combat;
         Rigidbody2D rb;
@@ -25,7 +25,7 @@ namespace Suits.Duri
 
         void Awake()
         {
-            player = GetComponent<MainCharacter>();
+            player = GetComponent<PlayerController>();
             movement = GetComponent<CharacterMovement>();
             combat = GetComponent<CharacterCombat>();
             rb = GetComponent<Rigidbody2D>();

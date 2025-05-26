@@ -10,7 +10,7 @@ public class SpikesLogic : MonoBehaviour
     {
         if (((1 << other.gameObject.layer) & playerLayer) != 0)
         {
-            var player = other.GetComponent<MainCharacter>();
+            var player = other.GetComponent<PlayerController>();
             if (player != null)
             {
                 ResetPlayer(player);
@@ -18,7 +18,7 @@ public class SpikesLogic : MonoBehaviour
         }
     }
 
-    private void ResetPlayer(MainCharacter player)
+    private void ResetPlayer(PlayerController player)
     {
         player.TakeDamage(1, -1f);
         Debug.Log("SPIKED");

@@ -11,7 +11,7 @@ public class WallGrabUnlock : MonoBehaviour
     {
         if (!other.CompareTag("Player")) return;
 
-        var player = other.GetComponent<MainCharacter>();
+        var player = other.GetComponent<PlayerController>();
         if (player != null)
         {
             player.UnlockWallGrabAbility();

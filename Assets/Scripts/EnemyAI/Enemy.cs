@@ -172,7 +172,7 @@ namespace EnemyAI
         {
             if (collision.gameObject. CompareTag("Player"))
             {
-                MainCharacter playerCollision = collision.gameObject.GetComponent<MainCharacter>();
+                PlayerController playerCollision = collision.gameObject.GetComponent<PlayerController>();
                 var recoilDirection = GetRecoilDirection(playerCollision.transform) > 0 ? 1 : -1;
                 playerCollision.TakeDamage(1, recoilDirection);
             }

@@ -9,7 +9,7 @@ public class CharacterMovement : MonoBehaviour
     private static readonly int isJumpingHash = Animator.StringToHash("Jumping");
     private static readonly int isWallSlidingHash = Animator.StringToHash("isWallSliding");
     [SerializeField] private float recoilForce = 50;
-    private MainCharacter character;
+    private PlayerController character;
     private Animator animator;
     private Rigidbody2D rb;
     private bool isFacingRight = true;
@@ -52,7 +52,7 @@ public class CharacterMovement : MonoBehaviour
 
     protected void Start()
     {
-        character = GetComponent<MainCharacter>();
+        character = GetComponent<PlayerController>();
         animator = character.animator;
         if (!animator)
             Debug.LogError("Animator is missing!");

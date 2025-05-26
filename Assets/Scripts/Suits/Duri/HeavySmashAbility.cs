@@ -15,7 +15,7 @@ namespace Suits.Duri
         [Header("Bounce & Damage")]
         [SerializeField] float bounceForce  = 10f;
 
-        MainCharacter main;
+        PlayerController main;
         CharacterCombat combat;
 
         public override void ExecuteAbility(GameObject character)
@@ -24,7 +24,7 @@ namespace Suits.Duri
 
             if (main == null) // This will only run the first time
             {
-                main = character.GetComponent<MainCharacter>();
+                main = character.GetComponent<PlayerController>();
                 combat = character.GetComponent<CharacterCombat>();
                 Debug.Log($"HeavySmash: Initialized main ({main != null}) and combat ({combat != null}).");
             }
@@ -61,7 +61,7 @@ namespace Suits.Duri
     #if UNITY_EDITOR
         void OnDrawGizmosSelected()
         {
-            var mc = FindObjectOfType<MainCharacter>();
+            var mc = FindObjectOfType<PlayerController>();
             if (mc == null) return;
             float dir = mc.CurrentFacingDirection;
             Vector2 center = (Vector2)mc.transform.position

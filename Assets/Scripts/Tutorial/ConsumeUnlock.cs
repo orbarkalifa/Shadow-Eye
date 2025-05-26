@@ -15,7 +15,7 @@ public class ConsumeUnlock : MonoBehaviour
     {
         if (triggered||!other.CompareTag("Player")) return;
 
-        var player = other.GetComponent<MainCharacter>();
+        var player = other.GetComponent<PlayerController>();
         if (player != null)
         {
             player.UnlockConsumeAbility();

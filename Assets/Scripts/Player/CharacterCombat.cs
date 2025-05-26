@@ -17,7 +17,7 @@ public class CharacterCombat : MonoBehaviour
     public float attackCooldown;
     public bool canAttack;
 
-    private MainCharacter character;
+    private PlayerController character;
     private Animator animator;
     private Rigidbody2D rb;
     
@@ -35,7 +35,7 @@ public class CharacterCombat : MonoBehaviour
     private void Start()
    {
        canAttack = true;
-       character = GetComponent<MainCharacter>();
+       character = GetComponent<PlayerController>();
        animator = character.animator;
        if (!animator)
            Debug.LogError("Animator is missing!");

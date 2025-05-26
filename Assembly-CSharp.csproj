@@ -53,6 +53,7 @@
     <Compile Include="Assets/Scripts/UI/UIFlasher.cs" />
     <Compile Include="Assets/Scripts/CheckPoint.cs" />
     <Compile Include="Assets/Scripts/Character.cs" />
+    <Compile Include="Assets/Scripts/Player/PlayerController.cs" />
     <Compile Include="Assets/Scripts/Tutorial/TutorialPanelController.cs" />
     <Compile Include="Assets/Scripts/GameStateManagement/WinStateSO.cs" />
     <Compile Include="Assets/Scripts/EnemyAI/EnemyController.cs" />
@@ -60,7 +61,6 @@
     <Compile Include="Assets/Scripts/EnemyAI/AttackStateSO.cs" />
     <Compile Include="Assets/Scripts/Destructible.cs" />
     <Compile Include="Assets/Scripts/UI/UIEyeScript.cs" />
-    <Compile Include="Assets/Scripts/Player/MainCharacter.cs" />
     <Compile Include="Assets/Scripts/GameStateManagement/GameOverStateSO.cs" />
     <Compile Include="Assets/Scripts/EnemyAI/PatrolStateSO.cs" />
     <Compile Include="Assets/Scripts/Tutorial/WallGrabUnlock.cs" />

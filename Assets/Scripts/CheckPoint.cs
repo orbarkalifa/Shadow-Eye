@@ -7,7 +7,7 @@ public class CheckPoint : MonoBehaviour
     {
         if(other.CompareTag("Player"))
         {
-            other.GetComponent<MainCharacter>().ChangeResetPoint(this.transform);
+            other.GetComponent<PlayerController>().ChangeResetPoint(this.transform);
         }
     }
 }
