@@ -22,3 +22,4 @@ MonoBehaviour:
   <SmashDamage>k__BackingField: 3
   <StunDuration>k__BackingField: 2
   <VelocityDropRate>k__BackingField: 20
+  <TransformClip>k__BackingField: {fileID: 7400000, guid: c1800170d64424f6897da95bef3078a8, type: 2}

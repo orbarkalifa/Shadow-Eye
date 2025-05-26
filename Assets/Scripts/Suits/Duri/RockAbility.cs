@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Suits.Abilities
+namespace Suits.Duri
 {
     [CreateAssetMenu(fileName = "RockForm", menuName = "Ability/Rock Form")]
     public class RockAbility : SuitAbility
@@ -12,6 +12,8 @@ namespace Suits.Abilities
         [field:SerializeField] public int SmashDamage { get; private set; } = 5;
         [field:SerializeField] public float StunDuration { get; private set; } = 2f;
         [field:SerializeField] public float VelocityDropRate { get; private set; } = 20f; 
+        [field: SerializeField] public AnimationClip TransformClip { get; private set; }
+
 
         public override void ExecuteAbility(GameObject character)
         {

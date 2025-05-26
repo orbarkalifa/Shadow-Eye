@@ -2,6 +2,7 @@ using System.Collections;
 using EnemyAI;
 using UnityEngine;
 using Cinemachine;
+using Suits.Duri;
 
 public class CharacterCombat : MonoBehaviour
 {
@@ -114,7 +115,12 @@ public class CharacterCombat : MonoBehaviour
         comboStep = 0;
     }
     
-
+    public void OnHeavySmashImpact()
+    {
+        // delegate back to the ability so you don’t duplicate code
+        var ability = character.equippedSuit.specialAttack as HeavySmashAbility;
+        ability?.ApplySmashEffect(gameObject);
+    }
     private IEnumerator AttackCooldown()
     {
         isOnCooldown = true;

@@ -10,7 +10,7 @@ public class MainCharacter : Character
     private InputSystem_Actions inputActions;
     private Transform lastCheckPoint;
     
-    [SerializeField] private Suit equippedSuit;
+    [SerializeField] public Suit equippedSuit;
     
     [Header("Damage & Invincibility Settings")]
     [SerializeField] private float invincibilityDuration = 1.0f;

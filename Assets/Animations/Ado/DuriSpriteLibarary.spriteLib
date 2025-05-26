@@ -219,22 +219,22 @@ MonoBehaviour:
       m_Hash: 997540156
       m_Sprite: {fileID: 1557654834, guid: bf60047624b0d1147a4994b0690377f5, type: 3}
       m_FromMain: 1
-      m_SpriteOverride: {fileID: -755730795, guid: e478a8517f124724091849269e65ed97, type: 3}
+      m_SpriteOverride: {fileID: 229292916, guid: 6a240244bd1be7b409b14f8998dd1d61, type: 3}
     - m_Name: Ado_attack_1
       m_Hash: 208826794
       m_Sprite: {fileID: -727072717, guid: bf60047624b0d1147a4994b0690377f5, type: 3}
       m_FromMain: 1
-      m_SpriteOverride: {fileID: -162838836, guid: e478a8517f124724091849269e65ed97, type: 3}
+      m_SpriteOverride: {fileID: 407390946, guid: 6a240244bd1be7b409b14f8998dd1d61, type: 3}
     - m_Name: Ado_attack_2
       m_Hash: 360390672
       m_Sprite: {fileID: 2003770430, guid: bf60047624b0d1147a4994b0690377f5, type: 3}
       m_FromMain: 1
-      m_SpriteOverride: {fileID: -824402793, guid: e478a8517f124724091849269e65ed97, type: 3}
+      m_SpriteOverride: {fileID: 617696494, guid: 6a240244bd1be7b409b14f8998dd1d61, type: 3}
     - m_Name: Ado_attack_3
       m_Hash: 578556038
       m_Sprite: {fileID: 1415220847, guid: bf60047624b0d1147a4994b0690377f5, type: 3}
       m_FromMain: 1
-      m_SpriteOverride: {fileID: -1893456268, guid: e478a8517f124724091849269e65ed97, type: 3}
+      m_SpriteOverride: {fileID: -1859759937, guid: 6a240244bd1be7b409b14f8998dd1d61, type: 3}
     m_FromMain: 1
     m_EntryOverrideCount: 4
   - m_Name: Ado_attack2
@@ -245,17 +245,17 @@ MonoBehaviour:
       m_Hash: 1008239909
       m_Sprite: {fileID: -813298888, guid: bf60047624b0d1147a4994b0690377f5, type: 3}
       m_FromMain: 1
-      m_SpriteOverride: {fileID: -562948238, guid: e478a8517f124724091849269e65ed97, type: 3}
+      m_SpriteOverride: {fileID: -1859759937, guid: 6a240244bd1be7b409b14f8998dd1d61, type: 3}
     - m_Name: Ado_attack_5
       m_Hash: 186627507
       m_Sprite: {fileID: 1358331691, guid: bf60047624b0d1147a4994b0690377f5, type: 3}
       m_FromMain: 1
-      m_SpriteOverride: {fileID: 1984881151, guid: e478a8517f124724091849269e65ed97, type: 3}
+      m_SpriteOverride: {fileID: 1118945962, guid: 6a240244bd1be7b409b14f8998dd1d61, type: 3}
     - m_Name: Ado_attack_6
       m_Hash: 303490057
       m_Sprite: {fileID: -1131345751, guid: bf60047624b0d1147a4994b0690377f5, type: 3}
       m_FromMain: 1
-      m_SpriteOverride: {fileID: 473457237, guid: e478a8517f124724091849269e65ed97, type: 3}
+      m_SpriteOverride: {fileID: -1076268246, guid: 6a240244bd1be7b409b14f8998dd1d61, type: 3}
     m_FromMain: 1
     m_EntryOverrideCount: 3
   - m_Name: damaged
@@ -306,6 +306,73 @@ MonoBehaviour:
       m_SpriteOverride: {fileID: 530635963, guid: f0b2c950a236616458bd898a6692a18c, type: 3}
     m_FromMain: 1
     m_EntryOverrideCount: 0
+  - m_Name: HeavySmash
+    m_Hash: 1062603385
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: Duri_attack_0
+      m_Hash: 781338968
+      m_Sprite: {fileID: 229292916, guid: 6a240244bd1be7b409b14f8998dd1d61, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 229292916, guid: 6a240244bd1be7b409b14f8998dd1d61, type: 3}
+    - m_Name: Duri_attack_1
+      m_Hash: 429226446
+      m_Sprite: {fileID: 407390946, guid: 6a240244bd1be7b409b14f8998dd1d61, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 407390946, guid: 6a240244bd1be7b409b14f8998dd1d61, type: 3}
+    - m_Name: Duri_attack_2
+      m_Hash: 10233972
+      m_Sprite: {fileID: 617696494, guid: 6a240244bd1be7b409b14f8998dd1d61, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 617696494, guid: 6a240244bd1be7b409b14f8998dd1d61, type: 3}
+    - m_Name: Duri_attack_3
+      m_Hash: 932911330
+      m_Sprite: {fileID: -65313899, guid: 6a240244bd1be7b409b14f8998dd1d61, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -65313899, guid: 6a240244bd1be7b409b14f8998dd1d61, type: 3}
+    - m_Name: Duri_attack_4
+      m_Hash: 704613697
+      m_Sprite: {fileID: -1859759937, guid: 6a240244bd1be7b409b14f8998dd1d61, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -1859759937, guid: 6a240244bd1be7b409b14f8998dd1d61, type: 3}
+    - m_Name: Duri_attack_5
+      m_Hash: 519618007
+      m_Sprite: {fileID: 1118945962, guid: 6a240244bd1be7b409b14f8998dd1d61, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 1118945962, guid: 6a240244bd1be7b409b14f8998dd1d61, type: 3}
+    - m_Name: Duri_attack_6
+      m_Hash: 133295213
+      m_Sprite: {fileID: -1076268246, guid: 6a240244bd1be7b409b14f8998dd1d61, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -1076268246, guid: 6a240244bd1be7b409b14f8998dd1d61, type: 3}
+    m_FromMain: 0
+    m_EntryOverrideCount: 0
+  - m_Name: RockForm
+    m_Hash: 1017356571
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: Duri_ball_in_0
+      m_Hash: 1034433424
+      m_Sprite: {fileID: -1336533220, guid: 30f217f44e7041448a59994f8227a7a2, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -1336533220, guid: 30f217f44e7041448a59994f8227a7a2, type: 3}
+    - m_Name: Duri_ball_in_1
+      m_Hash: 179241734
+      m_Sprite: {fileID: -1467050878, guid: 30f217f44e7041448a59994f8227a7a2, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -1467050878, guid: 30f217f44e7041448a59994f8227a7a2, type: 3}
+    - m_Name: Duri_ball_in_2
+      m_Hash: 329667260
+      m_Sprite: {fileID: -1244165491, guid: 30f217f44e7041448a59994f8227a7a2, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -1244165491, guid: 30f217f44e7041448a59994f8227a7a2, type: 3}
+    - m_Name: Duri_ball_in_3
+      m_Hash: 614556202
+      m_Sprite: {fileID: 376030738, guid: 30f217f44e7041448a59994f8227a7a2, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 376030738, guid: 30f217f44e7041448a59994f8227a7a2, type: 3}
+    m_FromMain: 0
+    m_EntryOverrideCount: 0
   m_PrimaryLibraryGUID: 1c0eb76793e460b4baefddb2249e4652
-  m_ModificationHash: 638828965553995110
+  m_ModificationHash: 638838791788759650
   m_Version: 1

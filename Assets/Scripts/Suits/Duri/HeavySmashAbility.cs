@@ -34,9 +34,14 @@ namespace Suits.Duri
                 return;
             }
 
+            main.animator.CrossFadeInFixedTime("HeavySmash", 0.1f);
+            
+        }
+        public void ApplySmashEffect(GameObject character)
+        {
             float dir = main.CurrentFacingDirection;
             Vector2 center = (Vector2)character.transform.position
-                           + new Vector2(attackOffset.x * dir, attackOffset.y);
+                             + new Vector2(attackOffset.x * dir, attackOffset.y);
 
 
             Collider2D[] hits = Physics2D.OverlapBoxAll(center, attackSize, 0f, enemyLayer);
@@ -50,8 +55,7 @@ namespace Suits.Duri
                     e.TakeDamage(smashDamage, recoilDir); // Using CharacterCombat's base attack damage
                     e.rb.AddForce(Vector2.up * bounceForce * e.rb.mass, ForceMode2D.Impulse);
                 }
-            }
-        }
+            }        }
 
     #if UNITY_EDITOR
         void OnDrawGizmosSelected()
