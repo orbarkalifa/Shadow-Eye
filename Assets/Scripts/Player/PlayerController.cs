@@ -36,7 +36,7 @@ namespace Player
         private bool usedSpecialAttack;
         private bool usedSpecialMovement;
       
-        private Dictionary<SuitAbility, Coroutine> activeAbilityCooldowns = new Dictionary<SuitAbility, Coroutine>();
+        private readonly Dictionary<SuitAbility, Coroutine> activeAbilityCooldowns = new();
 
         protected override void Awake()
         {
@@ -143,17 +143,13 @@ namespace Player
         
         public void StartTrackingCooldown(SuitAbility abilityToCooldown)
         {
-            if (abilityToCooldown == null || abilityToCooldown.cooldownTime <= 0)
+            if (!abilityToCooldown || abilityToCooldown.cooldownTime <= 0)
             {
-                // Debug.LogWarning($"Attempted to start cooldown for a null ability or ability with no cooldown time: {abilityToCooldown?.name}");
                 return;
             }
 
             if (IsAbilityOnCooldown(abilityToCooldown))
             {
-                // Already on cooldown, typically do nothing or maybe reset it if that's desired behavior.
-                // For now, let's prevent re-starting an existing cooldown.
-                // Debug.LogWarning($"{abilityToCooldown.name} requested cooldown start but is already on cooldown with this PlayerController.");
                 return;
             }
 
@@ -181,22 +177,14 @@ namespace Player
             ApplySuitChanges();
         }
 
-        public void UnEquipSuit()
+        private void UnEquipSuit()
         {
-            if (equippedSuit != null)
-            {
-                // If an ability effect needs cleanup on unequip, it should handle it.
-                // Example: If RockFormEffect was active, its DeactivateAndDestroy should ideally be called.
-                // This is a bit tricky if an effect is "stuck" on.
-                // For simplicity, we'll assume effects self-manage or are toggled off.
-                // Clear active cooldowns for the suit being unequipped.
-                ClearCooldownsForSuit(equippedSuit);
-
-                Debug.Log($"Unequipped suit: {equippedSuit.suitName}");
-                equippedSuit = null;
-                ApplySuitChanges();
-                Heal();
-            }
+            if (equippedSuit == null) return;
+            ClearCooldownsForSuit(equippedSuit);
+            Debug.Log($"Unequipped suit: {equippedSuit.suitName}");
+            equippedSuit = null;
+            ApplySuitChanges();
+            Heal();
         }
         
         private void ClearCooldownsForSuit(Suit suitToClear)
@@ -326,14 +314,15 @@ namespace Player
         {
             transform.position = lastCheckPoint.position;
         }
-    
-        public void OnMovePerformed(InputAction.CallbackContext context)
+
+        private void OnMovePerformed(InputAction.CallbackContext context)
         {
             var movementInput = context.ReadValue<Vector2>();
             characterMovement.SetHorizontalInput(movementInput.x);
             characterCombat.PressedUp(movementInput.y > 0.5);
         }
-        public void OnMoveCanceled(InputAction.CallbackContext context)
+
+        private void OnMoveCanceled(InputAction.CallbackContext context)
         {
             var movementInput = context.ReadValue<Vector2>();
             characterMovement.SetHorizontalInput(0);

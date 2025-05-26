@@ -15,10 +15,8 @@ namespace Suits.Duri
         [field: SerializeField] public AnimationClip TransformInClip { get; private set; }  // New: For transforming IN
         [field: SerializeField] public AnimationClip TransformOutClip { get; private set; } // New: 
 
-        public override void Execute(PlayerController character) // Parameter changed
+        public override void Execute(PlayerController character) 
         {
-            // The toggle logic for adding/removing the effect remains.
-            // PlayerController will handle the cooldown for "RockAbility" immediately after this.
             var effect = character.GetComponent<RockFormEffect>();
             if (effect == null)
             {
@@ -28,7 +26,7 @@ namespace Suits.Duri
             }
             else
             {
-                effect.DeactivateAndDestroy(); // Effect will re-enable canMove/canAttack
+                effect.DeactivateAndDestroy(); 
             }
         }
         public void TriggerCooldownRequestFromEffect(PlayerController caster)

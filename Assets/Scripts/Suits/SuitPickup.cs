@@ -9,9 +9,9 @@ namespace Suits
     {
          [SerializeField] private Suit suit;
 
-        public void Initialize(Suit suit)
+        public void Initialize(Suit suitToInit)
         {
-            this.suit = suit;
+            suit = suitToInit;
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
