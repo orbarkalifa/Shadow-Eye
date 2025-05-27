@@ -8,72 +8,88 @@ namespace Suits.Duri
     public class HeavySmashAbility : SuitAbility
     {
         [Header("AOE Settings")]
-        [SerializeField] Vector2 attackSize = new (4f,1f);
-        [SerializeField] Vector2 attackOffset = new (1f,0f);
-        [SerializeField] LayerMask enemyLayer= ~0;
-        [SerializeField] int smashDamage = 2;
-        [Header("Bounce & Damage")]
-        [SerializeField] float bounceForce  = 10f;
+        [SerializeField] private Vector2 attackHitboxSize = new(4f, 1f); 
+        [SerializeField] private Vector2 attackHitboxOffset = new(1f, 0f); 
+        [SerializeField] private LayerMask enemyLayer = ~0; 
+        [SerializeField] private int smashDamage = 2;
 
-        PlayerController main;
-        CharacterCombat combat;
+        [Header("Effects")]
+        [SerializeField] private float bounceForce = 10f;
 
-        public override void Execute(PlayerController character)
+        public override void Execute(PlayerController caster)
         {
-            Debug.Log("HeavySmashAbility.ExecuteAbility called.");
-
-            if (main == null) // This will only run the first time
+            Animator animator = caster.GetComponent<Animator>();
+            if (animator != null)
             {
-                main = character.GetComponent<PlayerController>();
-                combat = character.GetComponent<CharacterCombat>();
-                Debug.Log($"HeavySmash: Initialized main ({main != null}) and combat ({combat != null}).");
+                animator.CrossFadeInFixedTime("HeavySmash", 0.1f, 0, 0f);
             }
-
-            if (main == null || combat == null)
+            else
             {
-                Debug.LogError("HeavySmash: MainCharacter or CharacterCombat component is missing!");
+                Debug.LogError($"{abilityName}: Animator not found on caster {caster.name}!");
+            }
+        }
+        public void ApplySmashEffect(PlayerController caster)
+        {
+            if (caster == null)
+            {
+                Debug.LogError($"{abilityName}: Caster is null in ApplySmashEffectAndRequestCooldown.");
                 return;
             }
 
-            main.animator.CrossFadeInFixedTime("HeavySmash", 0.1f);
-            RequestCooldownStart(character);
+            float facingDirection = caster.CurrentFacingDirection;
+            Vector2 originPoint = caster.transform.position;
 
-            
-        }
-        public void ApplySmashEffect(PlayerController character)
-        {
-            float dir = main.CurrentFacingDirection;
-            Vector2 center = (Vector2)character.transform.position
-                             + new Vector2(attackOffset.x * dir, attackOffset.y);
+            Vector2 hitboxCenter = originPoint + new Vector2(attackHitboxOffset.x * facingDirection, attackHitboxOffset.y);
 
+            Collider2D[] hits = Physics2D.OverlapBoxAll(hitboxCenter, attackHitboxSize, 0f, enemyLayer);
 
-            Collider2D[] hits = Physics2D.OverlapBoxAll(center, attackSize, 0f, enemyLayer);
 
             foreach (var col in hits)
             {
-                if (col.TryGetComponent(out Enemy e))
+                if (col.TryGetComponent(out Enemy enemy))
                 {
-                    float recoilDir = Mathf.Sign(e.transform.position.x - character.transform.position.x);
-                    if (recoilDir == 0) recoilDir = (dir > 0 ? 1 : -1); // Ensure a direction if perfectly aligned
-                    e.TakeDamage(smashDamage, recoilDir); // Using CharacterCombat's base attack damage
-                    e.rb.AddForce(Vector2.up * bounceForce * e.rb.mass, ForceMode2D.Impulse);
+                    float recoilDir = Mathf.Sign(enemy.transform.position.x - caster.transform.position.x);
+                    if (recoilDir == 0) recoilDir = facingDirection; 
+
+                    enemy.TakeDamage(smashDamage, recoilDir);
+                    if (enemy.rb != null && bounceForce > 0) 
+                    {
+                        enemy.rb.AddForce(Vector2.up * bounceForce * enemy.rb.mass, ForceMode2D.Impulse);
+                    }
                 }
             }
         }
 
-    #if UNITY_EDITOR
-        void OnDrawGizmosSelected()
+#if UNITY_EDITOR
+        private void OnDrawGizmosSelected()
         {
-            var mc = FindObjectOfType<PlayerController>();
-            if (mc == null) return;
-            float dir = mc.CurrentFacingDirection;
-            Vector2 center = (Vector2)mc.transform.position
-                           + new Vector2(attackOffset.x * dir, attackOffset.y);
+            if (UnityEditor.Selection.activeObject != this) return; 
 
-            Gizmos.color = Color.cyan;
-            Gizmos.DrawWireCube(center, attackSize);
+            PlayerController player = FindObjectOfType<PlayerController>();
+            if (player != null)
+            {
+                DrawAbilityGizmos(player); 
+            }
+            else
+            {
+                Gizmos.color = Color.gray;
+                Gizmos.DrawWireCube(attackHitboxOffset, attackHitboxSize); // Draw relative to origin
+                UnityEditor.Handles.Label(attackHitboxOffset + Vector2.up, $"{abilityName} (No Player in Scene)");
+            }
         }
-    #endif
+
+        public void DrawAbilityGizmos(PlayerController player)
+        {
+            if (player == null) return;
+
+            float facingDirection = player.transform.localScale.x > 0 ? 1f : -1f;
+            Vector2 originPoint = player.transform.position;
+            Vector2 hitboxCenter = originPoint + new Vector2(attackHitboxOffset.x * facingDirection, attackHitboxOffset.y);
+
+            Gizmos.color = new Color(0.0f, 0.8f, 0.8f, 0.5f);
+            Gizmos.DrawWireCube(hitboxCenter, attackHitboxSize);
+        }
+#endif
     }
 
 

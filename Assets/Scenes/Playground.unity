@@ -340,9 +340,37 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2388679836285933199, guid: 8d88815ef71b38047aff09cb5ca4e464, type: 3}
+      propertyPath: m_Size.x
+      value: 2.3447356
+      objectReference: {fileID: 0}
+    - target: {fileID: 2388679836285933199, guid: 8d88815ef71b38047aff09cb5ca4e464, type: 3}
+      propertyPath: m_Size.y
+      value: 2.485992
+      objectReference: {fileID: 0}
+    - target: {fileID: 2388679836285933199, guid: 8d88815ef71b38047aff09cb5ca4e464, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2388679836285933199, guid: 8d88815ef71b38047aff09cb5ca4e464, type: 3}
+      propertyPath: m_Offset.x
+      value: -2.715329
+      objectReference: {fileID: 0}
+    - target: {fileID: 2388679836285933199, guid: 8d88815ef71b38047aff09cb5ca4e464, type: 3}
+      propertyPath: m_Offset.y
+      value: 1.505681
+      objectReference: {fileID: 0}
+    - target: {fileID: 2537676609277093864, guid: 8d88815ef71b38047aff09cb5ca4e464, type: 3}
+      propertyPath: m_labelHash
+      value: 2.4824112e-29
+      objectReference: {fileID: 0}
     - target: {fileID: 2537676609277093864, guid: 8d88815ef71b38047aff09cb5ca4e464, type: 3}
       propertyPath: m_SpriteHash
       value: 310430807
+      objectReference: {fileID: 0}
+    - target: {fileID: 2537676609277093864, guid: 8d88815ef71b38047aff09cb5ca4e464, type: 3}
+      propertyPath: m_CategoryHash
+      value: 2.8189539e-36
       objectReference: {fileID: 0}
     - target: {fileID: 5704360418295708609, guid: 8d88815ef71b38047aff09cb5ca4e464, type: 3}
       propertyPath: m_IsActive

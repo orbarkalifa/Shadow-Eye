@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Suits;
+using Suits.Duri;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.U2D.Animation;
@@ -337,6 +338,6 @@ namespace Player
         {
             IsInvincible = !IsInvincible;
         }
-    
+
     }
 }

@@ -82,6 +82,7 @@ namespace Player
                 StartCoroutine(AttackCooldown());
                 return;
             }
+            
             if (Time.time - lastAttackTime > comboResetTime)
             {
                 comboStep = 0;
@@ -101,6 +102,7 @@ namespace Player
             {
                 comboStep = 2;
                 animator.CrossFadeInFixedTime("Ado_attack2", 0.05f);
+                StartCoroutine(AttackCooldown());
             }
             else
             {
@@ -119,7 +121,6 @@ namespace Player
         public void OnAttack2Complete()
         {
             DoAttackHit();
-            StartCoroutine(AttackCooldown());
             isAttacking = false;
             comboStep = 0;
         }
@@ -140,21 +141,10 @@ namespace Player
 
         private void DoAttackHit()
         {
-            // decide rotation and size
-            float angle = attackUp ? 90f : 0f;
-            Vector2 size  = attackUp
-                ? new Vector2( attackBox.size.y, attackBox.size.x )   // swap width/height
-                : attackBox.size;
-
-            // decide world-space center
-            Vector2 center = attackUp
-                ? (Vector2)transform.position + Vector2.up * (size.y/2f) 
-                : attackBox.transform.position;
-
             Collider2D[] gotHit = Physics2D.OverlapBoxAll(
-                center,
-                size,
-                angle,
+                attackBox.transform.position,
+                attackBox.size,
+                attackBox.transform.eulerAngles.z,
                 attackableLayerMask
             );
 
@@ -218,29 +208,5 @@ namespace Player
             ChangeCooldown(-1);
             ChangeRange(-1);
         }
-    
-#if UNITY_EDITOR
-        void OnDrawGizmosSelected()
-        {
-            if (attackBox == null)
-                return;
-
-            // calculate the same angle, size and center you use at runtime
-            var angle = attackUp ? 90f : 0f;
-            var size  = attackUp
-                ? new Vector2(attackBox.size.y, attackBox.size.x)  // swap w/h
-                : attackBox.size;
-            var center = attackUp
-                ? (Vector2)transform.position + Vector2.up * (size.y * 0.5f)
-                : (Vector2)attackBox.transform.position;
-
-            Gizmos.color = Color.red;
-            Matrix4x4 oldMat = Gizmos.matrix;
-            Gizmos.matrix = Matrix4x4.TRS(center, Quaternion.Euler(0, 0, angle), Vector3.one);
-            Gizmos.DrawWireCube(Vector3.zero, size);
-            Gizmos.matrix = oldMat;
-        }
-#endif
-    
     }
 }
