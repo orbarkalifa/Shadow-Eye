@@ -14,7 +14,6 @@ namespace Suits.Duri
         CharacterCombat combat;
         Rigidbody2D rb;
         Animator animator;
-        CinemachineImpulseSource impulseSource;
 
         bool origInvincible;
         Coroutine activeRockFormCoroutine;
@@ -22,14 +21,7 @@ namespace Suits.Duri
         bool waitForLanding;
         float transformInClipLength;
         float transformOutClipLength; 
-
-        void Awake()
-        {
-            impulseSource = GetComponent<CinemachineImpulseSource>();
-
-            if (impulseSource == null)
-                Debug.LogWarning("RockFormEffect: No CinemachineImpulseSource – camera shake disabled.");
-        }
+        
 
         public void Initialize(RockAbility config, PlayerController caster)
         {
@@ -133,10 +125,8 @@ namespace Suits.Duri
                     e.TakeDamage(rockAbilitySO.SmashDamage, dir);
                     e.Stun(rockAbilitySO.StunDuration);
                 }
-            if (impulseSource != null)
-            {
-                impulseSource.GenerateImpulse();
-            }
+
+            player.ImpulseCamera();
         }
 
         public void DeactivateAndDestroy()

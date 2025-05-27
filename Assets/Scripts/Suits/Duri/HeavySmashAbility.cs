@@ -42,7 +42,8 @@ namespace Suits.Duri
             Vector2 hitboxCenter = originPoint + new Vector2(attackHitboxOffset.x * facingDirection, attackHitboxOffset.y);
 
             Collider2D[] hits = Physics2D.OverlapBoxAll(hitboxCenter, attackHitboxSize, 0f, enemyLayer);
-
+            
+            caster.ImpulseCamera();
 
             foreach (var col in hits)
             {

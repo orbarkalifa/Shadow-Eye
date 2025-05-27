@@ -30,7 +30,6 @@ namespace Player
         private bool isAttacking;
         private bool isOnCooldown;
         private CharacterMovement characterMovement; 
-        private CinemachineImpulseSource impulseSource;
         private float basicRange;
         private bool attackUp;
     
@@ -52,11 +51,7 @@ namespace Player
                 Debug.LogError("CharacterMovement component not found on " + gameObject.name);
             }
         
-            impulseSource = GetComponent<CinemachineImpulseSource>();
-            if (impulseSource == null)
-            {
-                Debug.LogError("impulse component not found on Main Camera!");
-            }
+            
 
             attackCooldown = basicAttackCooldown;
             basicRange = attackBox.size.x;
@@ -168,22 +163,8 @@ namespace Player
 
             if (!hitSomething) return;
             characterMovement.AddRecoil(recoilDirection * -1);
-            ApplyRecoil();
+            character.ImpulseCamera();
 
-        }
-
-        private void ApplyRecoil()
-        {
-            if (characterMovement != null)
-            {
-                impulseSource.GenerateImpulse();
-            }
-            else
-            {
-                Debug.LogError(impulseSource == null
-                    ? "CameraShake reference is missing in CharacterCombat, cannot apply camera shake."
-                    : "CharacterMovement component is missing in CharacterCombat, cannot apply recoil.");
-            }
         }
 
         private void ChangeRange(float range)

@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
 using Suits;
-using Suits.Duri;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.U2D.Animation;
@@ -10,6 +10,7 @@ namespace Player
 {
     public class PlayerController : Character
     {
+        private CinemachineImpulseSource impulseSource;
         public CharacterMovement characterMovement;
         public CharacterCombat characterCombat;
         private InputSystem_Actions inputActions;
@@ -47,7 +48,11 @@ namespace Player
             characterMovement = GetComponent<CharacterMovement>();
             characterCombat = GetComponent<CharacterCombat>();
 
-        
+            impulseSource = GetComponent<CinemachineImpulseSource>();
+            if (impulseSource == null)
+            {
+                Debug.LogError("impulse component not found on Main Camera!");
+            }
             if (!characterMovement)
                 Debug.LogError("CharacterMovement component is missing.");
             if (!characterCombat)
@@ -337,6 +342,11 @@ namespace Player
         public void ChangeInvincibleState()
         {
             IsInvincible = !IsInvincible;
+        }
+
+        public void ImpulseCamera()
+        {
+            impulseSource.GenerateImpulse();
         }
 
     }
