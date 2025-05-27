@@ -22,6 +22,7 @@ namespace Suits.Duri
             if (animator != null)
             {
                 animator.CrossFadeInFixedTime("HeavySmash", 0.1f, 0, 0f);
+                RequestCooldownStart(caster);
             }
             else
             {

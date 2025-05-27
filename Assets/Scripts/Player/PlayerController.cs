@@ -162,7 +162,6 @@ namespace Player
             activeAbilityCooldowns[abilityToCooldown] = StartCoroutine(AbilityCooldownCoroutine(abilityToCooldown, abilityToCooldown.cooldownTime));
             Debug.Log($"PlayerController: Tracking {abilityToCooldown.cooldownTime}s cooldown for {abilityToCooldown.abilityName}.");
         }
-
         
         // ReSharper disable Unity.PerformanceAnalysis
         private IEnumerator AbilityCooldownCoroutine(SuitAbility ability, float duration)
@@ -171,8 +170,6 @@ namespace Player
             activeAbilityCooldowns.Remove(ability);
             Debug.Log($"PlayerController: Cooldown finished for {ability.abilityName}");
         }
-        
-
     
         public void EquipSuit(Suit newSuit)
         {
