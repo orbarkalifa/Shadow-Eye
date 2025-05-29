@@ -1,29 +1,24 @@
-using GameStateManagement;
-using Player;
-using Suits;
 using UnityEditor;
+using Suits;
 using UnityEngine;
+using GameStateManagement;
 
 namespace EnemyAI
 {
     [RequireComponent(typeof(Rigidbody2D))]
-    public class EnemyController : Enemy, IEnemyBehivior
+    public abstract class EnemyController : Enemy
     {
         [Header("Basic Settings")]
-        public float attackRange = 5f;
-        public float attackCooldown = 2f;
+        public float attackRange;
+        public float attackCooldown;
         public Collider2D enemyCollider;
-        private static bool hasShownSuitTutorial;
+        protected static bool hasShownSuitTutorial;
 
         [HideInInspector] public float lastAttackTime = -Mathf.Infinity;
         public EnemyStateSO startingState;
         
-        
-
-        public bool canFlee = true;
-        
         [Header("Chase Settings")]
-        public float chaseSpeed = 4f;
+        public float chaseSpeed;
         
         [Header("Patrol Points")]
         public float patrolSpeed = 2f;
@@ -32,23 +27,32 @@ namespace EnemyAI
         [HideInInspector] public int currentPatrolIndex;
         
         [Header("Flee Settings")]
-        public float fleeSpeed = 6f;
-        public float fleeDistance = 10f;
+        public bool canFlee = true;
+        public float fleeSpeed;
+        public float fleeDistance;
         
         [Header("Return Home Settings")]
-        public float returnSpeed = 4f;
+        public float returnSpeed;
         [Header("Suit Drop")]
-        [SerializeField] private Suit suitDrop;
+        [SerializeField] protected Suit suitDrop;
         
         public EnemyStateMachine StateMachine { get; private set; }
 
+        public abstract void TriggerAttackDamage();
+        public abstract void Attack();
+        public abstract void Patrol();
+        //public void Idle();
+        public abstract void Chase();
+        public abstract void Flee();
+        public abstract void ReturnHome();
+        
         protected override void Awake()
         {
             base.Awake();
-            if (enemyCollider == null) enemyCollider = GetComponent<Collider2D>();
+            if(enemyCollider == null) enemyCollider = GetComponent<Collider2D>();
             StateMachine = new EnemyStateMachine();
             hasShownSuitTutorial = false;
-            if (startingState != null)
+            if(startingState != null)
             {
                 StateMachine.Initialize(this, startingState);
             }
@@ -60,71 +64,56 @@ namespace EnemyAI
 
 
         }
-
-        private void Update()
+        protected void Update()
         {
-            if (!CanMove)
+            if(!CanMove)
             {
                 return;
             }
-            if (StateMachine != null && player != null)
+
+            if(StateMachine != null && player != null)
             {
                 StateMachine.Update(this);
             }
         }
 
-        private void FixedUpdate()
+        protected void FixedUpdate()
         {
-            if (!CanMove || isStunned)
+            if(!CanMove || isStunned)
             {
                 return;
-            }           
-            
-            if (StateMachine != null && player != null)
+            }
+
+            if(StateMachine != null && player != null)
             {
                 StateMachine.FixedUpdate(this);
             }
         }
-
-        public void TriggerAttackDamage()
-        {
-            float recoilDirection;
-            Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, attackRange, playerLayerMask);
-            foreach (var hitCollider in hitColliders)
-            {
-                PlayerController playerController = hitCollider.GetComponent<PlayerController>();
-                if (playerController != null && !playerController.IsInvincible)
-                {
-                    recoilDirection = GetRecoilDirection(playerController.transform);
-                    playerController.TakeDamage(1,recoilDirection);
-                    break;
-                }
-            }
-        }
         
-
         protected override void OnDeath()
         {
             DropSuit();
-            if (!hasShownSuitTutorial && GSManager.Instance.tutorialsEnabled)
+            if(!hasShownSuitTutorial && GSManager.Instance.tutorialsEnabled)
             {
                 hasShownSuitTutorial = true;
 
                 TutorialPanelController tutorialPanel = FindObjectOfType<TutorialPanelController>();
-                if (tutorialPanel != null)
+                if(tutorialPanel != null)
                 {
-                    tutorialPanel.ShowMessage("You acquired a Suit! Try Shift and Q to use your special abilities.", 3f);
+                    tutorialPanel.ShowMessage(
+                        "You acquired a Suit! Try Shift and Q to use your special abilities.",
+                        3f);
                 }
             }
-            StateMachine = null; 
+            StateMachine = null;
             rb.velocity = Vector2.zero;
-            if(enemyCollider) enemyCollider.enabled = false; 
+            if(enemyCollider) enemyCollider.enabled = false;
             base.OnDeath();
         }
 
         private void DropSuit()
         {
-            if (suitDrop == null)
+            if(suitDrop == null)
             {
                 Debug.LogWarning($"No suit assigned to drop for {gameObject.name}.", this);
                 return;
@@ -137,10 +126,11 @@ namespace EnemyAI
             pickup.tag = "Pickup";
 
             SuitPickup suitPickup = pickup.GetComponent<SuitPickup>();
-            if (suitPickup == null)
+            if(suitPickup == null)
             {
                 suitPickup = pickup.AddComponent<SuitPickup>();
             }
+
             suitPickup.Initialize(suitDrop);
 
             Debug.Log($"{gameObject.name} dropped {suitDrop.suitName}", this);
@@ -170,124 +160,9 @@ namespace EnemyAI
 
             return pickup;
         }
-
-        public void Attack()
-        {
-            lastAttackTime = Time.time;
-            animator.CrossFadeInFixedTime("Ira_attack", 0.05f);
-        }
-
-        public void Patrol()
-        {
-            if (!CanMove || isStunned)
-            {
-                return;
-            }       
-            if (patrolPoints == null || patrolPoints.Length == 0)
-            {
-                rb.velocity = new Vector2(0, rb.velocity.y); // Stop if no patrol points
-                return;
-            }
-
-            Vector3 currentTargetPoint = patrolPoints[currentPatrolIndex];
-            float distanceToCurrentTarget = Vector2.Distance(transform.position, currentTargetPoint);
-
-            // Check if we need to switch to the next patrol point
-            if (distanceToCurrentTarget <= waypointArrivalThreshold)
-            {
-                currentPatrolIndex = (currentPatrolIndex + 1) % patrolPoints.Length;
-                currentTargetPoint = patrolPoints[currentPatrolIndex]; // Update to the new target
-                // Optionally, add a small pause here (e.g. with a timer) if desired.
-            }
-
-            // Move towards the (potentially new) current target point
-            Vector2 direction = ((Vector2)currentTargetPoint - (Vector2)transform.position).normalized;
-
-            if (direction.sqrMagnitude > 0.01f) // If there's a direction to move (not already at target)
-            {
-                rb.velocity = new Vector2(direction.x * patrolSpeed, rb.velocity.y);
-                UpdateFacingDirection(direction.x);
-            }
-            else
-            {
-                // Very close or at the target, stop to prevent jitter.
-                rb.velocity = new Vector2(0, rb.velocity.y);
-            }
-        }
-
-        public void Chase()
-        {
-            if (!CanMove || isStunned || player == null)
-            {
-                if (player == null) rb.velocity = new Vector2(0, rb.velocity.y); // Stop if player is gone
-                return;
-            }
-
-            // Determine if we should react to player behind us (optional quick turn)
-            if (CheckBehindForPlayer() && !CanSeePlayer()) // Prioritize actual sight if available
-            {
-                Flip(); // This updates CurrentFacingDirection
-            }
-
-            Vector3 targetPosition;
-            bool currentlySeesPlayer = CanSeePlayer(); // Cache for this frame
-
-            if (currentlySeesPlayer)
-            {
-                targetPosition = player.position; // lastKnownPlayerPosition is updated by CanSeePlayer
-            }
-            else
-            {
-                targetPosition = lastKnownPlayerPosition;
-            }
-
-            Vector2 directionToTarget = ((Vector2)targetPosition - (Vector2)transform.position);
-            float distanceToTarget = directionToTarget.magnitude; // Get actual distance
-
-            // If not seeing player and have arrived at LKP, stop. State machine will handle transition.
-            // Use a small threshold to prevent jitter.
-            if (!currentlySeesPlayer && distanceToTarget < waypointArrivalThreshold * 0.5f) // Or a dedicated LKP arrival threshold
-            {
-                rb.velocity = new Vector2(0, rb.velocity.y);
-            }
-            else
-            {
-                rb.velocity = new Vector2(directionToTarget.normalized.x * chaseSpeed, rb.velocity.y);
-            }
-
-            // Update facing direction based on movement or target direction
-            if (Mathf.Abs(directionToTarget.normalized.x) > 0.01f)
-            {
-                UpdateFacingDirection(directionToTarget.normalized.x);
-            }
-        }
-
-        public void Flee()
-        {
-            if (!CanMove || isStunned)
-            {
-                return;
-            }       
-            Vector2 directionToPlayer = player.position - transform.position;
-            Vector2 fleeDirection = -directionToPlayer.normalized;
-            rb.velocity = new Vector2(fleeDirection.x * fleeSpeed, rb.velocity.y);
-            UpdateFacingDirection(fleeDirection.x);
-        }
-
-        public void ReturnHome()
-        {
-            if (!CanMove || isStunned)
-            {
-                return;
-            }       
-            Vector2 dir = (homePosition - (Vector2)transform.position).normalized;
-            rb.velocity = new Vector2(dir.x * returnSpeed, rb.velocity.y);
-            UpdateFacingDirection(dir.x);
-        }
-
-
-#if UNITY_EDITOR
-        private void OnDrawGizmosSelected()
+        
+        #if UNITY_EDITOR
+        protected void OnDrawGizmosSelected()
         {
             // Using Handles requires the UnityEditor namespace
             // Draw Patrol Points with interactive handles
@@ -353,4 +228,5 @@ namespace EnemyAI
 #endif
 
     }
+    
 }
