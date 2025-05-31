@@ -452,7 +452,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1415220847, guid: bf60047624b0d1147a4994b0690377f5, type: 3}
+  m_Sprite: {fileID: 813951680, guid: 745897e2e1dc7fe4c8a93f3d5491624b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -623,9 +623,9 @@ MonoBehaviour:
   attackDamage: 1
   attackableLayerMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   attackCooldown: 0.5
-  canAttack: 0
+  canAttack: 1
 --- !u!114 &8253696599482452033
 MonoBehaviour:
   m_ObjectHideFlags: 0
