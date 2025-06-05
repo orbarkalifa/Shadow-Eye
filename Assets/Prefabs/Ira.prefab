@@ -207,9 +207,14 @@ MonoBehaviour:
   startingState: {fileID: 11400000, guid: 65480f5da2a8aa24397aa633c93a914f, type: 2}
   chaseSpeed: 4
   patrolSpeed: 2
-  waypointArrivalThreshold: 0.5
+  waypointArrivalThreshold: 1
   patrolPoints: []
   currentPatrolIndex: 0
+  useDynamicTwoPointPatrol: 1
+  patrolBoundDetectionDistance: 10
+  whatIsPatrolBoundary:
+    serializedVersion: 2
+    m_Bits: 72
   canFlee: 1
   fleeSpeed: 6
   fleeDistance: 10

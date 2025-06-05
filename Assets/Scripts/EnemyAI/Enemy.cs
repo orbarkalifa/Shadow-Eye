@@ -50,9 +50,19 @@ namespace EnemyAI
             }
         }
 
-        public void UpdateFacingDirection(float xDirection)
+        public void UpdateFacingDirection(float xInput) 
         {
-            if (!Mathf.Approximately(Mathf.Sign(xDirection), CurrentFacingDirection))
+            // Prevent flipping if there's no significant horizontal movement/input
+            if (Mathf.Approximately(xInput, 0f))
+            {
+                return;
+            }
+
+            float targetFacingDirection = Mathf.Sign(xInput); // Will be 1 or -1
+
+            // Check if current facing direction needs to be changed
+            // CurrentFacingDirection is 1 (right) or -1 (left)
+            if (!Mathf.Approximately(targetFacingDirection, CurrentFacingDirection))
             {
                 Flip();
             }
