@@ -113,26 +113,7 @@ namespace EnemyAI
                 UpdateFacingDirection(directionToTarget.normalized.x);
             }
         }
-
-        protected override void Awake()
-        {
-            base.Awake();
-            //Attack
-            attackCooldown = 2f;
-            attackRange = 5f;
-            //chase
-            chaseSpeed = 4f;
-            //patrol
-            
-            patrolSpeed = 2f;
-            //flee
-            fleeSpeed = 6f;
-            fleeDistance = 15f;
-            //return home
-            returnSpeed = 4f;
-            
-        }
-
+        
         public override void Flee()
         {
             if(!CanMove || isStunned)
