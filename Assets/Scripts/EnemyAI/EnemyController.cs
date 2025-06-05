@@ -1,55 +1,87 @@
-using GameStateManagement;
-using Player;
-using Suits;
 using UnityEditor;
+using Suits;
 using UnityEngine;
+using GameStateManagement;
 
 namespace EnemyAI
 {
     [RequireComponent(typeof(Rigidbody2D))]
-    public class EnemyController : Enemy, IEnemyBehivior
+    public abstract class EnemyController : Enemy
     {
         [Header("Basic Settings")]
-        public float attackRange = 5f;
-        public float attackCooldown = 2f;
+        public float attackRange;
+        public float attackCooldown;
         public Collider2D enemyCollider;
-        private static bool hasShownSuitTutorial;
+        protected static bool hasShownSuitTutorial;
 
         [HideInInspector] public float lastAttackTime = -Mathf.Infinity;
         public EnemyStateSO startingState;
         
-        
-
-        public bool canFlee = true;
-        
         [Header("Chase Settings")]
-        public float chaseSpeed = 4f;
+        public float chaseSpeed;
         
-        [Header("Patrol Points")]
+        [Header("Patrol Settings")] // Changed header slightly
         public float patrolSpeed = 2f;
-        public float waypointArrivalThreshold = 0.5f; 
-        public Vector3[] patrolPoints;
+        public float waypointArrivalThreshold = 0.5f;
+        public Vector3[] patrolPoints; // Keep this existing array
         [HideInInspector] public int currentPatrolIndex;
+
+        // --- NEW SETTINGS FOR DYNAMIC 2-POINT PATROL ---
+        [Header("Dynamic Two-Point Patrol (Overrides patrolPoints[0] & [1])")]
+        [Tooltip("If true, patrolPoints[0] and [1] will be dynamically found via raycasts.")]
+        public bool useDynamicTwoPointPatrol = true; // Set to true for enemies that should use this
+        [Tooltip("Max distance to raycast left/right to find patrol boundaries.")]
+        public float patrolBoundDetectionDistance = 20;
+        [Tooltip("Layer mask for objects that define patrol boundaries (e.g., Walls, Ground).")]
+        public LayerMask whatIsPatrolBoundary;
         
         [Header("Flee Settings")]
-        public float fleeSpeed = 6f;
-        public float fleeDistance = 10f;
+        public bool canFlee = true;
+        public float fleeSpeed;
+        public float fleeDistance;
         
         [Header("Return Home Settings")]
-        public float returnSpeed = 4f;
+        public float returnSpeed;
         [Header("Suit Drop")]
-        [SerializeField] private Suit suitDrop;
+        [SerializeField] protected Suit suitDrop;
         
         public EnemyStateMachine StateMachine { get; private set; }
 
+        public abstract void TriggerAttackDamage();
+        public abstract void Attack();
+        public abstract void Patrol();
+        //public void Idle();
+        public abstract void Chase();
+        public abstract void Flee();
+        public abstract void ReturnHome();
+        
         protected override void Awake()
         {
             base.Awake();
             if (enemyCollider == null) enemyCollider = GetComponent<Collider2D>();
+            
             StateMachine = new EnemyStateMachine();
+            
+            if (useDynamicTwoPointPatrol)
+            {
+                InitializeDynamicPatrolPoints();
+            }
+            else if (patrolPoints == null || patrolPoints.Length == 0)
+            {
+                // Optional: Fallback for non-dynamic patrol if no points are set.
+                // Could default to a small patrol around homePosition.
+                // Debug.LogWarning($"{gameObject.name}: Patrol enabled but no patrol points set and dynamic patrol is off. Patrolling around home.");
+                // patrolPoints = new Vector3[] { homePosition + Vector2.left, homePosition + Vector2.right };
+            }
+            
             hasShownSuitTutorial = false;
             if (startingState != null)
             {
+                // If currentPatrolIndex is not set by InitializeDynamicPatrolPoints (e.g., useDynamic is false)
+                // and patrolPoints exist, ensure currentPatrolIndex is valid.
+                if (patrolPoints != null && patrolPoints.Length > 0 && !useDynamicTwoPointPatrol) {
+                    currentPatrolIndex = 0; 
+                }
                 StateMachine.Initialize(this, startingState);
             }
             else
@@ -57,74 +89,159 @@ namespace EnemyAI
                 Debug.LogError($"EnemyController ({gameObject.name}): Starting State not set!", this);
                 enabled = false;
             }
+        }
+        
+        
+        private void InitializeDynamicPatrolPoints()
+        {
+            if (rb == null)
+            {
+                Debug.LogError($"{gameObject.name}: Rigidbody2D not found. Dynamic patrol point initialization failed.", this);
+                return;
+            }
+
+            Vector2 raycastOrigin = transform.position;
+            Vector2 initialYPosition = new Vector2(0, transform.position.y-1); // We only care about the Y
+            
+            // Ensure enemyCollider is available for calculating offsets
+            float colliderExtentsX = 0.1f; // Default small offset if no collider
+            if (enemyCollider != null) {
+                colliderExtentsX = enemyCollider.bounds.extents.x;
+            } else {
+                Debug.LogWarning($"{gameObject.name}: EnemyCollider not found for patrol bound offset calculation. Using default small offset.", this);
+            }
+            float buffer = 0.05f; // Small buffer from the wall
+
+            Vector3 leftBoundPoint;
+            Vector3 rightBoundPoint;
+
+            // Detect Left Bound
+            RaycastHit2D hitLeft = Physics2D.Raycast(raycastOrigin, Vector2.left, patrolBoundDetectionDistance, whatIsPatrolBoundary);
+            if (hitLeft.collider != null)
+            {
+                leftBoundPoint = new Vector3(hitLeft.point.x + colliderExtentsX + buffer, initialYPosition.y, transform.position.z);
+            }
+            else
+            {
+                leftBoundPoint = new Vector3(raycastOrigin.x - (patrolBoundDetectionDistance * 0.5f), initialYPosition.y, transform.position.z);
+                Debug.LogWarning($"{gameObject.name}: No left patrol bound detected. Using fallback distance for patrolPoints[0].", this);
+            }
+
+            // Detect Right Bound
+            RaycastHit2D hitRight = Physics2D.Raycast(raycastOrigin, Vector2.right, patrolBoundDetectionDistance, whatIsPatrolBoundary);
+            if (hitRight.collider != null)
+            {
+                rightBoundPoint = new Vector3(hitRight.point.x - colliderExtentsX - buffer, initialYPosition.y, transform.position.z);
+            }
+            else
+            {
+                rightBoundPoint = new Vector3(raycastOrigin.x + (patrolBoundDetectionDistance * 0.5f), initialYPosition.y, transform.position.z);
+                Debug.LogWarning($"{gameObject.name}: No right patrol bound detected. Using fallback distance for patrolPoints[1].", this);
+            }
+
+            // Sanity check: ensure left is to the left of right
+            if (leftBoundPoint.x >= rightBoundPoint.x)
+            {
+                Debug.LogError($"{gameObject.name}: Dynamic patrol points are invalid (Left: {leftBoundPoint.x}, Right: {rightBoundPoint.x}). Forcing small default range around home: {homePosition}.", this);
+                leftBoundPoint = new Vector3(homePosition.x - 1f, initialYPosition.y, transform.position.z);
+                rightBoundPoint = new Vector3(homePosition.x + 1f, initialYPosition.y, transform.position.z);
+            }
+
+            // Force patrolPoints to be exactly 2 for this dynamic patrol.
+            // This ensures the Duri/IraController's Patrol method with `... % patrolPoints.Length` correctly becomes `... % 2`.
+            patrolPoints = new Vector3[2];
+            patrolPoints[0] = leftBoundPoint;
+            patrolPoints[1] = rightBoundPoint;
+
+            // Determine initial patrol direction and index (e.g., move towards the furthest bound or a default)
+            // Or simply start by moving towards patrolPoints[1] (right)
+            float distToLeft = Mathf.Abs(transform.position.x - patrolPoints[0].x);
+            float distToRight = Mathf.Abs(transform.position.x - patrolPoints[1].x);
+
+            // Start moving towards the point we are NOT closest to, or default to point 1 (right)
+            if (distToLeft < distToRight && distToLeft < waypointArrivalThreshold * 1.5f) { // If very close to left, target right
+                 currentPatrolIndex = 1;
+            } else if (distToRight < distToLeft && distToRight < waypointArrivalThreshold * 1.5f) { // If very close to right, target left
+                 currentPatrolIndex = 0; // Will effectively move towards left
+            } else {
+                // Default: aim for patrolPoints[1] (right)
+                currentPatrolIndex = 1; // This means the first movement will be towards patrolPoints[1]
+                                        // If already at point 1, it will switch to point 0.
+                                        // Let's ensure it starts moving, so if it is to pick point 1, set it to 0 and it will move to 1
+            }
+            
+            // To ensure it starts moving towards a point rather than potentially being at it:
+            // If we want to start by moving right (towards patrolPoints[1]):
+            currentPatrolIndex = 0; // Set index to 0, it will target patrolPoints[0] then switch to patrolPoints[1]
+                                    // Or more explicitly if patrolPoints[0] is left and patrolPoints[1] is right:
+                                    // To start moving towards right (patrolPoints[1]), the *current* target should be patrolPoints[1].
+                                    // The Patrol() logic is: currentTargetPoint = patrolPoints[currentPatrolIndex];
+                                    // If it reaches, it increments.
+                                    // So, if we want to move to patrolPoints[1] first, set currentPatrolIndex = 1.
+                                    // If already near patrolPoints[1], it will then switch to 0.
+
+            // Let's set it to target the one further away, or the right one by default.
+            if (transform.position.x < (leftBoundPoint.x + rightBoundPoint.x) / 2) {
+                currentPatrolIndex = 1; // Closer to left, target right
+            } else {
+                currentPatrolIndex = 0; // Closer to right, target left
+            }
 
 
+            Debug.Log($"{gameObject.name} Dynamic Patrol Initialized: patrolPoints[0]={patrolPoints[0]}, patrolPoints[1]={patrolPoints[1]}. Initial index: {currentPatrolIndex}", this);
         }
 
-        private void Update()
+        
+        protected void Update()
         {
-            if (!CanMove)
+            if(!CanMove)
             {
                 return;
             }
-            if (StateMachine != null && player != null)
+
+            if(StateMachine != null && player != null)
             {
                 StateMachine.Update(this);
             }
         }
 
-        private void FixedUpdate()
+        protected void FixedUpdate()
         {
-            if (!CanMove || isStunned)
+            if(!CanMove || isStunned)
             {
                 return;
-            }           
-            
-            if (StateMachine != null && player != null)
+            }
+
+            if(StateMachine != null && player != null)
             {
                 StateMachine.FixedUpdate(this);
             }
         }
-
-        public void TriggerAttackDamage()
-        {
-            float recoilDirection;
-            Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, attackRange, playerLayerMask);
-            foreach (var hitCollider in hitColliders)
-            {
-                PlayerController playerController = hitCollider.GetComponent<PlayerController>();
-                if (playerController != null && !playerController.IsInvincible)
-                {
-                    recoilDirection = GetRecoilDirection(playerController.transform);
-                    playerController.TakeDamage(1,recoilDirection);
-                    break;
-                }
-            }
-        }
         
-
         protected override void OnDeath()
         {
             DropSuit();
-            if (!hasShownSuitTutorial && GSManager.Instance.tutorialsEnabled)
+            if(!hasShownSuitTutorial && GSManager.Instance.tutorialsEnabled)
             {
                 hasShownSuitTutorial = true;
 
                 TutorialPanelController tutorialPanel = FindObjectOfType<TutorialPanelController>();
-                if (tutorialPanel != null)
+                if(tutorialPanel != null)
                 {
-                    tutorialPanel.ShowMessage("You acquired a Suit! Try Shift and Q to use your special abilities.", 3f);
+                    tutorialPanel.ShowMessage(
+                        "You acquired a Suit! Try Shift and Q to use your special abilities.",
+                        3f);
                 }
             }
-            StateMachine = null; 
+            StateMachine = null;
             rb.velocity = Vector2.zero;
-            if(enemyCollider) enemyCollider.enabled = false; 
+            if(enemyCollider) enemyCollider.enabled = false;
             base.OnDeath();
         }
 
         private void DropSuit()
         {
-            if (suitDrop == null)
+            if(suitDrop == null)
             {
                 Debug.LogWarning($"No suit assigned to drop for {gameObject.name}.", this);
                 return;
@@ -137,10 +254,11 @@ namespace EnemyAI
             pickup.tag = "Pickup";
 
             SuitPickup suitPickup = pickup.GetComponent<SuitPickup>();
-            if (suitPickup == null)
+            if(suitPickup == null)
             {
                 suitPickup = pickup.AddComponent<SuitPickup>();
             }
+
             suitPickup.Initialize(suitDrop);
 
             Debug.Log($"{gameObject.name} dropped {suitDrop.suitName}", this);
@@ -170,124 +288,9 @@ namespace EnemyAI
 
             return pickup;
         }
-
-        public void Attack()
-        {
-            lastAttackTime = Time.time;
-            animator.CrossFadeInFixedTime("Ira_attack", 0.05f);
-        }
-
-        public void Patrol()
-        {
-            if (!CanMove || isStunned)
-            {
-                return;
-            }       
-            if (patrolPoints == null || patrolPoints.Length == 0)
-            {
-                rb.velocity = new Vector2(0, rb.velocity.y); // Stop if no patrol points
-                return;
-            }
-
-            Vector3 currentTargetPoint = patrolPoints[currentPatrolIndex];
-            float distanceToCurrentTarget = Vector2.Distance(transform.position, currentTargetPoint);
-
-            // Check if we need to switch to the next patrol point
-            if (distanceToCurrentTarget <= waypointArrivalThreshold)
-            {
-                currentPatrolIndex = (currentPatrolIndex + 1) % patrolPoints.Length;
-                currentTargetPoint = patrolPoints[currentPatrolIndex]; // Update to the new target
-                // Optionally, add a small pause here (e.g. with a timer) if desired.
-            }
-
-            // Move towards the (potentially new) current target point
-            Vector2 direction = ((Vector2)currentTargetPoint - (Vector2)transform.position).normalized;
-
-            if (direction.sqrMagnitude > 0.01f) // If there's a direction to move (not already at target)
-            {
-                rb.velocity = new Vector2(direction.x * patrolSpeed, rb.velocity.y);
-                UpdateFacingDirection(direction.x);
-            }
-            else
-            {
-                // Very close or at the target, stop to prevent jitter.
-                rb.velocity = new Vector2(0, rb.velocity.y);
-            }
-        }
-
-        public void Chase()
-        {
-            if (!CanMove || isStunned || player == null)
-            {
-                if (player == null) rb.velocity = new Vector2(0, rb.velocity.y); // Stop if player is gone
-                return;
-            }
-
-            // Determine if we should react to player behind us (optional quick turn)
-            if (CheckBehindForPlayer() && !CanSeePlayer()) // Prioritize actual sight if available
-            {
-                Flip(); // This updates CurrentFacingDirection
-            }
-
-            Vector3 targetPosition;
-            bool currentlySeesPlayer = CanSeePlayer(); // Cache for this frame
-
-            if (currentlySeesPlayer)
-            {
-                targetPosition = player.position; // lastKnownPlayerPosition is updated by CanSeePlayer
-            }
-            else
-            {
-                targetPosition = lastKnownPlayerPosition;
-            }
-
-            Vector2 directionToTarget = ((Vector2)targetPosition - (Vector2)transform.position);
-            float distanceToTarget = directionToTarget.magnitude; // Get actual distance
-
-            // If not seeing player and have arrived at LKP, stop. State machine will handle transition.
-            // Use a small threshold to prevent jitter.
-            if (!currentlySeesPlayer && distanceToTarget < waypointArrivalThreshold * 0.5f) // Or a dedicated LKP arrival threshold
-            {
-                rb.velocity = new Vector2(0, rb.velocity.y);
-            }
-            else
-            {
-                rb.velocity = new Vector2(directionToTarget.normalized.x * chaseSpeed, rb.velocity.y);
-            }
-
-            // Update facing direction based on movement or target direction
-            if (Mathf.Abs(directionToTarget.normalized.x) > 0.01f)
-            {
-                UpdateFacingDirection(directionToTarget.normalized.x);
-            }
-        }
-
-        public void Flee()
-        {
-            if (!CanMove || isStunned)
-            {
-                return;
-            }       
-            Vector2 directionToPlayer = player.position - transform.position;
-            Vector2 fleeDirection = -directionToPlayer.normalized;
-            rb.velocity = new Vector2(fleeDirection.x * fleeSpeed, rb.velocity.y);
-            UpdateFacingDirection(fleeDirection.x);
-        }
-
-        public void ReturnHome()
-        {
-            if (!CanMove || isStunned)
-            {
-                return;
-            }       
-            Vector2 dir = (homePosition - (Vector2)transform.position).normalized;
-            rb.velocity = new Vector2(dir.x * returnSpeed, rb.velocity.y);
-            UpdateFacingDirection(dir.x);
-        }
-
-
-#if UNITY_EDITOR
-        private void OnDrawGizmosSelected()
+        
+        #if UNITY_EDITOR
+        protected void OnDrawGizmosSelected()
         {
             // Using Handles requires the UnityEditor namespace
             // Draw Patrol Points with interactive handles
@@ -353,4 +356,5 @@ namespace EnemyAI
 #endif
 
     }
+    
 }

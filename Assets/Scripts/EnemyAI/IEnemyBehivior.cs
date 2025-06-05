@@ -2,11 +2,11 @@
 {
     public interface IEnemyBehivior
     {
-        public void Attack();
-        public void Patrol();
+        public abstract void Attack();
+        public abstract void Patrol();
         //public void Idle();
-        public void Chase();
-        public void Flee();
-        public void ReturnHome();
+        public abstract void Chase();
+        public abstract void Flee();
+        public abstract void ReturnHome();
     }
 }
