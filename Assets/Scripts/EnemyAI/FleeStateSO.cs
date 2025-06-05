@@ -18,19 +18,6 @@ public class FleeStateSO : EnemyStateSO
         enemy.animator.SetBool(isWalking, true);
     }
 
-    public override void OnUpdate(EnemyController enemy)
-    {
-        float distance = enemy.GetDistanceToPlayer();
-        if(distance > enemy.fleeDistance)
-        {
-            enemy.StateMachine.ChangeState(enemy, healingState); // Transition to healing
-        }
-        if (enemy.IsDeadEnd() || Vector2.Distance(enemy.transform.position, enemy.homePosition) > enemy.maxChaseDistance)
-        {
-            enemy.canFlee = false;
-            enemy.StateMachine.ChangeState(enemy, chaseState);
-        }
-    }
 
     public override void OnFixedUpdate(EnemyController enemy)
     {
@@ -42,5 +29,8 @@ public class FleeStateSO : EnemyStateSO
         Debug.Log("Exiting Flee State");
     }
 
-    
+    protected override bool Eval(EnemyController enemy)
+    {
+        return enemy.currentHits <= 1 && enemy.canFlee;
+    }
 }

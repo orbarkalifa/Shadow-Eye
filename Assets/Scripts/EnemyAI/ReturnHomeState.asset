@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 378abf1a45504a6c9aa4b7cb6fb17abe, type: 3}
   m_Name: ReturnHomeState
   m_EditorClassIdentifier: 
-  returnSpeed: 2
+  States:
+  - {fileID: 11400000, guid: 98a71cfb4419860419c735a6641786ba, type: 2}
   patrolState: {fileID: 11400000, guid: 98a71cfb4419860419c735a6641786ba, type: 2}
+  homeArrivalThreshold: 1

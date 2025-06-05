@@ -19,6 +19,8 @@ namespace EnemyAI
         
         [Header("Chase Settings")]
         public float chaseSpeed;
+        public float lostPlayerGracePeriod = 3f; // Time to search before giving up chase
+        public float timePlayerLost = -1f;
         
         [Header("Patrol Settings")] // Changed header slightly
         public float patrolSpeed = 2f;

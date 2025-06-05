@@ -46,9 +46,9 @@ namespace Suits.Duri
             
             caster.ImpulseCamera();
 
-            foreach (var col in hits)
+            foreach (var collision in hits)
             {
-                if (col.TryGetComponent(out Enemy enemy))
+                if (collision.TryGetComponent(out Enemy enemy))
                 {
                     float recoilDir = Mathf.Sign(enemy.transform.position.x - caster.transform.position.x);
                     if (recoilDir == 0) recoilDir = facingDirection; 
@@ -58,6 +58,10 @@ namespace Suits.Duri
                     {
                         enemy.rb.AddForce(Vector2.up * bounceForce * enemy.rb.mass, ForceMode2D.Impulse);
                     }
+                }
+                if (collision.TryGetComponent<Destructible>(out var d))
+                {
+                    d.TakeDamage(smashDamage);
                 }
             }
         }

@@ -20,14 +20,7 @@ public class PatrolStateSO : EnemyStateSO
         // Ensure enemy faces and starts moving towards its patrol point immediately.
         enemy.Patrol();
     }
-
-    public override void OnUpdate(EnemyController enemy)
-    {
-        if (enemy.CheckBehindForPlayer() || enemy.CanSeePlayer())
-        {
-            enemy.StateMachine.ChangeState(enemy, chaseState);
-        }
-    }
+    
 
     public override void OnFixedUpdate(EnemyController enemy)
     {
@@ -75,5 +68,10 @@ public class PatrolStateSO : EnemyStateSO
     {
         // Stop horizontal movement when exiting patrol
         enemy.rb.velocity = new Vector2(0, enemy.rb.velocity.y);
+    }
+
+    protected override bool Eval(EnemyController enemy)
+    {
+        return Time.time - enemy.timePlayerLost > enemy.lostPlayerGracePeriod && !enemy.CanSeePlayer();
     }
 }

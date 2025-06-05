@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00a5e56907f4434ebba22958a5067a08, type: 3}
   m_Name: IdleState
   m_EditorClassIdentifier: 
-  detectionRange: 7
+  States:
+  - {fileID: 11400000, guid: 0aeeba061f758d94ea31a619c7ab322e, type: 2}
+  - {fileID: 11400000, guid: 98a71cfb4419860419c735a6641786ba, type: 2}
   chaseState: {fileID: 11400000, guid: 0aeeba061f758d94ea31a619c7ab322e, type: 2}
   idleDuration: 2
   nextStateAfterIdle: {fileID: 11400000, guid: 98a71cfb4419860419c735a6641786ba, type: 2}

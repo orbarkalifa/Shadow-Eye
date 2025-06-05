@@ -12,6 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cef6beba01148a69f2ef91ae81cb777, type: 3}
   m_Name: AttackState
   m_EditorClassIdentifier: 
+  States:
+  - {fileID: 11400000, guid: a8d2893af6deb49468ed7d661bb4db20, type: 2}
+  - {fileID: 11400000, guid: 0aeeba061f758d94ea31a619c7ab322e, type: 2}
+  - {fileID: 11400000, guid: 98a71cfb4419860419c735a6641786ba, type: 2}
   chaseState: {fileID: 11400000, guid: 0aeeba061f758d94ea31a619c7ab322e, type: 2}
   patrolState: {fileID: 11400000, guid: 98a71cfb4419860419c735a6641786ba, type: 2}
   fleeState: {fileID: 11400000, guid: a8d2893af6deb49468ed7d661bb4db20, type: 2}

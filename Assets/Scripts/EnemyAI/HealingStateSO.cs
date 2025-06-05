@@ -32,19 +32,7 @@ public class HealingStateSO : EnemyStateSO
 
     public override void OnUpdate(EnemyController enemy)
     {
-        float distanceToPlayer = Vector2.Distance(enemy.transform.position, enemy.player.position);
-        if (distanceToPlayer <= enemy.fleeDistance && enemy.currentHits > 1)
-        {
-            enemy.StateMachine.ChangeState(enemy, chaseState);
-            return;
-        }
-        if (Time.time >= healStartTime + healDuration || enemy.currentHits >= enemy.maxHits)
-        {
-            enemy.currentHits = enemy.maxHits;
-            enemy.canFlee = true;
-            enemy.StateMachine.ChangeState(enemy, patrolState);
-            return;
-        }
+        base.OnUpdate(enemy);
         healProgressAccumulator += healRate * Time.deltaTime;
         if (healProgressAccumulator >= 1.0f)
         {
@@ -54,6 +42,7 @@ public class HealingStateSO : EnemyStateSO
         }
 
         enemy.canFlee = true;
+        
     }
 
     public override void OnFixedUpdate(EnemyController enemy)
@@ -65,5 +54,10 @@ public class HealingStateSO : EnemyStateSO
     public override void OnExit(EnemyController enemy)
     {
         Debug.Log("Exiting Healing State");
+    }
+
+    protected override bool Eval(EnemyController enemy)
+    {
+        return enemy.GetDistanceToPlayer()<=enemy.fleeDistance;
     }
 }

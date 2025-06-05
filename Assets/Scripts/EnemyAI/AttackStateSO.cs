@@ -21,26 +21,7 @@ public class AttackStateSO : EnemyStateSO
 
     public override void OnUpdate(EnemyController enemy)
     {
-        float distanceToPlayer = Vector2.Distance(enemy.transform.position, enemy.player.position);
-    
-        if (distanceToPlayer > enemy.attackRange)
-        {
-            if (distanceToPlayer <= enemy.detectionRange)
-            {
-                enemy.StateMachine.ChangeState(enemy, chaseState);
-            }
-            else
-            {
-                enemy.StateMachine.ChangeState(enemy, patrolState);
-            }
-            return;
-        }
-    
-        if (enemy.currentHits <= 1 && fleeState != null && enemy.canFlee) // Assuming flee threshold is 1 for now
-        {
-            enemy.StateMachine.ChangeState(enemy, fleeState);
-        }
-        
+        base.OnUpdate(enemy);
         if (Time.time >= enemy.lastAttackTime + enemy.attackCooldown)
         {
             enemy.Attack();
@@ -57,4 +38,9 @@ public class AttackStateSO : EnemyStateSO
         // Optionally reset or clean up any attack state here.
     }
 
+    protected override bool Eval(EnemyController enemy)
+    {
+        return enemy.CanSeePlayer() && enemy.GetDistanceToPlayer() <= enemy.attackRange
+                                    && Time.time >= enemy.lastAttackTime + enemy.attackCooldown;
+    }
 }

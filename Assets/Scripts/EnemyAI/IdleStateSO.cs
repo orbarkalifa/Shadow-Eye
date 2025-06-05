@@ -17,23 +17,6 @@ public class IdleStateSO : EnemyStateSO
         enemy.rb.velocity = new Vector2(0f, enemy.rb.velocity.y);
         enemy.animator.SetBool("isWalking", false);    }
 
-    public override void OnUpdate(EnemyController enemy)
-    {
-        // Check if player is in range
-        float distance = Vector2.Distance(enemy.transform.position, enemy.player.position);
-        if (distance <= enemy.detectionRange)
-        {
-            // Transition to chase
-            enemy.StateMachine.ChangeState(enemy,chaseState);
-            return;
-        }
-
-        // If idle time exceeded, transition to the nextStateAfterIdle if assigned
-        if (nextStateAfterIdle != null && Time.time >= idleStartTime + idleDuration)
-        {
-            enemy.StateMachine.ChangeState(enemy,nextStateAfterIdle);
-        }
-    }
     
     public override void OnFixedUpdate(EnemyController enemy)
     {
@@ -42,5 +25,10 @@ public class IdleStateSO : EnemyStateSO
 
     public override void OnExit(EnemyController enemy)
     {
+    }
+
+    protected override bool Eval(EnemyController enemy)
+    {
+        return true;
     }
 }
