@@ -22,7 +22,14 @@ public class ChaseStateSO : EnemyStateSO
         enemy.animator.SetBool(isWalking, true);
         enemy.timePlayerLost = -1f;
     }
-    
+
+    public override void OnUpdate(EnemyController enemy)
+    {
+        
+        base.OnUpdate(enemy);
+        
+    }
+
     public override void OnFixedUpdate(EnemyController enemy)
     {
         if (enemy.player == null) // Safety check
@@ -41,6 +48,8 @@ public class ChaseStateSO : EnemyStateSO
 
     protected override bool Eval(EnemyController enemy)
     {
+        if (enemy.GetDistanceToPlayer() <= enemy.attackRange) return false;
+        if(enemy.isFleeing) return enemy.IsDeadEnd(1);
         return enemy.CanSeePlayer() || enemy.CheckBehindForPlayer();
     }
 }

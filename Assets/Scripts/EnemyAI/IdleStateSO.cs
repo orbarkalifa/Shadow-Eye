@@ -29,6 +29,6 @@ public class IdleStateSO : EnemyStateSO
 
     protected override bool Eval(EnemyController enemy)
     {
-        return true;
+        return false;
     }
 }

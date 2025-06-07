@@ -15,6 +15,7 @@ public class FleeStateSO : EnemyStateSO
     public override void OnEnter(EnemyController enemy)
     {
         Debug.Log("Entering Flee State");
+        enemy.isFleeing = true;
         enemy.animator.SetBool(isWalking, true);
     }
 
@@ -27,10 +28,14 @@ public class FleeStateSO : EnemyStateSO
     public override void OnExit(EnemyController enemy)
     {
         Debug.Log("Exiting Flee State");
+        enemy.isFleeing = false;
     }
 
     protected override bool Eval(EnemyController enemy)
     {
-        return enemy.currentHits <= 1 && enemy.canFlee;
+        if (enemy.currentHits > enemy.lowHealthHP) return false;
+        if(enemy.isFleeing) return !enemy.IsDeadEnd(1) ;
+        var isDeadEnd = enemy.isFleeing ? enemy.IsDeadEnd(1) : enemy.IsDeadEnd(-1);
+        return enemy.GetDistanceToPlayer() < enemy.fleeDistance && !isDeadEnd;
     }
 }

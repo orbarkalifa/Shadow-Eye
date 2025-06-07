@@ -90,6 +90,7 @@ namespace EnemyAI
             else
             {
                 targetPosition = lastKnownPlayerPosition;
+                timePlayerLost = Time.time;
             }
 
             Vector2 directionToTarget = ((Vector2)targetPosition - (Vector2)transform.position);

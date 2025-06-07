@@ -193,7 +193,7 @@ MonoBehaviour:
   detectionRange: 10
   obstacleLayerMask:
     serializedVersion: 2
-    m_Bits: 1088
+    m_Bits: 1096
   playerLayerMask:
     serializedVersion: 2
     m_Bits: 256
@@ -203,9 +203,12 @@ MonoBehaviour:
   attackRange: 5
   attackCooldown: 2
   enemyCollider: {fileID: 7609230314428258331}
+  lowHealthHP: 2
   lastAttackTime: -Infinity
   startingState: {fileID: 11400000, guid: 65480f5da2a8aa24397aa633c93a914f, type: 2}
   chaseSpeed: 4
+  lostPlayerGracePeriod: 3
+  timePlayerLost: -1
   patrolSpeed: 2
   waypointArrivalThreshold: 1
   patrolPoints: []
@@ -215,7 +218,7 @@ MonoBehaviour:
   whatIsPatrolBoundary:
     serializedVersion: 2
     m_Bits: 72
-  canFlee: 1
+  isFleeing: 0
   fleeSpeed: 6
   fleeDistance: 10
   returnSpeed: 4

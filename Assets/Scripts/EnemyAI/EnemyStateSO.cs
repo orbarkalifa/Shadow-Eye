@@ -9,6 +9,7 @@ public abstract class EnemyStateSO : ScriptableObject
 
     public virtual void OnUpdate(EnemyController enemy)
     {
+
         foreach(var state in States)
         {
             if(state)

@@ -7,16 +7,11 @@ public class HealingStateSO : EnemyStateSO
     private static readonly int isWalking = Animator.StringToHash("isWalking");
     [Header("Healing Settings")]
     public float healRate = 1f; // How much health to heal per second
-    public float healDuration = 5f; // How long to heal for (or until full health)
-    
     [Header("Healing Interruption")]
-    public float interruptHealingRange = 7f; // Or use enemy.detectionRange
     private float healProgressAccumulator;
 
     
-    [Header("Transitions")]
-    public EnemyStateSO patrolState; // State to go to after healing
-    public EnemyStateSO chaseState;  // State to go to if player is detected during healing
+
 
     private float healStartTime;
 
@@ -41,7 +36,6 @@ public class HealingStateSO : EnemyStateSO
             healProgressAccumulator -= amountToHeal;
         }
 
-        enemy.canFlee = true;
         
     }
 
@@ -58,6 +52,7 @@ public class HealingStateSO : EnemyStateSO
 
     protected override bool Eval(EnemyController enemy)
     {
-        return enemy.GetDistanceToPlayer()<=enemy.fleeDistance;
+        if(enemy.currentHits>= enemy.maxHits) return false;
+        return enemy.GetDistanceToPlayer()>enemy.fleeDistance;
     }
 }

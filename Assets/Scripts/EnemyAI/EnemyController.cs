@@ -2,6 +2,7 @@ using UnityEditor;
 using Suits;
 using UnityEngine;
 using GameStateManagement;
+using UnityEngine.Serialization;
 
 namespace EnemyAI
 {
@@ -13,6 +14,7 @@ namespace EnemyAI
         public float attackCooldown;
         public Collider2D enemyCollider;
         protected static bool hasShownSuitTutorial;
+        public int lowHealthHP=2;
 
         [HideInInspector] public float lastAttackTime = -Mathf.Infinity;
         public EnemyStateSO startingState;
@@ -37,8 +39,9 @@ namespace EnemyAI
         [Tooltip("Layer mask for objects that define patrol boundaries (e.g., Walls, Ground).")]
         public LayerMask whatIsPatrolBoundary;
         
+        [FormerlySerializedAs("canFleeing")]
         [Header("Flee Settings")]
-        public bool canFlee = true;
+        public bool isFleeing = false;
         public float fleeSpeed;
         public float fleeDistance;
         
@@ -46,7 +49,7 @@ namespace EnemyAI
         public float returnSpeed;
         [Header("Suit Drop")]
         [SerializeField] protected Suit suitDrop;
-        
+
         public EnemyStateMachine StateMachine { get; private set; }
 
         public abstract void TriggerAttackDamage();
@@ -290,7 +293,14 @@ namespace EnemyAI
 
             return pickup;
         }
-        
+    
+        public bool IsDeadEnd(float d)
+        {
+            var direction = new Vector2(transform.localScale.x* d, 0);
+            RaycastHit2D hit = Physics2D.Raycast(rb.position - new Vector2(0,1), direction, detectionRange * 0.5f, obstacleLayerMask);
+            Debug.DrawRay(rb.position - new Vector2(0,1), direction * (detectionRange * 0.5f), Color.black);
+            return hit.collider != null;
+        }
         #if UNITY_EDITOR
         protected void OnDrawGizmosSelected()
         {
@@ -358,5 +368,6 @@ namespace EnemyAI
 #endif
 
     }
+    
     
 }

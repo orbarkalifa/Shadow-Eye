@@ -205,14 +205,7 @@ namespace EnemyAI
             }
 #endif            
         }
-        public bool IsDeadEnd()
-        {
-            var direction = new Vector2(transform.localScale.x, 0);
-            RaycastHit2D hit = Physics2D.Raycast(rb.position - new Vector2(0,1), direction, detectionRange * 0.5f, obstacleLayerMask);
-            Debug.DrawRay(rb.position - new Vector2(0,1), direction * (detectionRange * 0.5f), Color.black);
 
-            return hit.collider != null;
-        }
         public override void TakeDamage(int damage, float direction)
         {
             StartCoroutine(EnemyRecoilCoroutine(direction));
