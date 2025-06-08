@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using Player;
+using UnityEditor;
+
 namespace EnemyAI
 {
     public class DuriController: EnemyController
@@ -10,28 +12,33 @@ namespace EnemyAI
             float facingDirection = CurrentFacingDirection;
             Vector2 originPoint = rb.position;
 
-            Vector2 hitboxCenter = originPoint + new Vector2(attackRange * facingDirection, 2);
+            // Define the hitbox size based on attackRange
+            Vector2 hitboxSize = new Vector2(attackRange, rb.position.y); // Width = attackRange*2, height = fixed 4f
+            Vector2 hitboxCenter = originPoint + new Vector2(attackRange * facingDirection, 2f);
 
-            Collider2D[] hits = Physics2D.OverlapBoxAll(hitboxCenter , new Vector2( 8f, 4f), 0f, playerLayerMask);
-            foreach(var col in hits)
+            // Detect players inside the attack box
+            Collider2D[] hits = Physics2D.OverlapBoxAll(hitboxCenter, hitboxSize, 0f, playerLayerMask);
+            foreach (var col in hits)
             {
-                if(col.TryGetComponent(out PlayerController player))
+                if (col.TryGetComponent(out PlayerController player))
                 {
                     float recoilDir = Mathf.Sign(player.transform.position.x - transform.position.x);
-                    if(recoilDir == 0) recoilDir = facingDirection;
+                    if (recoilDir == 0) recoilDir = facingDirection;
                     player.TakeDamage(2, recoilDir);
-                    if(player.rb != null && bounceForce > 0)
+
+                    if (player.rb != null && bounceForce > 0)
                     {
                         player.rb.AddForce(Vector2.up * bounceForce * player.rb.mass, ForceMode2D.Impulse);
                     }
                 }
             }
         }
+
         
         public override void Attack()
         {
             lastAttackTime = Time.time;
-            TriggerAttackDamage();
+            animator.CrossFadeInFixedTime("Duri_Attack", 0.05f);
         }
 
         public override void Patrol()
@@ -145,5 +152,22 @@ namespace EnemyAI
             rb.velocity = new Vector2(dir.x * returnSpeed, rb.velocity.y);
             UpdateFacingDirection(dir.x);
         }
+#if UNITY_EDITOR
+        protected override void OnDrawGizmosSelected()
+        {
+            base.OnDrawGizmosSelected();
+            if (!Application.isPlaying) return;
+
+            float facingDirection = CurrentFacingDirection;
+            Vector2 originPoint = rb.position;
+
+            Vector2 hitboxSize = new Vector2(attackRange * 2f, 4f);
+            Vector2 hitboxCenter = originPoint + new Vector2(attackRange * facingDirection, 2f);
+
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireCube(hitboxCenter, hitboxSize);
+            
+        }
+#endif
     }
 }

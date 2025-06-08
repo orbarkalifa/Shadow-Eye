@@ -290,7 +290,7 @@ namespace EnemyAI
         }
         
         #if UNITY_EDITOR
-        protected void OnDrawGizmosSelected()
+        protected virtual void OnDrawGizmosSelected()
         {
             // Using Handles requires the UnityEditor namespace
             // Draw Patrol Points with interactive handles
@@ -346,11 +346,7 @@ namespace EnemyAI
                 }
             }
 
-            // Draw Attack Range
-            Handles.color = Color.red;
-            Handles.DrawWireDisc(transform.position, Vector3.forward, attackRange); // Use Handles for consistency
 
-           
            
         }
 #endif
