@@ -200,7 +200,7 @@ MonoBehaviour:
   fieldOfViewAngle: 120
   recoilForce: 5
   player: {fileID: 0}
-  detectionRange: 15
+  detectionRange: 7
   obstacleLayerMask:
     serializedVersion: 2
     m_Bits: 72
@@ -210,7 +210,7 @@ MonoBehaviour:
   homePosition: {x: 0, y: 0}
   maxChaseDistance: 20
   stunColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  attackRange: 8
+  attackRange: 6
   attackCooldown: 2
   enemyCollider: {fileID: 6680888483450975628}
   lastAttackTime: -Infinity

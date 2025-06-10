@@ -7,7 +7,6 @@ using UnityEngine.UI;
 public class ChangeInGameHud : MonoBehaviour
 {
     private Image imageComp;
-    public Sprite current;
     public Sprite deafult;
     [SerializeField]BeaconSO beacon;
     private void Awake()

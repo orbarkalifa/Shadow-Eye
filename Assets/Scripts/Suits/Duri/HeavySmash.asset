@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityName: HeavySmash
   cooldownTime: 3
-  attackHitboxSize: {x: 9, y: 4}
-  attackHitboxOffset: {x: 4, y: 0}
+  attackHitboxSize: {x: 35, y: 2}
+  attackHitboxOffset: {x: 0, y: -1}
   enemyLayer:
     serializedVersion: 2
     m_Bits: 576
