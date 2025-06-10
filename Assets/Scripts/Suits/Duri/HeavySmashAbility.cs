@@ -67,7 +67,7 @@ namespace Suits.Duri
         }
 
 #if UNITY_EDITOR
-        private void OnDrawGizmosSelected()
+        public void OnDrawGizmosSelected()
         {
             if (UnityEditor.Selection.activeObject != this) return; 
 
