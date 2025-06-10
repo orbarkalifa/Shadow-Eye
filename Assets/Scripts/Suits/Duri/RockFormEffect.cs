@@ -116,15 +116,22 @@ namespace Suits.Duri
         void Smash()
         {
             Vector2 center = (Vector2)transform.position + rockAbilitySO.SmashAreaOffset;
-            var enemies = Physics2D.OverlapBoxAll(center, rockAbilitySO.SmashAreaSize, 0f, rockAbilitySO.EnemyLayerMask);
-            foreach (var c in enemies)
-                if (c.TryGetComponent<Enemy>(out var e))
+            var attackable = Physics2D.OverlapBoxAll(center, rockAbilitySO.SmashAreaSize, 0f, rockAbilitySO.EnemyLayerMask);
+            foreach(var collision in attackable)
+            {
+                if (collision.TryGetComponent<Enemy>(out var e))
                 {
                     float dir = Mathf.Sign(e.transform.position.x - transform.position.x);
                     if (dir == 0) dir = -1f;
                     e.TakeDamage(rockAbilitySO.SmashDamage, dir);
                     e.Stun(rockAbilitySO.StunDuration);
                 }
+                if (collision.TryGetComponent<BreakOnSmash>(out var d))
+                {
+                    d.TakeDamage(rockAbilitySO.SmashDamage, gameObject);
+                }
+            }
+                
 
             player.ImpulseCamera();
         }

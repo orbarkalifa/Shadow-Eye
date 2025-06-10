@@ -5,18 +5,13 @@ public class Destructible : MonoBehaviour
 {
     [SerializeField]  ParticleSystem hitParticles;
     [SerializeField] ParticleSystem destoyParticles;
-    [SerializeField] private float Health = 50f;
-    [SerializeField] private bool DestroyOnHit = false;
+    [SerializeField] protected float health = 50f;
+    
 
-    public void TakeDamage(float damage)
+    public virtual void TakeDamage(float damage)
     {
-        if (DestroyOnHit)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        Health -= damage;
-        if(Health <= 0)
+        health -= damage;
+        if(health <= 0)
         {
             Instantiate(destoyParticles, transform.position, Quaternion.identity);
             Destroy(gameObject);

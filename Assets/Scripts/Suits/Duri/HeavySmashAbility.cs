@@ -8,7 +8,7 @@ namespace Suits.Duri
     public class HeavySmashAbility : SuitAbility
     {
         [Header("AOE Settings")]
-        [SerializeField] private Vector2 attackHitboxSize = new(4f, 1f); 
+        [SerializeField] private Vector2 attackHitboxSize = new(4f, 2f); 
         [SerializeField] private Vector2 attackHitboxOffset = new(1f, 0f); 
         [SerializeField] private LayerMask enemyLayer = ~0; 
         [SerializeField] private int smashDamage = 2;
@@ -40,15 +40,15 @@ namespace Suits.Duri
             float facingDirection = caster.CurrentFacingDirection;
             Vector2 originPoint = caster.transform.position;
 
-            Vector2 hitboxCenter = originPoint + new Vector2(attackHitboxOffset.x * facingDirection, attackHitboxOffset.y);
+            Vector2 hitboxCenter = originPoint + new Vector2(attackHitboxOffset.x * facingDirection, 0);
 
             Collider2D[] hits = Physics2D.OverlapBoxAll(hitboxCenter, attackHitboxSize, 0f, enemyLayer);
             
             caster.ImpulseCamera();
 
-            foreach (var col in hits)
+            foreach (var collision in hits)
             {
-                if (col.TryGetComponent(out Enemy enemy))
+                if (collision.TryGetComponent(out Enemy enemy))
                 {
                     float recoilDir = Mathf.Sign(enemy.transform.position.x - caster.transform.position.x);
                     if (recoilDir == 0) recoilDir = facingDirection; 
@@ -58,6 +58,10 @@ namespace Suits.Duri
                     {
                         enemy.rb.AddForce(Vector2.up * bounceForce * enemy.rb.mass, ForceMode2D.Impulse);
                     }
+                }
+                if (collision.TryGetComponent<Destructible>(out var d))
+                {
+                    d.TakeDamage(smashDamage);
                 }
             }
         }

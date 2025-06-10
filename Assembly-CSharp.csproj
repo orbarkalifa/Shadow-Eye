@@ -55,6 +55,7 @@
     <Compile Include="Assets/Scripts/EnemyAI/IraController.cs" />
     <Compile Include="Assets/Scripts/Character.cs" />
     <Compile Include="Assets/Scripts/Player/PlayerController.cs" />
+    <Compile Include="Assets/Scripts/BreakOnSmash.cs" />
     <Compile Include="Assets/Scripts/Tutorial/TutorialPanelController.cs" />
     <Compile Include="Assets/Scripts/GameStateManagement/WinStateSO.cs" />
     <Compile Include="Assets/Scripts/EnemyAI/EnemyController.cs" />

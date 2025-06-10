@@ -13,7 +13,7 @@ namespace EnemyAI
             Vector2 originPoint = rb.position;
 
             // Define the hitbox size based on attackRange
-            Vector2 hitboxSize = new Vector2(attackRange, rb.position.y); // Width = attackRange*2, height = fixed 4f
+            Vector2 hitboxSize = new Vector2(attackRange, rb.position.y);
             Vector2 hitboxCenter = originPoint + new Vector2(attackRange * facingDirection, 2f);
 
             // Detect players inside the attack box
