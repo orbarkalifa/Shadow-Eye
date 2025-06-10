@@ -34,8 +34,10 @@ public class FleeStateSO : EnemyStateSO
     protected override bool Eval(EnemyController enemy)
     {
         if (enemy.currentHits > enemy.lowHealthHP) return false;
-        if(enemy.isFleeing) return !enemy.IsDeadEnd(1) ;
-        var isDeadEnd = enemy.isFleeing ? enemy.IsDeadEnd(1) : enemy.IsDeadEnd(-1);
-        return enemy.GetDistanceToPlayer() < enemy.fleeDistance && !isDeadEnd;
+        if(enemy.canFlee)
+        {
+            return enemy.GetDistanceToPlayer() < enemy.fleeDistance;
+        }
+        return false;
     }
 }

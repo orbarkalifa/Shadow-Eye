@@ -49,7 +49,7 @@ public class ChaseStateSO : EnemyStateSO
     protected override bool Eval(EnemyController enemy)
     {
         if (enemy.GetDistanceToPlayer() <= enemy.attackRange) return false;
-        if(enemy.isFleeing) return enemy.IsDeadEnd(1);
+        if(!enemy.canFlee) return false;
         return enemy.CanSeePlayer() || enemy.CheckBehindForPlayer();
     }
 }

@@ -115,18 +115,6 @@ namespace EnemyAI
             }
         }
         
-        public override void Flee()
-        {
-            if(!CanMove || isStunned)
-            {
-                return;
-            }
-
-            Vector2 directionToPlayer = player.position - transform.position;
-            Vector2 fleeDirection = -directionToPlayer.normalized;
-            rb.velocity = new Vector2(fleeDirection.x * fleeSpeed, rb.velocity.y);
-            UpdateFacingDirection(fleeDirection.x);
-        }
 
         public override void ReturnHome()
         {

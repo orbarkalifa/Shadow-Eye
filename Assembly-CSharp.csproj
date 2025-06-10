@@ -59,6 +59,7 @@
     <Compile Include="Assets\Scripts\Tutorial\TutorialPanelController.cs" />
     <Compile Include="Assets\Scripts\GameStateManagement\WinStateSO.cs" />
     <Compile Include="Assets\Scripts\EnemyAI\EnemyController.cs" />
+    <Compile Include="Assets\Scripts\EnemyAI\TransitionSo.cs" />
     <Compile Include="Assets\Scripts\InputSystem_Actions.cs" />
     <Compile Include="Assets\Scripts\EnemyAI\AttackStateSO.cs" />
     <Compile Include="Assets\Scripts\Destructible.cs" />
@@ -93,6 +94,7 @@
     <Compile Include="Assets\Scripts\UI\UIEyeBar.cs" />
     <Compile Include="Assets\Scripts\EnemyAI\SimpleEnemy.cs" />
     <Compile Include="Assets\Scripts\EnemyAI\DuriController.cs" />
+    <Compile Include="Assets\Scripts\EnemyAI\TransitionConditionSO.cs" />
     <Compile Include="Assets\Scripts\Suits\Suit.cs" />
     <Compile Include="Assets\Scripts\Tutorial\ConsumeUnlock.cs" />
     <Compile Include="Assets\Scripts\GameStateManagement\GameStateChannelSO.cs" />

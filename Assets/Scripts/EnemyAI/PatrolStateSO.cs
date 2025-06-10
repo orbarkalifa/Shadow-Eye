@@ -72,7 +72,8 @@ public class PatrolStateSO : EnemyStateSO
 
     protected override bool Eval(EnemyController enemy)
     {
-        if (enemy.CanSeePlayer()) return false;
+        if (enemy.CanSeePlayer()|| enemy.CheckBehindForPlayer()) return false;
+        if(enemy.currentHits < enemy.lowHealthHP && !enemy.canFlee) return false;
         return Time.time - enemy.timePlayerLost > enemy.lostPlayerGracePeriod;
     }
 }

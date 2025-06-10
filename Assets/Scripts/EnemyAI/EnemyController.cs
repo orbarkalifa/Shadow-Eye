@@ -41,6 +41,7 @@ namespace EnemyAI
         
         [FormerlySerializedAs("canFleeing")]
         [Header("Flee Settings")]
+        public bool canFlee=true;
         public bool isFleeing = false;
         public float fleeSpeed;
         public float fleeDistance;
@@ -57,7 +58,24 @@ namespace EnemyAI
         public abstract void Patrol();
         //public void Idle();
         public abstract void Chase();
-        public abstract void Flee();
+        public virtual void Flee()
+        {
+            if(!CanMove || isStunned)
+            {
+                return;
+            }
+
+            Vector2 directionToPlayer = player.position - transform.position;
+            Vector2 fleeDirection = -directionToPlayer.normalized;
+            if(IsDeadEnd())
+            {
+                canFlee = false;
+                fleeDirection *= -1;
+            }
+            rb.velocity = new Vector2(fleeDirection.x * fleeSpeed, rb.velocity.y);
+            UpdateFacingDirection(fleeDirection.x);
+            
+        }
         public abstract void ReturnHome();
         
         protected override void Awake()
@@ -294,9 +312,9 @@ namespace EnemyAI
             return pickup;
         }
     
-        public bool IsDeadEnd(float d)
+        public bool IsDeadEnd()
         {
-            var direction = new Vector2(transform.localScale.x* d, 0);
+            var direction = new Vector2(transform.localScale.x, 0);
             RaycastHit2D hit = Physics2D.Raycast(rb.position - new Vector2(0,1), direction, detectionRange * 0.5f, obstacleLayerMask);
             Debug.DrawRay(rb.position - new Vector2(0,1), direction * (detectionRange * 0.5f), Color.black);
             return hit.collider != null;
