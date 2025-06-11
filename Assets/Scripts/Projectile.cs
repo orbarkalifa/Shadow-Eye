@@ -16,6 +16,8 @@ public class Projectile : MonoBehaviour
         if (collision.CompareTag("Destructible") || collision.CompareTag("Enemy"))
         {
             float recoilDirection = transform.localScale.x > 0 ? 1 : -1;
+            if (collision.TryGetComponent(out BreakOnProjectile breakOn))
+                breakOn.TakeDamage(damage, gameObject);
             if (collision.TryGetComponent(out Destructible destructible))
                 destructible.TakeDamage(damage);
 

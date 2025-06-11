@@ -9,6 +9,7 @@ namespace Suits.Ira
     {
         [SerializeField] private float lifetime = 2f;
         public GameObject fireballPrefab;
+        
 
         public override void Execute(PlayerController character)
         {
