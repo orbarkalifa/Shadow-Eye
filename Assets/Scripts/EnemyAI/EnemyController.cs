@@ -192,7 +192,7 @@ namespace EnemyAI
                 if(tutorialPanel != null)
                 {
                     tutorialPanel.ShowMessage(
-                        "You acquired a Suit! Try Shift and Q to use your special abilities.",
+                        "You acquired a Suit! Try <color=#00FFFF><b>Shift</b></color> and <color=#00FFFF><b>Q</b></color> to use your special abilities.",
                         3f);
                 }
             }

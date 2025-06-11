@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class ConsumeUnlock : MonoBehaviour
 {
-    [SerializeField] private string tutorialMessage = "Wall Grab Unlocked!\nHold toward wall + Jump to cling!";
+    [SerializeField] private string tutorialMessage = "";
     [SerializeField] private float duration = 3f;
     [SerializeField] private TutorialPanelController tutorialPanel;
     private bool triggered;
