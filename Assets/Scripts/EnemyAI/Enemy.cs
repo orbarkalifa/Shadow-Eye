@@ -13,7 +13,7 @@ namespace EnemyAI
         public float fieldOfViewAngle = 120f;
         public float recoilForce = 100;
         public Transform player;
-        protected Vector3 lastKnownPlayerPosition;
+        public Vector3 lastKnownPlayerPosition;
         public float detectionRange = 10f;
         public LayerMask obstacleLayerMask;
         public LayerMask playerLayerMask;

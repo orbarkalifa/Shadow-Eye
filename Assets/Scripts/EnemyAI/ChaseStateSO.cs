@@ -1,3 +1,4 @@
+using System;
 using EnemyAI;
 using UnityEngine;
 
@@ -44,6 +45,15 @@ public class ChaseStateSO : EnemyStateSO
         bool isPlayerBehind = enemy.CheckBehindForPlayer(); // Check once for this frame
         bool canCurrentlySeePlayer = enemy.CanSeePlayer();
 
+        
+        float distanceToPlayer = enemy.GetDistanceToPlayer();
+        if (canCurrentlySeePlayer && distanceToPlayer <= enemy.attackRange &&
+            Time.time >= enemy.lastAttackTime + enemy.attackCooldown)
+        {
+            enemy.StateMachine.ChangeState(enemy, attackState);
+            return;
+        }
+        
         if (canCurrentlySeePlayer || isPlayerBehind) 
         {
             timePlayerLost = -1f;
@@ -54,18 +64,11 @@ public class ChaseStateSO : EnemyStateSO
             {
                 timePlayerLost = Time.time;
             }
-            else if (Time.time - timePlayerLost > lostPlayerGracePeriod) 
+            else if (Time.time - timePlayerLost > lostPlayerGracePeriod || Math.Abs(enemy.transform.position.x - enemy.lastKnownPlayerPosition.x) <= enemy.waypointArrivalThreshold) 
             {
                 enemy.StateMachine.ChangeState(enemy, patrolState);
                 return;
             }
-        }
-        float distanceToPlayer = enemy.GetDistanceToPlayer();
-        if (canCurrentlySeePlayer && distanceToPlayer <= enemy.attackRange &&
-            Time.time >= enemy.lastAttackTime + enemy.attackCooldown)
-        {
-            enemy.StateMachine.ChangeState(enemy, attackState);
-            return;
         }
 
         if (fleeState != null && enemy.currentHits <= 1 && enemy.canFlee) 

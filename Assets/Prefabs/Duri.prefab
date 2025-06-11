@@ -221,13 +221,13 @@ MonoBehaviour:
   patrolPoints: []
   currentPatrolIndex: 0
   useDynamicTwoPointPatrol: 1
-  patrolBoundDetectionDistance: 30
+  patrolBoundDetectionDistance: 15
   whatIsPatrolBoundary:
     serializedVersion: 2
     m_Bits: 1096
   canFlee: 1
   fleeSpeed: 4
-  fleeDistance: 6
+  fleeDistance: 10
   returnSpeed: 3
   suitDrop: {fileID: 11400000, guid: 1143b79d77b93944fabc693788871ffb, type: 2}
   attackHeight: 4
