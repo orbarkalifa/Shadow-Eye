@@ -97,6 +97,7 @@
     <Compile Include="Assets/Scripts/Tutorial/ConsumeUnlock.cs" />
     <Compile Include="Assets/Scripts/GameStateManagement/GameStateChannelSO.cs" />
     <Compile Include="Assets/Scripts/Suits/Duri/RockFormEffect.cs" />
+    <Compile Include="Assets/Scripts/BreakOnProjectile.cs" />
     <Compile Include="Assets/Scripts/Tutorial/TutorialTrigger.cs" />
     <Compile Include="Assets/Scripts/MapLimit.cs" />
     <Compile Include="Assets/Scripts/Suits/Duri/HeavySmashAbility.cs" />
