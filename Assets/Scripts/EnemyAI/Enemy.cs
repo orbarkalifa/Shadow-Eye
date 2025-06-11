@@ -11,6 +11,7 @@ namespace EnemyAI
         [Header("Vision Settings")]
         [Range(0f, 360f)]
         public float fieldOfViewAngle = 120f;
+        [SerializeField] protected Vector2 lookbackOffset= Vector2.zero;
         public float recoilForce = 100;
         public Transform player;
         public Vector3 lastKnownPlayerPosition;
@@ -147,7 +148,7 @@ namespace EnemyAI
             int combinedLayerMask = obstacleLayerMask | playerLayerMask;
 
             RaycastHit2D hit = Physics2D.Raycast(
-                enemyPosition,
+                enemyPosition + lookbackOffset,
                 backDirection,
                 detectionRange,
                 combinedLayerMask

@@ -9,7 +9,6 @@ namespace EnemyAI
               
         [SerializeField] private float attackHeight = 4f;
         [SerializeField] private float bounceForce = 10f;
-
         public override void TriggerAttackDamage()
         {
             // The enemy's world position is the origin for the attack.
