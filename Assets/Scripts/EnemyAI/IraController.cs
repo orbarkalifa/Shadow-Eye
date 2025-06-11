@@ -29,39 +29,33 @@ namespace EnemyAI
 
         public override void Patrol()
         {
-            if(!CanMove || isStunned)
-            {
-                return;
-            }
+            if(!CanMove || isStunned) return;
 
             if(patrolPoints == null || patrolPoints.Length == 0)
             {
-                rb.velocity = new Vector2(0, rb.velocity.y); // Stop if no patrol points
+                rb.velocity = new Vector2(0, rb.velocity.y);
                 return;
             }
 
             Vector3 currentTargetPoint = patrolPoints[currentPatrolIndex];
-            float distanceToCurrentTarget = Vector2.Distance(transform.position, currentTargetPoint);
+    
+            // --- FIX: Use a more robust horizontal distance check ---
+            float distanceToCurrentTarget = Mathf.Abs(transform.position.x - currentTargetPoint.x);
 
-            // Check if we need to switch to the next patrol point
             if(distanceToCurrentTarget <= waypointArrivalThreshold)
             {
                 currentPatrolIndex = (currentPatrolIndex + 1) % patrolPoints.Length;
-                currentTargetPoint = patrolPoints[currentPatrolIndex]; // Update to the new target
-                // Optionally, add a small pause here (e.g. with a timer) if desired.
             }
 
-            // Move towards the (potentially new) current target point
-            Vector2 direction = ((Vector2)currentTargetPoint - (Vector2)transform.position).normalized;
+            Vector2 direction = ((Vector2)patrolPoints[currentPatrolIndex] - (Vector2)transform.position).normalized;
 
-            if(direction.sqrMagnitude > 0.01f) // If there's a direction to move (not already at target)
+            if(direction.sqrMagnitude > 0.01f)
             {
                 rb.velocity = new Vector2(direction.x * patrolSpeed, rb.velocity.y);
                 UpdateFacingDirection(direction.x);
             }
             else
             {
-                // Very close or at the target, stop to prevent jitter.
                 rb.velocity = new Vector2(0, rb.velocity.y);
             }
         }

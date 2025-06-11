@@ -95,9 +95,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: 1666071135
+  m_SortingLayer: 1
+  m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: 46f92cdb983b7844eb6611cc4acfd419, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
@@ -141,7 +141,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.016101837, y: -0.8213291}
+  m_Offset: {x: -0.109703064, y: -0.947135}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -152,7 +152,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 7.3451614, y: 5.992386}
+  m_Size: {x: 4.6780853, y: 5.1369076}
   m_EdgeRadius: 0
 --- !u!50 &7575637330462321205
 Rigidbody2D:
@@ -198,19 +198,19 @@ MonoBehaviour:
   deathParticleSystem: {fileID: 7580926129972904592, guid: 542dff70430918f4ca406e2005a569f0, type: 3}
   damageParticleSystem: {fileID: 2074108216402693229, guid: 0778f7f1bbd6fd143a7787638d020fe1, type: 3}
   fieldOfViewAngle: 120
-  recoilForce: 5
+  recoilForce: 4
   player: {fileID: 0}
-  detectionRange: 10
+  detectionRange: 7
   obstacleLayerMask:
     serializedVersion: 2
-    m_Bits: 72
+    m_Bits: 1096
   playerLayerMask:
     serializedVersion: 2
     m_Bits: 256
   homePosition: {x: 0, y: 0}
   maxChaseDistance: 20
   stunColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  attackRange: 6
+  attackRange: 7
   attackCooldown: 2
   enemyCollider: {fileID: 6680888483450975628}
   lastAttackTime: -Infinity
@@ -224,11 +224,11 @@ MonoBehaviour:
   patrolBoundDetectionDistance: 30
   whatIsPatrolBoundary:
     serializedVersion: 2
-    m_Bits: 72
+    m_Bits: 1096
   canFlee: 1
   fleeSpeed: 4
   fleeDistance: 6
-  returnSpeed: 2
+  returnSpeed: 3
   suitDrop: {fileID: 11400000, guid: 1143b79d77b93944fabc693788871ffb, type: 2}
   attackHeight: 4
   bounceForce: 10

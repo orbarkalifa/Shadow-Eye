@@ -193,7 +193,7 @@ MonoBehaviour:
   detectionRange: 10
   obstacleLayerMask:
     serializedVersion: 2
-    m_Bits: 1088
+    m_Bits: 1096
   playerLayerMask:
     serializedVersion: 2
     m_Bits: 256
@@ -214,7 +214,7 @@ MonoBehaviour:
   patrolBoundDetectionDistance: 30
   whatIsPatrolBoundary:
     serializedVersion: 2
-    m_Bits: 72
+    m_Bits: 1096
   canFlee: 1
   fleeSpeed: 6
   fleeDistance: 10
