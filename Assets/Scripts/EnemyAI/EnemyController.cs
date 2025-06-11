@@ -90,105 +90,68 @@ namespace EnemyAI
                 enabled = false;
             }
         }
-        
+                
         
         private void InitializeDynamicPatrolPoints()
         {
-            if (rb == null)
+            // Ensure Rigidbody and Collider are available. Awake() should have handled this.
+            if (rb == null || enemyCollider == null)
             {
-                Debug.LogError($"{gameObject.name}: Rigidbody2D not found. Dynamic patrol point initialization failed.", this);
+                Debug.LogError($"{gameObject.name}: Rigidbody2D or Collider2D not found. Dynamic patrol point initialization failed.", this);
+                useDynamicTwoPointPatrol = false; // Disable this feature to prevent further errors.
                 return;
             }
 
-            Vector2 raycastOrigin = transform.position;
-            Vector2 initialYPosition = new Vector2(0, transform.position.y-1); // We only care about the Y
+            // --- BEST PRACTICE: CALCULATE RAYCAST ORIGIN FROM "FEET" ---
+
+            // 1. Define a small buffer to lift the raycast slightly off the ground.
+            const float verticalBuffer = 0.1f;
+
+            // 2. Calculate the "feet" position using the collider's bottom edge + buffer.
+            float feetY = enemyCollider.bounds.min.y + verticalBuffer;
+
+            // 3. The raycast origin is at the enemy's center X, but at its feet Y.
+            Vector2 raycastOrigin = new Vector2(transform.position.x, feetY);
+
+            // --- IMPORTANT: The TARGET Y-position for the patrol points remains the enemy's pivot Y.
+            // The enemy's Rigidbody moves along transform.position.y, not its feet.
+            float targetYPosition = transform.position.y;
             
-            // Ensure enemyCollider is available for calculating offsets
-            float colliderExtentsX = 0.1f; // Default small offset if no collider
-            if (enemyCollider != null) {
-                colliderExtentsX = enemyCollider.bounds.extents.x;
-            } else {
-                Debug.LogWarning($"{gameObject.name}: EnemyCollider not found for patrol bound offset calculation. Using default small offset.", this);
-            }
-            float buffer = 0.05f; // Small buffer from the wall
+            // --- The rest of the logic uses this corrected raycastOrigin ---
 
-            Vector3 leftBoundPoint;
-            Vector3 rightBoundPoint;
+            float colliderExtentsX = enemyCollider.bounds.extents.x;
+            float buffer = 0.05f; // Small horizontal buffer from the wall
 
-            // Detect Left Bound
+            Vector3 leftBoundPoint, rightBoundPoint;
+
+            // Detect Left Bound (using the new 'raycastOrigin')
             RaycastHit2D hitLeft = Physics2D.Raycast(raycastOrigin, Vector2.left, patrolBoundDetectionDistance, whatIsPatrolBoundary);
-            if (hitLeft.collider != null)
-            {
-                leftBoundPoint = new Vector3(hitLeft.point.x + colliderExtentsX + buffer, initialYPosition.y, transform.position.z);
-            }
-            else
-            {
-                leftBoundPoint = new Vector3(raycastOrigin.x - (patrolBoundDetectionDistance * 0.5f), initialYPosition.y, transform.position.z);
-                Debug.LogWarning($"{gameObject.name}: No left patrol bound detected. Using fallback distance for patrolPoints[0].", this);
-            }
+            leftBoundPoint = hitLeft.collider != null
+                ? new Vector3(hitLeft.point.x + colliderExtentsX + buffer, targetYPosition, 0)
+                : new Vector3(transform.position.x - patrolBoundDetectionDistance, targetYPosition, 0);
 
-            // Detect Right Bound
+            // Detect Right Bound (using the new 'raycastOrigin')
             RaycastHit2D hitRight = Physics2D.Raycast(raycastOrigin, Vector2.right, patrolBoundDetectionDistance, whatIsPatrolBoundary);
-            if (hitRight.collider != null)
-            {
-                rightBoundPoint = new Vector3(hitRight.point.x - colliderExtentsX - buffer, initialYPosition.y, transform.position.z);
-            }
-            else
-            {
-                rightBoundPoint = new Vector3(raycastOrigin.x + (patrolBoundDetectionDistance * 0.5f), initialYPosition.y, transform.position.z);
-                Debug.LogWarning($"{gameObject.name}: No right patrol bound detected. Using fallback distance for patrolPoints[1].", this);
-            }
+            rightBoundPoint = hitRight.collider != null
+                ? new Vector3(hitRight.point.x - colliderExtentsX - buffer, targetYPosition, 0)
+                : new Vector3(transform.position.x + patrolBoundDetectionDistance, targetYPosition, 0);
 
-            // Sanity check: ensure left is to the left of right
+            // Sanity check
             if (leftBoundPoint.x >= rightBoundPoint.x)
             {
-                Debug.LogError($"{gameObject.name}: Dynamic patrol points are invalid (Left: {leftBoundPoint.x}, Right: {rightBoundPoint.x}). Forcing small default range around home: {homePosition}.", this);
-                leftBoundPoint = new Vector3(homePosition.x - 1f, initialYPosition.y, transform.position.z);
-                rightBoundPoint = new Vector3(homePosition.x + 1f, initialYPosition.y, transform.position.z);
+                Debug.LogError($"{gameObject.name}: Dynamic patrol points invalid. Defaulting to home position.");
+                leftBoundPoint = new Vector3(homePosition.x - 2f, targetYPosition, 0);
+                rightBoundPoint = new Vector3(homePosition.x + 2f, targetYPosition, 0);
             }
 
-            // Force patrolPoints to be exactly 2 for this dynamic patrol.
-            // This ensures the Duri/IraController's Patrol method with `... % patrolPoints.Length` correctly becomes `... % 2`.
-            patrolPoints = new Vector3[2];
-            patrolPoints[0] = leftBoundPoint;
-            patrolPoints[1] = rightBoundPoint;
-
-            // Determine initial patrol direction and index (e.g., move towards the furthest bound or a default)
-            // Or simply start by moving towards patrolPoints[1] (right)
-            float distToLeft = Mathf.Abs(transform.position.x - patrolPoints[0].x);
-            float distToRight = Mathf.Abs(transform.position.x - patrolPoints[1].x);
-
-            // Start moving towards the point we are NOT closest to, or default to point 1 (right)
-            if (distToLeft < distToRight && distToLeft < waypointArrivalThreshold * 1.5f) { // If very close to left, target right
-                 currentPatrolIndex = 1;
-            } else if (distToRight < distToLeft && distToRight < waypointArrivalThreshold * 1.5f) { // If very close to right, target left
-                 currentPatrolIndex = 0; // Will effectively move towards left
-            } else {
-                // Default: aim for patrolPoints[1] (right)
-                currentPatrolIndex = 1; // This means the first movement will be towards patrolPoints[1]
-                                        // If already at point 1, it will switch to point 0.
-                                        // Let's ensure it starts moving, so if it is to pick point 1, set it to 0 and it will move to 1
-            }
+            patrolPoints = new Vector3[2] { leftBoundPoint, rightBoundPoint };
             
-            // To ensure it starts moving towards a point rather than potentially being at it:
-            // If we want to start by moving right (towards patrolPoints[1]):
-            currentPatrolIndex = 0; // Set index to 0, it will target patrolPoints[0] then switch to patrolPoints[1]
-                                    // Or more explicitly if patrolPoints[0] is left and patrolPoints[1] is right:
-                                    // To start moving towards right (patrolPoints[1]), the *current* target should be patrolPoints[1].
-                                    // The Patrol() logic is: currentTargetPoint = patrolPoints[currentPatrolIndex];
-                                    // If it reaches, it increments.
-                                    // So, if we want to move to patrolPoints[1] first, set currentPatrolIndex = 1.
-                                    // If already near patrolPoints[1], it will then switch to 0.
+            // Set initial target based on which point is further away
+            float distToLeft = Mathf.Abs(transform.position.x - leftBoundPoint.x);
+            float distToRight = Mathf.Abs(transform.position.x - rightBoundPoint.x);
+            currentPatrolIndex = (distToRight > distToLeft) ? 1 : 0; // 1 is right, 0 is left
 
-            // Let's set it to target the one further away, or the right one by default.
-            if (transform.position.x < (leftBoundPoint.x + rightBoundPoint.x) / 2) {
-                currentPatrolIndex = 1; // Closer to left, target right
-            } else {
-                currentPatrolIndex = 0; // Closer to right, target left
-            }
-
-
-            Debug.Log($"{gameObject.name} Dynamic Patrol Initialized: patrolPoints[0]={patrolPoints[0]}, patrolPoints[1]={patrolPoints[1]}. Initial index: {currentPatrolIndex}", this);
+            Debug.Log($"{gameObject.name} Dynamic Patrol Initialized. Target: patrolPoints[{currentPatrolIndex}]");
         }
 
         
@@ -288,68 +251,79 @@ namespace EnemyAI
 
             return pickup;
         }
-        
+        // In EnemyController.cs
+
+
         #if UNITY_EDITOR
         protected virtual void OnDrawGizmosSelected()
         {
-            // Using Handles requires the UnityEditor namespace
-            // Draw Patrol Points with interactive handles
-            if (patrolPoints is { Length: > 0 })
+            // --- PART 1: DYNAMIC PATROL VISUALIZATION ---
+            if (useDynamicTwoPointPatrol)
             {
-                Handles.color = Color.yellow; // Handles color for patrol points
-                Gizmos.color = Color.yellow; // Gizmos color for lines/spheres
+                // Make sure the collider is available, even in Edit Mode.
+                if (enemyCollider == null) enemyCollider = GetComponent<Collider2D>();
+                if (enemyCollider == null) return; // Exit if no collider is found.
 
-                Vector3 previousPoint = patrolPoints.Length > 0 ? patrolPoints[0] : transform.position; // Start from first point or self
-                // Handle position editing only if not playing
-                if (!Application.isPlaying)
+                // --- Replicate the exact raycast logic from InitializeDynamicPatrolPoints ---
+                const float verticalBuffer = 0.1f;
+                float feetY = enemyCollider.bounds.min.y + verticalBuffer;
+                Vector2 raycastOrigin = new Vector2(transform.position.x, feetY);
+
+                // --- Visualize the Left Raycast ---
+                RaycastHit2D hitLeft = Physics2D.Raycast(raycastOrigin, Vector2.left, patrolBoundDetectionDistance, whatIsPatrolBoundary);
+                if (hitLeft.collider != null)
                 {
-                    previousPoint = patrolPoints[^1]; // Start with last for line drawing loop
+                    // Draw a GREEN line from the origin to the hit point.
+                    Gizmos.color = Color.green;
+                    Gizmos.DrawLine(raycastOrigin, hitLeft.point);
+                    // Draw a small cube at the hit point to make it obvious.
+                    Gizmos.DrawWireCube(hitLeft.point, Vector3.one * 0.2f);
+                }
+                else
+                {
+                    // Draw a RED line showing the full distance of the raycast.
+                    Gizmos.color = Color.red;
+                    Gizmos.DrawLine(raycastOrigin, raycastOrigin + Vector2.left * patrolBoundDetectionDistance);
                 }
 
-
-                for (var i = 0; i < patrolPoints.Length; i++)
+                // --- Visualize the Right Raycast ---
+                RaycastHit2D hitRight = Physics2D.Raycast(raycastOrigin, Vector2.right, patrolBoundDetectionDistance, whatIsPatrolBoundary);
+                if (hitRight.collider != null)
                 {
-                    // Use world position if not playing, otherwise relative position might be better if parent moves
-                    // For simplicity, let's assume world positions for now.
-                    var currentPointWorld = patrolPoints[i];
-
-
-                    // Draw sphere gizmo at the point's position
-                    Gizmos.DrawSphere(currentPointWorld, 0.3f);
-
-                    // Draw lines connecting patrol points (ensure drawing in world space)
-                    if (i > 0 || patrolPoints.Length == 1) // Draw line from previous if not first point
-                    {
-                        Gizmos.DrawLine(previousPoint, currentPointWorld);
-                    }
-                    // Connect last point to first point if more than one point exists
-                    if(i == patrolPoints.Length - 1 && patrolPoints.Length > 1)
-                    {
-                        Gizmos.DrawLine(currentPointWorld, patrolPoints[0]);
-                    }
-
-                    previousPoint = currentPointWorld; // Update previous point for the next iteration
-
-
-                    // Draw Position Handles only in Editor and when not playing for safety
-                    if (!Application.isPlaying)
-                    {
-                        EditorGUI.BeginChangeCheck();
-                        Vector3 newPosition = Handles.PositionHandle(currentPointWorld, Quaternion.identity);
-                        if (EditorGUI.EndChangeCheck())
-                        {
-                            Undo.RecordObject(this, "Move Patrol Point");
-                            patrolPoints[i] = newPosition; // Update the point in the array
-                        }
-                    }
-
+                    // Draw a GREEN line for a successful hit.
+                    Gizmos.color = Color.green;
+                    Gizmos.DrawLine(raycastOrigin, hitRight.point);
+                    Gizmos.DrawWireCube(hitRight.point, Vector3.one * 0.2f);
+                }
+                else
+                {
+                    // Draw a RED line for a missed hit.
+                    Gizmos.color = Color.red;
+                    Gizmos.DrawLine(raycastOrigin, raycastOrigin + Vector2.right * patrolBoundDetectionDistance);
                 }
             }
 
+            // --- PART 2: ACTUAL PATROL PATH VISUALIZATION ---
+            // This part draws the path the AI is *actually* using.
+            // It works for both dynamic and manually set patrol points.
+            if (patrolPoints != null && patrolPoints.Length > 0)
+            {
+                Gizmos.color = Color.yellow;
+                Vector3 previousPoint = patrolPoints[patrolPoints.Length - 1];
 
-           
+                foreach (var point in patrolPoints)
+                {
+                    Gizmos.DrawSphere(point, 0.3f);
+                    Gizmos.DrawLine(previousPoint, point);
+                    previousPoint = point;
+                }
+
+                // For a non-looping path (like our 2-point dynamic patrol),
+                // we can skip drawing the line from the last to the first point.
+                // The above loop already handles this correctly for 2 points.
+            }
         }
-#endif
+        #endif
 
     }
     

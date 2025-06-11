@@ -3,7 +3,7 @@ using UnityEngine;
 public abstract class Character : MonoBehaviour
 {
     public Animator animator { get; private set; }
-    public Rigidbody2D rb { get; private set; }
+    public Rigidbody2D rb { get; protected set; }
     public SpriteRenderer sr { get; private set; }
 
     

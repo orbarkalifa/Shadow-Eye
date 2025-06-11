@@ -6,24 +6,29 @@ namespace EnemyAI
 {
     public class DuriController: EnemyController
     {
+              
+        [SerializeField] private float attackHeight = 4f;
         [SerializeField] private float bounceForce = 10f;
+
         public override void TriggerAttackDamage()
         {
-            float facingDirection = CurrentFacingDirection;
+            // The enemy's world position is the origin for the attack.
             Vector2 originPoint = rb.position;
 
-            // Define the hitbox size based on attackRange
-            Vector2 hitboxSize = new Vector2(attackRange, rb.position.y);
-            Vector2 hitboxCenter = originPoint + new Vector2(attackRange * facingDirection, 2f);
+            // If attackRange is the distance from the center to the edge,
+            // the total width of the box is attackRange * 2.
+            Vector2 hitboxSize = new Vector2(attackRange * 2f, attackHeight);
 
-            // Detect players inside the attack box
-            Collider2D[] hits = Physics2D.OverlapBoxAll(hitboxCenter, hitboxSize, 0f, playerLayerMask);
+            // Detect players inside this centered attack box
+            Collider2D[] hits = Physics2D.OverlapBoxAll(originPoint, hitboxSize, 0f, playerLayerMask);
             foreach (var col in hits)
             {
                 if (col.TryGetComponent(out PlayerController player))
                 {
+                    // The recoil direction is still based on the player's relative position.
+                    // This part of your logic was already good.
                     float recoilDir = Mathf.Sign(player.transform.position.x - transform.position.x);
-                    if (recoilDir == 0) recoilDir = facingDirection;
+                    if (recoilDir == 0) recoilDir = Mathf.Sign(transform.localScale.x); // Fallback to facing direction
                     player.TakeDamage(2, recoilDir);
 
                     if (player.rb != null && bounceForce > 0)
@@ -33,7 +38,6 @@ namespace EnemyAI
                 }
             }
         }
-
         
         public override void Attack()
         {
@@ -156,17 +160,25 @@ namespace EnemyAI
         protected override void OnDrawGizmosSelected()
         {
             base.OnDrawGizmosSelected();
-            if (!Application.isPlaying) return;
 
-            float facingDirection = CurrentFacingDirection;
-            Vector2 originPoint = rb.position;
+            // --- These calculations MUST match TriggerAttackDamage() ---
+            if (rb == null)
+            {
+                rb = GetComponent<Rigidbody2D>(); // Try to get the component for editor drawing.
+                if (rb == null) return; // If it's still null, exit to prevent errors.
+            }
+            
+            // 1. Define the center point of the attack hitbox.
+            // It's centered on the Rigidbody's position 
+            Vector2 hitboxCenter = rb.position;
 
-            Vector2 hitboxSize = new Vector2(attackRange * 2f, 4f);
-            Vector2 hitboxCenter = originPoint + new Vector2(attackRange * facingDirection, 2f);
+            // 2. Define the size of the hitbox.
+            // The width is doubled to extend on both sides.
+            Vector2 hitboxSize = new Vector2(attackRange * 2f, attackHeight);
 
+            // 3. Draw the Gizmo
             Gizmos.color = Color.red;
             Gizmos.DrawWireCube(hitboxCenter, hitboxSize);
-            
         }
 #endif
     }
