@@ -5,6 +5,9 @@ using Suits;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.U2D.Animation;
+using GameStateManagement;
+using GameStateManagement;
+
 
 namespace Player
 {
@@ -15,6 +18,7 @@ namespace Player
         public CharacterCombat characterCombat;
         private InputSystem_Actions inputActions;
         private Transform lastCheckPoint;
+        private bool hasShownSuitTutorial;
     
         [SerializeField] public Suit equippedSuit;
     
@@ -47,7 +51,7 @@ namespace Player
             inputActions = new InputSystem_Actions();
             characterMovement = GetComponent<CharacterMovement>();
             characterCombat = GetComponent<CharacterCombat>();
-
+            hasShownSuitTutorial = false;
             impulseSource = GetComponent<CinemachineImpulseSource>();
             if (impulseSource == null)
             {
@@ -174,6 +178,18 @@ namespace Player
         public void EquipSuit(Suit newSuit)
         {
             if (newSuit == null) return;
+            if(!hasShownSuitTutorial && GSManager.Instance.tutorialsEnabled)
+            {
+                hasShownSuitTutorial = true;
+
+                TutorialPanelController tutorialPanel = FindObjectOfType<TutorialPanelController>();
+                if(tutorialPanel != null)
+                {
+                    tutorialPanel.ShowMessage(
+                        "you acquired a suit! try <color=#00FFFF><b>SHIFT</b></color> and <color=#00FFFF><b>Q</b></color> to use your special abilities.",
+                        3f);
+                }
+            }
             if (equippedSuit != null) { Heal(); return; }
 
             equippedSuit = newSuit;

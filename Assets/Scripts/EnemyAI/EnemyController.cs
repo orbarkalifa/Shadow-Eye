@@ -1,7 +1,6 @@
 using UnityEditor;
 using Suits;
 using UnityEngine;
-using GameStateManagement;
 
 namespace EnemyAI
 {
@@ -12,7 +11,6 @@ namespace EnemyAI
         public float attackRange;
         public float attackCooldown;
         public Collider2D enemyCollider;
-        protected static bool hasShownSuitTutorial;
 
         [HideInInspector] public float lastAttackTime = -Mathf.Infinity;
         public EnemyStateSO startingState;
@@ -74,7 +72,7 @@ namespace EnemyAI
                 // patrolPoints = new Vector3[] { homePosition + Vector2.left, homePosition + Vector2.right };
             }
             
-            hasShownSuitTutorial = false;
+            
             if (startingState != null)
             {
                 // If currentPatrolIndex is not set by InitializeDynamicPatrolPoints (e.g., useDynamic is false)
@@ -184,18 +182,7 @@ namespace EnemyAI
         protected override void OnDeath()
         {
             DropSuit();
-            if(!hasShownSuitTutorial && GSManager.Instance.tutorialsEnabled)
-            {
-                hasShownSuitTutorial = true;
-
-                TutorialPanelController tutorialPanel = FindObjectOfType<TutorialPanelController>();
-                if(tutorialPanel != null)
-                {
-                    tutorialPanel.ShowMessage(
-                        "you acquired a suit! try <color=#00FFFF><b>SHIFT</b></color> and <color=#00FFFF><b>Q</b></color> to use your special abilities.",
-                        3f);
-                }
-            }
+           
             StateMachine = null;
             rb.velocity = Vector2.zero;
             if(enemyCollider) enemyCollider.enabled = false;

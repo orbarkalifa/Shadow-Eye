@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -137,7 +138,7 @@ namespace Player
 
         public void SetHorizontalInput(float value)
         {
-            horizontalInput = value;
+            horizontalInput = Mathf.Abs(value) < 0.3f ? 0 : value;
         }
 
         private void UpdateGroundedState()
