@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
@@ -6,13 +7,12 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.U2D.Animation;
 using GameStateManagement;
-using GameStateManagement;
-
 
 namespace Player
 {
     public class PlayerController : Character
     {
+        [SerializeField] private PlayerChannel playerChannel;
         private CinemachineImpulseSource impulseSource;
         public CharacterMovement characterMovement;
         public CharacterCombat characterCombat;
@@ -29,7 +29,7 @@ namespace Player
     
     
         [Header("Visuals")] 
-        [SerializeField] private GameObject eye;
+        [SerializeField] private GameObject eye; 
         [Header("Sprite Library Settings")]
         [SerializeField] private SpriteLibrary spriteLibrary;
         [SerializeField] private SpriteLibraryAsset normalSpriteLibraryAsset;
@@ -73,7 +73,11 @@ namespace Player
             beacon.uiChannel.ChangeHealth(currentHits);
         }
 
-    
+        private void Update()
+        {
+            playerChannel.UpdatePosition(transform.position);
+        }
+
         private void FixedUpdate()
         {
             characterMovement.Move();
@@ -193,6 +197,7 @@ namespace Player
             if (equippedSuit != null) { Heal(); return; }
 
             equippedSuit = newSuit;
+            playerChannel.UpdateSuit(equippedSuit);
             ApplySuitChanges();
         }
 
@@ -202,6 +207,7 @@ namespace Player
             ClearCooldownsForSuit(equippedSuit);
             Debug.Log($"Unequipped suit: {equippedSuit.suitName}");
             equippedSuit = null;
+            playerChannel.UpdateSuit(equippedSuit);
             ApplySuitChanges();
             Heal();
         }
@@ -260,6 +266,7 @@ namespace Player
             characterMovement.AddRecoil(direction);
             base.TakeDamage(damage);
             beacon.uiChannel.ChangeHealth(currentHits);
+            playerChannel.UpdateSuit(equippedSuit);
             StartCoroutine(FlashSprite());
             StartCoroutine(InvincibilityCoroutine());
         
@@ -268,13 +275,12 @@ namespace Player
         private IEnumerator InvincibilityCoroutine()
         {
             IsInvincible = true;
-            // Optionally add visual feedback such as blinking the sprite.
+            playerChannel.SetInvincible(true);
             yield return new WaitForSeconds(invincibilityDuration);
+            playerChannel.SetInvincible(false);
             IsInvincible = false;
         }
-    
         
-    
         public void UnlockWallGrabAbility()
         {
             characterMovement.canWallGrab = true;
@@ -303,6 +309,7 @@ namespace Player
             {
                 Debug.LogError("PlayerHealth: Beacon, GameStateChannel, or GameOverState is not assigned!");
             }
+            playerChannel.NotifyDeath();
             base.OnDeath();
         }
 
