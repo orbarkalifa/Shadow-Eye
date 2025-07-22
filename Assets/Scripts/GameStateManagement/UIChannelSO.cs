@@ -1,7 +1,5 @@
 using System;
 using UnityEngine;
-using Cinemachine;
-using UnityEngine.UI;
 
 namespace GameStateManagement
 {
@@ -10,6 +8,7 @@ namespace GameStateManagement
     {
         public event Action<int> OnChangeHealth;
 
+        public event Action InitListener; 
         public event Action<Sprite> OnHudChange;
         public event Action<float> Onload;
         public event Action<string , GameStateSO> OnChangeLevel;
@@ -27,10 +26,15 @@ namespace GameStateManagement
         {
             OnChangeLevel?.Invoke(level,state);
         }
-
+        
         public void PassLoadPercent(float p)
         {
             Onload?.Invoke(p);
+        }
+
+        public void InitializeListeners()
+        {
+            InitListener?.Invoke();
         }
     }
 }

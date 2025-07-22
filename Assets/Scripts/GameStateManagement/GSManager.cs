@@ -13,9 +13,6 @@ namespace GameStateManagement
         public GameStateSO menuState;
         public GameStateSO gameOverState;
         public GameStateSO gameWinState;
-        
-        private UIManager uiManager;
-        
         public bool tutorialsEnabled = true;
 
         private readonly Dictionary<string, GameStateSO> stateLookup = new Dictionary<string, GameStateSO>();
@@ -39,15 +36,11 @@ namespace GameStateManagement
             }
             EnableTutorials();
             DontDestroyOnLoad(gameObject);
-            uiManager = FindObjectOfType<UIManager>();
-            if (uiManager == null)
-            {
-                Debug.LogError("GSManager: UIManager not found in scene!");
-            }
-
+            populateStateLookup();
             beacon.gameStateChannel.GetCurrentGameState += GetCurrentState;
             beacon.gameStateChannel.GetGameStateByName += GetStateByName;
-            initializeUIListeners();
+            beacon.uiChannel.InitializeListeners();
+
         }
 
         private GameStateSO GetCurrentState()
@@ -90,7 +83,6 @@ namespace GameStateManagement
 
         void Start()
         {
-            populateStateLookup();
 
             tutorialsEnabled = PlayerPrefs.GetInt("TutorialsEnabled", 1) == 1;
 
@@ -150,45 +142,6 @@ namespace GameStateManagement
             if (menuState != null) stateLookup.Add(menuState.stateName, menuState);
             if (gameOverState != null) stateLookup.Add(gameOverState.stateName, gameOverState);
             if (gameWinState != null) stateLookup.Add(gameWinState.stateName, gameWinState);
-        }
-        
-        private void initializeUIListeners()
-        {
-            if (uiManager == null)
-            {
-                Debug.LogError("GSManager: UIManager instance is null. Cannot initialize UI listeners.");
-                return;
-            }
-
-            if (startGameState != null)
-            {
-                startGameState.onEnterState.RemoveAllListeners();
-                startGameState.onEnterState.AddListener(uiManager.ShowStartMenuPanel);
-            }
-
-            if (inGameState != null)
-            {
-                inGameState.onEnterState.RemoveAllListeners();
-                inGameState.onEnterState.AddListener(uiManager.ShowInGameHUDPanel);
-            }
-
-            if (menuState != null)
-            {
-                menuState.onEnterState.RemoveAllListeners();
-                menuState.onEnterState.AddListener(uiManager.ShowPauseMenuPanel);
-            }
-
-            if (gameOverState != null)
-            {
-                gameOverState.onEnterState.RemoveAllListeners();
-                gameOverState.onEnterState.AddListener(uiManager.ShowGameOverPanel);
-            }
-
-            if(gameWinState != null)
-            {
-                gameWinState.onEnterState.RemoveAllListeners();
-                gameWinState.onEnterState.AddListener(uiManager.ShowWinGameHUDPanel);
-            }
         }
         
     }
