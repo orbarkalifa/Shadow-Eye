@@ -4,11 +4,13 @@ using UnityEditor;
 
 namespace EnemyAI
 {
-    public class DuriController: EnemyController
+    public class DuriController : EnemyController
     {
-              
-        [SerializeField] private float attackHeight = 4f;
-        [SerializeField] private float bounceForce = 10f;
+        [SerializeField]
+        private float attackHeight = 4f;
+        [SerializeField]
+        private float bounceForce = 10f;
+
         public override void TriggerAttackDamage()
         {
             // The enemy's world position is the origin for the attack.
@@ -20,24 +22,24 @@ namespace EnemyAI
 
             // Detect players inside this centered attack box
             Collider2D[] hits = Physics2D.OverlapBoxAll(originPoint, hitboxSize, 0f, playerLayerMask);
-            foreach (var col in hits)
+            foreach(var col in hits)
             {
-                if (col.TryGetComponent(out PlayerController player))
+                if(col.TryGetComponent(out PlayerController player))
                 {
                     // The recoil direction is still based on the player's relative position.
                     // This part of your logic was already good.
                     float recoilDir = Mathf.Sign(player.transform.position.x - transform.position.x);
-                    if (recoilDir == 0) recoilDir = Mathf.Sign(transform.localScale.x); // Fallback to facing direction
+                    if(recoilDir == 0) recoilDir = Mathf.Sign(transform.localScale.x); // Fallback to facing direction
                     player.TakeDamage(2, recoilDir);
 
-                    if (player.rb != null && bounceForce > 0)
+                    if(player.rb != null && bounceForce > 0)
                     {
                         player.rb.AddForce(Vector2.up * bounceForce * player.rb.mass, ForceMode2D.Impulse);
                     }
                 }
             }
         }
-        
+
         public override void Attack()
         {
             lastAttackTime = Time.time;
@@ -45,18 +47,8 @@ namespace EnemyAI
         }
 
         public override void Patrol()
-        { 
-            if(!CanMove || isStunned)
-            {
-                return;
-            }
-
-            if(patrolPoints == null || patrolPoints.Length == 0)
-            {
-                rb.velocity = new Vector2(0, rb.velocity.y); // Stop if no patrol points
-                return;
-            }
-
+        {
+            base.Patrol();
             Vector3 currentTargetPoint = patrolPoints[currentPatrolIndex];
             float distanceToCurrentTarget = Vector2.Distance(transform.position, currentTargetPoint);
 
@@ -82,79 +74,7 @@ namespace EnemyAI
                 rb.velocity = new Vector2(0, rb.velocity.y);
             }
         }
-
-        public override void Chase()
-        {
-            if(!CanMove || isStunned || player == null)
-            {
-                if(player == null) rb.velocity = new Vector2(0, rb.velocity.y); // Stop if player is gone
-                return;
-            }
-
-            // Determine if we should react to player behind us (optional quick turn)
-            if(CheckBehindForPlayer() && !CanSeePlayer()) // Prioritize actual sight if available
-            {
-                Flip(); // This updates CurrentFacingDirection
-            }
-
-            Vector3 targetPosition;
-            bool currentlySeesPlayer = CanSeePlayer(); // Cache for this frame
-
-            if(currentlySeesPlayer)
-            {
-                targetPosition = player.position; // lastKnownPlayerPosition is updated by CanSeePlayer
-            }
-            else
-            {
-                targetPosition = lastKnownPlayerPosition;
-            }
-
-            Vector2 directionToTarget = ((Vector2)targetPosition - (Vector2)transform.position);
-            float distanceToTarget = directionToTarget.magnitude; // Get actual distance
-
-            // If not seeing player and have arrived at LKP, stop. State machine will handle transition.
-            // Use a small threshold to prevent jitter.
-            if(!currentlySeesPlayer
-               && distanceToTarget < waypointArrivalThreshold * 0.5f) // Or a dedicated LKP arrival threshold
-            {
-                rb.velocity = new Vector2(0, rb.velocity.y);
-            }
-            else
-            {
-                rb.velocity = new Vector2(directionToTarget.normalized.x * chaseSpeed, rb.velocity.y);
-            }
-
-            // Update facing direction based on movement or target direction
-            if(Mathf.Abs(directionToTarget.normalized.x) > 0.01f)
-            {
-                UpdateFacingDirection(directionToTarget.normalized.x);
-            }
-        }
-
-        public override void Flee()
-        {
-            if(!CanMove || isStunned)
-            {
-                return;
-            }
-
-            Vector2 directionToPlayer = player.position - transform.position;
-            Vector2 fleeDirection = -directionToPlayer.normalized;
-            rb.velocity = new Vector2(fleeDirection.x * fleeSpeed, rb.velocity.y);
-            UpdateFacingDirection(fleeDirection.x);
-        }
-
-        public override void ReturnHome()
-        {
-            if(!CanMove || isStunned)
-            {
-                return;
-            }
-
-            Vector2 dir = (homePosition - (Vector2)transform.position).normalized;
-            rb.velocity = new Vector2(dir.x * returnSpeed, rb.velocity.y);
-            UpdateFacingDirection(dir.x);
-        }
+        
 #if UNITY_EDITOR
         protected override void OnDrawGizmosSelected()
         {

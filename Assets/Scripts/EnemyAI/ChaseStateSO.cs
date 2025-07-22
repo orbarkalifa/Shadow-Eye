@@ -27,15 +27,7 @@ public class ChaseStateSO : EnemyStateSO
 
     public override void OnUpdate(EnemyController enemy)
     {
-        if (enemy.player == null) // Safety check: if player is destroyed or null
-        {
-            enemy.StateMachine.ChangeState(enemy, patrolState); // Or returnHomeState
-            return;
-        }
-        
         // Continuously update last known position as long as we are in chase and player is valid
-        
-
         if (Vector2.Distance(enemy.transform.position, enemy.homePosition) > enemy.maxChaseDistance)
         {
             enemy.StateMachine.ChangeState(enemy, returnHomeState);
@@ -79,10 +71,6 @@ public class ChaseStateSO : EnemyStateSO
 
     public override void OnFixedUpdate(EnemyController enemy)
     {
-        if (enemy.player == null) // Safety check
-        {
-            enemy.rb.velocity = new Vector2(0, enemy.rb.velocity.y);
-        }
         enemy.Chase();
     }
 

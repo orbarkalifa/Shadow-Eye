@@ -47,11 +47,85 @@ namespace EnemyAI
 
         public abstract void TriggerAttackDamage();
         public abstract void Attack();
-        public abstract void Patrol();
-        //public void Idle();
-        public abstract void Chase();
-        public abstract void Flee();
-        public abstract void ReturnHome();
+
+        public virtual void Patrol()
+        {
+            if(!CanMove || isStunned) return;
+
+            if(patrolPoints == null || patrolPoints.Length == 0)
+            {
+                rb.velocity = new Vector2(0, rb.velocity.y);
+            }
+        }
+        public virtual void Chase()
+        {
+            if(!CanMove || isStunned)
+            {
+                return;
+            }
+
+            // Determine if we should react to player behind us (optional quick turn)
+            if(CheckBehindForPlayer() && !CanSeePlayer()) // Prioritize actual sight if available
+            {
+                Flip(); // This updates CurrentFacingDirection
+            }
+
+            Vector3 targetPosition;
+            bool currentlySeesPlayer = CanSeePlayer(); // Cache for this frame
+
+            if(currentlySeesPlayer)
+            {
+                targetPosition = player.position; // lastKnownPlayerPosition is updated by CanSeePlayer
+            }
+            else
+            {
+                targetPosition = lastKnownPlayerPosition;
+            }
+
+            Vector2 directionToTarget = ((Vector2)targetPosition - (Vector2)transform.position);
+            float distanceToTarget = directionToTarget.magnitude; // Get actual distance
+
+            // If not seeing player and have arrived at LKP, stop. State machine will handle transition.
+            // Use a small threshold to prevent jitter.
+            if(!currentlySeesPlayer
+               && distanceToTarget < waypointArrivalThreshold * 0.5f) // Or a dedicated LKP arrival threshold
+            {
+                rb.velocity = new Vector2(0, rb.velocity.y);
+            }
+            else
+            {
+                rb.velocity = new Vector2(directionToTarget.normalized.x * chaseSpeed, rb.velocity.y);
+            }
+
+            // Update facing direction based on movement or target direction
+            if(Mathf.Abs(directionToTarget.normalized.x) > 0.01f)
+            {
+                UpdateFacingDirection(directionToTarget.normalized.x);
+            }
+        }
+        public virtual void Flee()
+        {
+            if(!CanMove || isStunned)
+            {
+                return;
+            }
+
+            Vector2 directionToPlayer = player.position - transform.position;
+            Vector2 fleeDirection = -directionToPlayer.normalized;
+            rb.velocity = new Vector2(fleeDirection.x * fleeSpeed, rb.velocity.y);
+            UpdateFacingDirection(fleeDirection.x);
+        }       
+        public virtual void ReturnHome()
+        {
+            if(!CanMove || isStunned)
+            {
+                return;
+            }
+
+            Vector2 dir = (homePosition - (Vector2)transform.position).normalized;
+            rb.velocity = new Vector2(dir.x * returnSpeed, rb.velocity.y);
+            UpdateFacingDirection(dir.x);
+        }
         
         protected override void Awake()
         {
