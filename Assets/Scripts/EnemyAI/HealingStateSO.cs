@@ -32,7 +32,7 @@ public class HealingStateSO : EnemyStateSO
 
     public override void OnUpdate(EnemyController enemy)
     {
-        float distanceToPlayer = Vector2.Distance(enemy.transform.position, enemy.player.position);
+        float distanceToPlayer = enemy.GetDistanceToPlayer();
         if (distanceToPlayer <= enemy.fleeDistance && enemy.currentHits > 1)
         {
             enemy.StateMachine.ChangeState(enemy, chaseState);

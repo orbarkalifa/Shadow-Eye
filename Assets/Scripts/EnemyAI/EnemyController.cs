@@ -73,9 +73,9 @@ namespace EnemyAI
             Vector3 targetPosition;
             bool currentlySeesPlayer = CanSeePlayer(); // Cache for this frame
 
-            if(currentlySeesPlayer)
+            if (currentlySeesPlayer)
             {
-                targetPosition = player.position; // lastKnownPlayerPosition is updated by CanSeePlayer
+                targetPosition = playerChannel.CurrentPosition;
             }
             else
             {
@@ -110,7 +110,7 @@ namespace EnemyAI
                 return;
             }
 
-            Vector2 directionToPlayer = player.position - transform.position;
+            Vector2 directionToPlayer = playerChannel.CurrentPosition - rb.position;
             Vector2 fleeDirection = -directionToPlayer.normalized;
             rb.velocity = new Vector2(fleeDirection.x * fleeSpeed, rb.velocity.y);
             UpdateFacingDirection(fleeDirection.x);
@@ -234,7 +234,7 @@ namespace EnemyAI
                 return;
             }
 
-            if(StateMachine != null && player != null)
+            if (StateMachine != null)
             {
                 StateMachine.Update(this);
             }
@@ -247,7 +247,7 @@ namespace EnemyAI
                 return;
             }
 
-            if(StateMachine != null && player != null)
+            if(StateMachine != null)
             {
                 StateMachine.FixedUpdate(this);
             }

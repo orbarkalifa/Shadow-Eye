@@ -7,15 +7,12 @@ namespace EnemyAI
     {
         public override void TriggerAttackDamage()
         {
-            float recoilDirection;
             Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, attackRange, playerLayerMask);
             foreach(var hitCollider in hitColliders)
             {
-                PlayerController playerController = hitCollider.GetComponent<PlayerController>();
-                if(playerController != null && !playerController.IsInvincible)
+                if(hitCollider.gameObject.CompareTag("Player") && !playerChannel.IsInvincible)
                 {
-                    recoilDirection = GetRecoilDirection(playerController.transform);
-                    playerController.TakeDamage(1, recoilDirection);
+                    playerChannel.DealDamage(1, transform.position);
                     break;
                 }
             }

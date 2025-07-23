@@ -11,7 +11,8 @@ public abstract class Character : MonoBehaviour
     public int currentHits;
     [SerializeField] private ParticleSystem deathParticleSystem;
     [SerializeField] private ParticleSystem damageParticleSystem;
-    
+    [SerializeField] protected BeaconSO beacon;
+
     public bool IsInvincible { get; protected set; } // New property for invincibility
 
     public int CurrentFacingDirection { get; protected set; } = 1;
@@ -24,7 +25,7 @@ public abstract class Character : MonoBehaviour
         currentHits = maxHits;
     }
 
-    public abstract void TakeDamage(int damage, float direction);
+    public abstract void TakeDamage(int damage, Vector2 source);
 
     public virtual void TakeDamage(int damage)
     {
@@ -51,5 +52,9 @@ public abstract class Character : MonoBehaviour
     void ActivateDamageParticles()
     {
         Instantiate(damageParticleSystem, transform.position, Quaternion.identity);
+    }
+    protected Vector2 GetRecoilDirection(Vector2 target)
+    {
+        return ((Vector2)transform.position - target).normalized;
     }
 }

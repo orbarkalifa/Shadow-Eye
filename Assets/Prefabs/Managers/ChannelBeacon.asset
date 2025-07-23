@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameStateChannel: {fileID: 11400000, guid: 9aeb3c56d188f1941b26b09b048f3df2, type: 2}
   uiChannel: {fileID: 11400000, guid: 17bb76337225bf146a8f2e03b6bcec84, type: 2}
+  playerChannel: {fileID: 11400000, guid: 498957aac4f95ab4f99bb7822d46e999, type: 2}

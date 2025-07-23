@@ -20,7 +20,7 @@ public class IdleStateSO : EnemyStateSO
     public override void OnUpdate(EnemyController enemy)
     {
         // Check if player is in range
-        float distance = Vector2.Distance(enemy.transform.position, enemy.player.position);
+        float distance = enemy.GetDistanceToPlayer();
         if (distance <= enemy.detectionRange)
         {
             // Transition to chase

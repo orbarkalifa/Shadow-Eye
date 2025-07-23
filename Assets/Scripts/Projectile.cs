@@ -22,7 +22,7 @@ public class Projectile : MonoBehaviour
                 destructible.TakeDamage(damage);
 
             if (collision.TryGetComponent(out Character enemy))
-                enemy.TakeDamage(damage,recoilDirection);
+                enemy.TakeDamage(damage,transform.position);
             
             Destroy(gameObject); // Destroy the projectile on hit
         }

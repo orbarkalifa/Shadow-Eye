@@ -279,17 +279,17 @@ namespace Player
             if (rb.velocity.y > 0)
                 rb.velocity += Vector2.up * -jumpForce * variableJumpMultiplier;
         }
-        public void AddRecoil(float recoilDirection)
+        public void AddRecoil(Vector2 recoilDirection)
         {
             StartCoroutine(RecoilCoroutine(recoilDirection));
         }
 
-        private IEnumerator RecoilCoroutine(float recoilDirection)
+        private IEnumerator RecoilCoroutine(Vector2 recoilDirection)
         {
             canMove = false;
             rb.velocity = Vector2.zero;
             Debug.Log($"Applying {recoilDirection} * {recoilForce}");
-            rb.AddForce(new Vector2(recoilDirection * recoilForce, 0), ForceMode2D.Impulse);
+            rb.AddForce(recoilDirection * recoilForce, ForceMode2D.Impulse);
             // Wait for a short duration to allow the recoil to take effect.
             yield return new WaitForSeconds(0.2f);
             canMove = true;

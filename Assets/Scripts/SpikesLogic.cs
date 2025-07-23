@@ -20,7 +20,7 @@ public class SpikesLogic : MonoBehaviour
 
     private void ResetPlayer(PlayerController player)
     {
-        player.TakeDamage(1, -1f);
+        player.TakeDamage(1, transform.position);
         Debug.Log("SPIKED");
         player.ResetPosition();
     }

@@ -24,18 +24,13 @@ namespace EnemyAI
             Collider2D[] hits = Physics2D.OverlapBoxAll(originPoint, hitboxSize, 0f, playerLayerMask);
             foreach(var col in hits)
             {
-                if(col.TryGetComponent(out PlayerController player))
+                if(col.CompareTag("Player"))
                 {
                     // The recoil direction is still based on the player's relative position.
                     // This part of your logic was already good.
-                    float recoilDir = Mathf.Sign(player.transform.position.x - transform.position.x);
-                    if(recoilDir == 0) recoilDir = Mathf.Sign(transform.localScale.x); // Fallback to facing direction
-                    player.TakeDamage(2, recoilDir);
+                    var forceDirection = playerChannel.CurrentPosition - new Vector2(0, bounceForce);
+                    playerChannel.DealDamage(2,forceDirection);
 
-                    if(player.rb != null && bounceForce > 0)
-                    {
-                        player.rb.AddForce(Vector2.up * bounceForce * player.rb.mass, ForceMode2D.Impulse);
-                    }
                 }
             }
         }

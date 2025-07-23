@@ -59,7 +59,7 @@ namespace Suits.Duri
             origInvincible = player.IsInvincible;
             movement.canMove = false;
             combat.canAttack = false;
-            player.ChangeInvincibleState();
+            player.ChangeInvincibleState(true);
 
             if (velocityCoroutine != null) StopCoroutine(velocityCoroutine);
             velocityCoroutine = StartCoroutine(DropVelocity());
@@ -119,12 +119,10 @@ namespace Suits.Duri
             var attackable = Physics2D.OverlapBoxAll(center, rockAbilitySO.SmashAreaSize, 0f, rockAbilitySO.EnemyLayerMask);
             foreach(var collision in attackable)
             {
-                if (collision.TryGetComponent<Enemy>(out var e))
+                if (collision.TryGetComponent<Enemy>(out var enemy))
                 {
-                    float dir = Mathf.Sign(e.transform.position.x - transform.position.x);
-                    if (dir == 0) dir = -1f;
-                    e.TakeDamage(rockAbilitySO.SmashDamage, dir);
-                    e.Stun(rockAbilitySO.StunDuration);
+                    enemy.TakeDamage(rockAbilitySO.SmashDamage, gameObject.transform.position);
+                    enemy.Stun(rockAbilitySO.StunDuration);
                 }
                 if (collision.TryGetComponent<BreakOnSmash>(out var d))
                 {
@@ -172,7 +170,7 @@ namespace Suits.Duri
             movement.canMove = true;
             combat.canAttack = true;
             if (player.IsInvincible != origInvincible)
-                player.ChangeInvincibleState();
+                player.ChangeInvincibleState(false);
 
             if (rockAbilitySO.cooldownTime > 0 && player)
             {

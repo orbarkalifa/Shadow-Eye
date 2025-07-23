@@ -197,10 +197,10 @@ MonoBehaviour:
   currentHits: 0
   deathParticleSystem: {fileID: 7580926129972904592, guid: 542dff70430918f4ca406e2005a569f0, type: 3}
   damageParticleSystem: {fileID: 2074108216402693229, guid: 0778f7f1bbd6fd143a7787638d020fe1, type: 3}
+  beacon: {fileID: 11400000, guid: 59dca663c0488ef4997f2a487402c779, type: 2}
   fieldOfViewAngle: 120
   lookbackOffset: {x: 0, y: -2}
   recoilForce: 4
-  player: {fileID: 0}
   lastKnownPlayerPosition: {x: 0, y: 0, z: 0}
   detectionRange: 7
   obstacleLayerMask:

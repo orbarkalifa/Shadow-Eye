@@ -23,7 +23,7 @@ namespace EnemyAI
         protected override void Awake()
         {
             base.Awake();
-            currentTargetPosition = player.position;
+            currentTargetPosition = playerChannel.CurrentPosition;
             StartCoroutine(RecalculatePath());
         }
 
@@ -48,13 +48,13 @@ namespace EnemyAI
         protected void Update()
         {
             if(!CanMove)return;
-            if (player == null)
+            if (!playerChannel.IsAlive)
                 return;
             
 
             if (!isReturningHome)
             {
-                currentTargetPosition = player.position;
+                currentTargetPosition = playerChannel.CurrentPosition;
             }
 
             float distanceFromHome = Vector2.Distance(rb.position, homePosition);
@@ -69,7 +69,7 @@ namespace EnemyAI
             else if (isReturningHome && closeEnough)
             {
                 isReturningHome = false;
-                SwitchTarget(player.position);
+                SwitchTarget(playerChannel.CurrentPosition);
             }
         }
 
@@ -79,15 +79,13 @@ namespace EnemyAI
             {
                 return;
             }
-            if (player == null)
+            if (!playerChannel.IsAlive)
             {
                 rb.velocity = Vector2.zero;
                 return;
             }
 
-
-
-            float distanceToPlayer = Vector2.Distance(rb.position, player.position);
+            float distanceToPlayer = GetDistanceToPlayer();
             if (path == null || (distanceToPlayer > detectionRange && !isReturningHome))
             {
                 rb.velocity = Vector2.zero;

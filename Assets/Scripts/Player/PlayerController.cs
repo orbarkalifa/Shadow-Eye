@@ -24,10 +24,8 @@ namespace Player
     
         [Header("Damage & Invincibility Settings")]
         [SerializeField] private float invincibilityDuration = 1.0f;
-    
-        [SerializeField] private BeaconSO beacon;
-    
-    
+        
+
         [Header("Visuals")] 
         [SerializeField] private GameObject eye; 
         [Header("Sprite Library Settings")]
@@ -46,6 +44,8 @@ namespace Player
 
         protected override void Awake()
         {
+            playerChannel = beacon.playerChannel;
+            playerChannel.NotifySpawn();
             CurrentFacingDirection = 1;
             base.Awake();
             inputActions = new InputSystem_Actions();
@@ -73,15 +73,11 @@ namespace Player
             beacon.uiChannel.ChangeHealth(currentHits);
         }
 
-        private void Update()
-        {
-            playerChannel.UpdatePosition(transform.position);
-        }
-
         private void FixedUpdate()
         {
             characterMovement.Move();
             if(transform.localScale.x < 0.1f) CurrentFacingDirection = -1;
+            playerChannel.UpdatePosition(transform.position);
         }
     
         private void OnEnable()
@@ -96,6 +92,7 @@ namespace Player
             inputActions.Player.BasicAttack.performed += _ => PerformBasicAttack();
             inputActions.Player.SpecialAttack.performed += _ => PerformSpecialAttack();
             inputActions.Player.SpecialMove.performed += _ => PerformSpecialMovement();
+            playerChannel.OnPlayerDamaged.AddListener(TakeDamage);
         }
     
         private void OnDisable()
@@ -258,15 +255,14 @@ namespace Player
         }
 
     
-        public override void TakeDamage(int damage, float direction)
+        public override void TakeDamage(int damage, Vector2 source)
         {
             if (IsInvincible)
                 return;
-            Debug.Log($"got hit and has recoil {direction}");
-            characterMovement.AddRecoil(direction);
+            Debug.Log($"got hit and has recoil {source}");
+            characterMovement.AddRecoil(GetRecoilDirection(source));
             base.TakeDamage(damage);
             beacon.uiChannel.ChangeHealth(currentHits);
-            playerChannel.UpdateSuit(equippedSuit);
             StartCoroutine(FlashSprite());
             StartCoroutine(InvincibilityCoroutine());
         
@@ -274,11 +270,9 @@ namespace Player
     
         private IEnumerator InvincibilityCoroutine()
         {
-            IsInvincible = true;
-            playerChannel.SetInvincible(true);
+            ChangeInvincibleState(true);
             yield return new WaitForSeconds(invincibilityDuration);
-            playerChannel.SetInvincible(false);
-            IsInvincible = false;
+            ChangeInvincibleState(false);
         }
         
         public void UnlockWallGrabAbility()
@@ -359,10 +353,13 @@ namespace Player
         {
             return characterMovement.IsGrounded();
         }
-        public void ChangeInvincibleState()
+        public void ChangeInvincibleState(bool value)
         {
-            IsInvincible = !IsInvincible;
+            IsInvincible = value;
+            playerChannel.SetInvincible(IsInvincible);
+
         }
+
 
         public void ImpulseCamera()
         {
