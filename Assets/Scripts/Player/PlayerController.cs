@@ -93,6 +93,9 @@ namespace Player
             inputActions.Player.SpecialAttack.performed += _ => PerformSpecialAttack();
             inputActions.Player.SpecialMove.performed += _ => PerformSpecialMovement();
             playerChannel.OnPlayerDamaged.AddListener(TakeDamage);
+            playerChannel.PlayerSpikeRpawned.AddListener(ResetPosition);
+            playerChannel.onCheckPointReached.AddListener(ChangeResetPoint);
+            
         }
     
         private void OnDisable()
@@ -330,7 +333,7 @@ namespace Player
             lastCheckPoint = resetPoint;
         }
 
-        public void ResetPosition()
+        private void ResetPosition()
         {
             transform.position = lastCheckPoint.position;
         }

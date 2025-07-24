@@ -3,25 +3,19 @@ using UnityEngine;
 
 public class SpikesLogic : MonoBehaviour
 {
-    
-    [SerializeField] private LayerMask playerLayer;
-    
+    [SerializeField] private BeaconSO beacon;
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (((1 << other.gameObject.layer) & playerLayer) != 0)
+        if (other.gameObject.CompareTag("Player"))
         {
-            var player = other.GetComponent<PlayerController>();
-            if (player != null)
-            {
-                ResetPlayer(player);
-            }
+                ResetPlayer();
         }
     }
 
-    private void ResetPlayer(PlayerController player)
+    private void ResetPlayer()
     {
-        player.TakeDamage(1, transform.position);
+        beacon.playerChannel.DealDamage(1, transform.position);
         Debug.Log("SPIKED");
-        player.ResetPosition();
+        beacon.playerChannel.NotifyHitSpikes();
     }
 }
