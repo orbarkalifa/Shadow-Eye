@@ -95,6 +95,7 @@ namespace Player
             playerChannel.OnPlayerDamaged.AddListener(TakeDamage);
             playerChannel.PlayerSpikeRpawned.AddListener(ResetPosition);
             playerChannel.onCheckPointReached.AddListener(ChangeResetPoint);
+            playerChannel.OnSuitChanged.AddListener(EquipSuit);
             
         }
     
