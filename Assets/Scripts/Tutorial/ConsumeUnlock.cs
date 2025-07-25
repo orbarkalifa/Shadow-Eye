@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using Player;
+using GameStateManagement;
 using UnityEngine;
 
 public class ConsumeUnlock : MonoBehaviour
@@ -8,24 +8,23 @@ public class ConsumeUnlock : MonoBehaviour
     [SerializeField] private string tutorialMessage = "";
     [SerializeField] private float duration = 3f;
     [SerializeField] private TutorialPanelController tutorialPanel;
+    [SerializeField] private PlayerChannel playerChannel;
     private bool triggered;
-
-
+    
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (triggered||!other.CompareTag("Player")) return;
+        if (triggered || !other.CompareTag("Player")) return;
 
-        var player = other.GetComponent<PlayerController>();
-        if (player != null)
+        // Raise an event on the channel instead of calling the player directly
+        playerChannel.UnlockConsume();
+
+        if (GSManager.Instance.tutorialsEnabled)
         {
-            player.UnlockConsumeAbility();
-            if (GameStateManagement.GSManager.Instance.tutorialsEnabled)
-            {
-                tutorialPanel.ShowMessage(tutorialMessage, duration);
-                triggered = true;
-            }
+            tutorialPanel.ShowMessage(tutorialMessage, duration);
+            triggered = true;
         }
     }
+
 }
 
     

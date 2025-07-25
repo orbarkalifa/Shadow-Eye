@@ -96,7 +96,8 @@ namespace Player
             playerChannel.PlayerSpikeRpawned.AddListener(ResetPosition);
             playerChannel.onCheckPointReached.AddListener(ChangeResetPoint);
             playerChannel.OnSuitChanged.AddListener(EquipSuit);
-            
+            playerChannel.OnWallGrabAbilityUnlocked += UnlockWallGrabAbility;
+            playerChannel.OnConsumeAbilityUnlocked += UnlockConsumeAbility;
         }
     
         private void OnDisable()

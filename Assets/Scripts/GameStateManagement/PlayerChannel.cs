@@ -11,6 +11,8 @@ namespace GameStateManagement
     {
         public UnityEvent<int, Vector2> OnPlayerDamaged;
         public UnityEvent OnPlayerDied;
+        public UnityAction OnConsumeAbilityUnlocked;
+        public UnityAction OnWallGrabAbilityUnlocked;
         public UnityEvent<Suit> OnSuitChanged;
         public UnityEvent<Transform> onCheckPointReached;
         public UnityEvent PlayerSpikeRpawned;
@@ -35,6 +37,15 @@ namespace GameStateManagement
         {
             onCheckPointReached?.Invoke(pos);
         }
+        public void UnlockConsume()
+        {
+            OnConsumeAbilityUnlocked?.Invoke();
+        }
+        public void UnlockWallGrab()
+        {
+            OnWallGrabAbilityUnlocked?.Invoke();
+        }
+
         public void NotifyHitSpikes() => PlayerSpikeRpawned?.Invoke();
 
         public void SetInvincible(bool state) => IsInvincible = state;
