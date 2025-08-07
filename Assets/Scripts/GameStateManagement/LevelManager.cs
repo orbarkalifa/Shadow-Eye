@@ -21,7 +21,6 @@ namespace GameStateManagement
             beacon.uiChannel.OnChangeLevel += LoadLevelScene;
         }
 
-        // This method will be called when the button is clicked.
         public void LoadLevelScene(string levelName, GameStateSO state)
         {
             StartCoroutine(LoadLevelCoroutine(levelName,state));
@@ -31,28 +30,37 @@ namespace GameStateManagement
         {
             beacon.uiChannel.OnChangeLevel -= LoadLevelScene;
         }
-        private IEnumerator LoadLevelCoroutine(string levelName, GameStateSO state)
+        private IEnumerator LoadLevelCoroutine(string levelName, GameStateSO stateToActivate)
         {
+            beacon.uiChannel.PassLoadPercent(0f);
+            yield return null; // Wait a frame for UI to update
+
             AsyncOperation op = SceneManager.LoadSceneAsync(levelName);
             op.allowSceneActivation = false;
 
-            // 3) Each frame, send progress and yield so the UI can update
             while (op.progress < 0.9f)
             {
-                float p = Mathf.Clamp01(op.progress / 0.9f);
-                beacon.uiChannel.PassLoadPercent(p);    // pass the actual float
-                Debug.Log($"Loading {levelName}: {p*100:F0}%");
+                float progress = Mathf.Clamp01(op.progress / 0.9f);
+                beacon.uiChannel.PassLoadPercent(progress);
                 yield return null;
             }
 
-            // 4) Final “100%”
             beacon.uiChannel.PassLoadPercent(1f);
-            yield return null;  // let the UI draw “full” for at least one frame
-
-            // 5) Activate the scene
             op.allowSceneActivation = true;
-            beacon.gameStateChannel.RaiseStateTransitionRequest(state);
-            yield return null;
+
+            while (!op.isDone)
+            {
+                yield return null;
+            }
+
+            if (stateToActivate != null)
+            {
+                beacon.gameStateChannel.RaiseStateTransitionRequest(stateToActivate);
+            }
+            else
+            {
+                Debug.LogWarning($"Level {levelName} loaded without a target GameStateSO to activate.");
+            }
         }
     }
 }

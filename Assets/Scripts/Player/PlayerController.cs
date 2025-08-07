@@ -22,7 +22,8 @@ namespace Player
         [SerializeField] private float invincibilityDuration = 1.0f;
     
         [SerializeField] private BeaconSO beacon;
-    
+        
+        [SerializeField] private SuitDatabase suitDatabase;
     
         [Header("Visuals")] 
         [SerializeField] private GameObject eye;
@@ -47,6 +48,7 @@ namespace Player
             inputActions = new InputSystem_Actions();
             characterMovement = GetComponent<CharacterMovement>();
             characterCombat = GetComponent<CharacterCombat>();
+            lastCheckPoint = this.transform; 
 
             impulseSource = GetComponent<CinemachineImpulseSource>();
             if (impulseSource == null)
@@ -274,9 +276,39 @@ namespace Player
         {
             inputActions?.Dispose();
         }
-
+        
+        public void ApplyRetryData(PlayerSaveData data)
+        {
+            Debug.Log("<color=green>DATA APPLIED:</color> Applying saved position and stats to player.");
+            transform.position = data.lastCheckpointPosition;
+            if (suitDatabase != null)
+            {
+                Suit suitToEquip = suitDatabase.GetSuitByName(data.equippedSuitName);
+                EquipSuit(suitToEquip); 
+            }
+            else
+            {
+                Debug.LogError("SuitDatabase is not assigned on the PlayerController!");
+            }
+            currentHits = maxHits;
+            beacon.uiChannel.ChangeHealth(currentHits);
+            Debug.Log("Player data successfully reloaded for retry.");
+        }
+        
         protected override void OnDeath()
         {
+            Debug.Log("<color=red>PLAYER DIED:</color> OnDeath method started."); // <-- ADD
+            if (lastCheckPoint != null)
+            {
+                var saveData = new PlayerSaveData{
+                    sceneToLoad = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name,
+                    lastCheckpointPosition = lastCheckPoint.position,
+                    equippedSuitName = equippedSuit != null ? equippedSuit.name : ""
+                };
+                beacon.playerDeathChannel.Raise(saveData);
+                Debug.Log("<color=orange>EVENT RAISED:</color> Player death event sent with data."); // <-- ADD
+            }
+            
             var gameOverState = beacon.gameStateChannel.GetGameStateByName("Game Over");
             if (beacon.gameStateChannel && gameOverState != null)
             {

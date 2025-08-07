@@ -15,6 +15,7 @@ namespace GameStateManagement
         public override void ExitState()
         {
             base.ExitState();
+            Time.timeScale = 1f; 
             Debug.Log("GameOverState: ExitState - Disabling Game Over UI (Placeholder)");
         }
     }

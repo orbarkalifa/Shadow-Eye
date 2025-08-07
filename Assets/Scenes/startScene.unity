@@ -426,6 +426,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 879140529421250465, guid: 30e25d8cbd08a456d93103d8c41ba4f8, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1673224299406161825, guid: 30e25d8cbd08a456d93103d8c41ba4f8, type: 3}
       propertyPath: m_Name
       value: UICanvas

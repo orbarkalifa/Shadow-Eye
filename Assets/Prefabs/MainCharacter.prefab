@@ -567,6 +567,7 @@ MonoBehaviour:
   equippedSuit: {fileID: 0}
   invincibilityDuration: 1
   beacon: {fileID: 11400000, guid: 59dca663c0488ef4997f2a487402c779, type: 2}
+  suitDatabase: {fileID: 11400000, guid: 25165cc5f1fcf4450959d4c5175c0097, type: 2}
   eye: {fileID: 5704360418295708609}
   spriteLibrary: {fileID: 8253696599482452033}
   normalSpriteLibraryAsset: {fileID: 7108339969198208228, guid: 1c0eb76793e460b4baefddb2249e4652, type: 3}

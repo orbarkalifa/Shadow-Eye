@@ -1,6 +1,6 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement; 
 
 namespace GameStateManagement
 {
@@ -49,6 +49,26 @@ namespace GameStateManagement
             beacon.gameStateChannel.GetGameStateByName += GetStateByName;
             initializeUIListeners();
         }
+        
+        void Start()
+        {
+            populateStateLookup();
+            tutorialsEnabled = PlayerPrefs.GetInt("TutorialsEnabled", 1) == 1;
+
+            if (currentState == null)
+            {
+                string currentSceneName = SceneManager.GetActiveScene().name;
+                if (currentSceneName == "IntroLevel") 
+                {
+                    Debug.LogWarning($"GSManager started in a gameplay scene ({currentSceneName}) without a state. Forcing InGameState.");
+                    transitionToState(inGameState);
+                }
+                else
+                {
+                    transitionToState(startGameState);
+                }
+            }
+        }
 
         private GameStateSO GetCurrentState()
         {
@@ -88,21 +108,7 @@ namespace GameStateManagement
             PlayerPrefs.SetInt("TutorialsEnabled", 1);
         }
 
-        void Start()
-        {
-            populateStateLookup();
-
-            tutorialsEnabled = PlayerPrefs.GetInt("TutorialsEnabled", 1) == 1;
-
-            if (startGameState != null)
-            {
-                transitionToState(startGameState);
-            }
-            else
-            {
-                Debug.LogError("Start Game State is not assigned in GameStateManager!");
-            }
-        }
+        
 
         void Update()
         {

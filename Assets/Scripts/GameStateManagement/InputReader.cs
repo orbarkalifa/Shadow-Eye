@@ -109,9 +109,10 @@ namespace GameStateManagement
         {
             if (beacon != null && beacon.gameStateChannel != null && inGameState != null)
             {
-                beacon.uiChannel.ChangeLevel(SceneManager.GetActiveScene().name,inGameState);
+                RetryManager.Instance.AttemptRetry();
             }
         }
+        
         public void OnExitButton() 
         {
             if (beacon != null && beacon.gameStateChannel != null && startGameState != null)
