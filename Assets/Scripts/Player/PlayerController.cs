@@ -319,11 +319,6 @@ namespace Player
         protected override void OnDeath()
         {
             Debug.Log("<color=red>PLAYER DIED:</color> OnDeath method started."); // <-- ADD
-            if(equippedSuit.name == "Duri")
-            {
-                
-            }
-
             if (lastCheckPoint != null)
             {
                 var saveData = new PlayerSaveData{
@@ -369,6 +364,11 @@ namespace Player
 
         private void ChangeResetPoint(Transform resetPoint)
         {
+            var rock = GetComponent<RockFormEffect>();
+            if(rock != null)
+            {
+                rock.DeactivateAndDestroy();
+            }
             lastCheckPoint = resetPoint;
         }
 
