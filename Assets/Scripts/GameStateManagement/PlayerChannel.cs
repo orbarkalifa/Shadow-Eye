@@ -6,7 +6,7 @@ namespace GameStateManagement
     using UnityEngine.Events;
     using Suits;
 
-    [CreateAssetMenu(menuName = "Channels/Player Channel")]
+    [CreateAssetMenu(menuName = "Channel/Player Channel")]
     public class PlayerChannel : ScriptableObject
     {
         public UnityEvent<int, Vector2> OnPlayerDamaged;
