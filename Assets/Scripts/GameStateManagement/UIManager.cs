@@ -16,7 +16,6 @@ namespace GameStateManagement
         [SerializeField] private GameObject gameOverPanel;
         [SerializeField] private GameObject inGameHUDPanel;
         [SerializeField] private GameObject winGameHUDPanel;
-        [FormerlySerializedAs("LoadScreenHUDPanel")]
         [SerializeField] private GameObject loadScreenHUDPanel;
         [SerializeField] private Image loadingImage;
         [SerializeField]private BeaconSO beacon;
@@ -28,6 +27,7 @@ namespace GameStateManagement
                 return;
             }
             beacon.uiChannel.Onload += UpdateLoadingProgress;
+            beacon.uiChannel.InitListener+= ListenToState;
             Instance = this;
             DontDestroyOnLoad(gameObject);
         }
@@ -161,6 +161,16 @@ namespace GameStateManagement
                 loadingImage.fillAmount = 0;
                 loadScreenHUDPanel.SetActive(false);
             }
+        }
+
+        private void ListenToState()
+        {
+            beacon.gameStateChannel.GetGameStateByName("Start Game").onEnterState.AddListener(ShowStartMenuPanel);
+            beacon.gameStateChannel.GetGameStateByName("In Game").onEnterState.AddListener(ShowInGameHUDPanel);
+            beacon.gameStateChannel.GetGameStateByName("Menu").onEnterState.AddListener(ShowPauseMenuPanel);
+            beacon.gameStateChannel.GetGameStateByName("WinState").onEnterState.AddListener(ShowWinGameHUDPanel);
+            beacon.gameStateChannel.GetGameStateByName("Game Over").onEnterState.AddListener(ShowGameOverPanel);
+            
         }
     }
 }

@@ -26,9 +26,6 @@ namespace Suits
             if (character == null) return;
             character.StartTrackingCooldown(this); // Call public method on PlayerController
         }
-        protected bool IsAbilityOnCooldownFor(PlayerController character)
-        {
-            return character.IsAbilityOnCooldown(this);
-        }
+
     }
 }

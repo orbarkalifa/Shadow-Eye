@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using GameStateManagement;
 using Player;
 using UnityEditor;
 using UnityEngine;
@@ -13,7 +14,6 @@ namespace EnemyAI
         public float fieldOfViewAngle = 120f;
         [SerializeField] protected Vector2 lookbackOffset= Vector2.zero;
         public float recoilForce = 100;
-        public Transform player;
         public Vector3 lastKnownPlayerPosition;
         public float detectionRange = 10f;
         public LayerMask obstacleLayerMask;
@@ -27,28 +27,17 @@ namespace EnemyAI
         private Color originalColor;
         
         protected bool CanMove = true;
-
+        protected PlayerChannel playerChannel;
         protected override void Awake()
         {
             base.Awake();
+            playerChannel = beacon.playerChannel;
             homePosition = transform.position;
             
             if (sr != null)
                 originalColor = sr.color;
             
-            if (player == null)
-            {
-                GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
-                if (playerObject != null)
-                {
-                    player = playerObject.transform;
-                }
-                else
-                {
-                    Debug.LogError($"EnemyController ({gameObject.name}): Player not found! Make sure player has 'Player' tag or is assigned.", this);
-                    enabled = false;
-                }
-            }
+
         }
 
         public void UpdateFacingDirection(float xInput) 
@@ -71,8 +60,7 @@ namespace EnemyAI
 
         public float GetDistanceToPlayer()
         {
-            if (player == null) return 0;
-            return Vector2.Distance(transform.position, player.position);
+            return Vector2.Distance(transform.position, playerChannel.CurrentPosition);
         }
         public void Flip()
         {
@@ -84,12 +72,11 @@ namespace EnemyAI
         
         public bool CanSeePlayer()
         {
-            if (player == null) return false;
 
             Vector2 enemyPosition = transform.position;
-            Vector2 playerPosition = player.position;
+            Vector2 playerPosition = playerChannel.CurrentPosition;
             Vector2 directionToPlayer = (playerPosition - enemyPosition);
-            float distanceToPlayer = directionToPlayer.magnitude;
+            float distanceToPlayer = GetDistanceToPlayer();
 
             if (distanceToPlayer > detectionRange)
             {
@@ -125,7 +112,7 @@ namespace EnemyAI
 
             if (hit.collider == null || (playerLayerMask == (playerLayerMask | (1 << hit.collider.gameObject.layer))))
             {
-                lastKnownPlayerPosition = player.position;
+                lastKnownPlayerPosition = playerPosition;
                 return true;
             }
 
@@ -133,10 +120,9 @@ namespace EnemyAI
         }
         public bool CheckBehindForPlayer()
         {
-            if (!player) return false;
 
             Vector2 enemyPosition = transform.position;
-            Vector2 playerPosition = player.position;
+            Vector2 playerPosition = playerChannel.CurrentPosition;
 
             float distanceToPlayer = Vector2.Distance(enemyPosition, playerPosition);
             if (distanceToPlayer > detectionRange)
@@ -174,18 +160,13 @@ namespace EnemyAI
 
             return false;
         }
-        protected float GetRecoilDirection(Transform target)
-        {
-            return (target.position - transform.position).normalized.x;
-        }
+
         
         protected virtual void OnCollisionEnter2D(Collision2D collision)
         {
             if (collision.gameObject. CompareTag("Player"))
             {
-                PlayerController playerCollision = collision.gameObject.GetComponent<PlayerController>();
-                var recoilDirection = GetRecoilDirection(playerCollision.transform) > 0 ? 1 : -1;
-                playerCollision.TakeDamage(1, recoilDirection);
+                playerChannel.DealDamage(1, transform.position);
             }
         }
 
@@ -214,8 +195,9 @@ namespace EnemyAI
 
             return hit.collider != null;
         }
-        public override void TakeDamage(int damage, float direction)
+        public override void TakeDamage(int damage, Vector2 source)
         {
+            Vector2 direction = GetRecoilDirection(source);
             StartCoroutine(EnemyRecoilCoroutine(direction));
             base.TakeDamage(damage);
         }
@@ -244,12 +226,12 @@ namespace EnemyAI
                 sr.color = originalColor;
         }
 
-        private IEnumerator EnemyRecoilCoroutine(float recoilDirection)
+        private IEnumerator EnemyRecoilCoroutine(Vector2 recoilDirection)
         {
             CanMove = false;
             rb.velocity = Vector2.zero;
             Debug.Log($"Applying {recoilDirection} * {recoilForce}");
-            rb.AddForce(new Vector2(recoilDirection * recoilForce * rb.mass, 0), ForceMode2D.Impulse);
+            rb.AddForce(recoilDirection * (recoilForce * rb.mass), ForceMode2D.Impulse);
             // Wait for a short duration to allow the recoil to take effect.
             yield return new WaitForSeconds(0.4f);
             CanMove = true;

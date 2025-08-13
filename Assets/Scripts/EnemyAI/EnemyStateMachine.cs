@@ -4,7 +4,7 @@ namespace EnemyAI
 {
     public class EnemyStateMachine
     {
-        public EnemyStateSO CurrentState { get; private set; }
+        private EnemyStateSO CurrentState { get; set; }
 
         public void Initialize(EnemyController enemy, EnemyStateSO startingState)
         {

@@ -9,6 +9,8 @@ public class BeaconSO : ScriptableObject
     public PlayerDeathChannelSO playerDeathChannel;
     [Header("UI Channels")]
     public UIChannelSO uiChannel;
+    
+    public PlayerChannel playerChannel;
 
     // Add more channels here as needed
 }

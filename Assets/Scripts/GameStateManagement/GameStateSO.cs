@@ -1,13 +1,14 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace GameStateManagement
+namespace GameStateManagement 
 {
     public class GameStateSO : ScriptableObject
     {
         public string stateName;
         public UnityEvent onEnterState;
         public UnityEvent onExitState;
+        
         public virtual void EnterState()
         {
             Debug.Log($"Entering State: {stateName}");
@@ -24,5 +25,6 @@ namespace GameStateManagement
         {
             // Optional: State-specific update logic (e.g., timers, animations)
         }
+        
     }
 }

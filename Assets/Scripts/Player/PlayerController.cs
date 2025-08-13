@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
@@ -5,28 +6,33 @@ using Suits;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.U2D.Animation;
+using GameStateManagement;
 
 namespace Player
 {
     public class PlayerController : Character
     {
+        [SerializeField] private PlayerChannel playerChannel;
         private CinemachineImpulseSource impulseSource;
         public CharacterMovement characterMovement;
         public CharacterCombat characterCombat;
         private InputSystem_Actions inputActions;
         private Transform lastCheckPoint;
+        private bool hasShownSuitTutorial;
     
         [SerializeField] public Suit equippedSuit;
     
         [Header("Damage & Invincibility Settings")]
         [SerializeField] private float invincibilityDuration = 1.0f;
+        
+
     
         [SerializeField] private BeaconSO beacon;
         
         [SerializeField] private SuitDatabase suitDatabase;
     
         [Header("Visuals")] 
-        [SerializeField] private GameObject eye;
+        [SerializeField] private GameObject eye; 
         [Header("Sprite Library Settings")]
         [SerializeField] private SpriteLibrary spriteLibrary;
         [SerializeField] private SpriteLibraryAsset normalSpriteLibraryAsset;
@@ -43,11 +49,14 @@ namespace Player
 
         protected override void Awake()
         {
+            playerChannel = beacon.playerChannel;
+            playerChannel.NotifySpawn();
             CurrentFacingDirection = 1;
             base.Awake();
             inputActions = new InputSystem_Actions();
             characterMovement = GetComponent<CharacterMovement>();
             characterCombat = GetComponent<CharacterCombat>();
+            hasShownSuitTutorial = false;
             lastCheckPoint = this.transform; 
 
             impulseSource = GetComponent<CinemachineImpulseSource>();
@@ -76,6 +85,7 @@ namespace Player
         {
             characterMovement.Move();
             if(transform.localScale.x < 0.1f) CurrentFacingDirection = -1;
+            playerChannel.UpdatePosition(transform.position);
         }
     
         private void OnEnable()
@@ -90,6 +100,12 @@ namespace Player
             inputActions.Player.BasicAttack.performed += _ => PerformBasicAttack();
             inputActions.Player.SpecialAttack.performed += _ => PerformSpecialAttack();
             inputActions.Player.SpecialMove.performed += _ => PerformSpecialMovement();
+            playerChannel.OnPlayerDamaged.AddListener(TakeDamage);
+            playerChannel.PlayerSpikeRpawned.AddListener(ResetPosition);
+            playerChannel.onCheckPointReached.AddListener(ChangeResetPoint);
+            playerChannel.OnSuitChanged.AddListener(EquipSuit);
+            playerChannel.OnWallGrabAbilityUnlocked += UnlockWallGrabAbility;
+            playerChannel.OnConsumeAbilityUnlocked += UnlockConsumeAbility;
         }
     
         private void OnDisable()
@@ -176,6 +192,18 @@ namespace Player
         public void EquipSuit(Suit newSuit)
         {
             if (newSuit == null) return;
+            if(!hasShownSuitTutorial && GSManager.Instance.tutorialsEnabled)
+            {
+                hasShownSuitTutorial = true;
+
+                TutorialPanelController tutorialPanel = FindObjectOfType<TutorialPanelController>();
+                if(tutorialPanel != null)
+                {
+                    tutorialPanel.ShowMessage(
+                        "you acquired a suit! try <color=#00FFFF><b>SHIFT</b></color> and <color=#00FFFF><b>Q</b></color> to use your special abilities.",
+                        3f);
+                }
+            }
             if (equippedSuit != null) { Heal(); return; }
 
             equippedSuit = newSuit;
@@ -238,12 +266,12 @@ namespace Player
         }
 
     
-        public override void TakeDamage(int damage, float direction)
+        public override void TakeDamage(int damage, Vector2 source)
         {
             if (IsInvincible)
                 return;
-            Debug.Log($"got hit and has recoil {direction}");
-            characterMovement.AddRecoil(direction);
+            Debug.Log($"got hit and has recoil {source}");
+            characterMovement.AddRecoil(GetRecoilDirection(source));
             base.TakeDamage(damage);
             beacon.uiChannel.ChangeHealth(currentHits);
             StartCoroutine(FlashSprite());
@@ -253,14 +281,11 @@ namespace Player
     
         private IEnumerator InvincibilityCoroutine()
         {
-            IsInvincible = true;
-            // Optionally add visual feedback such as blinking the sprite.
+            ChangeInvincibleState(true);
             yield return new WaitForSeconds(invincibilityDuration);
-            IsInvincible = false;
+            ChangeInvincibleState(false);
         }
-    
         
-    
         public void UnlockWallGrabAbility()
         {
             characterMovement.canWallGrab = true;
@@ -319,6 +344,7 @@ namespace Player
             {
                 Debug.LogError("PlayerHealth: Beacon, GameStateChannel, or GameOverState is not assigned!");
             }
+            playerChannel.NotifyDeath();
             base.OnDeath();
         }
 
@@ -345,7 +371,7 @@ namespace Player
             lastCheckPoint = resetPoint;
         }
 
-        public void ResetPosition()
+        private void ResetPosition()
         {
             transform.position = lastCheckPoint.position;
         }
@@ -368,9 +394,11 @@ namespace Player
         {
             return characterMovement.IsGrounded();
         }
-        public void ChangeInvincibleState()
+        public void ChangeInvincibleState(bool value)
         {
-            IsInvincible = !IsInvincible;
+            IsInvincible = value;
+            playerChannel.SetInvincible(IsInvincible);
+
         }
 
         public void ImpulseCamera()

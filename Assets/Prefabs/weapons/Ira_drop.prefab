@@ -219,6 +219,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   suit: {fileID: 11400000, guid: 4fadc748692153649ba80993fda0ca7f, type: 2}
+  beacon: {fileID: 11400000, guid: 59dca663c0488ef4997f2a487402c779, type: 2}
 --- !u!114 &3816887139657980250
 MonoBehaviour:
   m_ObjectHideFlags: 0

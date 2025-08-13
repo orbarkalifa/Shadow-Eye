@@ -15,3 +15,4 @@ MonoBehaviour:
   gameStateChannel: {fileID: 11400000, guid: 9aeb3c56d188f1941b26b09b048f3df2, type: 2}
   playerDeathChannel: {fileID: 11400000, guid: a5590efde6d2b4787b729444b8bc7675, type: 2}
   uiChannel: {fileID: 11400000, guid: 17bb76337225bf146a8f2e03b6bcec84, type: 2}
+  playerChannel: {fileID: 11400000, guid: 8db391f529da99840a1375115663e5b3, type: 2}

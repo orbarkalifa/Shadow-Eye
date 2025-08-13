@@ -50,10 +50,7 @@ namespace Suits.Duri
             {
                 if (collision.TryGetComponent(out Enemy enemy))
                 {
-                    float recoilDir = Mathf.Sign(enemy.transform.position.x - caster.transform.position.x);
-                    if (recoilDir == 0) recoilDir = facingDirection; 
-
-                    enemy.TakeDamage(smashDamage, recoilDir);
+                    enemy.TakeDamage(smashDamage, caster.transform.position);
                     if (enemy.rb != null && bounceForce > 0) 
                     {
                         enemy.rb.AddForce(Vector2.up * bounceForce * enemy.rb.mass, ForceMode2D.Impulse);

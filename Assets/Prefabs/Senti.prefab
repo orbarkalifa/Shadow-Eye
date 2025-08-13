@@ -191,15 +191,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c911227cd58ccf348ae8830b91d94520, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 7443854127681212632}
   maxHits: 3
   currentHits: 0
   deathParticleSystem: {fileID: 7580926129972904592, guid: 542dff70430918f4ca406e2005a569f0, type: 3}
   damageParticleSystem: {fileID: 2074108216402693229, guid: 0778f7f1bbd6fd143a7787638d020fe1, type: 3}
+  beacon: {fileID: 11400000, guid: 59dca663c0488ef4997f2a487402c779, type: 2}
   fieldOfViewAngle: 324
+  lookbackOffset: {x: 0, y: 0}
   recoilForce: 10
-  rb: {fileID: 892373915230371651}
-  player: {fileID: 0}
+  lastKnownPlayerPosition: {x: 0, y: 0, z: 0}
   detectionRange: 14
   obstacleLayerMask:
     serializedVersion: 2
@@ -209,6 +209,7 @@ MonoBehaviour:
     m_Bits: 256
   homePosition: {x: 0, y: 0}
   maxChaseDistance: 20
+  stunColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   speed: 15
   pointReachThreshold: 0.2
   pathUpdateInterval: 0.5

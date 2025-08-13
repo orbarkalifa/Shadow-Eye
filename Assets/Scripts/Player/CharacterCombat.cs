@@ -4,6 +4,7 @@ using EnemyAI;
 using Suits;
 using Suits.Duri;
 using UnityEngine;
+using UnityEngine.InputSystem.Composites;
 
 namespace Player
 {
@@ -143,15 +144,15 @@ namespace Player
                 attackableLayerMask
             );
 
-            float recoilDirection = 0;
+            Vector2 recoilDirection = Vector2.zero;
             bool hitSomething = false;
             foreach(Collider2D hit in gotHit)
             {
                 if (hit.TryGetComponent(out Enemy enemyComponent))
                 {
-                    recoilDirection = ((Vector2)enemyComponent.transform.position - (Vector2)transform.position)
-                        .normalized.x;
-                    enemyComponent.TakeDamage(attackDamage, recoilDirection);
+                    recoilDirection = ((Vector2)transform.position - (Vector2)enemyComponent.transform.position)
+                        .normalized;
+                    enemyComponent.TakeDamage(attackDamage, transform.position);
                     hitSomething = true;
                 }
                 else if (hit.TryGetComponent(out Destructible obj))
@@ -162,7 +163,7 @@ namespace Player
             }
 
             if (!hitSomething) return;
-            characterMovement.AddRecoil(recoilDirection * -1);
+            characterMovement.AddRecoil(recoilDirection);
             character.ImpulseCamera();
 
         }

@@ -1,6 +1,3 @@
-using Player;
-using UnityEngine.Serialization;
-
 namespace Suits
 {
     using UnityEngine;
@@ -8,6 +5,7 @@ namespace Suits
     public class SuitPickup : MonoBehaviour
     {
          [SerializeField] private Suit suit;
+         [SerializeField] private BeaconSO beacon;
 
         public void Initialize(Suit suitToInit)
         {
@@ -18,13 +16,9 @@ namespace Suits
         {
 
             if (collision.CompareTag("Player"))
-            {
-                PlayerController player = collision.GetComponent<PlayerController>();
-                if (player)
-                {
-                    player.EquipSuit(suit);
-                    Destroy(gameObject);
-                }
+            { 
+                beacon.playerChannel.UpdateSuit(suit); 
+                Destroy(gameObject);
             }
         }
     }
