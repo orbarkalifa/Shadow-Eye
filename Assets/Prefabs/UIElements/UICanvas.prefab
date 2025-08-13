@@ -5367,7 +5367,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 885327601587824156, guid: 2f87ee31c04f1c14ea624168e54bc4ee, type: 3}
         m_TargetAssemblyTypeName: GameStateManagement.InputReader, Assembly-CSharp
-        m_MethodName: OnRestartGameButton
+        m_MethodName: OnPlayAgain
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

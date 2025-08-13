@@ -104,10 +104,19 @@ namespace GameStateManagement
                 beacon.gameStateChannel.RaiseStateTransitionRequest(inGameState); // Resume Game
             }
         }
+        public void OnPlayAgain()
+        {
+            Debug.Log("onPlayAgain called.");
+            if (beacon != null && beacon.gameStateChannel != null && inGameState != null)
+            {
+                beacon.uiChannel.ChangeLevel("IntroLevel", inGameState);
+            }
+        }
 
         public void OnRestartGameButton() 
         {
-            if (beacon != null && beacon.gameStateChannel != null && inGameState != null)
+            
+            if (beacon != null && beacon.gameStateChannel != null && inGameState != null )
             {
                 RetryManager.Instance.AttemptRetry();
             }

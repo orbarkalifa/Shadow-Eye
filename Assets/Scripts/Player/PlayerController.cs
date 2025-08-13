@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
@@ -7,6 +6,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.U2D.Animation;
 using GameStateManagement;
+using Suits.Duri;
 
 namespace Player
 {
@@ -24,11 +24,7 @@ namespace Player
     
         [Header("Damage & Invincibility Settings")]
         [SerializeField] private float invincibilityDuration = 1.0f;
-        
-
     
-        [SerializeField] private BeaconSO beacon;
-        
         [SerializeField] private SuitDatabase suitDatabase;
     
         [Header("Visuals")] 
@@ -285,14 +281,14 @@ namespace Player
             yield return new WaitForSeconds(invincibilityDuration);
             ChangeInvincibleState(false);
         }
-        
-        public void UnlockWallGrabAbility()
+
+        private void UnlockWallGrabAbility()
         {
             characterMovement.canWallGrab = true;
             // visual/audio feedback
         }
 
-        public void UnlockConsumeAbility()
+        private void UnlockConsumeAbility()
         {
             inputActions.Player.Consume.performed += _ => UnEquipSuit();
         }
@@ -323,6 +319,11 @@ namespace Player
         protected override void OnDeath()
         {
             Debug.Log("<color=red>PLAYER DIED:</color> OnDeath method started."); // <-- ADD
+            if(equippedSuit.name == "Duri")
+            {
+                
+            }
+
             if (lastCheckPoint != null)
             {
                 var saveData = new PlayerSaveData{
@@ -366,7 +367,7 @@ namespace Player
             sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 1f);
         }
 
-        public void ChangeResetPoint(Transform resetPoint)
+        private void ChangeResetPoint(Transform resetPoint)
         {
             lastCheckPoint = resetPoint;
         }

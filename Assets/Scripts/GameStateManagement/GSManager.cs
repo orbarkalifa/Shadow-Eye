@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement; 
+using UnityEngine.SceneManagement;
 
 namespace GameStateManagement
 {
@@ -17,43 +17,44 @@ namespace GameStateManagement
         public bool tutorialsEnabled = true;
 
         private readonly Dictionary<string, GameStateSO> stateLookup = new Dictionary<string, GameStateSO>();
+
         public static GSManager Instance { get; private set; }
-        
+
 
         private void Awake()
         {
-            if (Instance != null && Instance != this)
+            if(Instance != null && Instance != this)
             {
                 Destroy(gameObject);
                 return;
             }
 
             Instance = this;
- 
-            if (FindObjectsByType<GSManager>(FindObjectsInactive.Include, FindObjectsSortMode.None).Length > 1)
+
+            if(FindObjectsByType<GSManager>(FindObjectsInactive.Include, FindObjectsSortMode.None).Length > 1)
             {
                 Destroy(gameObject);
                 return;
             }
+            populateStateLookup();
             EnableTutorials();
             DontDestroyOnLoad(gameObject);
-            populateStateLookup();
             beacon.gameStateChannel.GetCurrentGameState += GetCurrentState;
             beacon.gameStateChannel.GetGameStateByName += GetStateByName;
 
         }
-        
+
         void Start()
         {
-            populateStateLookup();
+            beacon.uiChannel.InitializeListeners();
             tutorialsEnabled = PlayerPrefs.GetInt("TutorialsEnabled", 1) == 1;
-
-            if (currentState == null)
+            if(currentState == null)
             {
                 string currentSceneName = SceneManager.GetActiveScene().name;
-                if (currentSceneName == "IntroLevel") 
+                if(currentSceneName == "IntroLevel")
                 {
-                    Debug.LogWarning($"GSManager started in a gameplay scene ({currentSceneName}) without a state. Forcing InGameState.");
+                    Debug.LogWarning(
+                        $"GSManager started in a gameplay scene ({currentSceneName}) without a state. Forcing InGameState.");
                     transitionToState(inGameState);
                 }
                 else
@@ -67,10 +68,10 @@ namespace GameStateManagement
         {
             return currentState;
         }
-        
+
         private void OnEnable()
         {
-            if (beacon != null && beacon.gameStateChannel != null)
+            if(beacon != null && beacon.gameStateChannel != null)
             {
                 beacon.gameStateChannel.onStateTransitionRequested += transitionToState;
             }
@@ -82,17 +83,17 @@ namespace GameStateManagement
 
         private void OnDisable()
         {
-            if (beacon != null && beacon.gameStateChannel != null)
+            if(beacon != null && beacon.gameStateChannel != null)
             {
                 beacon.gameStateChannel.onStateTransitionRequested -= transitionToState;
             }
         }
-        
+
         public void DisableTutorials()
         {
             tutorialsEnabled = false;
             PlayerPrefs.SetInt("TutorialsEnabled", 0);
-            
+
         }
 
         public void EnableTutorials()
@@ -100,59 +101,55 @@ namespace GameStateManagement
             tutorialsEnabled = true;
             PlayerPrefs.SetInt("TutorialsEnabled", 1);
         }
-
-        void Start()
-        {
-            beacon.uiChannel.InitializeListeners();
-            tutorialsEnabled = PlayerPrefs.GetInt("TutorialsEnabled", 1) == 1;
-
+        
         void Update()
-        {
-            if (currentState != null)
             {
-                currentState.UpdateState();
+                if(currentState != null)
+                {
+                    currentState.UpdateState();
+                }
             }
-        }
 
-        private void transitionToState(GameStateSO nextState)
-        {
-            if (currentState == nextState) return;
-
-            if (currentState != null)
+            private void transitionToState(GameStateSO nextState)
             {
-                currentState.ExitState();
-            }
-            currentState = nextState;
-            currentState.EnterState();
-        }
+                if(currentState == nextState) return;
 
-        public void RequestStartGame() => beacon?.gameStateChannel?.RaiseStateTransitionRequest(startGameState);
-        public void RequestInGame() => beacon?.gameStateChannel?.RaiseStateTransitionRequest(inGameState);
-        public void RequestMenu() => beacon?.gameStateChannel?.RaiseStateTransitionRequest(menuState);
-        public void RequestGameOver() => beacon?.gameStateChannel?.RaiseStateTransitionRequest(gameOverState);
+                if(currentState != null)
+                {
+                    currentState.ExitState();
+                }
 
-        public GameStateSO GetStateByName(string stateName)
-        {
-            if (stateLookup.TryGetValue(stateName, out var stateByName))
-            {
-                return stateByName;
+                currentState = nextState;
+                currentState.EnterState();
             }
-            else
+
+            public void RequestStartGame() => beacon?.gameStateChannel?.RaiseStateTransitionRequest(startGameState);
+            public void RequestInGame() => beacon?.gameStateChannel?.RaiseStateTransitionRequest(inGameState);
+            public void RequestMenu() => beacon?.gameStateChannel?.RaiseStateTransitionRequest(menuState);
+            public void RequestGameOver() => beacon?.gameStateChannel?.RaiseStateTransitionRequest(gameOverState);
+
+            public GameStateSO GetStateByName(string stateName)
             {
-                Debug.LogError($"GSManager: State with name '{stateName}' not found!");
-                return null;
+                if(stateLookup.TryGetValue(stateName, out var stateByName))
+                {
+                    return stateByName;
+                }
+                else
+                {
+                    Debug.LogError($"GSManager: State with name '{stateName}' not found!");
+                    return null;
+                }
             }
+
+            private void populateStateLookup()
+            {
+                stateLookup.Clear();
+                if(startGameState != null) stateLookup.Add(startGameState.stateName, startGameState);
+                if(inGameState != null) stateLookup.Add(inGameState.stateName, inGameState);
+                if(menuState != null) stateLookup.Add(menuState.stateName, menuState);
+                if(gameOverState != null) stateLookup.Add(gameOverState.stateName, gameOverState);
+                if(gameWinState != null) stateLookup.Add(gameWinState.stateName, gameWinState);
+            }
+
         }
-        
-        private void populateStateLookup()
-        {
-            stateLookup.Clear();
-            if (startGameState != null) stateLookup.Add(startGameState.stateName, startGameState);
-            if (inGameState != null) stateLookup.Add(inGameState.stateName, inGameState);
-            if (menuState != null) stateLookup.Add(menuState.stateName, menuState);
-            if (gameOverState != null) stateLookup.Add(gameOverState.stateName, gameOverState);
-            if (gameWinState != null) stateLookup.Add(gameWinState.stateName, gameWinState);
-        }
-        
     }
-}
