@@ -39,7 +39,6 @@ namespace GameStateManagement
             populateStateLookup();
             beacon.gameStateChannel.GetCurrentGameState += GetCurrentState;
             beacon.gameStateChannel.GetGameStateByName += GetStateByName;
-            beacon.uiChannel.InitializeListeners();
 
         }
 
@@ -83,7 +82,7 @@ namespace GameStateManagement
 
         void Start()
         {
-
+            beacon.uiChannel.InitializeListeners();
             tutorialsEnabled = PlayerPrefs.GetInt("TutorialsEnabled", 1) == 1;
 
             if (startGameState != null)
