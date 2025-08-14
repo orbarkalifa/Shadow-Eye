@@ -17,7 +17,7 @@ namespace Player
         public CharacterMovement characterMovement;
         public CharacterCombat characterCombat;
         private InputSystem_Actions inputActions;
-        private Transform lastCheckPoint;
+        public Transform lastCheckPoint;
         private bool hasShownSuitTutorial;
     
         [SerializeField] public Suit equippedSuit;
@@ -53,7 +53,7 @@ namespace Player
             characterMovement = GetComponent<CharacterMovement>();
             characterCombat = GetComponent<CharacterCombat>();
             hasShownSuitTutorial = false;
-            lastCheckPoint = this.transform; 
+            lastCheckPoint = null; 
 
             impulseSource = GetComponent<CinemachineImpulseSource>();
             if (impulseSource == null)
@@ -302,10 +302,18 @@ namespace Player
         {
             Debug.Log("<color=green>DATA APPLIED:</color> Applying saved position and stats to player.");
             transform.position = data.lastCheckpointPosition;
+            if (data.canConsume)
+            {
+                UnlockConsumeAbility();
+            }
+            if (data.canWallgrab)
+            {
+                UnlockWallGrabAbility();
+            }
             if (suitDatabase != null)
             {
                 Suit suitToEquip = suitDatabase.GetSuitByName(data.equippedSuitName);
-                EquipSuit(suitToEquip); 
+                EquipSuit(suitToEquip);
             }
             else
             {
@@ -324,9 +332,11 @@ namespace Player
                 var saveData = new PlayerSaveData{
                     sceneToLoad = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name,
                     lastCheckpointPosition = lastCheckPoint.position,
-                    equippedSuitName = equippedSuit != null ? equippedSuit.name : ""
+                    equippedSuitName = equippedSuit != null ? equippedSuit.name : "",
+                    canConsume = true,
+                    canWallgrab = characterMovement.canWallGrab
                 };
-                beacon.playerDeathChannel.Raise(saveData);
+                beacon.playerChannel.RaisePlayerDeath(saveData);
                 Debug.Log("<color=orange>EVENT RAISED:</color> Player death event sent with data."); // <-- ADD
             }
             
@@ -340,7 +350,6 @@ namespace Player
             {
                 Debug.LogError("PlayerHealth: Beacon, GameStateChannel, or GameOverState is not assigned!");
             }
-            playerChannel.NotifyDeath();
             base.OnDeath();
         }
 

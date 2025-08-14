@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using GameStateManagement;
 
@@ -7,6 +8,14 @@ public class WallGrabUnlock : MonoBehaviour
     [SerializeField] private float duration = 3f;
     [SerializeField] private TutorialPanelController tutorialPanel;
     [SerializeField] private PlayerChannel playerChannel;
+
+    private void Awake()
+    {
+        if (!GSManager.Instance.tutorialsEnabled)
+        {
+            Destroy(gameObject);
+        }
+    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {

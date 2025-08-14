@@ -82,16 +82,7 @@ namespace Player
 
             HandleFalling();
         }
-
-        public void DisableMovement()
-        {
-            canMove = false;
-        }
-        public void EnableMovement()
-        {
-            canMove = true;
-        }
- 
+        
         private bool IsTouchingWall()
         {
             Vector2 position = transform.position;
@@ -242,7 +233,6 @@ namespace Player
                 coyoteTimeCounter = 0;
                 animator.SetBool(isJumpingHash, true);
                 rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-            
             }
         }
 

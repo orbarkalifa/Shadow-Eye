@@ -40,14 +40,14 @@ namespace GameStateManagement
 
         private void OnEnable()
         {
-            beacon.playerDeathChannel.OnPlayerDied += HandlePlayerDeath;
+            beacon.playerChannel.OnPlayerDied += HandlePlayerDeath;
             SceneManager.sceneLoaded += OnSceneLoaded;
             SceneManager.sceneLoaded += OnSceneLoadedToClearData;
         }
 
         private void OnDisable()
         {
-            beacon.playerDeathChannel.OnPlayerDied -= HandlePlayerDeath;
+            beacon.playerChannel.OnPlayerDied -= HandlePlayerDeath;
             SceneManager.sceneLoaded -= OnSceneLoaded;
             SceneManager.sceneLoaded -= OnSceneLoadedToClearData;
         }

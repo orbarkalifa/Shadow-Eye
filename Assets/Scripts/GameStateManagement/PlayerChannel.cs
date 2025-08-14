@@ -10,7 +10,7 @@ namespace GameStateManagement
     public class PlayerChannel : ScriptableObject
     {
         public UnityEvent<int, Vector2> OnPlayerDamaged;
-        public UnityEvent OnPlayerDied;
+        public UnityAction<PlayerSaveData> OnPlayerDied;
         public UnityAction OnConsumeAbilityUnlocked;
         public UnityAction OnWallGrabAbilityUnlocked;
         public UnityEvent<Suit> OnSuitChanged;
@@ -24,8 +24,12 @@ namespace GameStateManagement
         public void UpdatePosition(Vector2 pos) => CurrentPosition = pos;
         
         public void DealDamage(int amount, Vector2 source) => OnPlayerDamaged?.Invoke(amount, source);
+        public void RaisePlayerDeath(PlayerSaveData data)
+        {
+            IsAlive = false;
+            OnPlayerDied?.Invoke(data);
+        }
 
-        public void NotifyDeath() => _ = IsAlive = false;
         public void NotifySpawn() => _ = IsAlive = true;
         
         public void UpdateSuit(Suit newSuit)

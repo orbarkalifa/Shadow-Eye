@@ -6,7 +6,6 @@ public class BeaconSO : ScriptableObject
 {
     [Header("Game State Channels")]
     public GameStateChannelSO gameStateChannel;
-    public PlayerDeathChannelSO playerDeathChannel;
     [Header("UI Channels")]
     public UIChannelSO uiChannel;
     

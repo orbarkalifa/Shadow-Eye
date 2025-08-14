@@ -36,8 +36,6 @@ namespace EnemyAI
             
             if (sr != null)
                 originalColor = sr.color;
-            
-
         }
 
         public void UpdateFacingDirection(float xInput) 
